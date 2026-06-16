@@ -94,3 +94,38 @@ export function base64ToAudioUrl(base64, mimeType = 'audio/mpeg') {
   const blob = new Blob([bytes], { type: mimeType });
   return URL.createObjectURL(blob);
 }
+
+/**
+ * Resolve audio for an item: use local cache when available, otherwise call GAS once.
+ */
+export async function resolveItemAudio({
+  itemId,
+  cachedBase64,
+  gasUrl,
+  lines,
+  level,
+  instructions = '',
+  onCacheSave,
+}) {
+  if (cachedBase64) {
+    return {
+      audioBase64: cachedBase64,
+      mimeType: 'audio/mpeg',
+      cached: true,
+      source: 'local',
+    };
+  }
+
+  const tts = await fetchTTS({
+    gasUrl,
+    lines,
+    level,
+    instructions,
+  });
+
+  if (onCacheSave && tts.audioBase64) {
+    onCacheSave(itemId, tts.audioBase64);
+  }
+
+  return { ...tts, source: tts.cached ? 'gas-cache' : 'gas-fresh' };
+}

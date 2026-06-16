@@ -40,13 +40,32 @@ npm install
 npm run dev
 ```
 
+ブラウザで `http://localhost:5173/English-Listening-Trainer/` を開きます。
+
+## 初回セットアップ
+
+API キーと GAS の詳細手順は **[docs/setup.md](docs/setup.md)** を参照してください。
+
+- **Anthropic API キー**: 例文生成用（ブラウザ localStorage）
+- **GAS Endpoint URL**: TTS プロキシ（OpenAI キーは GAS 側にのみ保存）
+
+## 過去問・音声キャッシュ
+
+- 出題済みの例文は **Past items** に保存され、何度でも聞き返せます（Claude API 不要）
+- 初回再生時の MP3 はブラウザ localStorage に保存され、2 回目以降は OpenAI / GAS へのリクエストも省略されます
+- 画面下部の **進捗バー** で再生位置の確認・シーク・リピートができます
+
 ## デプロイ
 
 `main` への push で GitHub Pages に自動デプロイ（`.github/workflows/deploy.yml`）。
 
 GitHub の Settings → Pages → Build and deployment を **GitHub Actions** に設定すること。
 
+公開 URL: **https://nkhippo.github.io/English-Listening-Trainer/**
+
 ## GAS のセットアップ
+
+詳細は [docs/setup.md](docs/setup.md) を参照。概要:
 
 1. Google Drive で TTS キャッシュ用のフォルダを作成し、URL からフォルダ ID を控える
 2. https://script.google.com で新規プロジェクト作成、`gas/Code.gs` の内容を貼り付け

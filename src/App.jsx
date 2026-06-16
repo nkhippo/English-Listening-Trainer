@@ -1,8 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SCENES, LEVELS, MODES } from './lib/prompts.js';
-import { generateItem, fetchTTS, base64ToAudioUrl } from './lib/api.js';
-import { scoreClozeBlank, scoreFullDictation, diagnoseFeatures, normalize } from './lib/scoring.js';
+import { generateItem, resolveItemAudio, base64ToAudioUrl } from './lib/api.js';
+import { scoreClozeBlank, scoreFullDictation, diagnoseFeatures } from './lib/scoring.js';
+import {
+  computeItemId,
+  loadHistory,
+  upsertHistoryEntry,
+  touchHistoryEntry,
+  removeHistoryEntry,
+  getCachedAudio,
+  saveCachedAudio,
+  hasCachedAudio,
+} from './lib/storage.js';
+import { useAudioPlayer } from './hooks/useAudioPlayer.js';
 import Waveform from './components/Waveform.jsx';
+import AudioProgressBar from './components/AudioProgressBar.jsx';
 
 const LS_KEYS = {
   anthropic: 'elt_anthropic_key',
@@ -13,47 +25,70 @@ const LS_KEYS = {
 };
 
 export default function App() {
-  const [stage, setStage] = useState('setup'); // setup | loading | session | review
+  const audioPlayer = useAudioPlayer();
+  const [stage, setStage] = useState('setup');
   const [anthropicKey, setAnthropicKey] = useState(localStorage.getItem(LS_KEYS.anthropic) || '');
   const [gasUrl, setGasUrl] = useState(localStorage.getItem(LS_KEYS.gas) || '');
   const [mode, setMode] = useState(localStorage.getItem(LS_KEYS.mode) || 'cloze');
   const [scene, setScene] = useState(localStorage.getItem(LS_KEYS.scene) || 'phone');
   const [level, setLevel] = useState(Number(localStorage.getItem(LS_KEYS.level)) || 2);
   const [item, setItem] = useState(null);
+  const [itemId, setItemId] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
+  const [history, setHistory] = useState(() => loadHistory());
   const [error, setError] = useState('');
   const [statusMsg, setStatusMsg] = useState('');
 
-  // Persist selections
   useEffect(() => { if (anthropicKey) localStorage.setItem(LS_KEYS.anthropic, anthropicKey); }, [anthropicKey]);
   useEffect(() => { if (gasUrl) localStorage.setItem(LS_KEYS.gas, gasUrl); }, [gasUrl]);
   useEffect(() => { localStorage.setItem(LS_KEYS.mode, mode); }, [mode]);
   useEffect(() => { localStorage.setItem(LS_KEYS.scene, scene); }, [scene]);
   useEffect(() => { localStorage.setItem(LS_KEYS.level, String(level)); }, [level]);
 
-  // Lv5 forces dialogue → not compatible with minimal_pair (per-word audio probe)
   useEffect(() => {
     if (level === 5 && mode === 'minimal_pair') setMode('cloze');
   }, [level, mode]);
 
-  async function startSession() {
+  useEffect(() => {
+    document.body.classList.toggle('audio-progress-visible', audioPlayer.visible);
+    return () => document.body.classList.remove('audio-progress-visible');
+  }, [audioPlayer.visible]);
+
+  function revokeAudioUrl() {
+    if (audioUrl) URL.revokeObjectURL(audioUrl);
+  }
+
+  async function loadAudioForItem({ id, generated, lvl }) {
+    const cachedBase64 = getCachedAudio(id);
+    const tts = await resolveItemAudio({
+      itemId: id,
+      cachedBase64,
+      gasUrl,
+      lines: generated.lines,
+      level: lvl,
+      instructions: generated.tts_instructions || '',
+      onCacheSave: saveCachedAudio,
+    });
+    return {
+      url: base64ToAudioUrl(tts.audioBase64, tts.mimeType || 'audio/mpeg'),
+      fromCache: tts.source === 'local',
+    };
+  }
+
+  async function openSession({ generated, id, sessionMode, sessionScene, sessionLevel, fromHistory = false }) {
     setError('');
     setStage('loading');
-    setStatusMsg('Generating sentence…');
+    setStatusMsg(fromHistory && hasCachedAudio(id) ? 'Loading cached audio…' : 'Synthesizing audio…');
     try {
-      const generated = await generateItem({ scene, level, mode, anthropicKey });
-      setStatusMsg('Synthesizing audio…');
-      const tts = await fetchTTS({
-        gasUrl,
-        lines: generated.lines,
-        level,
-        voice: 'nova',
-        voiceB: 'onyx',
-        instructions: generated.tts_instructions || '',
-      });
-      const url = base64ToAudioUrl(tts.audioBase64, tts.mimeType || 'audio/mpeg');
+      const { url } = await loadAudioForItem({ id, generated, lvl: sessionLevel });
+      revokeAudioUrl();
       setItem(generated);
+      setItemId(id);
+      setMode(sessionMode);
+      setScene(sessionScene);
+      setLevel(sessionLevel);
       setAudioUrl(url);
+      setHistory(upsertHistoryEntry({ id, item: generated, mode: sessionMode, scene: sessionScene, level: sessionLevel }));
       setStage('session');
     } catch (e) {
       console.error(e);
@@ -62,11 +97,72 @@ export default function App() {
     }
   }
 
+  async function startSession() {
+    setError('');
+    setStage('loading');
+    setStatusMsg('Generating sentence…');
+    try {
+      const generated = await generateItem({ scene, level, mode, anthropicKey });
+      const id = computeItemId({ item: generated, mode, scene, level });
+      await openSession({
+        generated,
+        id,
+        sessionMode: mode,
+        sessionScene: scene,
+        sessionLevel: level,
+      });
+    } catch (e) {
+      console.error(e);
+      setError(String(e.message || e));
+      setStage('setup');
+    }
+  }
+
+  async function replayFromHistory(entry) {
+    touchHistoryEntry(entry.id);
+    setHistory(loadHistory());
+    await openSession({
+      generated: entry.item,
+      id: entry.id,
+      sessionMode: entry.mode,
+      sessionScene: entry.scene,
+      sessionLevel: entry.level,
+      fromHistory: true,
+    });
+  }
+
+  async function listenFromHistory(entry) {
+    try {
+      const cached = getCachedAudio(entry.id);
+      let url;
+      if (cached) {
+        url = base64ToAudioUrl(cached);
+      } else {
+        setStatusMsg('Fetching audio…');
+        const { url: fetched } = await loadAudioForItem({ id: entry.id, generated: entry.item, lvl: entry.level });
+        url = fetched;
+      }
+      touchHistoryEntry(entry.id);
+      setHistory(loadHistory());
+      audioPlayer.play(url, entry.id, { showProgress: true });
+    } catch (e) {
+      console.error(e);
+      setError(String(e.message || e));
+    }
+  }
+
   function backToSetup() {
-    if (audioUrl) URL.revokeObjectURL(audioUrl);
+    audioPlayer.stop();
+    revokeAudioUrl();
     setAudioUrl(null);
     setItem(null);
+    setItemId(null);
     setStage('setup');
+    setHistory(loadHistory());
+  }
+
+  function handleRemoveHistory(id) {
+    setHistory(removeHistoryEntry(id));
   }
 
   return (
@@ -85,6 +181,10 @@ export default function App() {
           level={level} setLevel={setLevel}
           onStart={startSession}
           error={error}
+          history={history}
+          onReplay={replayFromHistory}
+          onListen={listenFromHistory}
+          onRemoveHistory={handleRemoveHistory}
         />
       )}
 
@@ -95,7 +195,9 @@ export default function App() {
       {stage === 'session' && item && (
         <Session
           item={item}
+          itemId={itemId}
           audioUrl={audioUrl}
+          audioPlayer={audioPlayer}
           mode={mode}
           level={level}
           scene={scene}
@@ -108,16 +210,37 @@ export default function App() {
         <Review
           item={item}
           mode={mode}
+          audioUrl={audioUrl}
+          itemId={itemId}
+          audioPlayer={audioPlayer}
           onAgain={backToSetup}
           onNext={() => { backToSetup(); setTimeout(() => startSession(), 100); }}
+          onReplaySame={() => {
+            if (!itemId) return;
+            setStage('session');
+            setItem({ ...item, _result: undefined });
+          }}
         />
       )}
+
+      <AudioProgressBar
+        visible={audioPlayer.visible}
+        progress={audioPlayer.progress}
+        onRepeat={audioPlayer.repeat}
+        onClose={audioPlayer.closeBar}
+        onSeekStart={audioPlayer.beginScrub}
+        onSeekMove={audioPlayer.moveScrub}
+        onSeekEnd={audioPlayer.endScrub}
+      />
     </div>
   );
 }
 
-// ===== Setup screen =====
-function Setup({ anthropicKey, setAnthropicKey, gasUrl, setGasUrl, mode, setMode, scene, setScene, level, setLevel, onStart, error }) {
+function Setup({
+  anthropicKey, setAnthropicKey, gasUrl, setGasUrl,
+  mode, setMode, scene, setScene, level, setLevel,
+  onStart, error, history, onReplay, onListen, onRemoveHistory,
+}) {
   const canStart = anthropicKey && gasUrl;
   return (
     <>
@@ -132,6 +255,11 @@ function Setup({ anthropicKey, setAnthropicKey, gasUrl, setGasUrl, mode, setMode
           placeholder="sk-ant-..."
           autoComplete="off"
         />
+        <p className="field-hint">
+          <a href="https://github.com/nkhippo/English-Listening-Trainer/blob/main/docs/setup.md#anthropic-api-キー" target="_blank" rel="noreferrer">
+            取得手順
+          </a>
+        </p>
       </div>
 
       <div className="field">
@@ -143,6 +271,11 @@ function Setup({ anthropicKey, setAnthropicKey, gasUrl, setGasUrl, mode, setMode
           placeholder="https://script.google.com/macros/s/.../exec"
           autoComplete="off"
         />
+        <p className="field-hint">
+          <a href="https://github.com/nkhippo/English-Listening-Trainer/blob/main/docs/setup.md#gas-tts-プロキシのセットアップ" target="_blank" rel="noreferrer">
+            セットアップ手順
+          </a>
+        </p>
       </div>
 
       <div className="field">
@@ -162,9 +295,7 @@ function Setup({ anthropicKey, setAnthropicKey, gasUrl, setGasUrl, mode, setMode
           ))}
         </div>
         {level === 5 && (
-          <div style={{ fontSize: 12, color: 'var(--ink-mute)', marginTop: 8 }}>
-            ※ Lv5（対話）は Cloze と Full Dictation のみ対応
-          </div>
+          <div className="field-hint">※ Lv5（対話）は Cloze と Full Dictation のみ対応</div>
         )}
       </div>
 
@@ -172,12 +303,7 @@ function Setup({ anthropicKey, setAnthropicKey, gasUrl, setGasUrl, mode, setMode
         <label>Scene</label>
         <div className="choices">
           {Object.entries(SCENES).map(([key, s]) => (
-            <button
-              key={key}
-              className="choice"
-              aria-pressed={scene === key}
-              onClick={() => setScene(key)}
-            >
+            <button key={key} className="choice" aria-pressed={scene === key} onClick={() => setScene(key)}>
               <span className="choice-label">{s.label}</span>
               <span className="choice-meta">{s.en}</span>
             </button>
@@ -189,12 +315,7 @@ function Setup({ anthropicKey, setAnthropicKey, gasUrl, setGasUrl, mode, setMode
         <label>Level（難易度）</label>
         <div className="choices">
           {Object.entries(LEVELS).map(([key, l]) => (
-            <button
-              key={key}
-              className="choice"
-              aria-pressed={level === Number(key)}
-              onClick={() => setLevel(Number(key))}
-            >
+            <button key={key} className="choice" aria-pressed={level === Number(key)} onClick={() => setLevel(Number(key))}>
               <span className="choice-label">{l.label}</span>
               <span className="choice-meta">{`speed ${l.speed}x`}</span>
             </button>
@@ -205,36 +326,76 @@ function Setup({ anthropicKey, setAnthropicKey, gasUrl, setGasUrl, mode, setMode
       <button className="btn" onClick={onStart} disabled={!canStart}>
         Start session
       </button>
+
+      {history.length > 0 && (
+        <HistoryList
+          history={history}
+          onReplay={onReplay}
+          onListen={onListen}
+          onRemove={onRemoveHistory}
+        />
+      )}
     </>
   );
 }
 
-// ===== Session screen =====
-function Session({ item, audioUrl, mode, level, scene, onFinish, onBack }) {
-  const audioRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
+function HistoryList({ history, onReplay, onListen, onRemove }) {
+  return (
+    <section className="history-section">
+      <h2 className="history-heading">Past items（過去問）</h2>
+      <p className="field-hint">一度出題した例文はここから聞き返せます。音声は初回再生後にブラウザへ保存され、2回目以降は API を使いません。</p>
+      <ul className="history-list">
+        {history.map((entry) => (
+          <li key={entry.id} className="history-item">
+            <div className="history-main">
+              <div className="history-preview">{entry.preview}</div>
+              <div className="history-meta">
+                <span>{SCENES[entry.scene]?.label}</span>
+                <span>{LEVELS[entry.level]?.label?.split(' — ')[0]}</span>
+                <span>{MODES[entry.mode]?.label?.split('（')[0]}</span>
+                {hasCachedAudio(entry.id) && <span className="history-cache-badge">audio saved</span>}
+              </div>
+            </div>
+            <div className="history-actions">
+              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onListen(entry)} aria-label="Listen">
+                ▶
+              </button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onReplay(entry)}>
+                Practice
+              </button>
+              <button type="button" className="btn btn-ghost btn-sm history-remove" onClick={() => onRemove(entry.id)} aria-label="Remove">
+                ×
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function Session({ item, itemId, audioUrl, audioPlayer, mode, level, scene, onFinish, onBack }) {
   const [replays, setReplays] = useState(0);
   const [slowAllowed, setSlowAllowed] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1.0);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.playbackRate = playbackRate;
-    }
-  }, [playbackRate]);
+    const audio = audioPlayer.audioRef.current;
+    if (audio) audio.playbackRate = playbackRate;
+  }, [playbackRate, audioPlayer.audioRef, audioPlayer.playing]);
 
   function play() {
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = 0;
-    audioRef.current.playbackRate = playbackRate;
-    audioRef.current.play();
-  }
-
-  function onAudioEnd() {
-    setPlaying(false);
-    const next = replays + 1;
-    setReplays(next);
-    if (next >= 2 && !slowAllowed) setSlowAllowed(true);
+    const audio = audioPlayer.play(audioUrl, itemId, { showProgress: true });
+    if (audio) {
+      audio.playbackRate = playbackRate;
+      const onEnded = () => {
+        const next = replays + 1;
+        setReplays(next);
+        if (next >= 2 && !slowAllowed) setSlowAllowed(true);
+        audio.removeEventListener('ended', onEnded);
+      };
+      audio.addEventListener('ended', onEnded);
+    }
   }
 
   return (
@@ -260,15 +421,7 @@ function Session({ item, audioUrl, mode, level, scene, onFinish, onBack }) {
             </button>
           )}
         </div>
-        <Waveform playing={playing} />
-        <audio
-          ref={audioRef}
-          src={audioUrl}
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-          onEnded={onAudioEnd}
-          style={{ display: 'none' }}
-        />
+        <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === itemId} />
       </div>
 
       {mode === 'cloze' && <ClozeInput item={item} onFinish={onFinish} />}
@@ -282,13 +435,9 @@ function Session({ item, audioUrl, mode, level, scene, onFinish, onBack }) {
   );
 }
 
-// ===== Cloze input =====
 function ClozeInput({ item, onFinish }) {
   const lines = item.lines || [{ speaker: 'A', text: item.sentence }];
   const blanks = item.blanks || [];
-
-  // Build a render plan: for each line, mark which spans are blanks.
-  // Strategy: find the first occurrence of each blank's "answer" in the line text and substitute.
   const [inputs, setInputs] = useState(() => blanks.map(() => ''));
 
   function submit() {
@@ -301,7 +450,6 @@ function ClozeInput({ item, onFinish }) {
     onFinish({ kind: 'cloze', results });
   }
 
-  // Track which blanks have been "consumed" across line rendering
   const blanksRemaining = [...blanks.map((b, i) => ({ ...b, originalIdx: i }))];
 
   return (
@@ -322,23 +470,17 @@ function ClozeInput({ item, onFinish }) {
 }
 
 function renderClozeLine(text, blanksRemaining, inputs, setInputs, lineKeyPrefix) {
-  // Tokenize by words & punctuation, then for each token check if it matches the next remaining blank.
-  // Simple approach: try to substitute the longest matching blank phrase first.
   const tokens = [];
   let remaining = text;
 
   while (remaining.length > 0) {
-    // Try to match a blank answer at the start of remaining (case-insensitive, allowing leading space)
     let matched = false;
     const lower = remaining.toLowerCase();
-    // Find which blank matches at current position
     for (let i = 0; i < blanksRemaining.length; i++) {
       const ans = blanksRemaining[i].answer.toLowerCase();
-      // Check if remaining starts with the answer (allowing word boundary)
       const ws = lower.match(/^\s*/)[0];
       const after = lower.slice(ws.length);
       if (after.startsWith(ans)) {
-        // Confirm word boundary at end
         const endChar = after.charAt(ans.length);
         if (!endChar || /[\s.,!?;:'"]/.test(endChar)) {
           if (ws) tokens.push({ type: 'text', value: ws });
@@ -351,7 +493,6 @@ function renderClozeLine(text, blanksRemaining, inputs, setInputs, lineKeyPrefix
       }
     }
     if (!matched) {
-      // consume one character (or up to next blank candidate boundary)
       const nextSpace = remaining.search(/\s/);
       if (nextSpace === -1) {
         tokens.push({ type: 'text', value: remaining });
@@ -383,7 +524,6 @@ function renderClozeLine(text, blanksRemaining, inputs, setInputs, lineKeyPrefix
   });
 }
 
-// ===== Full dictation input =====
 function DictationInput({ item, onFinish }) {
   const [text, setText] = useState('');
   function submit() {
@@ -406,7 +546,6 @@ function DictationInput({ item, onFinish }) {
   );
 }
 
-// ===== Minimal pair input =====
 function MinimalPairInput({ item, onFinish }) {
   const mp = item.minimal_pair_target;
   const [choice, setChoice] = useState('');
@@ -424,12 +563,7 @@ function MinimalPairInput({ item, onFinish }) {
       </div>
       <div className="mp-options">
         {options.map((opt) => (
-          <button
-            key={opt}
-            className="mp-option"
-            aria-pressed={choice === opt}
-            onClick={() => setChoice(opt)}
-          >
+          <button key={opt} className="mp-option" aria-pressed={choice === opt} onClick={() => setChoice(opt)}>
             {opt}
           </button>
         ))}
@@ -441,8 +575,7 @@ function MinimalPairInput({ item, onFinish }) {
   );
 }
 
-function renderMpSentence(sentence, correct, distractors) {
-  // Replace the correct word with [_____] visually
+function renderMpSentence(sentence, correct) {
   const parts = sentence.split(new RegExp(`\\b(${correct})\\b`, 'i'));
   return parts.map((p, i) =>
     p.toLowerCase() === correct.toLowerCase()
@@ -460,19 +593,24 @@ function shuffle(arr) {
   return a;
 }
 
-// ===== Review screen =====
-function Review({ item, mode, onAgain, onNext }) {
+function Review({ item, mode, audioUrl, itemId, audioPlayer, onAgain, onNext, onReplaySame }) {
   const result = item._result;
-  const features = mode === 'cloze' ? diagnoseFeatures(item, result.results) : (item.target_features || []).map(f => ({ feature: f, captured: null }));
+  const features = mode === 'cloze'
+    ? diagnoseFeatures(item, result.results)
+    : (item.target_features || []).map((f) => ({ feature: f, captured: null }));
 
   let scoreDisplay = '—';
   if (result.kind === 'cloze') {
-    const correct = result.results.filter(r => r.correct).length;
+    const correct = result.results.filter((r) => r.correct).length;
     scoreDisplay = `${correct}/${result.results.length}`;
   } else if (result.kind === 'dictation') {
     scoreDisplay = `${Math.round(result.accuracy * 100)}%`;
   } else if (result.kind === 'minimal_pair') {
     scoreDisplay = result.correct ? '○' : '×';
+  }
+
+  function playReview() {
+    if (audioUrl && itemId) audioPlayer.play(audioUrl, itemId, { showProgress: true });
   }
 
   return (
@@ -495,6 +633,11 @@ function Review({ item, mode, onAgain, onNext }) {
         <div style={{ marginTop: 12, fontSize: 13, color: 'var(--ink-mute)' }}>
           {item.translation_ja}
         </div>
+        {audioUrl && (
+          <button type="button" className="btn btn-ghost" style={{ marginTop: 12 }} onClick={playReview}>
+            ▶ Listen again
+          </button>
+        )}
       </div>
 
       {result.kind === 'cloze' && (
@@ -544,6 +687,7 @@ function Review({ item, mode, onAgain, onNext }) {
 
       <div className="row" style={{ marginTop: 32 }}>
         <button className="btn" onClick={onNext}>Next item</button>
+        <button className="btn btn-ghost" onClick={onReplaySame}>Same item again</button>
         <button className="btn btn-ghost" onClick={onAgain}>Back to setup</button>
       </div>
     </>
