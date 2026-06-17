@@ -1,15 +1,27 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+const ENDLESS_REPEAT_KEY = 'audio-endless-repeat';
+
+function readEndlessRepeat() {
+  try {
+    return localStorage.getItem(ENDLESS_REPEAT_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
 export function useAudioPlayer() {
   const audioRef = useRef(null);
   const rafRef = useRef(null);
   const scrubRef = useRef({ active: false, pointerId: null, wasPlaying: false });
   const dismissedRef = useRef(false);
+  const endlessRepeatRef = useRef(readEndlessRepeat());
 
   const [visible, setVisible] = useState(false);
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [activeKey, setActiveKey] = useState(null);
+  const [endlessRepeat, setEndlessRepeat] = useState(() => endlessRepeatRef.current);
 
   const stopLoop = useCallback(() => {
     if (rafRef.current != null) {
@@ -62,6 +74,13 @@ export function useAudioPlayer() {
       dismissedRef.current = false;
 
       const onEnded = () => {
+        if (endlessRepeatRef.current) {
+          audio.currentTime = 0;
+          setProgress(0);
+          audio.play().catch(console.error);
+          startLoop(audio);
+          return;
+        }
         stopLoop();
         setProgress(1);
         setPlaying(false);
@@ -109,6 +128,18 @@ export function useAudioPlayer() {
     startLoop(audio);
   }, [startLoop]);
 
+  const toggleEndlessRepeat = useCallback(() => {
+    const next = !endlessRepeatRef.current;
+    endlessRepeatRef.current = next;
+    setEndlessRepeat(next);
+    try {
+      localStorage.setItem(ENDLESS_REPEAT_KEY, next ? '1' : '0');
+    } catch {
+      /* ignore */
+    }
+    if (next) repeat();
+  }, [repeat]);
+
   const closeBar = useCallback(() => {
     dismissedRef.current = true;
     setVisible(false);
@@ -154,10 +185,12 @@ export function useAudioPlayer() {
     progress,
     playing,
     activeKey,
+    endlessRepeat,
     play,
     stop,
     seek,
     repeat,
+    toggleEndlessRepeat,
     closeBar,
     beginScrub,
     moveScrub,

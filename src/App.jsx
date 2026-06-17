@@ -275,7 +275,8 @@ export default function App() {
       <AudioProgressBar
         visible={audioPlayer.visible}
         progress={audioPlayer.progress}
-        onRepeat={audioPlayer.repeat}
+        endlessRepeat={audioPlayer.endlessRepeat}
+        onToggleEndlessRepeat={audioPlayer.toggleEndlessRepeat}
         onClose={audioPlayer.closeBar}
         onSeekStart={audioPlayer.beginScrub}
         onSeekMove={audioPlayer.moveScrub}

@@ -3,7 +3,8 @@ import React, { useRef } from 'react';
 export default function AudioProgressBar({
   visible,
   progress,
-  onRepeat,
+  endlessRepeat,
+  onToggleEndlessRepeat,
   onClose,
   onSeekStart,
   onSeekMove,
@@ -45,13 +46,21 @@ export default function AudioProgressBar({
 
   return (
     <div className="audio-progress-bar" aria-label="Audio playback position">
-      <button type="button" className="audio-progress-repeat" onClick={onRepeat} aria-label="Repeat">
+      <button
+        type="button"
+        className={`audio-progress-repeat${endlessRepeat ? ' is-active' : ''}`}
+        onClick={onToggleEndlessRepeat}
+        aria-pressed={endlessRepeat}
+        aria-label={endlessRepeat ? 'Endless repeat on' : 'Endless repeat off'}
+        title={endlessRepeat ? 'Endless repeat on (click to turn off)' : 'Endless repeat off (click to turn on)'}
+      >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
           <path d="M17 1l4 4-4 4" />
           <path d="M3 11V9a4 4 0 0 1 4-4h14" />
           <path d="M7 23l-4-4 4-4" />
           <path d="M21 13v2a4 4 0 0 1-4 4H3" />
         </svg>
+        {endlessRepeat && <span className="audio-progress-repeat-badge" aria-hidden="true">1</span>}
       </button>
       <div
         ref={trackRef}
