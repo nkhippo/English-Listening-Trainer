@@ -590,6 +590,15 @@ body.audio-progress-visible {
   user-select: none;
 }
 
+.audio-progress-track.is-holding .audio-progress-thumb {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 0 0 2px rgba(27, 31, 42, 0.25);
+}
+
+.audio-progress-track.is-holding .audio-progress-rail {
+  background: var(--line-strong);
+}
+
 .audio-progress-rail {
   position: relative;
   width: 100%;

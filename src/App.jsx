@@ -277,6 +277,7 @@ export default function App() {
         progress={audioPlayer.progress}
         endlessRepeat={audioPlayer.endlessRepeat}
         playbackRate={audioPlayer.playbackRate}
+        holding={audioPlayer.holding}
         onToggleEndlessRepeat={audioPlayer.toggleEndlessRepeat}
         onTogglePlaybackRate={audioPlayer.togglePlaybackRate}
         onClose={audioPlayer.closeBar}

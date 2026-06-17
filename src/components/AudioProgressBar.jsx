@@ -5,6 +5,7 @@ export default function AudioProgressBar({
   progress,
   endlessRepeat,
   playbackRate,
+  holding,
   onToggleEndlessRepeat,
   onTogglePlaybackRate,
   onClose,
@@ -76,11 +77,12 @@ export default function AudioProgressBar({
       </button>
       <div
         ref={trackRef}
-        className="audio-progress-track"
+        className={`audio-progress-track${holding ? ' is-holding' : ''}`}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        title="Hold to pause, release to resume"
       >
         <div className="audio-progress-rail">
           <div className="audio-progress-fill" style={{ width: pct }} />

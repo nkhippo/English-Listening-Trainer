@@ -24,7 +24,7 @@ function readPlaybackRate() {
 export function useAudioPlayer() {
   const audioRef = useRef(null);
   const rafRef = useRef(null);
-  const scrubRef = useRef({ active: false, pointerId: null, wasPlaying: false });
+  const scrubRef = useRef({ active: false, pointerId: null, wasPlaying: false, moved: false });
   const dismissedRef = useRef(false);
   const endlessRepeatRef = useRef(readEndlessRepeat());
   const playbackRateRef = useRef(readPlaybackRate());
@@ -35,6 +35,7 @@ export function useAudioPlayer() {
   const [activeKey, setActiveKey] = useState(null);
   const [endlessRepeat, setEndlessRepeat] = useState(() => endlessRepeatRef.current);
   const [playbackRate, setPlaybackRate] = useState(() => playbackRateRef.current);
+  const [holding, setHolding] = useState(false);
 
   const applyPlaybackRate = useCallback((audio) => {
     if (audio) audio.playbackRate = playbackRateRef.current;
@@ -176,19 +177,29 @@ export function useAudioPlayer() {
     setVisible(false);
   }, []);
 
-  const beginScrub = useCallback((pointerId) => {
-    const audio = audioRef.current;
-    scrubRef.current = {
-      active: true,
-      pointerId,
-      wasPlaying: !!(audio && !audio.paused),
-    };
-    if (audio && !audio.paused) audio.pause();
-  }, []);
+  const beginScrub = useCallback(
+    (pointerId) => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      scrubRef.current = {
+        active: true,
+        pointerId,
+        wasPlaying: !audio.paused || audio.ended,
+        moved: false,
+      };
+      setHolding(true);
+      if (!audio.paused) {
+        stopLoop();
+        audio.pause();
+      }
+    },
+    [stopLoop],
+  );
 
   const moveScrub = useCallback(
     (ratio, pointerId) => {
       if (!scrubRef.current.active || scrubRef.current.pointerId !== pointerId) return;
+      scrubRef.current.moved = true;
       seek(ratio);
     },
     [seek],
@@ -198,9 +209,10 @@ export function useAudioPlayer() {
     (pointerId) => {
       if (!scrubRef.current.active || scrubRef.current.pointerId !== pointerId) return;
       const audio = audioRef.current;
-      scrubRef.current.active = false;
-      scrubRef.current.pointerId = null;
-      if (audio && scrubRef.current.wasPlaying) {
+      const { wasPlaying } = scrubRef.current;
+      scrubRef.current = { active: false, pointerId: null, wasPlaying: false, moved: false };
+      setHolding(false);
+      if (audio && wasPlaying) {
         audio.play().catch(console.error);
         startLoop(audio);
       }
@@ -218,6 +230,7 @@ export function useAudioPlayer() {
     activeKey,
     endlessRepeat,
     playbackRate,
+    holding,
     play,
     stop,
     seek,
