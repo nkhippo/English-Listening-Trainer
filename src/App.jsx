@@ -671,27 +671,12 @@ function Review({ item, mode, audioUrl, itemId, audioPlayer, onAgain, onNext, on
     ? diagnoseFeatures(item, result.results)
     : (item.target_features || []).map((f) => ({ feature: f, captured: null }));
 
-  let scoreDisplay = '—';
-  if (result.kind === 'cloze') {
-    const correct = result.results.filter((r) => r.correct).length;
-    scoreDisplay = `${correct}/${result.results.length}`;
-  } else if (result.kind === 'dictation') {
-    scoreDisplay = `${Math.round(result.accuracy * 100)}%`;
-  } else if (result.kind === 'minimal_pair') {
-    scoreDisplay = result.correct ? '○' : '×';
-  }
-
   function playReview() {
     if (audioUrl && itemId) audioPlayer.play(audioUrl, itemId, { showProgress: true });
   }
 
   return (
     <>
-      <div className="review-section">
-        <div className="score-label">Score</div>
-        <div className="score">{scoreDisplay}</div>
-      </div>
-
       <div className="review-section">
         <h3>Sentence</h3>
         <div className="review-sentence">
@@ -736,9 +721,6 @@ function Review({ item, mode, audioUrl, itemId, audioPlayer, onAgain, onNext, on
           <h3>Your transcription</h3>
           <div className="review-sentence" style={{ background: 'transparent', border: '1px dashed var(--line-strong)' }}>
             {result.user}
-          </div>
-          <div style={{ marginTop: 8, fontSize: 12, color: 'var(--ink-mute)', fontFamily: 'var(--font-mono)' }}>
-            edits: {result.edits} / {result.totalWords} words
           </div>
         </div>
       )}

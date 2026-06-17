@@ -437,21 +437,6 @@ input:focus, textarea:focus, select:focus {
 .feature-status.ok { color: var(--success); }
 .feature-status.miss { color: var(--error); }
 
-.score {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 48px;
-  letter-spacing: -0.02em;
-}
-.score-label {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--ink-mute);
-  margin-bottom: var(--space-2);
-}
-
 /* ===== Status messages ===== */
 .status {
   font-family: var(--font-mono);
@@ -482,7 +467,6 @@ input:focus, textarea:focus, select:focus {
   .shell { padding: var(--space-5) var(--space-4) var(--space-7); }
   .cloze-line { font-size: 16px; line-height: 2.4; }
   .cloze-blank { width: 80px; }
-  .score { font-size: 40px; }
 }
 
 /* ===== History ===== */
