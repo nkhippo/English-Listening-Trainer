@@ -82,23 +82,46 @@ export function scoreFullDictation(userInput, expected) {
 }
 
 /**
- * Build a feature-level diagnostic from cloze results.
- * For each target_feature like "weak_form:to", if any blank with hint "weak form"
- * and answer "to" was correct, mark feature as captured.
+ * Map each target_feature to the cloze blank that tests it, then report capture status.
  */
 export function diagnoseFeatures(item, clozeResults) {
   const features = item.target_features || [];
+  const results = clozeResults || [];
+
   return features.map((feature) => {
     const [type, payload] = feature.split(':');
-    const found = (clozeResults || []).find((r) => {
+    const payloadNorm = normalize(payload.replace(/_/g, ' '));
+    const payloadCompact = normalize(payload.replace(/_/g, ''));
+
+    const hintByType = {
+      weak_form: 'weak',
+      linking: 'link',
+      reduction: 'reduc',
+      elision: 'elision',
+      minimal_pair: 'minimal',
+    };
+
+    const matched = results.find((r) => {
       const ans = normalize(r.expected);
-      return ans.includes(normalize(payload.replace(/_/g, ' ')));
+      const hint = (r.hint || '').toLowerCase();
+      const typeHint = hintByType[type];
+
+      if (payloadNorm && (ans === payloadNorm || ans.includes(payloadNorm) || payloadNorm.includes(ans))) {
+        return true;
+      }
+      if (payloadCompact && ans.replace(/\s/g, '') === payloadCompact) return true;
+      if (typeHint && hint.includes(typeHint)) {
+        const firstToken = payloadNorm.split(' ')[0];
+        if (firstToken && ans.includes(firstToken)) return true;
+      }
+      return false;
     });
+
     return {
       feature,
       type,
       payload,
-      captured: found ? found.correct : null,
+      captured: matched ? matched.correct : null,
     };
   });
 }

@@ -606,7 +606,7 @@ body.audio-progress-visible {
   height: 100%;
   width: 0%;
   border-radius: 2px;
-  background: var(--signal);
+  background: var(--ink);
   pointer-events: none;
 }
 
@@ -617,9 +617,9 @@ body.audio-progress-visible {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--signal);
+  background: var(--ink);
   border: 2px solid var(--bg);
-  box-shadow: 0 0 0 1px rgba(46, 95, 140, 0.28);
+  box-shadow: 0 0 0 1px rgba(27, 31, 42, 0.2);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }

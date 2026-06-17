@@ -2,6 +2,8 @@
 
 日本人学習者向け、リスニング層3（連結部）集中型のディクテーション練習アプリ。
 
+設計思想: [docs/background.md](docs/background.md) / 仕様: [docs/specification.md](docs/specification.md)
+
 ## 機能
 
 - **3モード**: Cloze（空欄補充）/ Full Dictation（全文書き起こし）/ Minimal Pair（聞き分け）

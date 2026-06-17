@@ -38,7 +38,7 @@ export default function App() {
   const [audioUrl, setAudioUrl] = useState(null);
   const [history, setHistory] = useState(() => loadHistory());
   const [error, setError] = useState('');
-  const [statusMsg, setStatusMsg] = useState('');
+  const [sessionKey, setSessionKey] = useState(0);
 
   useEffect(() => { if (anthropicKey) localStorage.setItem(LS_KEYS.anthropic, anthropicKey); }, [anthropicKey]);
   useEffect(() => { localStorage.setItem(LS_KEYS.mode, mode); }, [mode]);
@@ -106,6 +106,7 @@ export default function App() {
       setLevel(sessionLevel);
       setAudioUrl(url);
       setHistory(upsertHistoryEntry({ id, item: generated, mode: sessionMode, scene: sessionScene, level: sessionLevel }));
+      setSessionKey((k) => k + 1);
       setStage('session');
     } catch (e) {
       console.error(e);
@@ -230,6 +231,7 @@ export default function App() {
 
       {stage === 'session' && item && (
         <Session
+          key={sessionKey}
           item={item}
           itemId={itemId}
           audioUrl={audioUrl}
@@ -253,6 +255,7 @@ export default function App() {
           onNext={() => { backToSetup(); setTimeout(() => startSession(), 100); }}
           onReplaySame={() => {
             if (!itemId) return;
+            setSessionKey((k) => k + 1);
             setStage('session');
             setItem({ ...item, _result: undefined });
           }}
