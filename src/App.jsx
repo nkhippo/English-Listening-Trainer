@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { SCENES, LEVELS, MODES } from './lib/prompts.js';
 import { generateItem, resolveItemAudio, base64ToAudioUrl, normalizeItem } from './lib/api.js';
 import { DEFAULT_GAS_URL } from './lib/config.js';
@@ -615,10 +615,15 @@ function DictationInput({ item, onFinish }) {
 function MinimalPairInput({ item, onFinish }) {
   const mp = item.minimal_pair_target;
   const [choice, setChoice] = useState('');
+  const distractorKey = mp?.distractors?.join('\0') ?? '';
+  const options = useMemo(() => {
+    if (!mp) return [];
+    return shuffle([mp.correct, ...(mp.distractors || [])]);
+  }, [mp, mp?.correct, distractorKey]);
+
   if (!mp) {
     return <div className="status error">minimal_pair_target missing from generated item.</div>;
   }
-  const options = shuffle([mp.correct, ...(mp.distractors || [])]);
   function submit() {
     onFinish({ kind: 'minimal_pair', user: choice, correct: choice === mp.correct, expected: mp.correct });
   }
