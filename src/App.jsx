@@ -276,7 +276,9 @@ export default function App() {
         visible={audioPlayer.visible}
         progress={audioPlayer.progress}
         endlessRepeat={audioPlayer.endlessRepeat}
+        playbackRate={audioPlayer.playbackRate}
         onToggleEndlessRepeat={audioPlayer.toggleEndlessRepeat}
+        onTogglePlaybackRate={audioPlayer.togglePlaybackRate}
         onClose={audioPlayer.closeBar}
         onSeekStart={audioPlayer.beginScrub}
         onSeekMove={audioPlayer.moveScrub}
@@ -456,22 +458,13 @@ function HistoryList({ history, onReplay, onListen, onRemove }) {
 
 function Session({ item, itemId, audioUrl, audioPlayer, mode, level, scene, onFinish, onBack }) {
   const [replays, setReplays] = useState(0);
-  const [slowAllowed, setSlowAllowed] = useState(false);
-  const [playbackRate, setPlaybackRate] = useState(1.0);
-
-  useEffect(() => {
-    const audio = audioPlayer.audioRef.current;
-    if (audio) audio.playbackRate = playbackRate;
-  }, [playbackRate, audioPlayer.audioRef, audioPlayer.playing]);
 
   function play() {
     const audio = audioPlayer.play(audioUrl, itemId, { showProgress: true });
     if (audio) {
-      audio.playbackRate = playbackRate;
       const onEnded = () => {
         const next = replays + 1;
         setReplays(next);
-        if (next >= 2 && !slowAllowed) setSlowAllowed(true);
         audio.removeEventListener('ended', onEnded);
       };
       audio.addEventListener('ended', onEnded);
@@ -492,14 +485,6 @@ function Session({ item, itemId, audioUrl, audioPlayer, mode, level, scene, onFi
             ▶
           </button>
           <span className="replay-counter">replays: {replays}</span>
-          {slowAllowed && (
-            <button
-              className="btn btn-ghost"
-              onClick={() => setPlaybackRate(playbackRate === 1.0 ? 0.75 : 1.0)}
-            >
-              {playbackRate === 1.0 ? '0.75x' : '1.0x'}
-            </button>
-          )}
         </div>
         <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === itemId} />
       </div>

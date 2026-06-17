@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const ENDLESS_REPEAT_KEY = 'audio-endless-repeat';
+const PLAYBACK_RATE_KEY = 'audio-playback-rate';
+const PLAYBACK_RATES = [1, 0.75];
 
 function readEndlessRepeat() {
   try {
@@ -10,18 +12,33 @@ function readEndlessRepeat() {
   }
 }
 
+function readPlaybackRate() {
+  try {
+    const value = parseFloat(localStorage.getItem(PLAYBACK_RATE_KEY));
+    return PLAYBACK_RATES.includes(value) ? value : 1;
+  } catch {
+    return 1;
+  }
+}
+
 export function useAudioPlayer() {
   const audioRef = useRef(null);
   const rafRef = useRef(null);
   const scrubRef = useRef({ active: false, pointerId: null, wasPlaying: false });
   const dismissedRef = useRef(false);
   const endlessRepeatRef = useRef(readEndlessRepeat());
+  const playbackRateRef = useRef(readPlaybackRate());
 
   const [visible, setVisible] = useState(false);
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [activeKey, setActiveKey] = useState(null);
   const [endlessRepeat, setEndlessRepeat] = useState(() => endlessRepeatRef.current);
+  const [playbackRate, setPlaybackRate] = useState(() => playbackRateRef.current);
+
+  const applyPlaybackRate = useCallback((audio) => {
+    if (audio) audio.playbackRate = playbackRateRef.current;
+  }, []);
 
   const stopLoop = useCallback(() => {
     if (rafRef.current != null) {
@@ -69,6 +86,7 @@ export function useAudioPlayer() {
 
       const audio = new Audio(url);
       audioRef.current = audio;
+      applyPlaybackRate(audio);
       setActiveKey(key);
       setProgress(0);
       dismissedRef.current = false;
@@ -103,7 +121,7 @@ export function useAudioPlayer() {
 
       return audio;
     },
-    [startLoop, stopLoop],
+    [applyPlaybackRate, startLoop, stopLoop],
   );
 
   const seek = useCallback(
@@ -139,6 +157,19 @@ export function useAudioPlayer() {
     }
     if (next) repeat();
   }, [repeat]);
+
+  const togglePlaybackRate = useCallback(() => {
+    const idx = PLAYBACK_RATES.indexOf(playbackRateRef.current);
+    const next = PLAYBACK_RATES[(idx + 1) % PLAYBACK_RATES.length];
+    playbackRateRef.current = next;
+    setPlaybackRate(next);
+    try {
+      localStorage.setItem(PLAYBACK_RATE_KEY, String(next));
+    } catch {
+      /* ignore */
+    }
+    applyPlaybackRate(audioRef.current);
+  }, [applyPlaybackRate]);
 
   const closeBar = useCallback(() => {
     dismissedRef.current = true;
@@ -186,11 +217,13 @@ export function useAudioPlayer() {
     playing,
     activeKey,
     endlessRepeat,
+    playbackRate,
     play,
     stop,
     seek,
     repeat,
     toggleEndlessRepeat,
+    togglePlaybackRate,
     closeBar,
     beginScrub,
     moveScrub,

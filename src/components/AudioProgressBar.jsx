@@ -4,7 +4,9 @@ export default function AudioProgressBar({
   visible,
   progress,
   endlessRepeat,
+  playbackRate,
   onToggleEndlessRepeat,
+  onTogglePlaybackRate,
   onClose,
   onSeekStart,
   onSeekMove,
@@ -43,6 +45,7 @@ export default function AudioProgressBar({
   }
 
   const pct = `${Math.round(progress * 100)}%`;
+  const speedLabel = playbackRate === 1 ? '1.0x' : `${playbackRate}x`;
 
   return (
     <div className="audio-progress-bar" aria-label="Audio playback position">
@@ -61,6 +64,15 @@ export default function AudioProgressBar({
           <path d="M21 13v2a4 4 0 0 1-4 4H3" />
         </svg>
         {endlessRepeat && <span className="audio-progress-repeat-badge" aria-hidden="true">1</span>}
+      </button>
+      <button
+        type="button"
+        className={`audio-progress-speed${playbackRate < 1 ? ' is-active' : ''}`}
+        onClick={onTogglePlaybackRate}
+        aria-label={`Playback speed ${speedLabel}`}
+        title={`Playback speed: ${speedLabel} (click to change)`}
+      >
+        {speedLabel}
       </button>
       <div
         ref={trackRef}

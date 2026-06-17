@@ -625,9 +625,9 @@ body.audio-progress-visible {
 }
 
 .audio-progress-repeat,
+.audio-progress-speed,
 .audio-progress-close {
   flex-shrink: 0;
-  width: 28px;
   height: 28px;
   padding: 0;
   border: 1px solid var(--line-strong);
@@ -643,7 +643,21 @@ body.audio-progress-visible {
   position: relative;
 }
 
-.audio-progress-repeat.is-active {
+.audio-progress-repeat,
+.audio-progress-close {
+  width: 28px;
+}
+
+.audio-progress-speed {
+  width: 38px;
+  font-size: 10px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.audio-progress-repeat.is-active,
+.audio-progress-speed.is-active {
   background: var(--ink);
   color: var(--bg);
   border-color: var(--ink);
@@ -666,12 +680,14 @@ body.audio-progress-visible {
 }
 
 .audio-progress-repeat:hover,
+.audio-progress-speed:hover,
 .audio-progress-close:hover {
   background: var(--bg-sunken);
   color: var(--ink);
 }
 
-.audio-progress-repeat.is-active:hover {
+.audio-progress-repeat.is-active:hover,
+.audio-progress-speed.is-active:hover {
   background: var(--ink);
   color: var(--bg);
   opacity: 0.88;
