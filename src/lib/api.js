@@ -43,6 +43,16 @@ export async function generateItem({ scene, level, mode, anthropicKey }) {
   }
 }
 
+/** Ensure generated items always have lines[] for UI and TTS. */
+export function normalizeItem(item) {
+  if (!item) throw new Error('Empty item from generator');
+  const lines = Array.isArray(item.lines) && item.lines.length > 0
+    ? item.lines
+    : [{ speaker: 'A', text: item.sentence || '' }];
+  const sentence = item.sentence || lines.map((l) => l.text).join('\n');
+  return { ...item, lines, sentence };
+}
+
 /**
  * Request TTS audio from GAS proxy.
  * GAS handles: Drive cache check -> OpenAI call if miss -> save -> return.
@@ -77,7 +87,13 @@ export async function fetchTTS({ gasUrl, lines, level, voice = 'nova', voiceB = 
     throw new Error(`TTS proxy ${res.status}: ${errText}`);
   }
 
-  const data = await res.json();
+  const raw = await res.text();
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    throw new Error(`TTS proxy returned non-JSON: ${raw.slice(0, 200)}`);
+  }
   if (data.error) throw new Error(`TTS error: ${data.error}`);
   return data;
 }
@@ -85,14 +101,26 @@ export async function fetchTTS({ gasUrl, lines, level, voice = 'nova', voiceB = 
 const LEVEL_SPEED = { 1: 0.85, 2: 0.9, 3: 1.0, 4: 1.05, 5: 1.05 };
 
 /**
- * Convert base64 mp3 to a playable Blob URL.
+ * Convert base64 mp3 to a playable URL.
+ * iOS Safari is more reliable with data: URLs than blob: URLs for <audio>.
  */
 export function base64ToAudioUrl(base64, mimeType = 'audio/mpeg') {
-  const binary = atob(base64);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-  const blob = new Blob([bytes], { type: mimeType });
-  return URL.createObjectURL(blob);
+  if (!base64) throw new Error('Empty audio data');
+
+  const isIOS = typeof navigator !== 'undefined' && /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isIOS) {
+    return `data:${mimeType};base64,${base64}`;
+  }
+
+  try {
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const blob = new Blob([bytes], { type: mimeType });
+    return URL.createObjectURL(blob);
+  } catch {
+    return `data:${mimeType};base64,${base64}`;
+  }
 }
 
 /**
@@ -124,7 +152,9 @@ export async function resolveItemAudio({
   });
 
   if (onCacheSave && tts.audioBase64) {
-    onCacheSave(itemId, tts.audioBase64);
+    const { audioBase64 } = tts;
+    // Defer cache write so session transition is not blocked (iOS localStorage can be slow).
+    setTimeout(() => onCacheSave(itemId, audioBase64), 0);
   }
 
   return { ...tts, source: tts.cached ? 'gas-cache' : 'gas-fresh' };

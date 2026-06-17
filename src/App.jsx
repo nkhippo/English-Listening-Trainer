@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SCENES, LEVELS, MODES } from './lib/prompts.js';
-import { generateItem, resolveItemAudio, base64ToAudioUrl } from './lib/api.js';
+import { generateItem, resolveItemAudio, base64ToAudioUrl, normalizeItem } from './lib/api.js';
 import { DEFAULT_GAS_URL } from './lib/config.js';
 import { scoreClozeBlank, scoreFullDictation, diagnoseFeatures } from './lib/scoring.js';
 import {
@@ -38,6 +38,7 @@ export default function App() {
   const [audioUrl, setAudioUrl] = useState(null);
   const [history, setHistory] = useState(() => loadHistory());
   const [error, setError] = useState('');
+  const [statusMsg, setStatusMsg] = useState('');
   const [sessionKey, setSessionKey] = useState(0);
 
   useEffect(() => { if (anthropicKey) localStorage.setItem(LS_KEYS.anthropic, anthropicKey); }, [anthropicKey]);
@@ -72,7 +73,7 @@ export default function App() {
   const isConfigured = !!anthropicKey;
 
   function revokeAudioUrl() {
-    if (audioUrl) URL.revokeObjectURL(audioUrl);
+    if (audioUrl?.startsWith('blob:')) URL.revokeObjectURL(audioUrl);
   }
 
   async function loadAudioForItem({ id, generated, lvl }) {
@@ -97,17 +98,26 @@ export default function App() {
     setStage('loading');
     setStatusMsg(fromHistory && hasCachedAudio(id) ? 'Loading cached audio…' : 'Synthesizing audio…');
     try {
-      const { url } = await loadAudioForItem({ id, generated, lvl: sessionLevel });
+      const normalized = normalizeItem(generated);
+      const { url } = await loadAudioForItem({ id, generated: normalized, lvl: sessionLevel });
       revokeAudioUrl();
-      setItem(generated);
+      setItem(normalized);
       setItemId(id);
       setMode(sessionMode);
       setScene(sessionScene);
       setLevel(sessionLevel);
       setAudioUrl(url);
-      setHistory(upsertHistoryEntry({ id, item: generated, mode: sessionMode, scene: sessionScene, level: sessionLevel }));
       setSessionKey((k) => k + 1);
       setStage('session');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      try {
+        setHistory(upsertHistoryEntry({
+          id, item: normalized, mode: sessionMode, scene: sessionScene, level: sessionLevel,
+        }));
+      } catch (histErr) {
+        console.warn('History save failed:', histErr);
+      }
     } catch (e) {
       console.error(e);
       setError(String(e.message || e));
@@ -120,7 +130,7 @@ export default function App() {
     setStage('loading');
     setStatusMsg('Generating sentence…');
     try {
-      const generated = await generateItem({ scene, level, mode, anthropicKey });
+      const generated = normalizeItem(await generateItem({ scene, level, mode, anthropicKey }));
       const id = computeItemId({ item: generated, mode, scene, level });
       await openSession({
         generated,
@@ -140,7 +150,7 @@ export default function App() {
     touchHistoryEntry(entry.id);
     setHistory(loadHistory());
     await openSession({
-      generated: entry.item,
+      generated: normalizeItem(entry.item),
       id: entry.id,
       sessionMode: entry.mode,
       sessionScene: entry.scene,
@@ -524,8 +534,8 @@ function ClozeInput({ item, onFinish }) {
       <div className="cloze-line" style={{ marginBottom: 24 }}>
         {lines.map((line, lineIdx) => (
           <div className="dialogue-line" key={lineIdx}>
-            {item.lines.length > 1 && <span className="speaker-tag">{line.speaker}:</span>}
-            {renderClozeLine(line.text, blanksRemaining, inputs, setInputs, item.lines.length > 1 ? lineIdx : null)}
+            {lines.length > 1 && <span className="speaker-tag">{line.speaker}:</span>}
+            {renderClozeLine(line.text, blanksRemaining, inputs, setInputs, lines.length > 1 ? lineIdx : null)}
           </div>
         ))}
       </div>
@@ -662,6 +672,7 @@ function shuffle(arr) {
 
 function Review({ item, mode, audioUrl, itemId, audioPlayer, onAgain, onNext, onReplaySame }) {
   const result = item._result;
+  const lines = item.lines || [{ speaker: 'A', text: item.sentence || '' }];
   const features = mode === 'cloze'
     ? diagnoseFeatures(item, result.results)
     : (item.target_features || []).map((f) => ({ feature: f, captured: null }));
@@ -690,9 +701,9 @@ function Review({ item, mode, audioUrl, itemId, audioPlayer, onAgain, onNext, on
       <div className="review-section">
         <h3>Sentence</h3>
         <div className="review-sentence">
-          {item.lines.map((l, i) => (
+          {lines.map((l, i) => (
             <div key={i} className="dialogue-line">
-              {item.lines.length > 1 && <span className="speaker-tag">{l.speaker}:</span>}
+              {lines.length > 1 && <span className="speaker-tag">{l.speaker}:</span>}
               {l.text}
             </div>
           ))}

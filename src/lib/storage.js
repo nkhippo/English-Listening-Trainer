@@ -37,7 +37,18 @@ export function loadHistory() {
 }
 
 function saveHistory(list) {
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(0, MAX_HISTORY)));
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(0, MAX_HISTORY)));
+  } catch (err) {
+    console.warn('History save failed (storage quota?):', err);
+    // Trim oldest entries and retry once.
+    try {
+      const trimmed = list.slice(0, Math.min(20, list.length));
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
+    } catch {
+      /* session must continue even if history cannot be persisted */
+    }
+  }
 }
 
 export function upsertHistoryEntry({ id, item, mode, scene, level }) {
