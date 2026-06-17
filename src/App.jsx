@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SCENES, LEVELS, MODES } from './lib/prompts.js';
 import { generateItem, resolveItemAudio, base64ToAudioUrl } from './lib/api.js';
+import { DEFAULT_GAS_URL } from './lib/config.js';
 import { scoreClozeBlank, scoreFullDictation, diagnoseFeatures } from './lib/scoring.js';
 import {
   computeItemId,
@@ -28,7 +29,7 @@ export default function App() {
   const audioPlayer = useAudioPlayer();
   const [stage, setStage] = useState('setup');
   const [anthropicKey, setAnthropicKey] = useState(localStorage.getItem(LS_KEYS.anthropic) || '');
-  const [gasUrl, setGasUrl] = useState(localStorage.getItem(LS_KEYS.gas) || '');
+  const [gasUrl, setGasUrl] = useState(localStorage.getItem(LS_KEYS.gas) || DEFAULT_GAS_URL);
   const [mode, setMode] = useState(localStorage.getItem(LS_KEYS.mode) || 'cloze');
   const [scene, setScene] = useState(localStorage.getItem(LS_KEYS.scene) || 'phone');
   const [level, setLevel] = useState(Number(localStorage.getItem(LS_KEYS.level)) || 2);
