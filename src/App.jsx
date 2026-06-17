@@ -19,7 +19,6 @@ import AudioProgressBar from './components/AudioProgressBar.jsx';
 
 const LS_KEYS = {
   anthropic: 'elt_anthropic_key',
-  gas: 'elt_gas_url',
   mode: 'elt_last_mode',
   scene: 'elt_last_scene',
   level: 'elt_last_level',
@@ -28,8 +27,9 @@ const LS_KEYS = {
 export default function App() {
   const audioPlayer = useAudioPlayer();
   const [stage, setStage] = useState('setup');
+  const [settingsOpen, setSettingsOpen] = useState(() => !localStorage.getItem(LS_KEYS.anthropic));
   const [anthropicKey, setAnthropicKey] = useState(localStorage.getItem(LS_KEYS.anthropic) || '');
-  const [gasUrl, setGasUrl] = useState(localStorage.getItem(LS_KEYS.gas) || DEFAULT_GAS_URL);
+  const gasUrl = DEFAULT_GAS_URL;
   const [mode, setMode] = useState(localStorage.getItem(LS_KEYS.mode) || 'cloze');
   const [scene, setScene] = useState(localStorage.getItem(LS_KEYS.scene) || 'phone');
   const [level, setLevel] = useState(Number(localStorage.getItem(LS_KEYS.level)) || 2);
@@ -41,7 +41,6 @@ export default function App() {
   const [statusMsg, setStatusMsg] = useState('');
 
   useEffect(() => { if (anthropicKey) localStorage.setItem(LS_KEYS.anthropic, anthropicKey); }, [anthropicKey]);
-  useEffect(() => { if (gasUrl) localStorage.setItem(LS_KEYS.gas, gasUrl); }, [gasUrl]);
   useEffect(() => { localStorage.setItem(LS_KEYS.mode, mode); }, [mode]);
   useEffect(() => { localStorage.setItem(LS_KEYS.scene, scene); }, [scene]);
   useEffect(() => { localStorage.setItem(LS_KEYS.level, String(level)); }, [level]);
@@ -54,6 +53,23 @@ export default function App() {
     document.body.classList.toggle('audio-progress-visible', audioPlayer.visible);
     return () => document.body.classList.remove('audio-progress-visible');
   }, [audioPlayer.visible]);
+
+  function saveAnthropicKey(key) {
+    const trimmed = key.trim();
+    setAnthropicKey(trimmed);
+    if (trimmed) {
+      localStorage.setItem(LS_KEYS.anthropic, trimmed);
+      setSettingsOpen(false);
+    }
+  }
+
+  function clearAnthropicKey() {
+    setAnthropicKey('');
+    localStorage.removeItem(LS_KEYS.anthropic);
+    setSettingsOpen(true);
+  }
+
+  const isConfigured = !!anthropicKey;
 
   function revokeAudioUrl() {
     if (audioUrl) URL.revokeObjectURL(audioUrl);
@@ -169,18 +185,37 @@ export default function App() {
   return (
     <div className="shell">
       <header className="header">
-        <div className="brand">English Listening Trainer</div>
-        <div className="brand-sub">Layer 3 focus</div>
+        <div>
+          <div className="brand">English Listening Trainer</div>
+          <div className="brand-sub">Layer 3 focus</div>
+        </div>
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm settings-toggle"
+          onClick={() => setSettingsOpen((v) => !v)}
+          aria-expanded={settingsOpen}
+        >
+          {settingsOpen ? 'Close' : 'Settings'}
+        </button>
       </header>
+
+      {settingsOpen && (
+        <SettingsPanel
+          anthropicKey={anthropicKey}
+          isConfigured={isConfigured}
+          onSave={saveAnthropicKey}
+          onClear={clearAnthropicKey}
+        />
+      )}
 
       {stage === 'setup' && (
         <Setup
-          anthropicKey={anthropicKey} setAnthropicKey={setAnthropicKey}
-          gasUrl={gasUrl} setGasUrl={setGasUrl}
+          isConfigured={isConfigured}
           mode={mode} setMode={setMode}
           scene={scene} setScene={setScene}
           level={level} setLevel={setLevel}
           onStart={startSession}
+          onOpenSettings={() => setSettingsOpen(true)}
           error={error}
           history={history}
           onReplay={replayFromHistory}
@@ -237,47 +272,70 @@ export default function App() {
   );
 }
 
-function Setup({
-  anthropicKey, setAnthropicKey, gasUrl, setGasUrl,
-  mode, setMode, scene, setScene, level, setLevel,
-  onStart, error, history, onReplay, onListen, onRemoveHistory,
-}) {
-  const canStart = anthropicKey && gasUrl;
-  return (
-    <>
-      {error && <div className="status error">{error}</div>}
+function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear }) {
+  const [draft, setDraft] = useState(anthropicKey);
 
+  useEffect(() => {
+    setDraft(anthropicKey);
+  }, [anthropicKey]);
+
+  return (
+    <section className="settings-panel">
+      <h2 className="settings-heading">Settings</h2>
+      <p className="field-hint">
+        Anthropic API キーはこのブラウザにのみ保存されます。音声合成は組み込みの GAS プロキシを使用します。
+      </p>
       <div className="field">
         <label>Anthropic API Key</label>
         <input
           type="password"
-          value={anthropicKey}
-          onChange={(e) => setAnthropicKey(e.target.value)}
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
           placeholder="sk-ant-..."
           autoComplete="off"
         />
         <p className="field-hint">
-          <a href="https://github.com/nkhippo/English-Listening-Trainer/blob/main/docs/setup.md#anthropic-api-キー" target="_blank" rel="noreferrer">
+          <a
+            href="https://github.com/nkhippo/English-Listening-Trainer/blob/main/docs/setup.md#anthropic-api-キー"
+            target="_blank"
+            rel="noreferrer"
+          >
             取得手順
           </a>
         </p>
       </div>
-
-      <div className="field">
-        <label>GAS Endpoint URL（TTSプロキシ）</label>
-        <input
-          type="text"
-          value={gasUrl}
-          onChange={(e) => setGasUrl(e.target.value)}
-          placeholder="https://script.google.com/macros/s/.../exec"
-          autoComplete="off"
-        />
-        <p className="field-hint">
-          <a href="https://github.com/nkhippo/English-Listening-Trainer/blob/main/docs/setup.md#gas-tts-プロキシのセットアップ" target="_blank" rel="noreferrer">
-            セットアップ手順
-          </a>
-        </p>
+      <div className="row">
+        <button type="button" className="btn" onClick={() => onSave(draft)} disabled={!draft.trim()}>
+          Save
+        </button>
+        {isConfigured && (
+          <button type="button" className="btn btn-ghost" onClick={onClear}>
+            Clear saved key
+          </button>
+        )}
       </div>
+    </section>
+  );
+}
+
+function Setup({
+  isConfigured,
+  mode, setMode, scene, setScene, level, setLevel,
+  onStart, onOpenSettings, error, history, onReplay, onListen, onRemoveHistory,
+}) {
+  const canStart = isConfigured;
+  return (
+    <>
+      {error && <div className="status error">{error}</div>}
+
+      {!isConfigured && (
+        <div className="onboarding-banner">
+          <p>初回のみ Anthropic API キーの登録が必要です。</p>
+          <button type="button" className="btn" onClick={onOpenSettings}>
+            Register API key
+          </button>
+        </div>
+      )}
 
       <div className="field">
         <label>Mode</label>
@@ -327,6 +385,11 @@ function Setup({
       <button className="btn" onClick={onStart} disabled={!canStart}>
         Start session
       </button>
+      {!canStart && (
+        <p className="field-hint" style={{ marginTop: 12 }}>
+          新しい例文の生成には API キーが必要です。過去問の再生はキーなしでも可能です。
+        </p>
+      )}
 
       {history.length > 0 && (
         <HistoryList
