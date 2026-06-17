@@ -6,7 +6,7 @@
 export function normalize(s) {
   return (s || '')
     .toLowerCase()
-    .replace(/[.,!?;:"'()\-\u2014\u2013]/g, ' ')
+    .replace(/[.,!?;:"'()\-\u2014\u2013\u2018\u2019]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -41,6 +41,10 @@ export function scoreClozeBlank(userInput, expected) {
   const b = equivalentForms(expected);
   for (const v of a) if (b.has(v)) return true;
   return false;
+}
+
+export function scoreMinimalPair(userChoice, expected) {
+  return normalize(userChoice) === normalize(expected);
 }
 
 /**

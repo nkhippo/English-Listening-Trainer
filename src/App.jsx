@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { SCENES, LEVELS, MODES } from './lib/prompts.js';
 import { generateItem, resolveItemAudio, base64ToAudioUrl, normalizeItem } from './lib/api.js';
 import { DEFAULT_GAS_URL } from './lib/config.js';
-import { scoreClozeBlank, scoreFullDictation, diagnoseFeatures } from './lib/scoring.js';
+import { scoreClozeBlank, scoreFullDictation, scoreMinimalPair, diagnoseFeatures } from './lib/scoring.js';
 import {
   computeItemId,
   loadHistory,
@@ -592,8 +592,9 @@ function renderClozeLine(text, blanksRemaining, inputs, setInputs, lineKeyPrefix
 
 function DictationInput({ item, onFinish }) {
   const [text, setText] = useState('');
+  const expectedText = (item.lines || []).map((l) => l.text).join('\n') || item.sentence || '';
   function submit() {
-    const result = scoreFullDictation(text, item.sentence);
+    const result = scoreFullDictation(text, expectedText);
     onFinish({ kind: 'dictation', user: text, ...result });
   }
   return (
@@ -625,7 +626,8 @@ function MinimalPairInput({ item, onFinish }) {
     return <div className="status error">minimal_pair_target missing from generated item.</div>;
   }
   function submit() {
-    onFinish({ kind: 'minimal_pair', user: choice, correct: choice === mp.correct, expected: mp.correct });
+    const correct = scoreMinimalPair(choice, mp.correct);
+    onFinish({ kind: 'minimal_pair', user: choice, correct, expected: mp.correct });
   }
   return (
     <>
@@ -671,12 +673,31 @@ function Review({ item, mode, audioUrl, itemId, audioPlayer, onAgain, onNext, on
     ? diagnoseFeatures(item, result.results)
     : (item.target_features || []).map((f) => ({ feature: f, captured: null }));
 
+  let scoreDisplay = '—';
+  let scorePerfect = false;
+  if (result?.kind === 'cloze') {
+    const correct = result.results.filter((r) => r.correct).length;
+    scoreDisplay = result.results.length ? `${correct}/${result.results.length}` : '—';
+    scorePerfect = result.results.length > 0 && correct === result.results.length;
+  } else if (result?.kind === 'dictation') {
+    scoreDisplay = `${Math.round(result.accuracy * 100)}%`;
+    scorePerfect = result.accuracy >= 1;
+  } else if (result?.kind === 'minimal_pair') {
+    scoreDisplay = result.correct ? '1/1' : '0/1';
+    scorePerfect = result.correct;
+  }
+
   function playReview() {
     if (audioUrl && itemId) audioPlayer.play(audioUrl, itemId, { showProgress: true });
   }
 
   return (
     <>
+      <div className="review-section">
+        <div className="score-label">Score</div>
+        <div className={`score${scorePerfect ? ' is-perfect' : ''}`}>{scoreDisplay}</div>
+      </div>
+
       <div className="review-section">
         <h3>Sentence</h3>
         <div className="review-sentence">
@@ -722,6 +743,25 @@ function Review({ item, mode, audioUrl, itemId, audioPlayer, onAgain, onNext, on
           <div className="review-sentence" style={{ background: 'transparent', border: '1px dashed var(--line-strong)' }}>
             {result.user}
           </div>
+          <div style={{ marginTop: 8, fontSize: 12, color: 'var(--ink-mute)', fontFamily: 'var(--font-mono)' }}>
+            edits: {result.edits} / {result.totalWords} words
+          </div>
+        </div>
+      )}
+
+      {result.kind === 'minimal_pair' && (
+        <div className="review-section">
+          <h3>Your answer</h3>
+          <ul className="feature-list">
+            <li className="feature-item">
+              <span>You chose</span>
+              <span className={`feature-status ${result.correct ? 'ok' : 'miss'}`}>{result.user}</span>
+            </li>
+            <li className="feature-item">
+              <span>Correct word</span>
+              <span className="feature-status ok">{result.expected}</span>
+            </li>
+          </ul>
         </div>
       )}
 
