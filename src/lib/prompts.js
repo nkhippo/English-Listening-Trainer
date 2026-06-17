@@ -3,19 +3,19 @@
 
 export const SCENES = {
   phone: {
-    label: '電話口',
+    label: 'Phone',
     en: 'phone call',
     description:
       'phone calls: customer support, booking, appointments, inquiries. No visual context. Formulaic openings/closings.',
   },
   store: {
-    label: '店舗・カフェ',
+    label: 'Store / Cafe',
     en: 'store / cafe',
     description:
       'short transactional exchanges at a store, cafe, restaurant, or counter. Greetings, ordering, payment, takeaway.',
   },
   workplace: {
-    label: '職場の会話',
+    label: 'Workplace',
     en: 'workplace',
     description:
       'short workplace exchanges: quick check-ins, scheduling, asking for status, brief meeting openings. Semi-formal.',
@@ -24,7 +24,7 @@ export const SCENES = {
 
 export const LEVELS = {
   1: {
-    label: 'Lv1 — 教科書英語',
+    label: 'Lv1 — Textbook English',
     speed: 0.85,
     style:
       'Read clearly and slowly, like a textbook example. No contractions. Articulate every word.',
@@ -33,7 +33,7 @@ export const LEVELS = {
     dialogue: false,
   },
   2: {
-    label: 'Lv2 — 弱形のみ',
+    label: 'Lv2 — Weak forms only',
     speed: 0.9,
     style:
       'Relaxed natural pace with standard contractions, but no further reductions. Do not over-articulate function words.',
@@ -42,7 +42,7 @@ export const LEVELS = {
     dialogue: false,
   },
   3: {
-    label: 'Lv3 — 連結あり',
+    label: 'Lv3 — Linking',
     speed: 1.0,
     style:
       'Natural conversational pace with normal linking between words. Do not over-articulate function words.',
@@ -51,7 +51,7 @@ export const LEVELS = {
     dialogue: false,
   },
   4: {
-    label: 'Lv4 — 自然速度＋縮約',
+    label: 'Lv4 — Natural speed + reductions',
     speed: 1.05,
     style:
       'Natural conversational pace, with relaxed casual reductions where typical native speakers would use them. Keep reductions as written.',
@@ -60,7 +60,7 @@ export const LEVELS = {
     dialogue: false,
   },
   5: {
-    label: 'Lv5 — 対話・複数話者',
+    label: 'Lv5 — Dialogue (multi-speaker)',
     speed: 1.05,
     style:
       'Speak naturally with the personality of each speaker. Casual reductions where appropriate. Blend words smoothly with natural linking.',
@@ -71,9 +71,9 @@ export const LEVELS = {
 };
 
 export const MODES = {
-  cloze: { label: 'Cloze（空欄補充）', description: '機能語・連結箇所を聞き取って入力' },
-  dictation: { label: 'Full Dictation（全文）', description: '全文を聞き取って書き起こし' },
-  minimal_pair: { label: 'Minimal Pair（聞き分け）', description: '紛らわしい音の選択肢から正解を選ぶ' },
+  cloze: { label: 'Cloze', description: 'Fill in function words and linking spans' },
+  dictation: { label: 'Full Dictation', description: 'Transcribe the full sentence' },
+  minimal_pair: { label: 'Minimal Pair', description: 'Choose the word you hear from confusable options' },
 };
 
 export function buildGenerationPrompt({ scene, level, mode }) {

@@ -296,7 +296,7 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear }) {
     <section className="settings-panel">
       <h2 className="settings-heading">Settings</h2>
       <p className="field-hint">
-        Anthropic API キーはこのブラウザにのみ保存されます。音声合成は組み込みの GAS プロキシを使用します。
+        Your Anthropic API key is stored only in this browser. Speech synthesis uses the built-in GAS proxy.
       </p>
       <div className="field">
         <label>Anthropic API Key</label>
@@ -313,7 +313,7 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear }) {
             target="_blank"
             rel="noreferrer"
           >
-            取得手順
+            How to get a key
           </a>
         </p>
       </div>
@@ -343,7 +343,7 @@ function Setup({
 
       {!isConfigured && (
         <div className="onboarding-banner">
-          <p>初回のみ Anthropic API キーの登録が必要です。</p>
+          <p>Register your Anthropic API key once to generate new sentences.</p>
           <button type="button" className="btn" onClick={onOpenSettings}>
             Register API key
           </button>
@@ -367,7 +367,7 @@ function Setup({
           ))}
         </div>
         {level === 5 && (
-          <div className="field-hint">※ Lv5（対話）は Cloze と Full Dictation のみ対応</div>
+          <div className="field-hint">Lv5 (dialogue) supports Cloze and Full Dictation only.</div>
         )}
       </div>
 
@@ -384,7 +384,7 @@ function Setup({
       </div>
 
       <div className="field">
-        <label>Level（難易度）</label>
+        <label>Level</label>
         <div className="choices">
           {Object.entries(LEVELS).map(([key, l]) => (
             <button key={key} className="choice" aria-pressed={level === Number(key)} onClick={() => setLevel(Number(key))}>
@@ -400,7 +400,7 @@ function Setup({
       </button>
       {!canStart && (
         <p className="field-hint" style={{ marginTop: 12 }}>
-          新しい例文の生成には API キーが必要です。過去問の再生はキーなしでも可能です。
+          An API key is required to generate new sentences. Past items can be replayed without a key.
         </p>
       )}
 
@@ -419,8 +419,10 @@ function Setup({
 function HistoryList({ history, onReplay, onListen, onRemove }) {
   return (
     <section className="history-section">
-      <h2 className="history-heading">Past items（過去問）</h2>
-      <p className="field-hint">一度出題した例文はここから聞き返せます。音声は初回再生後にブラウザへ保存され、2回目以降は API を使いません。</p>
+      <h2 className="history-heading">Past items</h2>
+      <p className="field-hint">
+        Replay sentences you have already practiced. Audio is saved in your browser after the first play, so later replays use no API calls.
+      </p>
       <ul className="history-list">
         {history.map((entry) => (
           <li key={entry.id} className="history-item">
@@ -429,7 +431,7 @@ function HistoryList({ history, onReplay, onListen, onRemove }) {
               <div className="history-meta">
                 <span>{SCENES[entry.scene]?.label}</span>
                 <span>{LEVELS[entry.level]?.label?.split(' — ')[0]}</span>
-                <span>{MODES[entry.mode]?.label?.split('（')[0]}</span>
+                <span>{MODES[entry.mode]?.label}</span>
                 {hasCachedAudio(entry.id) && <span className="history-cache-badge">audio saved</span>}
               </div>
             </div>
