@@ -6,14 +6,17 @@ import {
   removeCustomSpeechEntry,
   formatCustomSpeechDate,
   linesForTTS,
+  CUSTOM_SPEECH_VOICES,
+  ttsInstructionsForEntry,
+  parseCustomSpeechBody,
 } from '../lib/customSpeech.js';
-import { resolveItemAudio, base64ToAudioUrl } from '../lib/api.js';
+import { resolveItemAudio, base64ToAudioUrl, generateCustomSpeechTtsInstructions } from '../lib/api.js';
 import { getCachedAudio, saveCachedAudio, hasCachedAudio } from '../lib/storage.js';
 import Waveform from './Waveform.jsx';
 
 const TTS_LEVEL = 3; // 1.0x speed
 
-export default function CustomSpeechTab({ audioPlayer, gasUrl }) {
+export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
   const [stage, setStage] = useState('register');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -23,6 +26,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl }) {
   const [error, setError] = useState('');
   const [statusMsg, setStatusMsg] = useState('');
   const [replays, setReplays] = useState(0);
+  const [registering, setRegistering] = useState(false);
 
   function revokeAudioUrl() {
     if (audioUrl?.startsWith('blob:')) URL.revokeObjectURL(audioUrl);
@@ -38,7 +42,9 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl }) {
       gasUrl,
       lines: linesForTTS(entry.lines),
       level: TTS_LEVEL,
-      instructions: '',
+      instructions: ttsInstructionsForEntry(entry),
+      voice: CUSTOM_SPEECH_VOICES.female,
+      voiceB: CUSTOM_SPEECH_VOICES.male,
       onCacheSave: saveCachedAudio,
     });
     return base64ToAudioUrl(tts.audioBase64, tts.mimeType || 'audio/mpeg');
@@ -47,7 +53,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl }) {
   async function openEntry(entry, fromHistory = false) {
     setError('');
     setStage('loading');
-    setStatusMsg(fromHistory && hasCachedAudio(entry.id) ? 'キャッシュから読み込み中…' : '音声を生成中…');
+    setStatusMsg(fromHistory && hasCachedAudio(entry.id) ? 'Loading cached audio…' : 'Synthesizing audio…');
     setReplays(0);
     try {
       const url = await loadAudioForEntry(entry);
@@ -66,17 +72,26 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl }) {
   async function handleRegister() {
     setError('');
     if (!body.trim()) {
-      setError('本文を入力してください');
+      setError('Enter body text');
       return;
     }
+    setRegistering(true);
     try {
-      const { entry, list } = addCustomSpeechEntry({ title, body });
+      const parsedLines = parseCustomSpeechBody(body);
+      const ttsInstructions = await generateCustomSpeechTtsInstructions({
+        body,
+        lines: parsedLines,
+        anthropicKey,
+      });
+      const { entry, list } = addCustomSpeechEntry({ title, body, ttsInstructions });
       setEntries(list);
       setTitle('');
       setBody('');
       await openEntry(entry);
     } catch (e) {
       setError(String(e.message || e));
+    } finally {
+      setRegistering(false);
     }
   }
 
@@ -152,7 +167,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl }) {
 
         <div style={{ marginTop: 24 }}>
           <button type="button" className="btn btn-ghost" onClick={handleBack}>
-            ← 登録画面に戻る
+            ← Back to register
           </button>
         </div>
       </>
@@ -164,23 +179,23 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl }) {
       {error && <div className="status error">{error}</div>}
 
       <p className="field-hint" style={{ marginBottom: 24 }}>
-        文章を登録して音声化します。話者は「M:」（男性）と「F:」（女性）で指定できます。指定がない行は男性の声で読み上げます。
+        Register text to convert it to speech. Use <strong>M:</strong> for a male voice and <strong>F:</strong> for a female voice. Lines without a prefix are read in a male voice.
       </p>
 
       <div className="field">
-        <label htmlFor="cs-title">タイトル</label>
+        <label htmlFor="cs-title">Title</label>
         <input
           id="cs-title"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="例: Cafe dialogue"
+          placeholder="e.g. Cafe dialogue"
           autoComplete="off"
         />
       </div>
 
       <div className="field">
-        <label htmlFor="cs-body">本文</label>
+        <label htmlFor="cs-body">Body</label>
         <textarea
           id="cs-body"
           className="dictation-input"
@@ -192,8 +207,8 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl }) {
         />
       </div>
 
-      <button type="button" className="btn" onClick={handleRegister} disabled={!body.trim()}>
-        スピーカー作成
+      <button type="button" className="btn" onClick={handleRegister} disabled={!body.trim() || registering}>
+        {registering ? 'Creating…' : 'Create speaker'}
       </button>
 
       {entries.length > 0 && (
@@ -211,9 +226,9 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl }) {
 function CustomSpeechHistory({ entries, onOpen, onRename, onRemove }) {
   return (
     <section className="history-section">
-      <h2 className="history-heading">登録済み</h2>
+      <h2 className="history-heading">Saved items</h2>
       <p className="field-hint">
-        タイトルをクリックして名称を変更できます。初回再生後はブラウザに音声が保存され、以降は API を呼びません。
+        Click a title to rename it. After the first playback, audio is saved in your browser and later replays use no API calls.
       </p>
       <ul className="history-list">
         {entries.map((entry) => (
@@ -267,7 +282,7 @@ function CustomSpeechHistoryItem({ entry, onOpen, onRename, onRemove }) {
             type="button"
             className="history-title-btn"
             onClick={() => setEditing(true)}
-            title="クリックして名称を変更"
+            title="Click to rename"
           >
             {entry.title}
           </button>
@@ -279,15 +294,14 @@ function CustomSpeechHistoryItem({ entry, onOpen, onRename, onRemove }) {
       </div>
       <div className="history-actions">
         <button type="button" className="btn btn-ghost btn-sm" onClick={onOpen}>
-          再生
+          Play
         </button>
         <button
           type="button"
           className="btn btn-ghost btn-sm history-remove"
           onClick={onRemove}
-          aria-label="Remove"
         >
-          ×
+          Delete
         </button>
       </div>
     </li>

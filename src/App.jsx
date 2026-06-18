@@ -243,7 +243,7 @@ export default function App() {
       )}
 
       {appTab === 'speech' && (
-        <CustomSpeechTab audioPlayer={audioPlayer} gasUrl={gasUrl} />
+        <CustomSpeechTab audioPlayer={audioPlayer} gasUrl={gasUrl} anthropicKey={anthropicKey} />
       )}
 
       {appTab === 'trainer' && stage === 'setup' && (
@@ -473,8 +473,8 @@ function HistoryList({ history, onReplay, onListen, onRemove }) {
               <button type="button" className="btn btn-ghost btn-sm" onClick={() => onReplay(entry)}>
                 Practice
               </button>
-              <button type="button" className="btn btn-ghost btn-sm history-remove" onClick={() => onRemove(entry.id)} aria-label="Remove">
-                ×
+              <button type="button" className="btn btn-ghost btn-sm history-remove" onClick={() => onRemove(entry.id)}>
+                Delete
               </button>
             </div>
           </li>

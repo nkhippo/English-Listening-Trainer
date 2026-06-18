@@ -1,20 +1,27 @@
 // Custom speech: user-authored text → TTS with M:/F: speaker tags.
 
 import { removeCachedAudio } from './storage.js';
+import { buildCustomSpeechTtsInstructions } from './api.js';
 
 const STORAGE_KEY = 'elt_custom_speech';
 const MAX_ENTRIES = 50;
 
 const SPEAKER_PREFIX = /^(M|F)[：:]\s*/i;
 
-/** Map display label to GAS line speaker (A = female/nova, B = male/onyx). */
+/** OpenAI voices for custom speech (F → voiceA, M → voiceB in GAS). */
+export const CUSTOM_SPEECH_VOICES = {
+  female: 'shimmer',
+  male: 'onyx',
+};
+
+/** Map display label to GAS line speaker (A = female, B = male). */
 function ttsSpeakerForLabel(label) {
   return label === 'F' ? 'A' : 'B';
 }
 
 /**
  * Parse body text into TTS lines.
- * M: → male (onyx), F: → female (nova). No prefix → male.
+ * M: → male (onyx), F: → female (shimmer). No prefix → male.
  */
 export function parseCustomSpeechBody(body) {
   const rawLines = body.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
@@ -60,15 +67,16 @@ function saveCustomSpeechList(list) {
   }
 }
 
-export function addCustomSpeechEntry({ title, body }) {
+export function addCustomSpeechEntry({ title, body, ttsInstructions }) {
   const parsedLines = parseCustomSpeechBody(body);
-  if (parsedLines.length === 0) throw new Error('本文を入力してください');
+  if (parsedLines.length === 0) throw new Error('Enter body text');
 
   const entry = {
     id: computeCustomSpeechId(),
     title: title.trim() || 'Untitled',
     body: body.trim(),
     lines: parsedLines,
+    tts_instructions: ttsInstructions,
     createdAt: new Date().toISOString(),
   };
 
@@ -95,7 +103,7 @@ export function removeCustomSpeechEntry(id) {
 
 export function formatCustomSpeechDate(iso) {
   try {
-    return new Date(iso).toLocaleString('ja-JP', {
+    return new Date(iso).toLocaleString('en-US', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
@@ -105,4 +113,8 @@ export function formatCustomSpeechDate(iso) {
   } catch {
     return '';
   }
+}
+
+export function ttsInstructionsForEntry(entry) {
+  return entry.tts_instructions || buildCustomSpeechTtsInstructions(entry.lines);
 }

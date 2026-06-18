@@ -133,6 +133,8 @@ export async function resolveItemAudio({
   lines,
   level,
   instructions = '',
+  voice = 'nova',
+  voiceB = 'onyx',
   onCacheSave,
 }) {
   if (cachedBase64) {
@@ -149,6 +151,8 @@ export async function resolveItemAudio({
     lines,
     level,
     instructions,
+    voice,
+    voiceB,
   });
 
   if (onCacheSave && tts.audioBase64) {
@@ -158,4 +162,85 @@ export async function resolveItemAudio({
   }
 
   return { ...tts, source: tts.cached ? 'gas-cache' : 'gas-fresh' };
+}
+
+/**
+ * Generate TTS style instructions for custom speech.
+ * Uses Claude when an API key is available; otherwise falls back to heuristics.
+ */
+export async function generateCustomSpeechTtsInstructions({ body, lines, anthropicKey }) {
+  if (anthropicKey) {
+    try {
+      return await fetchCustomSpeechTtsInstructions({ body, lines, anthropicKey });
+    } catch (e) {
+      console.warn('Claude tts_instructions failed, using heuristic:', e);
+    }
+  }
+  return buildCustomSpeechTtsInstructions(lines);
+}
+
+async function fetchCustomSpeechTtsInstructions({ body, lines, anthropicKey }) {
+  const isDialogue = lines.length > 1;
+  const styleRef = isDialogue
+    ? 'Speak naturally with the personality of each speaker. Casual reductions where appropriate. Blend words smoothly with natural linking.'
+    : 'Natural conversational pace with normal linking between words. Do not over-articulate function words.';
+
+  const userPrompt = `You write OpenAI TTS "instructions" for English listening-practice audio aimed at Japanese learners (connected speech / layer 3 focus).
+
+Text to speak:
+${body.trim()}
+
+Speakers: ${isDialogue ? 'multi-speaker dialogue (M = male, F = female)' : 'single speaker'}
+Style reference: "${styleRef}"
+
+Return ONLY one sentence of tts_instructions (10–25 words). Match the actual phenomena in the text (contractions, linking, reductions). If reductions like gonna/wanna appear, say to keep them as written. No JSON, no quotes, no preamble.`;
+
+  const res = await fetch(CLAUDE_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': anthropicKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true',
+    },
+    body: JSON.stringify({
+      model: CLAUDE_MODEL,
+      max_tokens: 120,
+      system: 'You return a single sentence of TTS voice/style instructions. No JSON, no markdown, no extra text.',
+      messages: [{ role: 'user', content: userPrompt }],
+      temperature: 0.4,
+    }),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Claude API ${res.status}: ${errText}`);
+  }
+
+  const data = await res.json();
+  const text = (data.content?.[0]?.text ?? '').trim().replace(/^["']|["']$/g, '');
+  if (!text) throw new Error('Empty tts_instructions from Claude');
+  return text;
+}
+
+/** Heuristic tts_instructions aligned with Listening tab level styles. */
+export function buildCustomSpeechTtsInstructions(lines) {
+  const texts = lines.map((l) => l.text).join(' ');
+  const isDialogue = lines.length > 1;
+  const hasReductions = /\b(gonna|wanna|lemme|didja|kinda|gotta|coulda|shoulda)\b/i.test(texts);
+  const hasContractions = /'\w/i.test(texts);
+
+  if (isDialogue) {
+    if (hasReductions) {
+      return 'Speak naturally with distinct voices per speaker. Natural pace with smooth linking; keep casual reductions as written.';
+    }
+    return 'Speak naturally with the personality of each speaker. Natural conversational pace with smooth linking between words.';
+  }
+  if (hasReductions) {
+    return 'Natural conversational pace with relaxed casual reductions as written. Do not over-articulate function words.';
+  }
+  if (hasContractions) {
+    return 'Relaxed natural pace with standard contractions. Function words should sound unstressed with normal linking.';
+  }
+  return 'Natural conversational pace with normal linking between words. Do not over-articulate function words.';
 }
