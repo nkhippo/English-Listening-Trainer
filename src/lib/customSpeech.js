@@ -60,10 +60,19 @@ export function loadCustomSpeechList() {
 }
 
 function saveCustomSpeechList(list) {
+  const payload = JSON.stringify(list.slice(0, MAX_ENTRIES));
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(0, MAX_ENTRIES)));
+    localStorage.setItem(STORAGE_KEY, payload);
+    return true;
   } catch (err) {
     console.warn('Custom speech save failed:', err);
+    // Retry with fewer entries when storage quota is exceeded (common on iOS Safari).
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(0, Math.min(20, list.length))));
+      return true;
+    } catch {
+      return false;
+    }
   }
 }
 
@@ -81,7 +90,9 @@ export function addCustomSpeechEntry({ title, body, ttsInstructions }) {
   };
 
   const list = [entry, ...loadCustomSpeechList()];
-  saveCustomSpeechList(list);
+  if (!saveCustomSpeechList(list)) {
+    throw new Error('Could not save item — browser storage may be full. Delete old items or clear cached audio.');
+  }
   return { entry, list };
 }
 

@@ -555,6 +555,11 @@ input:focus, textarea:focus, select:focus {
   background: var(--bg);
 }
 
+.history-item-active {
+  border-color: var(--signal);
+  background: var(--bg-sunken);
+}
+
 .history-preview {
   font-family: var(--font-mono);
   font-size: 13px;

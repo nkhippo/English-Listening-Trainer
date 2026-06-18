@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   addCustomSpeechEntry,
   loadCustomSpeechList,
@@ -27,12 +27,32 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
   const [statusMsg, setStatusMsg] = useState('');
   const [replays, setReplays] = useState(0);
   const [registering, setRegistering] = useState(false);
+  const savedItemsRef = useRef(null);
 
   function revokeAudioUrl() {
     if (audioUrl?.startsWith('blob:')) URL.revokeObjectURL(audioUrl);
   }
 
+  function refreshEntries() {
+    setEntries(loadCustomSpeechList());
+  }
+
+  function scrollToSavedItems() {
+    requestAnimationFrame(() => {
+      savedItemsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
   useEffect(() => () => revokeAudioUrl(), []);
+
+  // iOS Safari may discard in-memory state when backgrounded; reload from localStorage.
+  useEffect(() => {
+    function onVisible() {
+      if (document.visibilityState === 'visible') refreshEntries();
+    }
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
+  }, []);
 
   async function loadAudioForEntry(entry) {
     const cachedBase64 = getCachedAudio(entry.id);
@@ -101,7 +121,8 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
     setAudioUrl(null);
     setActiveEntry(null);
     setStage('register');
-    setEntries(loadCustomSpeechList());
+    refreshEntries();
+    scrollToSavedItems();
   }
 
   function play() {
@@ -127,6 +148,15 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
     setEntries(removeCustomSpeechEntry(id));
     if (activeEntry?.id === id) handleBack();
   }
+
+  const historyProps = {
+    entries,
+    activeId: activeEntry?.id,
+    sectionRef: savedItemsRef,
+    onOpen: (entry) => openEntry(entry, true),
+    onRename: handleRename,
+    onRemove: handleRemove,
+  };
 
   if (stage === 'loading') {
     return <div className="status">{statusMsg || 'Loading…'}</div>;
@@ -170,6 +200,8 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
             ← Back to register
           </button>
         </div>
+
+        <CustomSpeechHistory {...historyProps} />
       </>
     );
   }
@@ -211,41 +243,41 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
         {registering ? 'Creating…' : 'Create speaker'}
       </button>
 
-      {entries.length > 0 && (
-        <CustomSpeechHistory
-          entries={entries}
-          onOpen={(entry) => openEntry(entry, true)}
-          onRename={handleRename}
-          onRemove={handleRemove}
-        />
-      )}
+      <CustomSpeechHistory {...historyProps} />
     </>
   );
 }
 
-function CustomSpeechHistory({ entries, onOpen, onRename, onRemove }) {
+function CustomSpeechHistory({ entries, activeId, sectionRef, onOpen, onRename, onRemove }) {
   return (
-    <section className="history-section">
+    <section className="history-section" ref={sectionRef}>
       <h2 className="history-heading">Saved items</h2>
-      <p className="field-hint">
-        Click a title to rename it. After the first playback, audio is saved in your browser and later replays use no API calls.
-      </p>
-      <ul className="history-list">
-        {entries.map((entry) => (
-          <CustomSpeechHistoryItem
-            key={entry.id}
-            entry={entry}
-            onOpen={() => onOpen(entry)}
-            onRename={(title) => onRename(entry.id, title)}
-            onRemove={() => onRemove(entry.id)}
-          />
-        ))}
-      </ul>
+      {entries.length === 0 ? (
+        <p className="field-hint">No saved items yet. Create one above — items are stored in this browser only.</p>
+      ) : (
+        <>
+          <p className="field-hint">
+            Tap a title to rename it. After the first playback, audio is saved in your browser and later replays use no API calls.
+          </p>
+          <ul className="history-list">
+            {entries.map((entry) => (
+              <CustomSpeechHistoryItem
+                key={entry.id}
+                entry={entry}
+                active={entry.id === activeId}
+                onOpen={() => onOpen(entry)}
+                onRename={(title) => onRename(entry.id, title)}
+                onRemove={() => onRemove(entry.id)}
+              />
+            ))}
+          </ul>
+        </>
+      )}
     </section>
   );
 }
 
-function CustomSpeechHistoryItem({ entry, onOpen, onRename, onRemove }) {
+function CustomSpeechHistoryItem({ entry, active, onOpen, onRename, onRemove }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(entry.title);
 
@@ -259,7 +291,7 @@ function CustomSpeechHistoryItem({ entry, onOpen, onRename, onRemove }) {
   }
 
   return (
-    <li className="history-item">
+    <li className={`history-item${active ? ' history-item-active' : ''}`}>
       <div className="history-main">
         {editing ? (
           <input
@@ -282,7 +314,7 @@ function CustomSpeechHistoryItem({ entry, onOpen, onRename, onRemove }) {
             type="button"
             className="history-title-btn"
             onClick={() => setEditing(true)}
-            title="Click to rename"
+            title="Tap to rename"
           >
             {entry.title}
           </button>
@@ -293,8 +325,8 @@ function CustomSpeechHistoryItem({ entry, onOpen, onRename, onRemove }) {
         </div>
       </div>
       <div className="history-actions">
-        <button type="button" className="btn btn-ghost btn-sm" onClick={onOpen}>
-          Play
+        <button type="button" className="btn btn-ghost btn-sm" onClick={onOpen} disabled={active}>
+          {active ? 'Playing' : 'Play'}
         </button>
         <button
           type="button"
