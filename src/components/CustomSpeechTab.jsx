@@ -9,6 +9,8 @@ import {
   CUSTOM_SPEECH_VOICES,
   ttsInstructionsForEntry,
   parseCustomSpeechBody,
+  exportCustomSpeechData,
+  importCustomSpeechData,
 } from '../lib/customSpeech.js';
 import { resolveItemAudio, base64ToAudioUrl, generateCustomSpeechTtsInstructions } from '../lib/api.js';
 import { getCachedAudio, saveCachedAudio, hasCachedAudio } from '../lib/storage.js';
@@ -28,6 +30,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
   const [replays, setReplays] = useState(0);
   const [registering, setRegistering] = useState(false);
   const savedItemsRef = useRef(null);
+  const importInputRef = useRef(null);
 
   function revokeAudioUrl() {
     if (audioUrl?.startsWith('blob:')) URL.revokeObjectURL(audioUrl);
@@ -149,13 +152,49 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
     if (activeEntry?.id === id) handleBack();
   }
 
+  function handleExport() {
+    setError('');
+    const blob = new Blob([exportCustomSpeechData()], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `elt-speech-${new Date().toISOString().slice(0, 10)}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function handleImportFile(event) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+
+    setError('');
+    try {
+      const text = await file.text();
+      const { list, added, skipped } = importCustomSpeechData(text);
+      setEntries(list);
+      setStatusMsg(
+        added > 0
+          ? `Imported ${added} item${added === 1 ? '' : 's'}${skipped > added ? ` (${skipped - added} already on this device)` : ''}.`
+          : 'All items in the file are already on this device.',
+      );
+      scrollToSavedItems();
+    } catch (e) {
+      setError(String(e.message || e));
+    }
+  }
+
   const historyProps = {
     entries,
     activeId: activeEntry?.id,
     sectionRef: savedItemsRef,
+    importInputRef,
     onOpen: (entry) => openEntry(entry, true),
     onRename: handleRename,
     onRemove: handleRemove,
+    onExport: handleExport,
+    onImportClick: () => importInputRef.current?.click(),
+    onImportFile: handleImportFile,
   };
 
   if (stage === 'loading') {
@@ -167,6 +206,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
     return (
       <>
         {error && <div className="status error">{error}</div>}
+        {statusMsg && <div className="status">{statusMsg}</div>}
 
         <div className="session-meta">
           <span>{activeEntry.title}</span>
@@ -209,6 +249,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
   return (
     <>
       {error && <div className="status error">{error}</div>}
+      {statusMsg && <div className="status">{statusMsg}</div>}
 
       <p className="field-hint" style={{ marginBottom: 24 }}>
         Register text to convert it to speech. Use <strong>M:</strong> for a male voice and <strong>F:</strong> for a female voice. Lines without a prefix are read in a male voice.
@@ -248,16 +289,37 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
   );
 }
 
-function CustomSpeechHistory({ entries, activeId, sectionRef, onOpen, onRename, onRemove }) {
+function CustomSpeechHistory({ entries, activeId, sectionRef, importInputRef, onOpen, onRename, onRemove, onExport, onImportClick, onImportFile }) {
   return (
     <section className="history-section" ref={sectionRef}>
-      <h2 className="history-heading">Saved items</h2>
+      <div className="history-section-header">
+        <h2 className="history-heading">Saved items</h2>
+        <div className="history-sync-actions">
+          <button type="button" className="btn btn-ghost btn-sm" onClick={onExport} disabled={entries.length === 0}>
+            Export
+          </button>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={onImportClick}>
+            Import
+          </button>
+          <input
+            ref={importInputRef}
+            type="file"
+            accept="application/json,.json"
+            className="sr-only"
+            onChange={onImportFile}
+            aria-hidden="true"
+            tabIndex={-1}
+          />
+        </div>
+      </div>
       {entries.length === 0 ? (
-        <p className="field-hint">No saved items yet. Create one above — items are stored in this browser only.</p>
+        <p className="field-hint">
+          No saved items yet. Create one above. Items stay on this device — use Export on PC and Import here to move them.
+        </p>
       ) : (
         <>
           <p className="field-hint">
-            Tap a title to rename it. After the first playback, audio is saved in your browser and later replays use no API calls.
+            Tap a title to rename it. After the first playback, audio is saved in your browser. Use Export / Import to move items between devices.
           </p>
           <ul className="history-list">
             {entries.map((entry) => (

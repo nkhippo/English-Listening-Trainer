@@ -5,6 +5,8 @@ import { buildCustomSpeechTtsInstructions } from './api.js';
 
 const STORAGE_KEY = 'elt_custom_speech';
 const MAX_ENTRIES = 50;
+export const CUSTOM_SPEECH_EXPORT_TYPE = 'elt_custom_speech';
+export const CUSTOM_SPEECH_EXPORT_VERSION = 1;
 
 const SPEAKER_PREFIX = /^(M|F)[：:]\s*/i;
 
@@ -128,4 +130,75 @@ export function formatCustomSpeechDate(iso) {
 
 export function ttsInstructionsForEntry(entry) {
   return entry.tts_instructions || buildCustomSpeechTtsInstructions(entry.lines);
+}
+
+function normalizeImportedEntry(raw) {
+  if (!raw || typeof raw !== 'object') return null;
+  const body = typeof raw.body === 'string' ? raw.body.trim() : '';
+  if (!body) return null;
+
+  const parsedLines = Array.isArray(raw.lines) && raw.lines.length > 0
+    ? raw.lines
+    : parseCustomSpeechBody(body);
+  if (parsedLines.length === 0) return null;
+
+  return {
+    id: typeof raw.id === 'string' && raw.id ? raw.id : computeCustomSpeechId(),
+    title: typeof raw.title === 'string' && raw.title.trim() ? raw.title.trim() : 'Untitled',
+    body,
+    lines: parsedLines,
+    tts_instructions: typeof raw.tts_instructions === 'string' ? raw.tts_instructions : '',
+    createdAt: typeof raw.createdAt === 'string' ? raw.createdAt : new Date().toISOString(),
+  };
+}
+
+export function exportCustomSpeechData() {
+  return JSON.stringify({
+    version: CUSTOM_SPEECH_EXPORT_VERSION,
+    type: CUSTOM_SPEECH_EXPORT_TYPE,
+    exportedAt: new Date().toISOString(),
+    entries: loadCustomSpeechList(),
+  }, null, 2);
+}
+
+/**
+ * Import saved speech entries from a JSON export file.
+ * Merges by id: existing local entries are kept, new ids are appended.
+ */
+export function importCustomSpeechData(jsonText) {
+  let parsed;
+  try {
+    parsed = JSON.parse(jsonText);
+  } catch {
+    throw new Error('Invalid JSON file');
+  }
+
+  const rawEntries = Array.isArray(parsed)
+    ? parsed
+    : parsed?.type === CUSTOM_SPEECH_EXPORT_TYPE && Array.isArray(parsed.entries)
+      ? parsed.entries
+      : null;
+
+  if (!rawEntries) {
+    throw new Error('Unrecognized backup file format');
+  }
+
+  const imported = rawEntries.map(normalizeImportedEntry).filter(Boolean);
+  if (imported.length === 0) {
+    throw new Error('No valid saved items found in file');
+  }
+
+  const existing = loadCustomSpeechList();
+  const existingIds = new Set(existing.map((e) => e.id));
+  const merged = [
+    ...existing,
+    ...imported.filter((e) => !existingIds.has(e.id)),
+  ].slice(0, MAX_ENTRIES);
+
+  if (!saveCustomSpeechList(merged)) {
+    throw new Error('Could not save imported items — browser storage may be full');
+  }
+
+  const added = merged.length - existing.length;
+  return { list: merged, added, skipped: imported.length - added };
 }
