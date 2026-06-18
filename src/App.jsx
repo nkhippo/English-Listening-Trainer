@@ -16,8 +16,10 @@ import {
 import { useAudioPlayer } from './hooks/useAudioPlayer.js';
 import Waveform from './components/Waveform.jsx';
 import AudioProgressBar from './components/AudioProgressBar.jsx';
+import CustomSpeechTab from './components/CustomSpeechTab.jsx';
 
 const LS_KEYS = {
+  appTab: 'elt_app_tab',
   anthropic: 'elt_anthropic_key',
   mode: 'elt_last_mode',
   scene: 'elt_last_scene',
@@ -26,6 +28,7 @@ const LS_KEYS = {
 
 export default function App() {
   const audioPlayer = useAudioPlayer();
+  const [appTab, setAppTab] = useState(() => localStorage.getItem(LS_KEYS.appTab) || 'trainer');
   const [stage, setStage] = useState('setup');
   const [settingsOpen, setSettingsOpen] = useState(() => !localStorage.getItem(LS_KEYS.anthropic));
   const [anthropicKey, setAnthropicKey] = useState(localStorage.getItem(LS_KEYS.anthropic) || '');
@@ -41,6 +44,7 @@ export default function App() {
   const [statusMsg, setStatusMsg] = useState('');
   const [sessionKey, setSessionKey] = useState(0);
 
+  useEffect(() => { localStorage.setItem(LS_KEYS.appTab, appTab); }, [appTab]);
   useEffect(() => { if (anthropicKey) localStorage.setItem(LS_KEYS.anthropic, anthropicKey); }, [anthropicKey]);
   useEffect(() => { localStorage.setItem(LS_KEYS.mode, mode); }, [mode]);
   useEffect(() => { localStorage.setItem(LS_KEYS.scene, scene); }, [scene]);
@@ -198,7 +202,7 @@ export default function App() {
       <header className="header">
         <div>
           <div className="brand">English Listening Trainer</div>
-          <div className="brand-sub">Layer 3 focus</div>
+          <div className="brand-sub">{appTab === 'trainer' ? 'Layer 3 focus' : 'Custom speech'}</div>
         </div>
         <button
           type="button"
@@ -210,6 +214,25 @@ export default function App() {
         </button>
       </header>
 
+      <nav className="app-tabs" aria-label="App mode">
+        <button
+          type="button"
+          className="app-tab"
+          aria-pressed={appTab === 'trainer'}
+          onClick={() => setAppTab('trainer')}
+        >
+          Listening
+        </button>
+        <button
+          type="button"
+          className="app-tab"
+          aria-pressed={appTab === 'speech'}
+          onClick={() => setAppTab('speech')}
+        >
+          Speech
+        </button>
+      </nav>
+
       {settingsOpen && (
         <SettingsPanel
           anthropicKey={anthropicKey}
@@ -219,7 +242,11 @@ export default function App() {
         />
       )}
 
-      {stage === 'setup' && (
+      {appTab === 'speech' && (
+        <CustomSpeechTab audioPlayer={audioPlayer} gasUrl={gasUrl} />
+      )}
+
+      {appTab === 'trainer' && stage === 'setup' && (
         <Setup
           isConfigured={isConfigured}
           mode={mode} setMode={setMode}
@@ -235,11 +262,11 @@ export default function App() {
         />
       )}
 
-      {stage === 'loading' && (
+      {appTab === 'trainer' && stage === 'loading' && (
         <div className="status">{statusMsg || 'Loading…'}</div>
       )}
 
-      {stage === 'session' && item && (
+      {appTab === 'trainer' && stage === 'session' && item && (
         <Session
           key={sessionKey}
           item={item}
@@ -254,7 +281,7 @@ export default function App() {
         />
       )}
 
-      {stage === 'review' && item && (
+      {appTab === 'trainer' && stage === 'review' && item && (
         <Review
           item={item}
           mode={mode}

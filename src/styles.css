@@ -84,6 +84,37 @@ html, body {
   color: var(--ink-mute);
 }
 
+/* ===== App tabs ===== */
+.app-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.app-tab {
+  flex: 1;
+  padding: 10px var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.app-tab:hover {
+  border-color: var(--ink-mute);
+}
+
+.app-tab[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+}
+
 /* ===== Buttons ===== */
 .btn {
   font-family: var(--font-sans);
@@ -555,6 +586,30 @@ input:focus, textarea:focus, select:focus {
 
 .history-remove {
   opacity: 0.5;
+}
+
+.history-title-btn {
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.history-title-btn:hover {
+  text-decoration: underline;
+}
+
+.history-title-input {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 4px 8px;
 }
 
 /* ===== Audio progress bar (fixed bottom) ===== */
