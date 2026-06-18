@@ -18,7 +18,7 @@ import Waveform from './Waveform.jsx';
 
 const TTS_LEVEL = 3; // 1.0x speed
 
-export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
+export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey, scheduleCloudSync, refreshKey, syncStatus }) {
   const [stage, setStage] = useState('register');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -48,14 +48,13 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
 
   useEffect(() => () => revokeAudioUrl(), []);
 
-  // iOS Safari may discard in-memory state when backgrounded; reload from localStorage.
   useEffect(() => {
-    function onVisible() {
-      if (document.visibilityState === 'visible') refreshEntries();
-    }
-    document.addEventListener('visibilitychange', onVisible);
-    return () => document.removeEventListener('visibilitychange', onVisible);
-  }, []);
+    refreshEntries();
+  }, [refreshKey]);
+
+  function notifyCloudChange() {
+    scheduleCloudSync?.();
+  }
 
   async function loadAudioForEntry(entry) {
     const cachedBase64 = getCachedAudio(entry.id);
@@ -108,6 +107,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
       });
       const { entry, list } = addCustomSpeechEntry({ title, body, ttsInstructions });
       setEntries(list);
+      notifyCloudChange();
       setTitle('');
       setBody('');
       await openEntry(entry);
@@ -142,6 +142,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
 
   function handleRename(id, newTitle) {
     setEntries(updateCustomSpeechTitle(id, newTitle));
+    notifyCloudChange();
     if (activeEntry?.id === id) {
       setActiveEntry((prev) => ({ ...prev, title: newTitle.trim() || 'Untitled' }));
     }
@@ -149,6 +150,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
 
   function handleRemove(id) {
     setEntries(removeCustomSpeechEntry(id));
+    notifyCloudChange();
     if (activeEntry?.id === id) handleBack();
   }
 
@@ -173,6 +175,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
       const text = await file.text();
       const { list, added, skipped } = importCustomSpeechData(text);
       setEntries(list);
+      notifyCloudChange();
       setStatusMsg(
         added > 0
           ? `Imported ${added} item${added === 1 ? '' : 's'}${skipped > added ? ` (${skipped - added} already on this device)` : ''}.`
@@ -195,6 +198,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
     onExport: handleExport,
     onImportClick: () => importInputRef.current?.click(),
     onImportFile: handleImportFile,
+    syncStatus,
   };
 
   if (stage === 'loading') {
@@ -289,17 +293,21 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey }) {
   );
 }
 
-function CustomSpeechHistory({ entries, activeId, sectionRef, importInputRef, onOpen, onRename, onRemove, onExport, onImportClick, onImportFile }) {
+function CustomSpeechHistory({ entries, activeId, sectionRef, importInputRef, onOpen, onRename, onRemove, onExport, onImportClick, onImportFile, syncStatus }) {
+  const cloudEnabled = syncStatus && syncStatus !== 'disabled';
   return (
     <section className="history-section" ref={sectionRef}>
       <div className="history-section-header">
         <h2 className="history-heading">Saved items</h2>
         <div className="history-sync-actions">
+          {cloudEnabled && (
+            <span className="sync-badge">{syncStatus === 'syncing' ? 'Syncing…' : syncStatus === 'synced' ? 'Synced' : 'Cloud'}</span>
+          )}
           <button type="button" className="btn btn-ghost btn-sm" onClick={onExport} disabled={entries.length === 0}>
-            Export
+            Backup
           </button>
           <button type="button" className="btn btn-ghost btn-sm" onClick={onImportClick}>
-            Import
+            Restore
           </button>
           <input
             ref={importInputRef}
@@ -314,12 +322,16 @@ function CustomSpeechHistory({ entries, activeId, sectionRef, importInputRef, on
       </div>
       {entries.length === 0 ? (
         <p className="field-hint">
-          No saved items yet. Create one above. Items stay on this device — use Export on PC and Import here to move them.
+          No saved items yet. Create one above.
+          {cloudEnabled
+            ? ' Cloud sync is enabled — items appear on your linked devices automatically.'
+            : ' Enable cloud sync in Settings to share items across devices.'}
         </p>
       ) : (
         <>
           <p className="field-hint">
-            Tap a title to rename it. After the first playback, audio is saved in your browser. Use Export / Import to move items between devices.
+            Tap a title to rename it. After the first playback, audio is saved in your browser.
+            {cloudEnabled ? ' Items sync across linked devices.' : ' Enable cloud sync in Settings to share across devices.'}
           </p>
           <ul className="history-list">
             {entries.map((entry) => (

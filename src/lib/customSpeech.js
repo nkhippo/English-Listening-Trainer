@@ -52,17 +52,38 @@ export function computeCustomSpeechId() {
 }
 
 export function loadCustomSpeechList() {
+  return loadCustomSpeechListRaw().filter((e) => !e.deletedAt);
+}
+
+export function loadCustomSpeechListRaw() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     const list = raw ? JSON.parse(raw) : [];
-    return Array.isArray(list) ? list : [];
+    if (!Array.isArray(list)) return [];
+    return list.map(normalizeCustomSpeechEntry);
   } catch {
     return [];
   }
 }
 
+function normalizeCustomSpeechEntry(entry) {
+  const createdAt = entry.createdAt || new Date().toISOString();
+  return {
+    ...entry,
+    createdAt,
+    updatedAt: entry.updatedAt || createdAt,
+    deletedAt: entry.deletedAt || null,
+  };
+}
+
+export function replaceCustomSpeechRaw(list) {
+  saveCustomSpeechList((list || []).map(normalizeCustomSpeechEntry));
+}
+
 function saveCustomSpeechList(list) {
-  const payload = JSON.stringify(list.slice(0, MAX_ENTRIES));
+  const active = list.filter((e) => !e.deletedAt);
+  const tombstones = list.filter((e) => e.deletedAt);
+  const payload = JSON.stringify([...active.slice(0, MAX_ENTRIES), ...tombstones]);
   try {
     localStorage.setItem(STORAGE_KEY, payload);
     return true;
@@ -70,7 +91,10 @@ function saveCustomSpeechList(list) {
     console.warn('Custom speech save failed:', err);
     // Retry with fewer entries when storage quota is exceeded (common on iOS Safari).
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(0, Math.min(20, list.length))));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([
+        ...active.slice(0, Math.min(20, active.length)),
+        ...tombstones,
+      ]));
       return true;
     } catch {
       return false;
@@ -82,36 +106,49 @@ export function addCustomSpeechEntry({ title, body, ttsInstructions }) {
   const parsedLines = parseCustomSpeechBody(body);
   if (parsedLines.length === 0) throw new Error('Enter body text');
 
+  const now = new Date().toISOString();
   const entry = {
     id: computeCustomSpeechId(),
     title: title.trim() || 'Untitled',
     body: body.trim(),
     lines: parsedLines,
     tts_instructions: ttsInstructions,
-    createdAt: new Date().toISOString(),
+    createdAt: now,
+    updatedAt: now,
+    deletedAt: null,
   };
 
-  const list = [entry, ...loadCustomSpeechList()];
+  const list = [entry, ...loadCustomSpeechListRaw()];
   if (!saveCustomSpeechList(list)) {
     throw new Error('Could not save item — browser storage may be full. Delete old items or clear cached audio.');
   }
-  return { entry, list };
+  return { entry, list: loadCustomSpeechList() };
 }
 
 export function updateCustomSpeechTitle(id, title) {
-  const list = loadCustomSpeechList();
+  const now = new Date().toISOString();
+  const list = loadCustomSpeechListRaw();
   const idx = list.findIndex((e) => e.id === id);
-  if (idx === -1) return list;
-  list[idx] = { ...list[idx], title: title.trim() || 'Untitled' };
+  if (idx === -1) return loadCustomSpeechList();
+  list[idx] = {
+    ...list[idx],
+    title: title.trim() || 'Untitled',
+    updatedAt: now,
+    deletedAt: null,
+  };
   saveCustomSpeechList(list);
-  return list;
+  return loadCustomSpeechList();
 }
 
 export function removeCustomSpeechEntry(id) {
-  const list = loadCustomSpeechList().filter((e) => e.id !== id);
+  const now = new Date().toISOString();
+  const list = loadCustomSpeechListRaw();
+  const idx = list.findIndex((e) => e.id === id);
+  if (idx === -1) return loadCustomSpeechList();
+  list[idx] = { ...list[idx], deletedAt: now, updatedAt: now };
   saveCustomSpeechList(list);
   removeCachedAudio(id);
-  return list;
+  return loadCustomSpeechList();
 }
 
 export function formatCustomSpeechDate(iso) {
@@ -149,6 +186,8 @@ function normalizeImportedEntry(raw) {
     lines: parsedLines,
     tts_instructions: typeof raw.tts_instructions === 'string' ? raw.tts_instructions : '',
     createdAt: typeof raw.createdAt === 'string' ? raw.createdAt : new Date().toISOString(),
+    updatedAt: typeof raw.updatedAt === 'string' ? raw.updatedAt : (typeof raw.createdAt === 'string' ? raw.createdAt : new Date().toISOString()),
+    deletedAt: null,
   };
 }
 
@@ -188,17 +227,17 @@ export function importCustomSpeechData(jsonText) {
     throw new Error('No valid saved items found in file');
   }
 
-  const existing = loadCustomSpeechList();
-  const existingIds = new Set(existing.map((e) => e.id));
+  const existing = loadCustomSpeechListRaw();
+  const existingIds = new Set(existing.filter((e) => !e.deletedAt).map((e) => e.id));
   const merged = [
-    ...existing,
+    ...existing.filter((e) => !e.deletedAt),
     ...imported.filter((e) => !existingIds.has(e.id)),
   ].slice(0, MAX_ENTRIES);
 
-  if (!saveCustomSpeechList(merged)) {
+  if (!saveCustomSpeechList(merged.map((e) => ({ ...e, updatedAt: new Date().toISOString() })))) {
     throw new Error('Could not save imported items — browser storage may be full');
   }
 
-  const added = merged.length - existing.length;
-  return { list: merged, added, skipped: imported.length - added };
+  const added = merged.length - existing.filter((e) => !e.deletedAt).length;
+  return { list: loadCustomSpeechList(), added, skipped: imported.length - added };
 }

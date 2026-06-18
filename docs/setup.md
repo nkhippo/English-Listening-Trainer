@@ -10,6 +10,7 @@ English Listening Trainer を動かすために必要な API キーと GAS（Goo
 | OpenAI API キー | 音声合成（TTS） | GAS Script Properties |
 | GAS Web App URL | TTS プロキシのエンドポイント | ブラウザ localStorage |
 | Google Drive フォルダ | TTS 音声のサーバー側キャッシュ | GAS Script Properties |
+| Google Drive フォルダ（同期用） | Listening / Speech データのクラウド同期 | GAS Script Properties |
 
 ---
 
@@ -60,6 +61,7 @@ OpenAI の TTS API キーをブラウザに露出させないため、Google App
 |------------|-----|
 | `OPENAI_API_KEY` | OpenAI の API キー（`sk-...`） |
 | `CACHE_FOLDER_ID` | 手順 1 で控えた Drive フォルダ ID |
+| `SYNC_FOLDER_ID` | クラウド同期用 Drive フォルダ ID（後述） |
 
 ### 4. OpenAI API キーの取得
 
@@ -106,6 +108,34 @@ npm run dev
 
 ---
 
+## クラウド同期（Listening + Speech）
+
+Listening の **Past items** と Speech の **Saved items** を、PC と iPhone など複数端末で共有できます。データは GAS 経由で Google Drive 上の JSON に保存されます（音声ファイル本体は同期しません）。
+
+### GAS 側の追加設定
+
+1. Google Drive に同期用フォルダを作成（例: `ELT User Sync`）
+2. Script Properties に `SYNC_FOLDER_ID` を追加（フォルダ ID）
+3. [`gas/Code.gs`](../gas/Code.gs) を最新版に更新し、Web アプリを **新しいデプロイ** として再公開
+4. 再デプロイ後の `/exec` URL をアプリの GAS 設定（`src/lib/config.js` の `DEFAULT_GAS_URL`）に反映
+
+### アプリ側の設定（各端末）
+
+1. **Settings** → **Generate sync token**（1 台目のみ）
+2. **Copy token** でクリップボードにコピー
+3. 2 台目以降: 1 台目でコピーした状態で **Link from clipboard**
+
+トークンは手入力できません。2 台目への共有はコピー＋クリップボードリンクのみです。
+
+### 同期の挙動
+
+- 変更は約 2 秒後に自動でクラウドへ反映されます
+- アプリを開き直す、またはタブに戻るとクラウドから取得してマージします
+- 同一 ID の競合は `updatedAt` が新しい方を採用します
+- 削除は論理削除として他端末へ伝播します
+
+---
+
 ## API リクエストの節約（アプリ側キャッシュ）
 
 アプリは次の 2 段階で API コストを抑えます。
@@ -139,6 +169,9 @@ npm run dev
 | `CACHE_FOLDER_ID not set` | Drive フォルダ ID が正しいか確認 |
 | `TTS proxy 403/404` | Web アプリの「アクセス: 全員」で再デプロイ |
 | CORS エラー | GAS URL が `/exec` で終わっているか確認 |
+| `SYNC_FOLDER_ID not set` | 同期用 Drive フォルダ ID が Script Properties に設定されているか確認 |
+| `Invalid sync token` | Settings で Generate または Link from clipboard を使う（手入力不可） |
+| クラウド同期が動かない | GAS を sync 対応版で再デプロイ済みか、`DEFAULT_GAS_URL` が新 URL か確認 |
 | 音声が保存されない | ブラウザの localStorage 容量（約 5MB）が不足している可能性。古い過去問を削除 |
 
 ---

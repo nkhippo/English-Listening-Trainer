@@ -10,14 +10,10 @@
  *   5. Copy the /exec URL into the app's "GAS Endpoint URL" field.
  *
  * Request body (JSON, sent as text/plain to avoid CORS preflight):
- *   {
- *     action: 'tts',
- *     lines: [{ speaker: 'A', text: '...' }, ...],
- *     voiceA: 'nova',
- *     voiceB: 'onyx',
- *     speed: 1.0,
- *     instructions: 'Friendly customer-service tone, natural pace.'
- *   }
+ *   TTS:  { action: 'tts', lines: [...], voiceA, voiceB, speed, instructions }
+ *   Sync: { action: 'sync_pull'|'sync_push', token, speech?: [...], history?: [...] }
+ *
+ * Script Properties: OPENAI_API_KEY, CACHE_FOLDER_ID, SYNC_FOLDER_ID
  *
  * Response:
  *   { audioBase64: '...', mimeType: 'audio/mpeg', cached: true|false, perLine: [...] }
@@ -29,11 +25,16 @@ const OPENAI_MODEL = 'gpt-4o-mini-tts';
 function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
-    if (body.action !== 'tts') {
-      return jsonResponse({ error: `Unknown action: ${body.action}` });
+    if (body.action === 'tts') {
+      return jsonResponse(handleTTS(body));
     }
-    const result = handleTTS(body);
-    return jsonResponse(result);
+    if (body.action === 'sync_pull') {
+      return jsonResponse(handleSyncPull(body));
+    }
+    if (body.action === 'sync_push') {
+      return jsonResponse(handleSyncPush(body));
+    }
+    return jsonResponse({ error: `Unknown action: ${body.action}` });
   } catch (err) {
     return jsonResponse({ error: String(err && err.message || err) });
   }
@@ -163,4 +164,119 @@ function jsonResponse(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ===== Cloud sync (Drive JSON per sync token) =====
+
+const SYNC_FILE_PREFIX = 'elt-sync-';
+const SYNC_DOC_VERSION = 1;
+
+function validateSyncToken_(token) {
+  if (typeof token !== 'string') throw new Error('Sync token required');
+  const trimmed = token.trim();
+  if (!/^[A-Za-z0-9_-]{24,64}$/.test(trimmed)) {
+    throw new Error('Invalid sync token');
+  }
+  return trimmed;
+}
+
+function syncFileName_(token) {
+  return `${SYNC_FILE_PREFIX}${sha256(token)}.json`;
+}
+
+function getSyncFolder_() {
+  const id = PropertiesService.getScriptProperties().getProperty('SYNC_FOLDER_ID');
+  if (!id) throw new Error('SYNC_FOLDER_ID not set in Script Properties');
+  return DriveApp.getFolderById(id);
+}
+
+function emptySyncDoc_() {
+  return {
+    version: SYNC_DOC_VERSION,
+    updatedAt: new Date(0).toISOString(),
+    speech: [],
+    history: [],
+  };
+}
+
+function readSyncDoc_(token) {
+  const folder = getSyncFolder_();
+  const name = syncFileName_(token);
+  const files = folder.getFilesByName(name);
+  if (!files.hasNext()) return null;
+  const raw = files.next().getBlob().getDataAsString('UTF-8');
+  const parsed = JSON.parse(raw);
+  return {
+    version: parsed.version || SYNC_DOC_VERSION,
+    updatedAt: parsed.updatedAt || new Date(0).toISOString(),
+    speech: Array.isArray(parsed.speech) ? parsed.speech : [],
+    history: Array.isArray(parsed.history) ? parsed.history : [],
+  };
+}
+
+function writeSyncDoc_(token, doc) {
+  const folder = getSyncFolder_();
+  const name = syncFileName_(token);
+  const payload = JSON.stringify(doc);
+  const blob = Utilities.newBlob(payload, 'application/json', name);
+  const files = folder.getFilesByName(name);
+  if (files.hasNext()) {
+    files.next().setContent(payload);
+  } else {
+    folder.createFile(blob);
+  }
+}
+
+function entryTimestamp_(entry) {
+  if (!entry) return 0;
+  const raw = entry.updatedAt || entry.lastPlayedAt || entry.createdAt || 0;
+  const ts = new Date(raw).getTime();
+  return Number.isFinite(ts) ? ts : 0;
+}
+
+function mergeEntryLists_(serverList, clientList) {
+  const byId = {};
+  const all = []
+    .concat(Array.isArray(serverList) ? serverList : [])
+    .concat(Array.isArray(clientList) ? clientList : []);
+
+  for (let i = 0; i < all.length; i++) {
+    const entry = all[i];
+    if (!entry || typeof entry.id !== 'string' || !entry.id) continue;
+    const prev = byId[entry.id];
+    if (!prev || entryTimestamp_(entry) >= entryTimestamp_(prev)) {
+      byId[entry.id] = entry;
+    }
+  }
+
+  return Object.keys(byId).map(function (id) { return byId[id]; });
+}
+
+function handleSyncPull(body) {
+  const token = validateSyncToken_(body.token);
+  const doc = readSyncDoc_(token) || emptySyncDoc_();
+  return {
+    version: doc.version,
+    updatedAt: doc.updatedAt,
+    speech: doc.speech,
+    history: doc.history,
+  };
+}
+
+function handleSyncPush(body) {
+  const token = validateSyncToken_(body.token);
+  const existing = readSyncDoc_(token) || emptySyncDoc_();
+  const merged = {
+    version: SYNC_DOC_VERSION,
+    updatedAt: new Date().toISOString(),
+    speech: mergeEntryLists_(existing.speech, body.speech || []),
+    history: mergeEntryLists_(existing.history, body.history || []),
+  };
+  writeSyncDoc_(token, merged);
+  return {
+    ok: true,
+    updatedAt: merged.updatedAt,
+    speechCount: merged.speech.filter(function (e) { return !e.deletedAt; }).length,
+    historyCount: merged.history.filter(function (e) { return !e.deletedAt; }).length,
+  };
 }

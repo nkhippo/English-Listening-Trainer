@@ -214,6 +214,62 @@ input:focus, textarea:focus, select:focus {
   font-weight: 500;
 }
 
+.settings-block {
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.settings-block:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.settings-subheading {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 var(--space-2);
+}
+
+.sync-token-display {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-3) 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.sync-token-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+}
+
+.sync-token-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.sync-status-line {
+  margin-top: 0;
+}
+
+.sync-badge {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--success);
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
 .onboarding-banner {
   margin-bottom: var(--space-5);
   padding: var(--space-4);

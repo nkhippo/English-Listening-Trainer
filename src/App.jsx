@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { SCENES, LEVELS, MODES } from './lib/prompts.js';
 import { generateItem, resolveItemAudio, base64ToAudioUrl, normalizeItem } from './lib/api.js';
 import { DEFAULT_GAS_URL } from './lib/config.js';
@@ -14,6 +14,8 @@ import {
   hasCachedAudio,
 } from './lib/storage.js';
 import { useAudioPlayer } from './hooks/useAudioPlayer.js';
+import { useCloudSync } from './hooks/useCloudSync.js';
+import { maskSyncToken } from './lib/syncToken.js';
 import Waveform from './components/Waveform.jsx';
 import AudioProgressBar from './components/AudioProgressBar.jsx';
 import CustomSpeechTab from './components/CustomSpeechTab.jsx';
@@ -43,6 +45,15 @@ export default function App() {
   const [error, setError] = useState('');
   const [statusMsg, setStatusMsg] = useState('');
   const [sessionKey, setSessionKey] = useState(0);
+  const [speechRefreshKey, setSpeechRefreshKey] = useState(0);
+
+  const handleCloudSynced = useCallback(() => {
+    setHistory(loadHistory());
+    setSpeechRefreshKey((k) => k + 1);
+  }, []);
+
+  const cloudSync = useCloudSync({ gasUrl, onSynced: handleCloudSynced });
+  const { schedulePush: scheduleCloudSync } = cloudSync;
 
   useEffect(() => { localStorage.setItem(LS_KEYS.appTab, appTab); }, [appTab]);
   useEffect(() => { if (anthropicKey) localStorage.setItem(LS_KEYS.anthropic, anthropicKey); }, [anthropicKey]);
@@ -119,6 +130,7 @@ export default function App() {
         setHistory(upsertHistoryEntry({
           id, item: normalized, mode: sessionMode, scene: sessionScene, level: sessionLevel,
         }));
+        scheduleCloudSync();
       } catch (histErr) {
         console.warn('History save failed:', histErr);
       }
@@ -153,6 +165,7 @@ export default function App() {
   async function replayFromHistory(entry) {
     touchHistoryEntry(entry.id);
     setHistory(loadHistory());
+    scheduleCloudSync();
     await openSession({
       generated: normalizeItem(entry.item),
       id: entry.id,
@@ -176,6 +189,7 @@ export default function App() {
       }
       touchHistoryEntry(entry.id);
       setHistory(loadHistory());
+      scheduleCloudSync();
       audioPlayer.play(url, entry.id, { showProgress: true });
     } catch (e) {
       console.error(e);
@@ -195,6 +209,7 @@ export default function App() {
 
   function handleRemoveHistory(id) {
     setHistory(removeHistoryEntry(id));
+    scheduleCloudSync();
   }
 
   return (
@@ -239,11 +254,19 @@ export default function App() {
           isConfigured={isConfigured}
           onSave={saveAnthropicKey}
           onClear={clearAnthropicKey}
+          cloudSync={cloudSync}
         />
       )}
 
       {appTab === 'speech' && (
-        <CustomSpeechTab audioPlayer={audioPlayer} gasUrl={gasUrl} anthropicKey={anthropicKey} />
+        <CustomSpeechTab
+          audioPlayer={audioPlayer}
+          gasUrl={gasUrl}
+          anthropicKey={anthropicKey}
+          scheduleCloudSync={scheduleCloudSync}
+          refreshKey={speechRefreshKey}
+          syncStatus={cloudSync.syncStatus}
+        />
       )}
 
       {appTab === 'trainer' && stage === 'setup' && (
@@ -259,6 +282,7 @@ export default function App() {
           onReplay={replayFromHistory}
           onListen={listenFromHistory}
           onRemoveHistory={handleRemoveHistory}
+          syncStatus={cloudSync.syncStatus}
         />
       )}
 
@@ -316,19 +340,82 @@ export default function App() {
   );
 }
 
-function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear }) {
+function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync }) {
   const [draft, setDraft] = useState(anthropicKey);
+  const {
+    syncToken,
+    syncStatus,
+    syncError,
+    handleGenerateToken,
+    handleLinkFromClipboard,
+    handleCopyToken,
+    handleClearToken,
+  } = cloudSync;
 
   useEffect(() => {
     setDraft(anthropicKey);
   }, [anthropicKey]);
 
+  const syncStatusLabel = {
+    disabled: 'Cloud sync off',
+    idle: 'Cloud sync ready',
+    syncing: 'Syncing…',
+    synced: 'Synced',
+    error: 'Sync error',
+  }[syncStatus] || syncStatus;
+
   return (
     <section className="settings-panel">
       <h2 className="settings-heading">Settings</h2>
-      <p className="field-hint">
-        Your Anthropic API key is stored only in this browser. Speech synthesis uses the built-in GAS proxy.
-      </p>
+
+      <div className="settings-block">
+        <h3 className="settings-subheading">Cloud sync</h3>
+        <p className="field-hint">
+          Sync Listening past items and Speech saved items across your devices. Generate a token on one device, copy it, then link your other device from the clipboard.
+        </p>
+        {syncToken ? (
+          <>
+            <div className="sync-token-display" aria-live="polite">
+              <span className="sync-token-label">Sync token</span>
+              <code className="sync-token-value">{maskSyncToken(syncToken)}</code>
+            </div>
+            <p className="field-hint sync-status-line">
+              Status: {syncStatusLabel}
+              {syncError ? ` — ${syncError}` : ''}
+            </p>
+            <div className="row">
+              <button type="button" className="btn btn-ghost btn-sm" onClick={handleCopyToken}>
+                Copy token
+              </button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={handleLinkFromClipboard}>
+                Link from clipboard
+              </button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={handleClearToken}>
+                Unlink device
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="field-hint sync-status-line">Status: {syncStatusLabel}</p>
+            {syncError && <p className="field-hint sync-status-line">{syncError}</p>}
+            <div className="row">
+              <button type="button" className="btn btn-sm" onClick={handleGenerateToken}>
+                Generate sync token
+              </button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={handleLinkFromClipboard}>
+                Link from clipboard
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <div className="settings-block">
+        <h3 className="settings-subheading">Anthropic API</h3>
+        <p className="field-hint">
+          Your Anthropic API key is stored only in this browser. Speech synthesis uses the built-in GAS proxy.
+        </p>
       <div className="field">
         <label>Anthropic API Key</label>
         <input
@@ -358,6 +445,7 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear }) {
           </button>
         )}
       </div>
+      </div>
     </section>
   );
 }
@@ -366,6 +454,7 @@ function Setup({
   isConfigured,
   mode, setMode, scene, setScene, level, setLevel,
   onStart, onOpenSettings, error, history, onReplay, onListen, onRemoveHistory,
+  syncStatus,
 }) {
   const canStart = isConfigured;
   return (
@@ -441,18 +530,22 @@ function Setup({
           onReplay={onReplay}
           onListen={onListen}
           onRemove={onRemoveHistory}
+          syncStatus={syncStatus}
         />
       )}
     </>
   );
 }
 
-function HistoryList({ history, onReplay, onListen, onRemove }) {
+function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
   return (
     <section className="history-section">
       <h2 className="history-heading">Past items</h2>
       <p className="field-hint">
-        Replay sentences you have already practiced. Audio is saved in your browser after the first play, so later replays use no API calls.
+        Replay sentences you have already practiced. Audio is saved in your browser after the first play.
+        {syncStatus && syncStatus !== 'disabled'
+          ? ' Items sync across devices when cloud sync is enabled in Settings.'
+          : ' Enable cloud sync in Settings to share items across devices.'}
       </p>
       <ul className="history-list">
         {history.map((entry) => (
