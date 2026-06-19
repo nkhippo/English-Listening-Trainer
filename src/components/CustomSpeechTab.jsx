@@ -13,12 +13,15 @@ import {
   importCustomSpeechData,
 } from '../lib/customSpeech.js';
 import { resolveItemAudio, base64ToAudioUrl, generateCustomSpeechTtsInstructions } from '../lib/api.js';
-import { getCachedAudio, saveCachedAudio, hasCachedAudio } from '../lib/storage.js';
+import { pullCloudAudio } from '../lib/sync.js';
+import { getCachedAudio, hasCachedAudio } from '../lib/storage.js';
 import Waveform from './Waveform.jsx';
 
 const TTS_LEVEL = 3; // 1.0x speed
 
-export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey, scheduleCloudSync, refreshKey, syncStatus }) {
+export default function CustomSpeechTab({
+  audioPlayer, gasUrl, anthropicKey, scheduleCloudSync, cacheAudioLocallyAndCloud, scheduleAudioDelete, refreshKey, syncStatus,
+}) {
   const [stage, setStage] = useState('register');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -57,6 +60,13 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey, sch
   }
 
   async function loadAudioForEntry(entry) {
+    if (!hasCachedAudio(entry.id)) {
+      try {
+        await pullCloudAudio({ gasUrl, itemId: entry.id });
+      } catch (err) {
+        console.warn('Cloud audio fetch failed:', err);
+      }
+    }
     const cachedBase64 = getCachedAudio(entry.id);
     const tts = await resolveItemAudio({
       itemId: entry.id,
@@ -67,7 +77,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey, sch
       instructions: ttsInstructionsForEntry(entry),
       voice: CUSTOM_SPEECH_VOICES.female,
       voiceB: CUSTOM_SPEECH_VOICES.male,
-      onCacheSave: saveCachedAudio,
+      onCacheSave: cacheAudioLocallyAndCloud,
     });
     return base64ToAudioUrl(tts.audioBase64, tts.mimeType || 'audio/mpeg');
   }
@@ -151,6 +161,7 @@ export default function CustomSpeechTab({ audioPlayer, gasUrl, anthropicKey, sch
   function handleRemove(id) {
     setEntries(removeCustomSpeechEntry(id));
     notifyCloudChange();
+    scheduleAudioDelete?.(id);
     if (activeEntry?.id === id) handleBack();
   }
 
@@ -324,14 +335,14 @@ function CustomSpeechHistory({ entries, activeId, sectionRef, importInputRef, on
         <p className="field-hint">
           No saved items yet. Create one above.
           {cloudEnabled
-            ? ' Cloud sync is enabled — items appear on your linked devices automatically.'
-            : ' Enable cloud sync in Settings to share items across devices.'}
+            ? ' Cloud sync is active — items and audio download from Google Drive automatically.'
+            : ''}
         </p>
       ) : (
         <>
           <p className="field-hint">
             Tap a title to rename it. After the first playback, audio is saved in your browser.
-            {cloudEnabled ? ' Items sync across linked devices.' : ' Enable cloud sync in Settings to share across devices.'}
+            {cloudEnabled ? ' Items and audio sync from Google Drive.' : ''}
           </p>
           <ul className="history-list">
             {entries.map((entry) => (

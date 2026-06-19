@@ -144,6 +144,10 @@ export function hasCachedAudio(id) {
   return !!getCachedAudio(id);
 }
 
+export function listCachedAudioIds() {
+  return listAudioKeys().map((k) => k.slice(AUDIO_PREFIX.length));
+}
+
 function listAudioKeys() {
   const keys = [];
   try {

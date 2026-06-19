@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { SCENES, LEVELS, MODES } from './lib/prompts.js';
 import { generateItem, resolveItemAudio, base64ToAudioUrl, normalizeItem } from './lib/api.js';
+import { pullCloudAudio } from './lib/sync.js';
 import { DEFAULT_GAS_URL } from './lib/config.js';
 import { scoreClozeBlank, scoreFullDictation, scoreMinimalPair, diagnoseFeatures } from './lib/scoring.js';
 import {
@@ -15,7 +16,6 @@ import {
 } from './lib/storage.js';
 import { useAudioPlayer } from './hooks/useAudioPlayer.js';
 import { useCloudSync } from './hooks/useCloudSync.js';
-import { maskSyncToken } from './lib/syncToken.js';
 import Waveform from './components/Waveform.jsx';
 import AudioProgressBar from './components/AudioProgressBar.jsx';
 import CustomSpeechTab from './components/CustomSpeechTab.jsx';
@@ -53,7 +53,12 @@ export default function App() {
   }, []);
 
   const cloudSync = useCloudSync({ gasUrl, onSynced: handleCloudSynced });
-  const { schedulePush: scheduleCloudSync } = cloudSync;
+  const { schedulePush: scheduleCloudSync, scheduleAudioDelete, cacheAudio } = cloudSync;
+
+  const cacheAudioLocallyAndCloud = useCallback(
+    (itemId, base64) => cacheAudio(itemId, base64, saveCachedAudio),
+    [cacheAudio],
+  );
 
   useEffect(() => { localStorage.setItem(LS_KEYS.appTab, appTab); }, [appTab]);
   useEffect(() => { if (anthropicKey) localStorage.setItem(LS_KEYS.anthropic, anthropicKey); }, [anthropicKey]);
@@ -92,6 +97,13 @@ export default function App() {
   }
 
   async function loadAudioForItem({ id, generated, lvl }) {
+    if (!getCachedAudio(id)) {
+      try {
+        await pullCloudAudio({ gasUrl, itemId: id });
+      } catch (err) {
+        console.warn('Cloud audio fetch failed:', err);
+      }
+    }
     const cachedBase64 = getCachedAudio(id);
     const tts = await resolveItemAudio({
       itemId: id,
@@ -100,7 +112,7 @@ export default function App() {
       lines: generated.lines,
       level: lvl,
       instructions: generated.tts_instructions || '',
-      onCacheSave: saveCachedAudio,
+      onCacheSave: cacheAudioLocallyAndCloud,
     });
     return {
       url: base64ToAudioUrl(tts.audioBase64, tts.mimeType || 'audio/mpeg'),
@@ -178,7 +190,15 @@ export default function App() {
 
   async function listenFromHistory(entry) {
     try {
-      const cached = getCachedAudio(entry.id);
+      let cached = getCachedAudio(entry.id);
+      if (!cached) {
+        try {
+          await pullCloudAudio({ gasUrl, itemId: entry.id });
+          cached = getCachedAudio(entry.id);
+        } catch (err) {
+          console.warn('Cloud audio fetch failed:', err);
+        }
+      }
       let url;
       if (cached) {
         url = base64ToAudioUrl(cached);
@@ -210,6 +230,7 @@ export default function App() {
   function handleRemoveHistory(id) {
     setHistory(removeHistoryEntry(id));
     scheduleCloudSync();
+    scheduleAudioDelete(id);
   }
 
   return (
@@ -264,6 +285,8 @@ export default function App() {
           gasUrl={gasUrl}
           anthropicKey={anthropicKey}
           scheduleCloudSync={scheduleCloudSync}
+          cacheAudioLocallyAndCloud={cacheAudioLocallyAndCloud}
+          scheduleAudioDelete={scheduleAudioDelete}
           refreshKey={speechRefreshKey}
           syncStatus={cloudSync.syncStatus}
         />
@@ -342,26 +365,18 @@ export default function App() {
 
 function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync }) {
   const [draft, setDraft] = useState(anthropicKey);
-  const {
-    syncToken,
-    syncStatus,
-    syncError,
-    handleGenerateToken,
-    handleLinkFromClipboard,
-    handleCopyToken,
-    handleClearToken,
-  } = cloudSync;
+  const { syncStatus, syncError } = cloudSync;
 
   useEffect(() => {
     setDraft(anthropicKey);
   }, [anthropicKey]);
 
   const syncStatusLabel = {
-    disabled: 'Cloud sync off',
-    idle: 'Cloud sync ready',
+    disabled: 'Unavailable',
+    idle: 'Ready',
     syncing: 'Syncing…',
     synced: 'Synced',
-    error: 'Sync error',
+    error: 'Error',
   }[syncStatus] || syncStatus;
 
   return (
@@ -371,44 +386,12 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync 
       <div className="settings-block">
         <h3 className="settings-subheading">Cloud sync</h3>
         <p className="field-hint">
-          Sync Listening past items and Speech saved items across your devices. Generate a token on one device, copy it, then link your other device from the clipboard.
+          Past items, saved speech, and audio are stored in Google Drive automatically. Open the app on any device to download them into this browser.
         </p>
-        {syncToken ? (
-          <>
-            <div className="sync-token-display" aria-live="polite">
-              <span className="sync-token-label">Sync token</span>
-              <code className="sync-token-value">{maskSyncToken(syncToken)}</code>
-            </div>
-            <p className="field-hint sync-status-line">
-              Status: {syncStatusLabel}
-              {syncError ? ` — ${syncError}` : ''}
-            </p>
-            <div className="row">
-              <button type="button" className="btn btn-ghost btn-sm" onClick={handleCopyToken}>
-                Copy token
-              </button>
-              <button type="button" className="btn btn-ghost btn-sm" onClick={handleLinkFromClipboard}>
-                Link from clipboard
-              </button>
-              <button type="button" className="btn btn-ghost btn-sm" onClick={handleClearToken}>
-                Unlink device
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <p className="field-hint sync-status-line">Status: {syncStatusLabel}</p>
-            {syncError && <p className="field-hint sync-status-line">{syncError}</p>}
-            <div className="row">
-              <button type="button" className="btn btn-sm" onClick={handleGenerateToken}>
-                Generate sync token
-              </button>
-              <button type="button" className="btn btn-ghost btn-sm" onClick={handleLinkFromClipboard}>
-                Link from clipboard
-              </button>
-            </div>
-          </>
-        )}
+        <p className="field-hint sync-status-line">
+          Status: {syncStatusLabel}
+          {syncError ? ` — ${syncError}` : ''}
+        </p>
       </div>
 
       <div className="settings-block">
@@ -544,8 +527,8 @@ function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
       <p className="field-hint">
         Replay sentences you have already practiced. Audio is saved in your browser after the first play.
         {syncStatus && syncStatus !== 'disabled'
-          ? ' Items sync across devices when cloud sync is enabled in Settings.'
-          : ' Enable cloud sync in Settings to share items across devices.'}
+          ? ' Items and audio sync from Google Drive when you open the app.'
+          : ''}
       </p>
       <ul className="history-list">
         {history.map((entry) => (

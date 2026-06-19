@@ -1,20 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  getSyncToken,
-  generateSyncToken,
-  clearSyncToken,
-  readSyncTokenFromClipboard,
-  copySyncTokenToClipboard,
-} from '../lib/syncToken.js';
-import { pullCloudSync, pushCloudSync } from '../lib/sync.js';
+import { pullCloudSync, pushCloudSync, uploadCachedAudio, deleteCloudAudio } from '../lib/sync.js';
 
 const PUSH_DEBOUNCE_MS = 2000;
+const AUDIO_PUSH_DEBOUNCE_MS = 3000;
 
 export function useCloudSync({ gasUrl, onSynced }) {
-  const [syncToken, setSyncTokenState] = useState(() => getSyncToken());
-  const [syncStatus, setSyncStatus] = useState(() => (getSyncToken() ? 'idle' : 'disabled'));
+  const [syncStatus, setSyncStatus] = useState('idle');
   const [syncError, setSyncError] = useState('');
   const pushTimerRef = useRef(null);
+  const audioTimerRef = useRef(null);
+  const pendingAudioIdsRef = useRef(new Set());
   const pullingRef = useRef(false);
 
   const notifySynced = useCallback(() => {
@@ -22,13 +17,12 @@ export function useCloudSync({ gasUrl, onSynced }) {
   }, [onSynced]);
 
   const runPull = useCallback(async () => {
-    const token = getSyncToken();
-    if (!token || !gasUrl || pullingRef.current) return;
+    if (!gasUrl || pullingRef.current) return;
     pullingRef.current = true;
     setSyncStatus('syncing');
     setSyncError('');
     try {
-      await pullCloudSync({ gasUrl, token });
+      await pullCloudSync({ gasUrl });
       notifySynced();
       setSyncStatus('synced');
     } catch (err) {
@@ -41,12 +35,11 @@ export function useCloudSync({ gasUrl, onSynced }) {
   }, [gasUrl, notifySynced]);
 
   const runPush = useCallback(async () => {
-    const token = getSyncToken();
-    if (!token || !gasUrl) return;
+    if (!gasUrl) return;
     setSyncStatus('syncing');
     setSyncError('');
     try {
-      await pushCloudSync({ gasUrl, token });
+      await pushCloudSync({ gasUrl });
       setSyncStatus('synced');
     } catch (err) {
       console.warn('Cloud sync push failed:', err);
@@ -55,9 +48,22 @@ export function useCloudSync({ gasUrl, onSynced }) {
     }
   }, [gasUrl]);
 
+  const flushPendingAudio = useCallback(async () => {
+    if (!gasUrl || pendingAudioIdsRef.current.size === 0) return;
+    const ids = [...pendingAudioIdsRef.current];
+    pendingAudioIdsRef.current.clear();
+    for (const id of ids) {
+      try {
+        await uploadCachedAudio({ gasUrl, itemId: id });
+      } catch (err) {
+        console.warn(`Cloud audio upload failed for ${id}:`, err);
+        pendingAudioIdsRef.current.add(id);
+      }
+    }
+  }, [gasUrl]);
+
   const schedulePush = useCallback(() => {
-    const token = getSyncToken();
-    if (!token || !gasUrl) return;
+    if (!gasUrl) return;
     if (pushTimerRef.current) clearTimeout(pushTimerRef.current);
     pushTimerRef.current = setTimeout(() => {
       pushTimerRef.current = null;
@@ -65,45 +71,34 @@ export function useCloudSync({ gasUrl, onSynced }) {
     }, PUSH_DEBOUNCE_MS);
   }, [gasUrl, runPush]);
 
-  const handleGenerateToken = useCallback(async () => {
-    const token = generateSyncToken();
-    setSyncTokenState(token);
-    setSyncError('');
-    await runPull();
-  }, [runPull]);
+  const scheduleAudioPush = useCallback((itemId) => {
+    if (!gasUrl || !itemId) return;
+    pendingAudioIdsRef.current.add(itemId);
+    if (audioTimerRef.current) clearTimeout(audioTimerRef.current);
+    audioTimerRef.current = setTimeout(async () => {
+      audioTimerRef.current = null;
+      await flushPendingAudio();
+    }, AUDIO_PUSH_DEBOUNCE_MS);
+  }, [gasUrl, flushPendingAudio]);
 
-  const handleLinkFromClipboard = useCallback(async () => {
+  const scheduleAudioDelete = useCallback(async (itemId) => {
+    if (!gasUrl || !itemId) return;
+    pendingAudioIdsRef.current.delete(itemId);
     try {
-      const token = await readSyncTokenFromClipboard();
-      setSyncTokenState(token);
-      setSyncError('');
-      await runPull();
+      await deleteCloudAudio({ gasUrl, itemId });
     } catch (err) {
-      setSyncError(String(err.message || err));
-      setSyncStatus('error');
+      console.warn(`Cloud audio delete failed for ${itemId}:`, err);
     }
-  }, [runPull]);
+  }, [gasUrl]);
 
-  const handleCopyToken = useCallback(async () => {
-    const token = getSyncToken();
-    if (!token) return;
-    try {
-      await copySyncTokenToClipboard(token);
-    } catch (err) {
-      setSyncError(String(err.message || err));
-    }
-  }, []);
-
-  const handleClearToken = useCallback(() => {
-    if (pushTimerRef.current) clearTimeout(pushTimerRef.current);
-    clearSyncToken();
-    setSyncTokenState('');
-    setSyncStatus('disabled');
-    setSyncError('');
-  }, []);
+  const cacheAudio = useCallback((itemId, base64, saveLocally) => {
+    const ok = saveLocally(itemId, base64);
+    if (ok) scheduleAudioPush(itemId);
+    return ok;
+  }, [scheduleAudioPush]);
 
   useEffect(() => {
-    if (!syncToken) {
+    if (!gasUrl) {
       setSyncStatus('disabled');
       return undefined;
     }
@@ -115,17 +110,16 @@ export function useCloudSync({ gasUrl, onSynced }) {
     return () => {
       document.removeEventListener('visibilitychange', onVisible);
       if (pushTimerRef.current) clearTimeout(pushTimerRef.current);
+      if (audioTimerRef.current) clearTimeout(audioTimerRef.current);
     };
-  }, [syncToken, runPull]);
+  }, [gasUrl, runPull]);
 
   return {
-    syncToken,
     syncStatus,
     syncError,
     schedulePush,
-    handleGenerateToken,
-    handleLinkFromClipboard,
-    handleCopyToken,
-    handleClearToken,
+    scheduleAudioPush,
+    scheduleAudioDelete,
+    cacheAudio,
   };
 }

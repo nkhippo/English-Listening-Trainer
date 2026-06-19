@@ -108,31 +108,38 @@ npm run dev
 
 ---
 
-## クラウド同期（Listening + Speech）
+## クラウド同期（Listening + Speech + 音声）
 
-Listening の **Past items** と Speech の **Saved items** を、PC と iPhone など複数端末で共有できます。データは GAS 経由で Google Drive 上の JSON に保存されます（音声ファイル本体は同期しません）。
+Listening の **Past items**、Speech の **Saved items**、および各項目の **MP3 音声** を Google Drive に保存し、PC・iPhone などで自動的に同期します。操作は不要です（Sync Token なし・単一ユーザー運用向け）。
 
-### GAS 側の追加設定
+### Drive 上のファイル
 
-1. Google Drive に同期用フォルダを作成（例: `ELT User Sync`）
-2. Script Properties に `SYNC_FOLDER_ID` を追加（フォルダ ID）
-3. [`gas/Code.gs`](../gas/Code.gs) を最新版に更新し、Web アプリを **新しいデプロイ** として再公開
-4. 再デプロイ後の `/exec` URL をアプリの GAS 設定（`src/lib/config.js` の `DEFAULT_GAS_URL`）に反映
+| ファイル | 内容 |
+|---------|------|
+| `elt-user-data.json` | 過去問・Speech のメタデータ |
+| `elt-audio-{id}.mp3` | 各項目の音声（再生済みのもの） |
 
-### アプリ側の設定（各端末）
+同期用フォルダ: Script Properties の `SYNC_FOLDER_ID`
 
-1. **Settings** → **Generate sync token**（1 台目のみ）
-2. **Copy token** でクリップボードにコピー
-3. 2 台目以降: 1 台目でコピーした状態で **Link from clipboard**
+### GAS 側の設定
 
-トークンは手入力できません。2 台目への共有はコピー＋クリップボードリンクのみです。
+1. Google Drive に同期用フォルダを作成
+2. Script Properties に `SYNC_FOLDER_ID` を設定
+3. [`gas/Code.gs`](../gas/Code.gs) を最新版に更新し、Web アプリを **新しいデプロイ**
+4. 再デプロイ後の `/exec` URL を `src/lib/config.js` の `DEFAULT_GAS_URL` に反映
 
 ### 同期の挙動
 
-- 変更は約 2 秒後に自動でクラウドへ反映されます
-- アプリを開き直す、またはタブに戻るとクラウドから取得してマージします
-- 同一 ID の競合は `updatedAt` が新しい方を採用します
-- 削除は論理削除として他端末へ伝播します
+- **アプリを開く** と Drive からメタデータを取得し、ローカルとマージ
+- **音声** は Drive にあれば localStorage へダウンロード（2 回目以降は API 不要）
+- **新規再生** で生成した音声は Drive にアップロード
+- 変更は約 2 秒後に自動反映
+- 削除は他端末へも伝播（論理削除 + Drive 上の音声ファイル削除）
+
+### 注意
+
+- GAS Web App URL を知っている第三者がデータを読み書きできる可能性があります（個人利用想定）
+- 初回同期時、音声ファイルが多いとダウンロードに時間がかかることがあります
 
 ---
 
@@ -170,8 +177,7 @@ Listening の **Past items** と Speech の **Saved items** を、PC と iPhone 
 | `TTS proxy 403/404` | Web アプリの「アクセス: 全員」で再デプロイ |
 | CORS エラー | GAS URL が `/exec` で終わっているか確認 |
 | `SYNC_FOLDER_ID not set` | 同期用 Drive フォルダ ID が Script Properties に設定されているか確認 |
-| `Invalid sync token` | Settings で Generate または Link from clipboard を使う（手入力不可） |
-| クラウド同期が動かない | GAS を sync 対応版で再デプロイ済みか、`DEFAULT_GAS_URL` が新 URL か確認 |
+| クラウド同期が動かない | GAS を最新版で再デプロイ済みか、`DEFAULT_GAS_URL` が新 URL か確認 |
 | 音声が保存されない | ブラウザの localStorage 容量（約 5MB）が不足している可能性。古い過去問を削除 |
 
 ---

@@ -11,7 +11,7 @@
  *
  * Request body (JSON, sent as text/plain to avoid CORS preflight):
  *   TTS:  { action: 'tts', lines: [...], voiceA, voiceB, speed, instructions }
- *   Sync: { action: 'sync_pull'|'sync_push', token, speech?: [...], history?: [...] }
+ *   Sync: { action: 'sync_pull'|'sync_push'|'sync_audio_pull'|'sync_audio_push'|'sync_audio_delete', ... }
  *
  * Script Properties: OPENAI_API_KEY, CACHE_FOLDER_ID, SYNC_FOLDER_ID
  *
@@ -33,6 +33,15 @@ function doPost(e) {
     }
     if (body.action === 'sync_push') {
       return jsonResponse(handleSyncPush(body));
+    }
+    if (body.action === 'sync_audio_pull') {
+      return jsonResponse(handleSyncAudioPull(body));
+    }
+    if (body.action === 'sync_audio_push') {
+      return jsonResponse(handleSyncAudioPush(body));
+    }
+    if (body.action === 'sync_audio_delete') {
+      return jsonResponse(handleSyncAudioDelete(body));
     }
     return jsonResponse({ error: `Unknown action: ${body.action}` });
   } catch (err) {
@@ -166,22 +175,23 @@ function jsonResponse(obj) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-// ===== Cloud sync (Drive JSON per sync token) =====
+// ===== Cloud sync (single-user Drive JSON + per-item audio) =====
 
-const SYNC_FILE_PREFIX = 'elt-sync-';
+const SYNC_DATA_FILE = 'elt-user-data.json';
+const SYNC_AUDIO_PREFIX = 'elt-audio-';
 const SYNC_DOC_VERSION = 1;
 
-function validateSyncToken_(token) {
-  if (typeof token !== 'string') throw new Error('Sync token required');
-  const trimmed = token.trim();
-  if (!/^[A-Za-z0-9_-]{24,64}$/.test(trimmed)) {
-    throw new Error('Invalid sync token');
+function validateItemId_(itemId) {
+  if (typeof itemId !== 'string') throw new Error('itemId required');
+  const trimmed = itemId.trim();
+  if (!/^[a-zA-Z0-9_-]{2,64}$/.test(trimmed)) {
+    throw new Error('Invalid itemId');
   }
   return trimmed;
 }
 
-function syncFileName_(token) {
-  return `${SYNC_FILE_PREFIX}${sha256(token)}.json`;
+function syncAudioFileName_(itemId) {
+  return `${SYNC_AUDIO_PREFIX}${itemId}.mp3`;
 }
 
 function getSyncFolder_() {
@@ -199,10 +209,9 @@ function emptySyncDoc_() {
   };
 }
 
-function readSyncDoc_(token) {
+function readSyncDoc_() {
   const folder = getSyncFolder_();
-  const name = syncFileName_(token);
-  const files = folder.getFilesByName(name);
+  const files = folder.getFilesByName(SYNC_DATA_FILE);
   if (!files.hasNext()) return null;
   const raw = files.next().getBlob().getDataAsString('UTF-8');
   const parsed = JSON.parse(raw);
@@ -214,16 +223,57 @@ function readSyncDoc_(token) {
   };
 }
 
-function writeSyncDoc_(token, doc) {
+function writeSyncDoc_(doc) {
   const folder = getSyncFolder_();
-  const name = syncFileName_(token);
   const payload = JSON.stringify(doc);
-  const blob = Utilities.newBlob(payload, 'application/json', name);
-  const files = folder.getFilesByName(name);
+  const files = folder.getFilesByName(SYNC_DATA_FILE);
   if (files.hasNext()) {
     files.next().setContent(payload);
   } else {
+    const blob = Utilities.newBlob(payload, 'application/json', SYNC_DATA_FILE);
     folder.createFile(blob);
+  }
+}
+
+function listSyncAudioIds_() {
+  const folder = getSyncFolder_();
+  const ids = [];
+  const files = folder.getFiles();
+  while (files.hasNext()) {
+    const name = files.next().getName();
+    if (name.indexOf(SYNC_AUDIO_PREFIX) === 0 && name.slice(-4) === '.mp3') {
+      ids.push(name.slice(SYNC_AUDIO_PREFIX.length, -4));
+    }
+  }
+  return ids;
+}
+
+function getSyncAudio_(itemId) {
+  const folder = getSyncFolder_();
+  const files = folder.getFilesByName(syncAudioFileName_(itemId));
+  if (!files.hasNext()) return null;
+  const blob = files.next().getBlob();
+  return Utilities.base64Encode(blob.getBytes());
+}
+
+function saveSyncAudio_(itemId, base64) {
+  const folder = getSyncFolder_();
+  const name = syncAudioFileName_(itemId);
+  const bytes = Utilities.base64Decode(base64);
+  const blob = Utilities.newBlob(bytes, 'audio/mpeg', name);
+  const files = folder.getFilesByName(name);
+  if (files.hasNext()) {
+    files.next().setContent(blob.getBytes());
+  } else {
+    folder.createFile(blob);
+  }
+}
+
+function deleteSyncAudio_(itemId) {
+  const folder = getSyncFolder_();
+  const files = folder.getFilesByName(syncAudioFileName_(itemId));
+  while (files.hasNext()) {
+    files.next().setTrashed(true);
   }
 }
 
@@ -253,30 +303,52 @@ function mergeEntryLists_(serverList, clientList) {
 }
 
 function handleSyncPull(body) {
-  const token = validateSyncToken_(body.token);
-  const doc = readSyncDoc_(token) || emptySyncDoc_();
+  const doc = readSyncDoc_() || emptySyncDoc_();
   return {
     version: doc.version,
     updatedAt: doc.updatedAt,
     speech: doc.speech,
     history: doc.history,
+    audioIds: listSyncAudioIds_(),
   };
 }
 
 function handleSyncPush(body) {
-  const token = validateSyncToken_(body.token);
-  const existing = readSyncDoc_(token) || emptySyncDoc_();
+  const existing = readSyncDoc_() || emptySyncDoc_();
   const merged = {
     version: SYNC_DOC_VERSION,
     updatedAt: new Date().toISOString(),
     speech: mergeEntryLists_(existing.speech, body.speech || []),
     history: mergeEntryLists_(existing.history, body.history || []),
   };
-  writeSyncDoc_(token, merged);
+  writeSyncDoc_(merged);
   return {
     ok: true,
     updatedAt: merged.updatedAt,
     speechCount: merged.speech.filter(function (e) { return !e.deletedAt; }).length,
     historyCount: merged.history.filter(function (e) { return !e.deletedAt; }).length,
+    audioIds: listSyncAudioIds_(),
   };
+}
+
+function handleSyncAudioPull(body) {
+  const itemId = validateItemId_(body.itemId);
+  const audioBase64 = getSyncAudio_(itemId);
+  if (!audioBase64) {
+    return { itemId: itemId, audioBase64: null, mimeType: 'audio/mpeg', found: false };
+  }
+  return { itemId: itemId, audioBase64: audioBase64, mimeType: 'audio/mpeg', found: true };
+}
+
+function handleSyncAudioPush(body) {
+  const itemId = validateItemId_(body.itemId);
+  if (!body.audioBase64) throw new Error('audioBase64 required');
+  saveSyncAudio_(itemId, body.audioBase64);
+  return { ok: true, itemId: itemId };
+}
+
+function handleSyncAudioDelete(body) {
+  const itemId = validateItemId_(body.itemId);
+  deleteSyncAudio_(itemId);
+  return { ok: true, itemId: itemId };
 }
