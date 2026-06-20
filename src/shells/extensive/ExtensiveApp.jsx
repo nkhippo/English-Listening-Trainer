@@ -10,7 +10,6 @@ import { loadExtensiveStats, recordPassageComplete, getChunkEncounterRows, isExt
 import { tryAddToShadowQueue, hasShadowQueueEntryForSource } from '../../core/shared/materialQueue.js';
 import { DEFAULT_GAS_URL } from '../../lib/config.js';
 import { pullCloudAudio } from '../../lib/sync.js';
-import { useVerticalSwipe } from '../../hooks/useVerticalSwipe.js';
 import { useExtensiveMediaSession } from '../../hooks/useExtensiveMediaSession.js';
 import {
   computeExtensiveItemId,
@@ -65,7 +64,6 @@ export default function ExtensiveApp({
   const [passageLoading, setPassageLoading] = useState(false);
   const [autoPlayPassageId, setAutoPlayPassageId] = useState(null);
   const prefetchRef = useRef(null);
-  const swipeLoadingRef = useRef(false);
   const endedPassageRef = useRef(null);
 
   const { schedulePush: scheduleCloudSync, scheduleAudioDelete, cacheAudio } = cloudSync || {};
@@ -283,28 +281,21 @@ export default function ExtensiveApp({
   }
 
   const goPrev = useCallback(() => {
-    if (currentIdx > 0) setCurrentIdx((i) => i - 1);
+    if (currentIdx <= 0) return;
+    endedPassageRef.current = null;
+    setCurrentIdx((i) => i - 1);
   }, [currentIdx]);
 
   const goNext = useCallback(async () => {
+    if (passageLoading) return;
     if (currentIdx < passages.length - 1) {
+      endedPassageRef.current = null;
       setCurrentIdx((i) => i + 1);
       return;
     }
-    if (!anthropicKey || swipeLoadingRef.current || passageLoading) return;
-    swipeLoadingRef.current = true;
-    try {
-      await advanceToNextPassage();
-    } finally {
-      swipeLoadingRef.current = false;
-    }
+    if (!anthropicKey) return;
+    await advanceToNextPassage();
   }, [anthropicKey, currentIdx, passages.length, passageLoading, advanceToNextPassage]);
-
-  const swipeRef = useVerticalSwipe({
-    onSwipeUp: goNext,
-    onSwipeDown: goPrev,
-    enabled: stage === 'listening',
-  });
 
   useExtensiveMediaSession({
     enabled: stage === 'listening',
@@ -471,10 +462,7 @@ export default function ExtensiveApp({
   }
 
   return (
-    <div
-      ref={swipeRef}
-      className="extensive-listening"
-    >
+    <div className="extensive-listening">
       <div className="listening-toolbar">
         <div className="listening-toolbar-head">
           <button type="button" className="btn-back-link" onClick={backToSetup}>{UI.common.back}</button>
@@ -523,6 +511,25 @@ export default function ExtensiveApp({
         </div>
       </div>
 
+      <div className="passage-nav">
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm passage-nav-btn"
+          onClick={goPrev}
+          disabled={currentIdx <= 0}
+        >
+          {UI.extensive.prevPassage}
+        </button>
+        <button
+          type="button"
+          className="btn btn-sm passage-nav-btn"
+          onClick={goNext}
+          disabled={passageLoading || (currentIdx >= passages.length - 1 && !anthropicKey)}
+        >
+          {passageLoading ? UI.extensive.loadingNext : UI.extensive.nextPassage}
+        </button>
+      </div>
+
       {current && (
         <div className={`passage-stage${passageLoading ? ' is-loading-next' : ''}`}>
           {passageLoading && (
@@ -560,7 +567,6 @@ export default function ExtensiveApp({
         </div>
       )}
 
-      <p className="field-hint">{UI.extensive.swipeHint}</p>
       {autoContinue && (
         <p className="field-hint">{UI.extensive.backgroundHint}</p>
       )}

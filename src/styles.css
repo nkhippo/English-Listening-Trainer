@@ -434,6 +434,17 @@ input:focus, textarea:focus, select:focus {
   color: var(--ink);
 }
 
+.passage-nav {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.passage-nav-btn {
+  flex: 1;
+  justify-content: center;
+}
+
 .btn-back-link {
   display: inline-flex;
   align-items: center;
@@ -1146,10 +1157,6 @@ body.audio-progress-visible {
   margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid var(--line);
-}
-
-.extensive-listening {
-  touch-action: none;
 }
 
 .history-subheading {
