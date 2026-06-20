@@ -894,7 +894,7 @@ body.audio-progress-visible {
 }
 
 .extensive-listening {
-  touch-action: pan-y;
+  touch-action: none;
 }
 
 .history-subheading {

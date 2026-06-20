@@ -9,6 +9,7 @@ import { loadExtensiveStats, recordPassageComplete, getChunkEncounterRows, isExt
 import { tryAddToShadowQueue, hasShadowQueueEntryForSource } from '../../core/shared/materialQueue.js';
 import { DEFAULT_GAS_URL } from '../../lib/config.js';
 import { pullCloudAudio } from '../../lib/sync.js';
+import { useVerticalSwipe } from '../../hooks/useVerticalSwipe.js';
 import {
   computeExtensiveItemId,
   loadExtensiveHistory,
@@ -55,7 +56,8 @@ export default function ExtensiveApp({
   const [shadowToast, setShadowToast] = useState('');
   const [shadowQueuedIds, setShadowQueuedIds] = useState(() => new Set());
   const prefetchRef = useRef(null);
-  const touchStartY = useRef(null);
+  const swipeLoadingRef = useRef(false);
+  const endedPassageRef = useRef(null);
 
   const { schedulePush: scheduleCloudSync, scheduleAudioDelete, cacheAudio } = cloudSync || {};
 
@@ -77,6 +79,10 @@ export default function ExtensiveApp({
   }, [syncRefreshKey]);
 
   const current = passages[currentIdx];
+
+  useEffect(() => {
+    endedPassageRef.current = null;
+  }, [current?.id]);
 
   const resolveAudioUrlForEntry = useCallback(async (entry) => {
     if (!getCachedAudio(entry.id)) {
@@ -193,6 +199,7 @@ export default function ExtensiveApp({
       setHistory(loadExtensiveHistory());
       scheduleCloudSync?.();
       setStage('listening');
+      if (anthropicKey) prefetchRef.current = generatePassage();
     } catch (e) {
       setError(String(e.message || e));
       setStage('setup');
@@ -220,17 +227,19 @@ export default function ExtensiveApp({
   }
 
   async function handlePassageEnded() {
-    if (current) {
-      const durationSec = (Date.now() - current.startedAt) / 1000;
-      setStats(recordPassageComplete({
-        durationSec,
-        structureFlags,
-        item: current.item,
-        passageId: current.id,
-        cefr,
-      }));
-      scheduleCloudSync?.();
-    }
+    if (!current || endedPassageRef.current === current.id) return;
+    endedPassageRef.current = current.id;
+
+    const durationSec = (Date.now() - current.startedAt) / 1000;
+    setStats(recordPassageComplete({
+      durationSec,
+      structureFlags,
+      item: current.item,
+      passageId: current.id,
+      cefr,
+    }));
+    scheduleCloudSync?.();
+
     if (!autoContinue) return;
     try {
       const next = await prefetchNext();
@@ -244,25 +253,36 @@ export default function ExtensiveApp({
     }
   }
 
-  function goPrev() {
+  const goPrev = useCallback(() => {
     if (currentIdx > 0) setCurrentIdx((i) => i - 1);
-  }
+  }, [currentIdx]);
 
-  function goNext() {
-    if (currentIdx < passages.length - 1) setCurrentIdx((i) => i + 1);
-  }
+  const goNext = useCallback(async () => {
+    if (currentIdx < passages.length - 1) {
+      setCurrentIdx((i) => i + 1);
+      return;
+    }
+    if (!anthropicKey || swipeLoadingRef.current) return;
+    swipeLoadingRef.current = true;
+    try {
+      const next = await prefetchNext();
+      prefetchRef.current = null;
+      saveToHistory(next);
+      setPassages((prev) => [...prev, next]);
+      setCurrentIdx((i) => i + 1);
+      prefetchRef.current = generatePassage();
+    } catch (e) {
+      console.warn('Prefetch on swipe failed:', e);
+    } finally {
+      swipeLoadingRef.current = false;
+    }
+  }, [anthropicKey, currentIdx, passages.length, saveToHistory, generatePassage]);
 
-  function handleTouchStart(e) {
-    touchStartY.current = e.touches[0].clientY;
-  }
-
-  function handleTouchEnd(e) {
-    if (touchStartY.current == null) return;
-    const delta = e.changedTouches[0].clientY - touchStartY.current;
-    if (delta < -50) goNext();
-    if (delta > 50) goPrev();
-    touchStartY.current = null;
-  }
+  const swipeRef = useVerticalSwipe({
+    onSwipeUp: goNext,
+    onSwipeDown: goPrev,
+    enabled: stage === 'listening',
+  });
 
   function toggleStructureFlag(key) {
     setStructureFlags((prev) =>
@@ -391,9 +411,8 @@ export default function ExtensiveApp({
 
   return (
     <div
+      ref={swipeRef}
       className="extensive-listening"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
       <div className="session-meta">
         <span>{CEFR_LEVELS[cefr]?.label}</span>
