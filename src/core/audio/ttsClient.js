@@ -5,9 +5,21 @@ import { trackLocalAudioAccess } from './audioManifest.js';
 /**
  * Request TTS audio from GAS proxy (legacy + Drive cache).
  */
+function isDriveUrl(url) {
+  return typeof url === 'string' && /drive\.google\.com/i.test(url);
+}
+
+/** Drive direct links are not reliably playable in HTML5 Audio (CORS / content-type). */
+function needsLegacyTtsFallback(data) {
+  if (data?.audioBase64) return false;
+  if (!data?.url) return true;
+  return isDriveUrl(data.url);
+}
+
 export async function fetchTTS({ gasUrl, lines, level, voice = 'nova', voiceB = 'onyx', instructions = '', cefr = 'B1', shell = 'intensive' }) {
+  const legacyParams = { gasUrl, lines, level, voice, voiceB, instructions };
   try {
-    return await fetchAudio({
+    const data = await fetchAudio({
       gasUrl,
       lines,
       voice,
@@ -17,9 +29,14 @@ export async function fetchTTS({ gasUrl, lines, level, voice = 'nova', voiceB = 
       cefr,
       shell,
     });
+    if (needsLegacyTtsFallback(data)) {
+      console.warn('Drive cache returned URL-only; falling back to legacy tts');
+      return fetchLegacyTTS(legacyParams);
+    }
+    return data;
   } catch (err) {
     console.warn('Drive cache audio failed, trying legacy tts:', err);
-    return fetchLegacyTTS({ gasUrl, lines, level, voice, voiceB, instructions });
+    return fetchLegacyTTS(legacyParams);
   }
 }
 
@@ -69,9 +86,9 @@ export function base64ToAudioUrl(base64, mimeType = 'audio/mpeg') {
 }
 
 export function resolveAudioUrl({ url, audioBase64, mimeType = 'audio/mpeg' }) {
-  if (url) return url;
   if (audioBase64) return base64ToAudioUrl(audioBase64, mimeType);
-  throw new Error('No audio URL or base64 in response');
+  if (url && !isDriveUrl(url)) return url;
+  throw new Error('No playable audio in response');
 }
 
 /** Ensure generated items always have lines[] for UI and TTS. */
@@ -104,6 +121,7 @@ export async function resolveItemAudio({
       cached: true,
       source: 'local',
       url: null,
+      playableUrl: base64ToAudioUrl(cachedBase64),
     };
   }
 
@@ -131,6 +149,11 @@ export async function resolveItemAudio({
     ...tts,
     source: tts.cached ? 'gas-cache' : 'gas-fresh',
     url: tts.url || null,
+    playableUrl: resolveAudioUrl({
+      url: tts.url,
+      audioBase64: tts.audioBase64,
+      mimeType: tts.mimeType,
+    }),
   };
 }
 

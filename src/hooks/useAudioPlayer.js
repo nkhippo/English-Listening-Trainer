@@ -80,6 +80,10 @@ export function useAudioPlayer() {
 
   const play = useCallback(
     (url, key, { showProgress = true, playbackRate: rate } = {}) => {
+      if (!url) {
+        console.error('Audio play skipped: empty URL');
+        return null;
+      }
       stopLoop();
       if (audioRef.current) {
         audioRef.current.pause();

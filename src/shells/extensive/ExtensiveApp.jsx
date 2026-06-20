@@ -4,7 +4,7 @@ import { LEVELS } from '../../core/shared/levels.js';
 import { CEFR_LEVELS, DEFAULT_CEFR, migrateCefrFromStorage, getRecommendedLevel } from '../../core/shared/cefr.js';
 import { STRUCTURE_FLAGS } from '../../core/shared/structureFlags.js';
 import { generateContent } from '../../core/generation/index.js';
-import { normalizeItem, resolveItemAudio, resolveAudioUrl, base64ToAudioUrl } from '../../core/audio/index.js';
+import { normalizeItem, resolveItemAudio, base64ToAudioUrl } from '../../core/audio/index.js';
 import { loadExtensiveStats, recordPassageComplete } from '../../core/shared/extensiveStats.js';
 import { addToShadowQueue } from '../../core/shared/materialQueue.js';
 import { DEFAULT_GAS_URL } from '../../lib/config.js';
@@ -97,7 +97,7 @@ export default function ExtensiveApp({
       shell: 'extensive',
       onCacheSave: cacheAudioLocallyAndCloud,
     });
-    return tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
+    return tts.playableUrl;
   }, [gasUrl, cacheAudioLocallyAndCloud]);
 
   const saveToHistory = useCallback((passage) => {
@@ -142,7 +142,7 @@ export default function ExtensiveApp({
       shell: 'extensive',
       onCacheSave: cacheAudioLocallyAndCloud,
     });
-    const url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
+    const url = tts.playableUrl;
     return { id, item: generated, audioUrl: url, cached: tts.cached, startedAt: Date.now() };
   }, [anthropicKey, scene, cefr, level, length, structureFlags, gasUrl, cacheAudioLocallyAndCloud]);
 

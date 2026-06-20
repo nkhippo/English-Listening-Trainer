@@ -4,7 +4,7 @@ import { SCENES, migrateSceneId } from '../../core/shared/sceneConfig.js';
 import { LEVELS } from '../../core/shared/levels.js';
 import { STRUCTURE_FLAGS } from '../../core/shared/structureFlags.js';
 import { generateContent } from '../../core/generation/index.js';
-import { normalizeItem, resolveItemAudio, resolveAudioUrl } from '../../core/audio/index.js';
+import { normalizeItem, resolveItemAudio } from '../../core/audio/index.js';
 import {
   loadShadowQueue, addToShadowQueue, updateShadowProgress, removeFromShadowQueue,
 } from '../../core/shared/materialQueue.js';
@@ -82,7 +82,7 @@ export default function ShadowingApp({
         shell: 'shadowing',
         onCacheSave: cacheAudioLocallyAndCloud,
       });
-      const url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
+      const url = tts.playableUrl;
       setActiveEntry({ ...entry, audioUrl: url, audioId: entry.id });
       setStage(1);
       setSetupMode('practice');
@@ -114,7 +114,7 @@ export default function ShadowingApp({
         shell: 'shadowing',
         onCacheSave: cacheAudioLocallyAndCloud,
       });
-      const url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
+      const url = tts.playableUrl;
       setActiveEntry({ ...entry, audioUrl: url, audioId: entry.id });
       setStage(1);
       setSetupMode('practice');

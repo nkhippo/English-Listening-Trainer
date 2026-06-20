@@ -4,7 +4,7 @@ import { CEFR_LEVELS, DEFAULT_CEFR, migrateCefrFromStorage, getRecommendedLevel 
 import { migrateSceneId } from '../../core/shared/sceneConfig.js';
 import { UI } from '../../core/shared/uiJa.js';
 import { generateContent } from '../../core/generation/index.js';
-import { resolveItemAudio, base64ToAudioUrl, resolveAudioUrl, normalizeItem } from '../../core/audio/index.js';
+import { resolveItemAudio, base64ToAudioUrl, normalizeItem } from '../../core/audio/index.js';
 import { pullCloudAudio } from '../../lib/sync.js';
 import { DEFAULT_GAS_URL } from '../../lib/config.js';
 import { scoreFullDictation, scoreMinimalPair } from '../../core/scoring/index.js';
@@ -101,7 +101,7 @@ export default function IntensiveApp({ anthropicKey, settingsOpen, gasUrl = DEFA
       shell: 'intensive',
       onCacheSave: cacheAudioLocallyAndCloud,
     });
-    const url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
+    const url = tts.playableUrl;
     return { url, fromCache: tts.source === 'local' || tts.cached };
   }
 
