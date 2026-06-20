@@ -14,4 +14,5 @@ export {
   describeAudioSource,
   verifyDriveAudioCache,
   fetchAudioManifestStats,
+  runAudioManifestCleanup,
 } from './audioCacheStatus.js';

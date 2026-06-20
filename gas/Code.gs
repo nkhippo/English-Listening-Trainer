@@ -31,6 +31,9 @@ function doPost(e) {
     if (body.action === 'audio_stats') {
       return jsonResponse(handleAudioStats(body));
     }
+    if (body.action === 'audio_cleanup') {
+      return jsonResponse(handleAudioCleanup(body));
+    }
     if (body.action === 'tts') {
       return jsonResponse(handleTTS(body));
     }
@@ -315,6 +318,57 @@ function handleAudioStats(body) {
   };
 }
 
+function pruneStaleManifestEntries_(manifest, maxAgeDays) {
+  var cutoff = Date.now() - maxAgeDays * 86400000;
+  var keys = Object.keys(manifest.entries);
+  var removed = 0;
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    var entry = manifest.entries[key];
+    var last = new Date(entry.last_accessed_at || entry.created_at || 0).getTime();
+    if (last >= cutoff) continue;
+    if (entry.drive_file_id) {
+      try {
+        DriveApp.getFileById(entry.drive_file_id).setTrashed(true);
+      } catch (e) { /* ignore */ }
+    }
+    delete manifest.entries[key];
+    removed++;
+  }
+  if (removed) writeAudioManifest_(manifest);
+  return removed;
+}
+
+function cleanupAudioManifest_(options) {
+  options = options || {};
+  var manifest = readAudioManifest_();
+  var before = Object.keys(manifest.entries).length;
+  var staleRemoved = 0;
+  if (options.pruneStaleDays) {
+    staleRemoved = pruneStaleManifestEntries_(manifest, options.pruneStaleDays);
+  }
+  if (options.forceLru || before > MANIFEST_MAX_ENTRIES) {
+    if (Object.keys(manifest.entries).length > MANIFEST_MAX_ENTRIES) {
+      lruCleanupManifest_(manifest);
+    }
+  }
+  var after = Object.keys(manifest.entries).length;
+  return {
+    ok: true,
+    before: before,
+    after: after,
+    staleRemoved: staleRemoved,
+    removed: before - after,
+  };
+}
+
+function handleAudioCleanup(body) {
+  return cleanupAudioManifest_({
+    forceLru: body.forceLru !== false,
+    pruneStaleDays: body.pruneStaleDays || 90,
+  });
+}
+
 function lruCleanupManifest_(manifest) {
   var keys = Object.keys(manifest.entries);
   keys.sort(function (a, b) {
@@ -335,12 +389,9 @@ function lruCleanupManifest_(manifest) {
   writeAudioManifest_(manifest);
 }
 
-/** Monthly batch entry point — run from GAS editor or time trigger. */
-function runManifestLruCleanup() {
-  var manifest = readAudioManifest_();
-  if (Object.keys(manifest.entries).length > MANIFEST_MAX_ENTRIES) {
-    lruCleanupManifest_(manifest);
-  }
+/** Monthly batch entry point — bind to a monthly time trigger in Apps Script. */
+function runMonthlyManifestCleanup() {
+  return cleanupAudioManifest_({ forceLru: true, pruneStaleDays: 90 });
 }
 
 // ===== Utilities =====

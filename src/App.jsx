@@ -14,6 +14,7 @@ import {
   describeAudioSource,
   verifyDriveAudioCache,
   fetchAudioManifestStats,
+  runAudioManifestCleanup,
 } from './core/audio/audioCacheStatus.js';
 
 const LS_KEYS = {
@@ -196,6 +197,7 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync,
   const [draft, setDraft] = useState(anthropicKey);
   const [audioVerifyMsg, setAudioVerifyMsg] = useState('');
   const [audioVerifyBusy, setAudioVerifyBusy] = useState(false);
+  const [cleanupBusy, setCleanupBusy] = useState(false);
   const [manifestStats, setManifestStats] = useState(null);
   const { syncStatus, syncError } = cloudSync;
   const lastAudio = getLastAudioFetch();
@@ -221,6 +223,21 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync,
       setAudioVerifyMsg(String(err.message || err));
     } finally {
       setAudioVerifyBusy(false);
+    }
+  }
+
+  async function runManifestCleanup() {
+    setCleanupBusy(true);
+    setAudioVerifyMsg('');
+    try {
+      const result = await runAudioManifestCleanup({ gasUrl });
+      setAudioVerifyMsg(
+        `${UI.settings.audioCacheCleanupDone}: ${result.removed ?? 0} (${result.before ?? '—'} → ${result.after ?? '—'})`,
+      );
+    } catch (err) {
+      setAudioVerifyMsg(String(err.message || err));
+    } finally {
+      setCleanupBusy(false);
     }
   }
 
@@ -260,9 +277,18 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync,
           type="button"
           className="btn btn-ghost btn-sm"
           onClick={runAudioCacheVerify}
-          disabled={audioVerifyBusy || !gasUrl}
+          disabled={audioVerifyBusy || cleanupBusy || !gasUrl}
         >
           {audioVerifyBusy ? UI.settings.audioCacheVerifying : UI.settings.audioCacheVerify}
+        </button>
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm"
+          onClick={runManifestCleanup}
+          disabled={audioVerifyBusy || cleanupBusy || !gasUrl}
+          style={{ marginLeft: 8 }}
+        >
+          {cleanupBusy ? UI.settings.audioCacheCleaning : UI.settings.audioCacheCleanup}
         </button>
         {audioVerifyMsg && <p className="field-hint sync-status-line">{audioVerifyMsg}</p>}
       </div>

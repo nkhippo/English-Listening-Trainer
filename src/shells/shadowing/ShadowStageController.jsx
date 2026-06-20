@@ -73,10 +73,12 @@ function ProsodyStage({ item, audioUrl, itemId, audioPlayer }) {
   const lines = item?.lines || [];
   return (
     <>
+      <p className="field-hint">{UI.shadowing.prosodyHint}</p>
       <div className="passage-script prosody-highlight">
         {lines.map((line, i) => (
           <p key={i} className="dialogue-line">
-            {highlightProsody(line.text)}
+            {lines.length > 1 && <span className="speaker-tag">{line.speaker}:</span>}
+            {highlightProsody(line.text, item?.target_features)}
           </p>
         ))}
       </div>
@@ -85,11 +87,32 @@ function ProsodyStage({ item, audioUrl, itemId, audioPlayer }) {
   );
 }
 
-function highlightProsody(text) {
+function buildProsodyWordSet(targetFeatures = []) {
+  const words = new Set();
+  for (const feature of targetFeatures) {
+    const [kind, value] = feature.split(':');
+    if (!value) continue;
+    if (kind === 'linking') {
+      value.split('_').forEach((part) => {
+        if (part) words.add(part.toLowerCase());
+      });
+      continue;
+    }
+    if (kind === 'reduction' || kind === 'weak_form' || kind === 'elision') {
+      words.add(value.toLowerCase());
+    }
+  }
+  return words;
+}
+
+function highlightProsody(text, targetFeatures = []) {
+  const featureWords = buildProsodyWordSet(targetFeatures);
   return text.split(/\s+/).map((word, i) => {
-    const isStress = i % 3 === 0 || /^[A-Z]/.test(word);
+    const bare = word.toLowerCase().replace(/[^a-z']/g, '');
+    const isLinked = featureWords.has(bare);
+    const isStress = isLinked || /^(I|we|you|he|she|they|it)$/i.test(bare);
     return (
-      <span key={i} className={isStress ? 'prosody-stress' : 'prosody-link'}>
+      <span key={`${bare}-${i}`} className={isStress ? 'prosody-stress' : 'prosody-link'}>
         {word}{' '}
       </span>
     );

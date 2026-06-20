@@ -42,6 +42,9 @@ export const UI = {
     audioCacheFail: '未確認 — 2回目も新規生成でした（GAS 再デプロイを確認）',
     audioCacheManifest: 'Manifest エントリ',
     audioCacheAccess: '累計 access_count',
+    audioCacheCleanup: 'Manifest クリーンアップ',
+    audioCacheCleaning: 'クリーンアップ中…',
+    audioCacheCleanupDone: 'クリーンアップ完了',
   },
   intensive: {
     start: 'セッション開始',
@@ -113,6 +116,7 @@ export const UI = {
     syncStage: 'スクリプト表示のまま小声で追う',
     shadowStage: 'スクリプト非表示で音声に追従',
     prosodyStage: '強勢・連結を意識して追う',
+    prosodyHint: 'ハイライトは target_features（弱形・連結・縮約）に基づきます。',
     shadowHint: 'モデル音声の直後に追って発声してください。',
     modelPlay: '▶ モデル',
     recordCompare: '録音と照合',
