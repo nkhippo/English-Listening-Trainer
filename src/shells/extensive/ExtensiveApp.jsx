@@ -130,10 +130,8 @@ export default function ExtensiveApp({
       onCacheSave: (_, b64) => saveCachedAudio(id, b64),
     });
     const url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
-    const passage = { id, item: generated, audioUrl: url, cached: tts.cached, startedAt: Date.now() };
-    saveToHistory(passage);
-    return passage;
-  }, [anthropicKey, scene, cefr, level, length, structureFlags, gasUrl, saveToHistory]);
+    return { id, item: generated, audioUrl: url, cached: tts.cached, startedAt: Date.now() };
+  }, [anthropicKey, scene, cefr, level, length, structureFlags, gasUrl]);
 
   async function startListening() {
     if (!anthropicKey) {
@@ -145,6 +143,7 @@ export default function ExtensiveApp({
     setStatusMsg(UI.extensive.loadingFirst);
     try {
       const first = await generatePassage();
+      saveToHistory(first);
       setPassages([first]);
       setCurrentIdx(0);
       setStage('listening');
@@ -220,6 +219,7 @@ export default function ExtensiveApp({
     try {
       const next = await prefetchNext();
       prefetchRef.current = null;
+      saveToHistory(next);
       setPassages((prev) => [...prev, next]);
       setCurrentIdx((i) => i + 1);
       prefetchRef.current = generatePassage();
