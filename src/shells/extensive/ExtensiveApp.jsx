@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { SCENES, migrateSceneId } from '../../core/shared/sceneConfig.js';
+import { SCENES, migrateSceneId, migrateExtensiveScene, SCENE_RANDOM, resolveSceneForGeneration, getSceneLabel } from '../../core/shared/sceneConfig.js';
 import { LEVELS } from '../../core/shared/levels.js';
 import { CEFR_LEVELS, DEFAULT_CEFR, migrateCefrFromStorage, getRecommendedLevel } from '../../core/shared/cefr.js';
 import { STRUCTURE_FLAGS } from '../../core/shared/structureFlags.js';
@@ -41,7 +41,7 @@ export default function ExtensiveApp({
 }) {
   const [stage, setStage] = useState('setup');
   const [cefr, setCefr] = useState(() => migrateCefrFromStorage(localStorage.getItem(LS_KEYS.cefr)));
-  const [scene, setScene] = useState(() => migrateSceneId(localStorage.getItem(LS_KEYS.scene)));
+  const [scene, setScene] = useState(() => migrateExtensiveScene(localStorage.getItem(LS_KEYS.scene)));
   const [length, setLength] = useState(() => localStorage.getItem(LS_KEYS.length) || 'short_passage');
   const [level, setLevel] = useState(() => Number(localStorage.getItem(LS_KEYS.level)) || getRecommendedLevel(cefr));
   const [structureFlags, setStructureFlags] = useState([]);
@@ -113,7 +113,7 @@ export default function ExtensiveApp({
     setHistory(upsertExtensiveHistoryEntry({
       id: passage.id,
       item: passage.item,
-      scene,
+      scene: passage.scene ?? resolveSceneForGeneration(scene),
       level,
       cefr,
       length,
@@ -124,9 +124,10 @@ export default function ExtensiveApp({
   }, [scene, level, cefr, length, structureFlags, viewMode, scheduleCloudSync]);
 
   const generatePassage = useCallback(async () => {
+    const resolvedScene = resolveSceneForGeneration(scene);
     const generated = normalizeItem(await generateContent({
       shell: 'extensive',
-      scene,
+      scene: resolvedScene,
       cefr,
       level,
       length,
@@ -135,7 +136,7 @@ export default function ExtensiveApp({
     }));
     const id = computeExtensiveItemId({
       item: generated,
-      scene,
+      scene: resolvedScene,
       level,
       cefr,
       length,
@@ -152,7 +153,14 @@ export default function ExtensiveApp({
       onCacheSave: cacheAudioLocallyAndCloud,
     });
     const url = tts.playableUrl;
-    return { id, item: generated, audioUrl: url, cached: tts.cached, startedAt: Date.now() };
+    return {
+      id,
+      item: generated,
+      audioUrl: url,
+      cached: tts.cached,
+      scene: resolvedScene,
+      startedAt: Date.now(),
+    };
   }, [anthropicKey, scene, cefr, level, length, structureFlags, gasUrl, cacheAudioLocallyAndCloud]);
 
   async function startListening() {
@@ -186,10 +194,10 @@ export default function ExtensiveApp({
         id: entry.id,
         item: normalizeItem(entry.item),
         audioUrl,
+        scene: migrateSceneId(entry.scene),
         startedAt: Date.now(),
       };
       setCefr(entry.cefr || DEFAULT_CEFR);
-      setScene(migrateSceneId(entry.scene));
       setLevel(entry.level);
       setLength(entry.length || 'short_passage');
       setStructureFlags(entry.structureFlags || []);
@@ -295,7 +303,7 @@ export default function ExtensiveApp({
     if (!current) return;
     const result = tryAddToShadowQueue({
       item: current.item,
-      scene,
+      scene: current.scene ?? resolveSceneForGeneration(scene),
       level,
       cefr,
       source: 'extensive',
@@ -353,9 +361,28 @@ export default function ExtensiveApp({
         </div>
         <div className="field">
           <label>{UI.common.scene}</label>
-          <div className="choices">
+          {scene === SCENE_RANDOM && (
+            <p className="field-hint">{UI.extensive.sceneRandomHint}</p>
+          )}
+          <div className="choices choices-scene">
+            <button
+              type="button"
+              className="choice choice-chip"
+              aria-pressed={scene === SCENE_RANDOM}
+              onClick={() => setScene(SCENE_RANDOM)}
+            >
+              {UI.common.sceneRandom}
+            </button>
             {Object.entries(SCENES).map(([key, s]) => (
-              <button key={key} className="choice" aria-pressed={scene === key} onClick={() => setScene(key)}>{s.label}</button>
+              <button
+                key={key}
+                type="button"
+                className="choice choice-chip"
+                aria-pressed={scene === key}
+                onClick={() => setScene(key)}
+              >
+                {s.label}
+              </button>
             ))}
           </div>
         </div>
@@ -422,7 +449,7 @@ export default function ExtensiveApp({
     >
       <div className="session-meta">
         <span>{CEFR_LEVELS[cefr]?.label}</span>
-        <span>{SCENES[scene]?.label}</span>
+        <span>{getSceneLabel(current?.scene ?? scene, { randomLabel: UI.common.sceneRandom })}</span>
         <span>{UI.length[length]?.label || length}</span>
         <span>{passages.length > 1 ? `${currentIdx + 1} / ${passages.length}` : '1'}</span>
       </div>

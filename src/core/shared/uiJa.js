@@ -4,6 +4,7 @@ export const UI = {
   common: {
     cefr: 'CEFR',
     scene: 'シーン',
+    sceneRandom: 'ランダム',
     level: 'レベル',
     mode: 'モード',
     delete: '削除',
@@ -90,6 +91,7 @@ export const UI = {
     contentLength: 'コンテンツ長',
     structureFocus: '構造フラッグ（input flooding）',
     structureFocusHint: 'ON にすると各構造が文の 80% 以上に含まれるよう自動検証します（不合格は再生成）。',
+    sceneRandomHint: '再生ごとにシーンを自動で変えます（自動 ON でも毎回ランダム）。',
     viewMode: '表示モード',
     readListen: '読みながら聞く',
     listenOnly: '聞くだけ',

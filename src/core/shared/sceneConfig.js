@@ -37,7 +37,35 @@ export const SCENES = {
   },
 };
 
+export const SCENE_RANDOM = 'random';
+
+export const SCENE_IDS = Object.keys(SCENES);
+
+export function isRandomScene(scene) {
+  return scene === SCENE_RANDOM;
+}
+
+export function pickRandomScene() {
+  return SCENE_IDS[Math.floor(Math.random() * SCENE_IDS.length)];
+}
+
+/** Resolve setup value to a concrete scene id for generation. */
+export function resolveSceneForGeneration(sceneSetting) {
+  return isRandomScene(sceneSetting) ? pickRandomScene() : migrateSceneId(sceneSetting);
+}
+
+export function getSceneLabel(sceneId, { randomLabel = 'ランダム' } = {}) {
+  if (isRandomScene(sceneId)) return randomLabel;
+  return SCENES[migrateSceneId(sceneId)]?.label ?? sceneId;
+}
+
 export function migrateSceneId(stored) {
   if (stored === 'store') return 'shop';
   return SCENES[stored] ? stored : 'phone';
+}
+
+/** Extensive shell: preserves random / unset scene selection. */
+export function migrateExtensiveScene(stored) {
+  if (isRandomScene(stored)) return SCENE_RANDOM;
+  return migrateSceneId(stored);
 }
