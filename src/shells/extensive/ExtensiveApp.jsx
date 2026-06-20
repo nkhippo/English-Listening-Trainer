@@ -24,6 +24,7 @@ import {
 } from '../../lib/storage.js';
 import PassagePlayer from './PassagePlayer.jsx';
 import ListenOnlyView from './ListenOnlyView.jsx';
+import HistoryPlaylistPlayer from './HistoryPlaylistPlayer.jsx';
 import { UI } from '../../core/shared/uiJa.js';
 
 const AUTO_PLAY_DELAY_MS = 1000;
@@ -449,6 +450,13 @@ export default function ExtensiveApp({
             onListen={listenFromHistory}
             onRemove={handleRemoveHistory}
             syncStatus={cloudSync?.syncStatus}
+            audioPlayer={audioPlayer}
+            resolveAudioUrl={resolveAudioUrlForEntry}
+            onItemPlayed={(id) => {
+              touchExtensiveHistoryEntry(id);
+              setHistory(loadExtensiveHistory());
+              scheduleCloudSync?.();
+            }}
           />
         )}
 
@@ -560,17 +568,126 @@ export default function ExtensiveApp({
   );
 }
 
-function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
+function HistoryList({
+  history, onReplay, onListen, onRemove, syncStatus,
+  audioPlayer, resolveAudioUrl, onItemPlayed,
+}) {
+  const [selectMode, setSelectMode] = useState(false);
+  const [selectedIds, setSelectedIds] = useState(() => new Set());
+  const [playlist, setPlaylist] = useState(null);
+
+  const playlistCurrentId = playlist?.entries[playlist.currentIdx ?? 0]?.id ?? null;
+  const playlistActive = Boolean(playlist);
+
+  function toggleSelect(id) {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function selectAll() {
+    setSelectedIds(new Set(history.map((e) => e.id)));
+  }
+
+  function clearSelection() {
+    setSelectedIds(new Set());
+  }
+
+  function exitSelectMode() {
+    setSelectMode(false);
+    clearSelection();
+  }
+
+  function startPlaylist(entries) {
+    if (!entries.length) return;
+    audioPlayer.stop?.();
+    setSelectMode(false);
+    setPlaylist({ entries, currentIdx: 0 });
+  }
+
+  function stopPlaylist() {
+    audioPlayer.stop?.();
+    setPlaylist(null);
+  }
+
   return (
     <section className="history-section">
-      <h2 className="history-heading">Past items</h2>
+      <div className="history-section-header">
+        <h2 className="history-heading">Past items</h2>
+        <div className="history-sync-actions">
+          {!playlistActive && !selectMode && (
+            <>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={() => startPlaylist([...history])}>
+                {UI.extensive.historyPlayAll}
+              </button>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => { setSelectMode(true); selectAll(); }}
+              >
+                {UI.extensive.historyPlaySelect}
+              </button>
+            </>
+          )}
+          {selectMode && (
+            <>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={selectAll}>
+                {UI.extensive.historySelectAll}
+              </button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={clearSelection}>
+                {UI.extensive.historySelectNone}
+              </button>
+              <button
+                type="button"
+                className="btn btn-sm"
+                disabled={selectedIds.size === 0}
+                onClick={() => startPlaylist(history.filter((e) => selectedIds.has(e.id)))}
+              >
+                {UI.extensive.historyPlaySelected} ({selectedIds.size})
+              </button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={exitSelectMode}>
+                {UI.extensive.historySelectCancel}
+              </button>
+            </>
+          )}
+        </div>
+      </div>
       <p className="field-hint">
         {UI.extensive.historyHint}
         {syncStatus && syncStatus !== 'disabled' ? UI.common.syncAudioFromDrive : ''}
       </p>
+
+      {playlistActive && (
+        <HistoryPlaylistPlayer
+          entries={playlist.entries}
+          startIdx={playlist.currentIdx}
+          audioPlayer={audioPlayer}
+          resolveAudioUrl={resolveAudioUrl}
+          onStop={stopPlaylist}
+          onItemPlayed={(entry) => onItemPlayed?.(entry.id)}
+          onIdxChange={(currentIdx) => setPlaylist((p) => (p ? { ...p, currentIdx } : p))}
+        />
+      )}
+
       <ul className="history-list">
         {history.map((entry) => (
-          <li key={entry.id} className="history-item">
+          <li
+            key={entry.id}
+            className={`history-item${playlistCurrentId === entry.id ? ' history-item-active' : ''}${selectMode && selectedIds.has(entry.id) ? ' history-item-selected' : ''}`}
+          >
+            {selectMode && (
+              <label className="history-select">
+                <input
+                  type="checkbox"
+                  className="history-select-input"
+                  checked={selectedIds.has(entry.id)}
+                  onChange={() => toggleSelect(entry.id)}
+                />
+              </label>
+            )}
             <div className="history-main">
               <div className="history-preview">{entry.preview}</div>
               <div className="history-meta">
@@ -582,9 +699,31 @@ function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
               </div>
             </div>
             <div className="history-actions">
-              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onListen(entry)} aria-label="Listen">▶</button>
-              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onReplay(entry)}>{UI.extensive.open}</button>
-              <button type="button" className="btn btn-ghost btn-sm history-remove" onClick={() => onRemove(entry.id)}>{UI.common.delete}</button>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => onListen(entry)}
+                aria-label="Listen"
+                disabled={playlistActive}
+              >
+                ▶
+              </button>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => onReplay(entry)}
+                disabled={playlistActive}
+              >
+                {UI.extensive.open}
+              </button>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm history-remove"
+                onClick={() => onRemove(entry.id)}
+                disabled={playlistActive}
+              >
+                {UI.common.delete}
+              </button>
             </div>
           </li>
         ))}

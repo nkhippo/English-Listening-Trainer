@@ -803,6 +803,64 @@ input:focus, textarea:focus, select:focus {
   background: var(--bg-sunken);
 }
 
+.history-item-selected {
+  border-color: var(--ink-mute);
+}
+
+.history-select {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.history-select-input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--signal);
+}
+
+.history-playlist-bar {
+  margin: var(--space-4) 0;
+  padding: var(--space-4);
+  border: 1px solid var(--signal);
+  border-radius: 6px;
+  background: var(--bg-sunken);
+}
+
+.history-playlist-bar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.history-playlist-position {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.history-playlist-status {
+  font-size: 12px;
+  color: var(--ink-mute);
+}
+
+.history-playlist-preview {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 var(--space-3);
+}
+
+.history-playlist-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
 .history-preview {
   font-family: var(--font-mono);
   font-size: 13px;
