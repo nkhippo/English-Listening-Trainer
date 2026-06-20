@@ -4,7 +4,10 @@ import TranslationBlock from '../../components/TranslationBlock.jsx';
 import { passageMediaMetadata } from '../../core/audio/mediaSession.js';
 import { UI } from '../../core/shared/uiJa.js';
 
-export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, onEnded, playbackRate = 1 }) {
+export default function ListenOnlyView({
+  item, audioUrl, itemId, audioPlayer, onEnded, playbackRate = 1,
+  autoPlayAfterMs = 0, onAutoPlayStarted,
+}) {
   const [showTranslation, setShowTranslation] = useState(false);
   const playedRef = useRef(false);
   const onEndedRef = useRef(onEnded);
@@ -15,10 +18,11 @@ export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, on
     audio.addEventListener('ended', () => onEndedRef.current?.(), { once: true });
   }, []);
 
-  const play = useCallback(() => {
+  const startPlayback = useCallback(() => {
     const existing = audioPlayer.audioRef?.current;
     if (audioPlayer.activeKey === itemId && existing && !existing.paused && !existing.ended) {
       attachEnded(existing);
+      onAutoPlayStarted?.();
       return;
     }
     const audio = audioPlayer.play(audioUrl, itemId, {
@@ -27,7 +31,8 @@ export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, on
       metadata: passageMediaMetadata(item),
     });
     attachEnded(audio);
-  }, [audioUrl, itemId, item, audioPlayer, playbackRate, attachEnded]);
+    onAutoPlayStarted?.();
+  }, [audioUrl, itemId, item, audioPlayer, playbackRate, attachEnded, onAutoPlayStarted]);
 
   useEffect(() => {
     if (!audioUrl) return;
@@ -39,14 +44,22 @@ export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, on
     }
     if (playedRef.current) return;
     playedRef.current = true;
-    play();
-  }, [audioUrl, play, itemId, audioPlayer, attachEnded]);
+
+    const delay = autoPlayAfterMs > 0 ? autoPlayAfterMs : 0;
+    const timer = setTimeout(() => startPlayback(), delay);
+    return () => clearTimeout(timer);
+  }, [audioUrl, itemId, audioPlayer, autoPlayAfterMs, attachEnded, startPlayback]);
+
+  const play = useCallback(() => {
+    playedRef.current = true;
+    startPlayback();
+  }, [startPlayback]);
 
   return (
     <div className="listen-only-view" onClick={() => setShowTranslation((v) => !v)}>
       <div className="audio-stage">
         <div className="audio-controls">
-          <button type="button" className="btn btn-icon" onClick={(e) => { e.stopPropagation(); playedRef.current = true; play(); }} aria-label="Play">▶</button>
+          <button type="button" className="btn btn-icon" onClick={(e) => { e.stopPropagation(); play(); }} aria-label="Play">▶</button>
         </div>
         <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === itemId} />
       </div>

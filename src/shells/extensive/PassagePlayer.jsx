@@ -5,6 +5,7 @@ import { passageMediaMetadata } from '../../core/audio/mediaSession.js';
 
 export default function PassagePlayer({
   item, audioUrl, itemId, audioPlayer, showScript = true, onEnded, playbackRate = 1,
+  autoPlayAfterMs = 0, onAutoPlayStarted,
 }) {
   const lines = item?.lines || [];
   const playedRef = useRef(false);
@@ -18,6 +19,16 @@ export default function PassagePlayer({
     return () => audio.removeEventListener('ended', handler);
   }, []);
 
+  const startPlayback = useCallback(() => {
+    const audio = audioPlayer.play(audioUrl, itemId, {
+      showProgress: true,
+      playbackRate,
+      metadata: passageMediaMetadata(item),
+    });
+    onAutoPlayStarted?.();
+    return attachEndedHandler(audio);
+  }, [audioUrl, itemId, item, audioPlayer, playbackRate, attachEndedHandler, onAutoPlayStarted]);
+
   useEffect(() => {
     if (!audioUrl) return;
     const existing = audioPlayer.audioRef?.current;
@@ -27,22 +38,15 @@ export default function PassagePlayer({
     }
     if (playedRef.current) return;
     playedRef.current = true;
-    const audio = audioPlayer.play(audioUrl, itemId, {
-      showProgress: true,
-      playbackRate,
-      metadata: passageMediaMetadata(item),
-    });
-    return attachEndedHandler(audio);
-  }, [audioUrl, itemId, item, audioPlayer, playbackRate, attachEndedHandler]);
+
+    const delay = autoPlayAfterMs > 0 ? autoPlayAfterMs : 0;
+    const timer = setTimeout(() => startPlayback(), delay);
+    return () => clearTimeout(timer);
+  }, [audioUrl, itemId, audioPlayer, autoPlayAfterMs, attachEndedHandler, startPlayback]);
 
   function replay() {
     playedRef.current = true;
-    const audio = audioPlayer.play(audioUrl, itemId, {
-      showProgress: true,
-      playbackRate,
-      metadata: passageMediaMetadata(item),
-    });
-    return attachEndedHandler(audio);
+    return startPlayback();
   }
 
   return (

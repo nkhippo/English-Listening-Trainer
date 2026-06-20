@@ -12,7 +12,6 @@ import { DEFAULT_GAS_URL } from '../../lib/config.js';
 import { pullCloudAudio } from '../../lib/sync.js';
 import { useVerticalSwipe } from '../../hooks/useVerticalSwipe.js';
 import { useExtensiveMediaSession } from '../../hooks/useExtensiveMediaSession.js';
-import { passageMediaMetadata } from '../../core/audio/mediaSession.js';
 import {
   computeExtensiveItemId,
   loadExtensiveHistory,
@@ -26,6 +25,8 @@ import {
 import PassagePlayer from './PassagePlayer.jsx';
 import ListenOnlyView from './ListenOnlyView.jsx';
 import { UI } from '../../core/shared/uiJa.js';
+
+const AUTO_PLAY_DELAY_MS = 1000;
 
 const LS_KEYS = {
   cefr: 'elt_extensive_cefr',
@@ -60,6 +61,7 @@ export default function ExtensiveApp({
   const [shadowToast, setShadowToast] = useState('');
   const [shadowQueuedIds, setShadowQueuedIds] = useState(() => new Set());
   const [passageLoading, setPassageLoading] = useState(false);
+  const [autoPlayPassageId, setAutoPlayPassageId] = useState(null);
   const prefetchRef = useRef(null);
   const swipeLoadingRef = useRef(false);
   const endedPassageRef = useRef(null);
@@ -239,20 +241,16 @@ export default function ExtensiveApp({
     return prefetchRef.current;
   }
 
-  const advanceToNextPassage = useCallback(async () => {
+  const advanceToNextPassage = useCallback(async ({ autoPlay = false } = {}) => {
     setPassageLoading(true);
     try {
       const next = await prefetchNext();
       prefetchRef.current = null;
       saveToHistory(next);
+      if (autoPlay) setAutoPlayPassageId(next.id);
       flushSync(() => {
         setPassages((prev) => [...prev, next]);
         setCurrentIdx((i) => i + 1);
-      });
-      audioPlayer.play(next.audioUrl, next.id, {
-        showProgress: true,
-        playbackRate,
-        metadata: passageMediaMetadata(next.item),
       });
       prefetchRef.current = generatePassage();
     } catch (e) {
@@ -262,7 +260,7 @@ export default function ExtensiveApp({
     } finally {
       setPassageLoading(false);
     }
-  }, [saveToHistory, generatePassage, audioPlayer, playbackRate]);
+  }, [saveToHistory, generatePassage]);
 
   async function handlePassageEnded() {
     if (!current || endedPassageRef.current === current.id) return;
@@ -279,7 +277,7 @@ export default function ExtensiveApp({
     scheduleCloudSync?.();
 
     if (!autoContinue) return;
-    await advanceToNextPassage();
+    await advanceToNextPassage({ autoPlay: true });
   }
 
   const goPrev = useCallback(() => {
@@ -468,40 +466,51 @@ export default function ExtensiveApp({
       ref={swipeRef}
       className="extensive-listening"
     >
-      <div className="session-meta">
-        <span>{CEFR_LEVELS[cefr]?.label}</span>
-        <span>{getSceneLabel(current?.scene ?? scene, { randomLabel: UI.common.sceneRandom })}</span>
-        <span>{UI.length[length]?.label || length}</span>
-        <span>{passages.length > 1 ? `${currentIdx + 1} / ${passages.length}` : '1'}</span>
-      </div>
+      <div className="listening-toolbar">
+        <div className="session-meta session-meta--toolbar">
+          <span>{CEFR_LEVELS[cefr]?.label}</span>
+          <span>{getSceneLabel(current?.scene ?? scene, { randomLabel: UI.common.sceneRandom })}</span>
+          <span>{UI.length[length]?.label || length}</span>
+          <span>{passages.length > 1 ? `${currentIdx + 1} / ${passages.length}` : '1'}</span>
+        </div>
 
-      <button type="button" className="btn-back-link" onClick={backToSetup}>{UI.common.back}</button>
+        <button type="button" className="btn-back-link" onClick={backToSetup}>{UI.common.back}</button>
 
-      <div className="row listening-controls">
-        <button type="button" className="btn btn-ghost btn-sm" onClick={() => setViewMode(viewMode === 'read_listen' ? 'listen_only' : 'read_listen')}>
-          {viewMode === 'read_listen' ? UI.extensive.listenOnly : UI.extensive.readListen}
-        </button>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={() => setPlaybackRate((r) => (r === 1 ? 1.25 : r === 1.25 ? 0.85 : 1))}>
-          {UI.extensive.speed} {playbackRate}x
-        </button>
-        <button
-          type="button"
-          className="btn btn-sm btn-toggle"
-          aria-pressed={autoContinue}
-          aria-label={autoContinue ? UI.extensive.autoAriaOn : UI.extensive.autoAriaOff}
-          onClick={() => setAutoContinue((v) => !v)}
-        >
-          <span className="btn-toggle-label">{UI.extensive.auto}</span>
-          <span className="btn-toggle-state">{autoContinue ? UI.extensive.autoOn : UI.extensive.autoOff}</span>
-        </button>
-        <button
-          type="button"
-          className="btn btn-ghost btn-sm"
-          onClick={sendToShadowing}
-          disabled={currentInShadowQueue}
-        >
-          {currentInShadowQueue ? UI.extensive.addToShadowingDone : UI.extensive.addToShadowing}
-        </button>
+        <div className="listening-toolbar-grid">
+          <button
+            type="button"
+            className="btn btn-ghost btn-sm listening-toolbar-btn"
+            aria-pressed={viewMode === 'listen_only'}
+            onClick={() => setViewMode(viewMode === 'read_listen' ? 'listen_only' : 'read_listen')}
+          >
+            {viewMode === 'read_listen' ? UI.extensive.listenOnly : UI.extensive.readListen}
+          </button>
+          <button
+            type="button"
+            className="btn btn-ghost btn-sm listening-toolbar-btn"
+            onClick={() => setPlaybackRate((r) => (r === 1 ? 1.25 : r === 1.25 ? 0.85 : 1))}
+          >
+            {UI.extensive.speed} {playbackRate}x
+          </button>
+          <button
+            type="button"
+            className="btn btn-sm btn-toggle listening-toolbar-btn"
+            aria-pressed={autoContinue}
+            aria-label={autoContinue ? UI.extensive.autoAriaOn : UI.extensive.autoAriaOff}
+            onClick={() => setAutoContinue((v) => !v)}
+          >
+            <span className="btn-toggle-label">{UI.extensive.auto}</span>
+            <span className="btn-toggle-state">{autoContinue ? UI.extensive.autoOn : UI.extensive.autoOff}</span>
+          </button>
+          <button
+            type="button"
+            className="btn btn-ghost btn-sm listening-toolbar-btn"
+            onClick={sendToShadowing}
+            disabled={currentInShadowQueue}
+          >
+            {currentInShadowQueue ? UI.extensive.addToShadowingDone : UI.extensive.addToShadowing}
+          </button>
+        </div>
       </div>
 
       {current && (
@@ -522,6 +531,8 @@ export default function ExtensiveApp({
               showScript
               onEnded={handlePassageEnded}
               playbackRate={playbackRate}
+              autoPlayAfterMs={autoPlayPassageId === current.id ? AUTO_PLAY_DELAY_MS : 0}
+              onAutoPlayStarted={() => setAutoPlayPassageId(null)}
             />
           ) : (
             <ListenOnlyView
@@ -532,6 +543,8 @@ export default function ExtensiveApp({
               audioPlayer={audioPlayer}
               onEnded={handlePassageEnded}
               playbackRate={playbackRate}
+              autoPlayAfterMs={autoPlayPassageId === current.id ? AUTO_PLAY_DELAY_MS : 0}
+              onAutoPlayStarted={() => setAutoPlayPassageId(null)}
             />
           )}
         </div>
