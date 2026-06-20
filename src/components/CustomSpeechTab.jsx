@@ -20,7 +20,7 @@ import Waveform from './Waveform.jsx';
 const TTS_LEVEL = 3; // 1.0x speed
 
 export default function CustomSpeechTab({
-  audioPlayer, gasUrl, anthropicKey, scheduleCloudSync, cacheAudioLocallyAndCloud, scheduleAudioDelete, refreshKey, syncStatus,
+  audioPlayer, gasUrl, anthropicKey, scheduleCloudSync, cacheAudioLocallyAndCloud, scheduleAudioDelete, refreshKey, syncStatus, homeNonce = 0,
 }) {
   const [stage, setStage] = useState('register');
   const [title, setTitle] = useState('');
@@ -137,6 +137,12 @@ export default function CustomSpeechTab({
     refreshEntries();
     scrollToSavedItems();
   }
+
+  useEffect(() => {
+    if (!homeNonce) return;
+    if (stage === 'register' && !activeEntry) return;
+    handleBack();
+  }, [homeNonce]);
 
   function play() {
     if (!audioUrl || !activeEntry) return;

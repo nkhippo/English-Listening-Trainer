@@ -37,6 +37,7 @@ export default function ExtensiveApp({
   gasUrl = DEFAULT_GAS_URL,
   cloudSync,
   syncRefreshKey = 0,
+  homeNonce = 0,
 }) {
   const [stage, setStage] = useState('setup');
   const [cefr, setCefr] = useState(() => migrateCefrFromStorage(localStorage.getItem(LS_KEYS.cefr)));
@@ -325,6 +326,11 @@ export default function ExtensiveApp({
     setHistory(loadExtensiveHistory());
     setStats(loadExtensiveStats());
   }
+
+  useEffect(() => {
+    if (!homeNonce) return;
+    backToSetup();
+  }, [homeNonce]);
 
   if (stage === 'setup') {
     return (

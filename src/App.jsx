@@ -46,6 +46,7 @@ export default function App() {
   const [anthropicKey, setAnthropicKey] = useState(localStorage.getItem(LS_KEYS.anthropic) || '');
   const [speechRefreshKey, setSpeechRefreshKey] = useState(0);
   const [syncRefreshKey, setSyncRefreshKey] = useState(0);
+  const [shellHomeNonce, setShellHomeNonce] = useState(0);
   const gasUrl = DEFAULT_GAS_URL;
   const warmupGasUrl = DEFAULT_WARMUP_GAS_URL;
 
@@ -90,6 +91,14 @@ export default function App() {
   const isConfigured = !!anthropicKey;
   const activeShell = SHELLS[appTab] || SHELLS.intensive;
 
+  function handleTabClick(key) {
+    if (appTab === key) {
+      setShellHomeNonce((n) => n + 1);
+      return;
+    }
+    setAppTab(key);
+  }
+
   return (
     <div className="shell">
       <header className="header">
@@ -114,7 +123,7 @@ export default function App() {
             type="button"
             className="app-tab"
             aria-pressed={appTab === key}
-            onClick={() => setAppTab(key)}
+            onClick={() => handleTabClick(key)}
           >
             {s.label}
           </button>
@@ -123,7 +132,7 @@ export default function App() {
           type="button"
           className="app-tab"
           aria-pressed={appTab === 'speech'}
-          onClick={() => setAppTab('speech')}
+          onClick={() => handleTabClick('speech')}
         >
           Speech
         </button>
@@ -151,6 +160,7 @@ export default function App() {
           scheduleAudioDelete={cloudSync.scheduleAudioDelete}
           refreshKey={speechRefreshKey}
           syncStatus={cloudSync.syncStatus}
+          homeNonce={shellHomeNonce}
         />
       )}
 
@@ -161,6 +171,7 @@ export default function App() {
           gasUrl={gasUrl}
           cloudSync={cloudSync}
           syncRefreshKey={syncRefreshKey}
+          homeNonce={shellHomeNonce}
         />
       )}
 
@@ -171,6 +182,7 @@ export default function App() {
           gasUrl={gasUrl}
           cloudSync={cloudSync}
           syncRefreshKey={syncRefreshKey}
+          homeNonce={shellHomeNonce}
         />
       )}
 
@@ -181,6 +193,7 @@ export default function App() {
           gasUrl={gasUrl}
           cloudSync={cloudSync}
           syncRefreshKey={syncRefreshKey}
+          homeNonce={shellHomeNonce}
         />
       )}
 

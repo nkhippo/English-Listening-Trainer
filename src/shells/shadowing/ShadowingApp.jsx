@@ -25,6 +25,7 @@ export default function ShadowingApp({
   gasUrl = DEFAULT_GAS_URL,
   cloudSync,
   syncRefreshKey = 0,
+  homeNonce = 0,
 }) {
   const [queue, setQueue] = useState(() => loadShadowQueue());
   const [activeEntry, setActiveEntry] = useState(null);
@@ -53,6 +54,14 @@ export default function ShadowingApp({
   useEffect(() => {
     if (syncRefreshKey > 0) setQueue(loadShadowQueue());
   }, [syncRefreshKey]);
+
+  useEffect(() => {
+    if (!homeNonce) return;
+    setSetupMode('queue');
+    setStage(1);
+    setLoading(false);
+    setError('');
+  }, [homeNonce]);
 
   function syncQueue(nextQueue) {
     setQueue(nextQueue);
