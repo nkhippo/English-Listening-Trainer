@@ -5,8 +5,8 @@ import { CEFR_LEVELS, DEFAULT_CEFR, migrateCefrFromStorage, getRecommendedLevel 
 import { STRUCTURE_FLAGS } from '../../core/shared/structureFlags.js';
 import { generateContent } from '../../core/generation/index.js';
 import { normalizeItem, resolveItemAudio, base64ToAudioUrl } from '../../core/audio/index.js';
-import { loadExtensiveStats, recordPassageComplete } from '../../core/shared/extensiveStats.js';
-import { addToShadowQueue } from '../../core/shared/materialQueue.js';
+import { loadExtensiveStats, recordPassageComplete, getChunkEncounterRows, isExtensiveDebugMode } from '../../core/shared/extensiveStats.js';
+import { tryAddToShadowQueue, hasShadowQueueEntryForSource } from '../../core/shared/materialQueue.js';
 import { DEFAULT_GAS_URL } from '../../lib/config.js';
 import { pullCloudAudio } from '../../lib/sync.js';
 import {
@@ -52,6 +52,8 @@ export default function ExtensiveApp({
   const [error, setError] = useState('');
   const [statusMsg, setStatusMsg] = useState('');
   const [stats, setStats] = useState(() => loadExtensiveStats());
+  const [shadowToast, setShadowToast] = useState('');
+  const [shadowQueuedIds, setShadowQueuedIds] = useState(() => new Set());
   const prefetchRef = useRef(null);
   const touchStartY = useRef(null);
 
@@ -220,7 +222,13 @@ export default function ExtensiveApp({
   async function handlePassageEnded() {
     if (current) {
       const durationSec = (Date.now() - current.startedAt) / 1000;
-      setStats(recordPassageComplete({ durationSec, structureFlags, item: current.item }));
+      setStats(recordPassageComplete({
+        durationSec,
+        structureFlags,
+        item: current.item,
+        passageId: current.id,
+        cefr,
+      }));
       scheduleCloudSync?.();
     }
     if (!autoContinue) return;
@@ -264,9 +272,30 @@ export default function ExtensiveApp({
 
   function sendToShadowing() {
     if (!current) return;
-    addToShadowQueue({ item: current.item, scene, level, cefr, source: 'extensive' });
+    const result = tryAddToShadowQueue({
+      item: current.item,
+      scene,
+      level,
+      cefr,
+      source: 'extensive',
+      sourceItemId: current.id,
+    });
+    if (!result.ok) {
+      if (result.reason === 'full') {
+        setShadowToast(UI.extensive.shadowQueueFull);
+        setTimeout(() => setShadowToast(''), 3000);
+      }
+      return;
+    }
+    setShadowQueuedIds((prev) => new Set(prev).add(current.id));
     scheduleCloudSync?.();
+    setShadowToast(UI.extensive.addToShadowingAdded);
+    setTimeout(() => setShadowToast(''), 2500);
   }
+
+  const currentInShadowQueue = current
+    ? shadowQueuedIds.has(current.id) || hasShadowQueueEntryForSource(current.id)
+    : false;
 
   function backToSetup() {
     setPassages([]);
@@ -274,6 +303,7 @@ export default function ExtensiveApp({
     prefetchRef.current = null;
     setStage('setup');
     setHistory(loadExtensiveHistory());
+    setStats(loadExtensiveStats());
   }
 
   if (stage === 'setup') {
@@ -350,7 +380,7 @@ export default function ExtensiveApp({
           />
         )}
 
-        <StatsPanel stats={stats} />
+        <StatsPanel stats={stats} cefr={cefr} />
       </div>
     );
   }
@@ -382,7 +412,14 @@ export default function ExtensiveApp({
         <button type="button" className="btn btn-ghost btn-sm" aria-pressed={autoContinue} onClick={() => setAutoContinue((v) => !v)}>
           {UI.extensive.auto} {autoContinue ? 'ON' : 'OFF'}
         </button>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={sendToShadowing}>{UI.extensive.addToShadowing}</button>
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm"
+          onClick={sendToShadowing}
+          disabled={currentInShadowQueue}
+        >
+          {currentInShadowQueue ? UI.extensive.addToShadowingDone : UI.extensive.addToShadowing}
+        </button>
         <button type="button" className="btn btn-ghost btn-sm" onClick={backToSetup}>{UI.extensive.setup}</button>
       </div>
 
@@ -412,7 +449,7 @@ export default function ExtensiveApp({
       )}
 
       <p className="field-hint">{UI.extensive.swipeHint}</p>
-      <StatsPanel stats={stats} compact />
+      {shadowToast && <p className="status shadow-toast">{shadowToast}</p>}
     </div>
   );
 }
@@ -450,28 +487,105 @@ function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
   );
 }
 
-function StatsPanel({ stats, compact }) {
-  const structureEntries = Object.entries(stats.structureCounts || {});
-  if (compact && !structureEntries.length) return null;
+function StatsPanel({ stats, cefr }) {
+  const [showAllChunks, setShowAllChunks] = useState(false);
+  const debug = isExtensiveDebugMode();
+  const structureEntries = Object.entries(stats.structureEncounters || {})
+    .filter(([, v]) => (v?.occurrences || 0) > 0);
+  const { top, recent, all } = getChunkEncounterRows(stats, { cefr });
+
   return (
-    <section className="history-section" style={{ marginTop: 24 }}>
-      <h2 className="history-heading">Listening stats</h2>
-      <p className="field-hint">
-        {UI.extensive.statsTotal}: {Math.round(stats.totalMinutes)} {UI.extensive.statsMin} · {UI.extensive.statsPassages}: {stats.passagesCompleted}
-        {(stats.structureValidation?.checked || 0) > 0 && (
-          <> · {UI.extensive.statsStructureCompliance}: {Math.round((stats.structureValidation.compliant / stats.structureValidation.checked) * 100)}%</>
+    <>
+      <section className="history-section" style={{ marginTop: 24 }}>
+        <h2 className="history-heading">Listening stats</h2>
+        <p className="field-hint">
+          {UI.extensive.statsTotal}: {Math.round(stats.totalMinutes)} {UI.extensive.statsMin}
+          {' · '}
+          {UI.extensive.statsPassages}: {stats.passagesCompleted}
+          {debug && (stats.structureValidation?.checked || 0) > 0 && (
+            <>
+              {' · '}
+              {UI.extensive.statsStructureCompliance}:{' '}
+              {Math.round((stats.structureValidation.compliant / stats.structureValidation.checked) * 100)}%
+            </>
+          )}
+        </p>
+
+        {structureEntries.length > 0 && (
+          <>
+            <h3 className="history-subheading">{UI.extensive.structureFocus}</h3>
+            <ul className="feature-list">
+              {structureEntries.map(([k, v]) => (
+                <li key={k} className="feature-item">
+                  <span>{STRUCTURE_FLAGS[k]?.labelJa || STRUCTURE_FLAGS[k]?.label || k}</span>
+                  <span>
+                    {UI.extensive.statsStructureEncounter} {v.occurrences} {UI.extensive.statsStructureTimes}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
-      </p>
-      {structureEntries.length > 0 && (
-        <ul className="feature-list">
-          {structureEntries.map(([k, v]) => (
-            <li key={k} className="feature-item">
-              <span>{STRUCTURE_FLAGS[k]?.labelJa || STRUCTURE_FLAGS[k]?.label || k}</span>
-              <span>{v}×</span>
-            </li>
-          ))}
-        </ul>
+
+        <h3 className="history-subheading">{UI.extensive.statsChunksHeading}</h3>
+        {top.length === 0 && recent.length === 0 ? (
+          <p className="field-hint">{UI.extensive.statsChunksEmpty}</p>
+        ) : (
+          <>
+            {top.length > 0 && (
+              <>
+                <p className="field-hint">{UI.extensive.statsChunksTop}</p>
+                <ChunkList rows={top} />
+              </>
+            )}
+            {recent.length > 0 && (
+              <>
+                <p className="field-hint" style={{ marginTop: 12 }}>{UI.extensive.statsChunksRecent}</p>
+                <ChunkList rows={recent} />
+              </>
+            )}
+            {all.length > 10 && (
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                style={{ marginTop: 8 }}
+                onClick={() => setShowAllChunks(true)}
+              >
+                {UI.extensive.statsChunksViewAll}
+              </button>
+            )}
+          </>
+        )}
+      </section>
+
+      {showAllChunks && (
+        <div className="modal-overlay" onClick={() => setShowAllChunks(false)}>
+          <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
+            <h2 className="history-heading">{UI.extensive.statsChunksHeading}</h2>
+            <ChunkList rows={all} />
+            <button type="button" className="btn btn-ghost" onClick={() => setShowAllChunks(false)}>
+              {UI.common.close}
+            </button>
+          </div>
+        </div>
       )}
-    </section>
+    </>
+  );
+}
+
+function ChunkList({ rows }) {
+  return (
+    <ul className="feature-list">
+      {rows.map((row) => (
+        <li key={row.chunk} className="feature-item">
+          <span className="chunk-label">{row.chunk}</span>
+          <span>
+            {UI.extensive.statsStructureEncounter} {row.count} {UI.extensive.statsStructureTimes}
+            {' / '}
+            {row.distinct_passages} {UI.extensive.statsChunksContexts}
+          </span>
+        </li>
+      ))}
+    </ul>
   );
 }

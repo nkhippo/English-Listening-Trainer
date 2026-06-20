@@ -12,6 +12,8 @@ export const STRUCTURE_SENTENCE_COVERAGE = 0.8;
 const NON_PARTICIPLE_ING = new Set([
   'thing', 'something', 'anything', 'everything', 'nothing', 'during', 'morning',
   'evening', 'according', 'building', 'ceiling', 'feeling', 'meeting', 'setting',
+  'working', 'looking', 'going', 'coming', 'getting', 'making', 'taking', 'having',
+  'being', 'doing', 'saying', 'thinking', 'waiting', 'standing', 'sitting',
 ]);
 
 function extractSentences(item) {
@@ -36,31 +38,52 @@ function countPatternMatches(text, patterns) {
   return { count: samples.length, samples };
 }
 
+function isLikelyParticipleIng(word) {
+  const lower = word.toLowerCase();
+  if (NON_PARTICIPLE_ING.has(lower)) return false;
+  if (lower.endsWith('thing')) return false;
+  return lower.length >= 4;
+}
+
 function detectRelativeClauses(text) {
   return countPatternMatches(text, [
     /\b(who|whom|whose|which)\s+[\w']+/i,
-    /\b(that)\s+(?!is\b|are\b|was\b|were\b|would\b|could\b|should\b|may\b|might\b|can\b|will\b|shall\b|has\b|have\b|had\b|be\b|been\b|being\b|am\b|it\b|this\b|that\b)[\w']+/i,
+    /\b(that)\s+(?!\w+\s+(?:is|are|was|were)\b)[\w']+/i,
     /\b(where|when)\s+[\w']+/i,
+    /\b(the|a|an)\s+[\w']+\s+(who|which|that|where|when)\s+/i,
   ]);
 }
 
 function detectParticiples(text) {
-  const present = [...text.matchAll(/(?:^|[.;]\s+|,\s+)([A-Za-z]{4,}ing)\b/gi)]
-    .map((m) => m[1].toLowerCase())
-    .filter((word) => !NON_PARTICIPLE_ING.has(word) && !word.endsWith('thing'));
-  const past = [...text.matchAll(/,\s*([A-Za-z]{4,}ed)\b/gi)].map((m) => m[1]);
-  const perfect = [...text.matchAll(/\bHaving\s+[\w']+/gi)].map((m) => m[0]);
-  const samples = [...present, ...past, ...perfect];
+  const samples = [];
+
+  for (const match of text.matchAll(/(?:^|[.!?]\s+)([A-Za-z]{3,}ing)\b/gi)) {
+    if (isLikelyParticipleIng(match[1])) samples.push(match[1]);
+  }
+  for (const match of text.matchAll(/,\s*([A-Za-z]{3,}(?:ed|en))\b/gi)) {
+    samples.push(match[1]);
+  }
+  for (const match of text.matchAll(/\bHaving\s+[\w']+/gi)) {
+    samples.push(match[0]);
+  }
+  for (const match of text.matchAll(/\b(Born|Given|Left|Known|Seen|Taken|Written|Built)\s+[\w']+/gi)) {
+    samples.push(match[0]);
+  }
+
   return { count: samples.length, samples };
 }
 
 function detectConditionals(text) {
   return countPatternMatches(text, [
     /\bif\s+[\w']+/i,
-    /\b(?:would|could|might)\s+(?:have\s+)?[\w']+/i,
-    /\bhad\s+[\w']+\s+(?:been|known|seen|heard|left|gone|done|told|met|taken)/i,
-    /\bwere\s+[\w']+\s+to\b/i,
     /\bunless\s+[\w']+/i,
+    /\bwould\s+have\s+[\w']+/i,
+    /\bwould\s+[\w']+/i,
+    /\bcould\s+have\s+[\w']+/i,
+    /\bmight\s+have\s+[\w']+/i,
+    /\bhad\s+[\w']+\s+(?:been|known|seen|heard|left|gone|done|told|met|taken|had|arrived|called)/i,
+    /\bwere\s+[\w']+\s+to\b/i,
+    /\bIf\s+only\b/i,
   ]);
 }
 
@@ -70,9 +93,12 @@ function detectInversions(text) {
     /\b(?:Rarely|Seldom|Hardly|Scarcely|Little)\s+(?:did|do|does|have|has|had|is|are|was|were)\b/i,
     /\bNot\s+only\b/i,
     /\bNo\s+sooner\b/i,
-    /\bHad\s+I\b/i,
-    /\bWere\s+I\b/i,
+    /\bOnly\s+then\b/i,
+    /\bUnder\s+no\s+circumstances\b/i,
+    /\bHad\s+(?:I|we|they|he|she|it)\b/i,
+    /\bWere\s+(?:I|we|they|he|she)\b/i,
     /\bShould\s+[\w']+\s+/i,
+    /\b(?:Did|Do|Does)\s+(?:he|she|they|we|I|it)\s+/i,
   ]);
 }
 
@@ -82,6 +108,16 @@ const DETECTORS = {
   conditional: detectConditionals,
   inversion: detectInversions,
 };
+
+export function countAllStructureOccurrences(item) {
+  const sentences = extractSentences(item);
+  const fullText = sentences.join(' ');
+  const result = {};
+  for (const key of STRUCTURE_FLAG_KEYS) {
+    result[key] = DETECTORS[key](fullText).count;
+  }
+  return result;
+}
 
 export function auditStructureFlags(item, structureFlags = []) {
   const flags = (structureFlags || []).filter((key) => STRUCTURE_FLAG_KEYS.includes(key));
@@ -158,4 +194,22 @@ export function formatStructureFailures(audit) {
       minCount: result.minCount,
       sentenceRate: result.sentenceRate,
     }));
+}
+
+export function logStructureValidationDebug({ structureFlags, item, context = 'generation' }) {
+  if (typeof window === 'undefined') return;
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('debug') !== '1') return;
+
+  const audit = item?.structure_metadata || auditStructureFlags(item, structureFlags);
+
+  console.debug(`[extensive:${context}] structure validation`, {
+    structureFlags,
+    compliant: audit.compliant,
+    sentenceCoverageRate: audit.sentenceCoverageRate,
+    flags: audit.flags,
+    occurrences: countAllStructureOccurrences(item),
+  });
+
+  return audit;
 }

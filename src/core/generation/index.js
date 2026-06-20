@@ -1,6 +1,6 @@
 import { buildGenerationPrompt, buildSystemPrompt } from './prompts.js';
 import { enrichCefrMetadataAsync, isCefrCompliantAsync } from '../shared/cefrCatalog.js';
-import { enrichStructureMetadata, isStructureCompliant, formatStructureFailures } from '../shared/structureValidation.js';
+import { enrichStructureMetadata, isStructureCompliant, formatStructureFailures, logStructureValidationDebug } from '../shared/structureValidation.js';
 
 const CLAUDE_ENDPOINT = 'https://api.anthropic.com/v1/messages';
 const CLAUDE_MODEL = 'claude-haiku-4-5-20251001';
@@ -89,6 +89,9 @@ export async function generateContent({
       if (needsStructureRetry(item, structureFlags) && attempt < maxAttempts - 1) {
         lastError = new Error(`Structure validation failed: ${JSON.stringify(formatStructureFailures(item.structure_metadata))}`);
         continue;
+      }
+      if (structureFlags?.length) {
+        logStructureValidationDebug({ structureFlags, item, context: `attempt-${attempt + 1}` });
       }
       return item;
     } catch (e) {

@@ -5,6 +5,7 @@ import { FEATURE_CATALOG } from './targetFeatures.js';
 import { buildCefrConstraint } from './cefrConstraints.js';
 import { STRUCTURE_FLAGS } from '../shared/structureFlags.js';
 import { STRUCTURE_SENTENCE_COVERAGE } from '../shared/structureValidation.js';
+import { STRUCTURE_FEW_SHOT_EXAMPLES } from '../shared/structureFloodingExamples.js';
 
 export { SCENES, LEVELS };
 export { MODES } from '../shared/modes.js';
@@ -22,10 +23,23 @@ function buildStructureSection(structureFlags) {
     .map((key) => STRUCTURE_FLAGS[key]?.prompt)
     .filter(Boolean);
   if (!lines.length) return '';
+  const examples = structureFlags
+    .map((key) => STRUCTURE_FEW_SHOT_EXAMPLES[key])
+    .filter(Boolean)
+    .join('\n\n');
   return `
-Structure focus (input flooding): Each passage MUST satisfy ALL of the following:
+Structure focus (input flooding) — CRITICAL for extensive listening:
+Each passage MUST satisfy ALL selected structures below. This is the core training goal.
+
+Requirements per selected structure:
 ${lines.map((l) => `- ${l}`).join('\n')}
-Automated validation: at least ${Math.round(STRUCTURE_SENTENCE_COVERAGE * 100)}% of sentences must contain each selected structure, with the minimum counts above.`;
+
+Quantitative validation (automated): for EACH selected structure, at least ${Math.round(STRUCTURE_SENTENCE_COVERAGE * 100)}% of sentences in the passage must contain that structure, AND the minimum total counts above must be met.
+
+Few-shot reference (match this density and distribution):
+${examples}
+
+Do NOT write a passage where only 1–2 sentences contain the target structure. Spread structures across most sentences.`;
 }
 
 function buildCefrSection(cefr) {

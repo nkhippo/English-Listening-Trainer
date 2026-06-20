@@ -1,3 +1,5 @@
+> **廃止** — 現行仕様は [architecture.md](../architecture.md)、[extensive.md](../extensive.md)、[shadowing.md](../shadowing.md) を参照。
+
 # Work Request: Listening Trainer v2 — 3シェル統合アーキテクチャ
 
 > **改修種別**: アーキテクチャ再構成（既存機能の保持＋新シェル2つの追加）

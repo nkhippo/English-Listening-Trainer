@@ -1,6 +1,8 @@
 const SHADOW_QUEUE_KEY = 'elt_shadow_queue';
 const MAX_QUEUE = 50;
 
+export { MAX_QUEUE as SHADOW_QUEUE_MAX };
+
 function normalizeShadowQueueEntry(entry) {
   const createdAt = entry.createdAt || entry.addedAt || new Date().toISOString();
   return {
@@ -46,6 +48,25 @@ export function loadShadowQueue() {
   return loadRaw()
     .filter((e) => !e.deletedAt && !e.removed)
     .sort((a, b) => new Date(b.updatedAt || b.addedAt) - new Date(a.updatedAt || a.addedAt));
+}
+
+export function getShadowQueueCount() {
+  return loadShadowQueue().length;
+}
+
+export function isShadowQueueFull() {
+  return getShadowQueueCount() >= MAX_QUEUE;
+}
+
+export function tryAddToShadowQueue(params) {
+  if (params.sourceItemId && hasShadowQueueEntryForSource(params.sourceItemId)) {
+    return { ok: false, reason: 'duplicate' };
+  }
+  if (isShadowQueueFull()) {
+    return { ok: false, reason: 'full' };
+  }
+  const entry = addToShadowQueue(params);
+  return { ok: true, entry };
 }
 
 export function addToShadowQueue({ item, scene, level, cefr, source, score, sourceItemId, understood }) {

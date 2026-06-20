@@ -1,8 +1,10 @@
 # English Listening Trainer — 仕様書
 
-Ver.0.1（プロトタイプ）
+Ver.0.2（3シェル構成）
 
-設計思想（why）は [background.md](./background.md) を参照。本書は what（機能・データ構造）を扱う。
+設計思想（why）は [background.md](./background.md)。3シェル全体は [architecture.md](./architecture.md)。多聴は [extensive.md](./extensive.md)、シャドーは [shadowing.md](./shadowing.md)。
+
+**本書のスコープ: 精聴（Intensive）シェル** — Cloze / Dictation / Minimal Pair の what（機能・データ構造）。
 
 ## 1. 目的
 
@@ -16,9 +18,10 @@ Ver.0.1（プロトタイプ）
 - 層2：文強勢・リズム（弱形復元を通じて間接的に）
 
 ### スコープ外
-- 産出側（発音・流暢性）
 - 層5：イントネーション（テキスト化でピッチ情報が落ちる）
 - リアルタイム会話の予測・turn-taking
+
+産出側（発音・流暢性）は v1 ではスコープ外だったが、**シャドーイングシェル**で取り込む（[shadowing.md](./shadowing.md)）。多聴は [extensive.md](./extensive.md)。
 
 ## 3. 軸の設計
 
