@@ -56,6 +56,7 @@ export default function ExtensiveApp({
   const [stats, setStats] = useState(() => loadExtensiveStats());
   const [shadowToast, setShadowToast] = useState('');
   const [shadowQueuedIds, setShadowQueuedIds] = useState(() => new Set());
+  const [passageLoading, setPassageLoading] = useState(false);
   const prefetchRef = useRef(null);
   const swipeLoadingRef = useRef(false);
   const endedPassageRef = useRef(null);
@@ -235,6 +236,24 @@ export default function ExtensiveApp({
     return prefetchRef.current;
   }
 
+  const advanceToNextPassage = useCallback(async () => {
+    setPassageLoading(true);
+    try {
+      const next = await prefetchNext();
+      prefetchRef.current = null;
+      saveToHistory(next);
+      setPassages((prev) => [...prev, next]);
+      setCurrentIdx((i) => i + 1);
+      prefetchRef.current = generatePassage();
+    } catch (e) {
+      console.warn('Prefetch failed:', e);
+      setShadowToast(UI.extensive.loadingNextFailed);
+      setTimeout(() => setShadowToast(''), 4000);
+    } finally {
+      setPassageLoading(false);
+    }
+  }, [saveToHistory, generatePassage]);
+
   async function handlePassageEnded() {
     if (!current || endedPassageRef.current === current.id) return;
     endedPassageRef.current = current.id;
@@ -250,16 +269,7 @@ export default function ExtensiveApp({
     scheduleCloudSync?.();
 
     if (!autoContinue) return;
-    try {
-      const next = await prefetchNext();
-      prefetchRef.current = null;
-      saveToHistory(next);
-      setPassages((prev) => [...prev, next]);
-      setCurrentIdx((i) => i + 1);
-      prefetchRef.current = generatePassage();
-    } catch (e) {
-      console.warn('Prefetch failed:', e);
-    }
+    await advanceToNextPassage();
   }
 
   const goPrev = useCallback(() => {
@@ -271,21 +281,14 @@ export default function ExtensiveApp({
       setCurrentIdx((i) => i + 1);
       return;
     }
-    if (!anthropicKey || swipeLoadingRef.current) return;
+    if (!anthropicKey || swipeLoadingRef.current || passageLoading) return;
     swipeLoadingRef.current = true;
     try {
-      const next = await prefetchNext();
-      prefetchRef.current = null;
-      saveToHistory(next);
-      setPassages((prev) => [...prev, next]);
-      setCurrentIdx((i) => i + 1);
-      prefetchRef.current = generatePassage();
-    } catch (e) {
-      console.warn('Prefetch on swipe failed:', e);
+      await advanceToNextPassage();
     } finally {
       swipeLoadingRef.current = false;
     }
-  }, [anthropicKey, currentIdx, passages.length, saveToHistory, generatePassage]);
+  }, [anthropicKey, currentIdx, passages.length, passageLoading, advanceToNextPassage]);
 
   const swipeRef = useVerticalSwipe({
     onSwipeUp: goNext,
@@ -463,8 +466,15 @@ export default function ExtensiveApp({
         <button type="button" className="btn btn-ghost btn-sm" onClick={() => setPlaybackRate((r) => (r === 1 ? 1.25 : r === 1.25 ? 0.85 : 1))}>
           {UI.extensive.speed} {playbackRate}x
         </button>
-        <button type="button" className="btn btn-ghost btn-sm" aria-pressed={autoContinue} onClick={() => setAutoContinue((v) => !v)}>
-          {UI.extensive.auto} {autoContinue ? 'ON' : 'OFF'}
+        <button
+          type="button"
+          className="btn btn-sm btn-toggle"
+          aria-pressed={autoContinue}
+          aria-label={autoContinue ? UI.extensive.autoAriaOn : UI.extensive.autoAriaOff}
+          onClick={() => setAutoContinue((v) => !v)}
+        >
+          <span className="btn-toggle-label">{UI.extensive.auto}</span>
+          <span className="btn-toggle-state">{autoContinue ? UI.extensive.autoOn : UI.extensive.autoOff}</span>
         </button>
         <button
           type="button"
@@ -477,28 +487,36 @@ export default function ExtensiveApp({
       </div>
 
       {current && (
-        viewMode === 'read_listen' ? (
-          <PassagePlayer
-            key={current.id}
-            item={current.item}
-            audioUrl={current.audioUrl}
-            itemId={current.id}
-            audioPlayer={audioPlayer}
-            showScript
-            onEnded={handlePassageEnded}
-            playbackRate={playbackRate}
-          />
-        ) : (
-          <ListenOnlyView
-            key={current.id}
-            item={current.item}
-            audioUrl={current.audioUrl}
-            itemId={current.id}
-            audioPlayer={audioPlayer}
-            onEnded={handlePassageEnded}
-            playbackRate={playbackRate}
-          />
-        )
+        <div className={`passage-stage${passageLoading ? ' is-loading-next' : ''}`}>
+          {passageLoading && (
+            <div className="extensive-loading-next" role="status" aria-live="polite">
+              <span className="extensive-loading-spinner" aria-hidden="true" />
+              <p>{UI.extensive.loadingNext}</p>
+            </div>
+          )}
+          {viewMode === 'read_listen' ? (
+            <PassagePlayer
+              key={current.id}
+              item={current.item}
+              audioUrl={current.audioUrl}
+              itemId={current.id}
+              audioPlayer={audioPlayer}
+              showScript
+              onEnded={handlePassageEnded}
+              playbackRate={playbackRate}
+            />
+          ) : (
+            <ListenOnlyView
+              key={current.id}
+              item={current.item}
+              audioUrl={current.audioUrl}
+              itemId={current.id}
+              audioPlayer={audioPlayer}
+              onEnded={handlePassageEnded}
+              playbackRate={playbackRate}
+            />
+          )}
+        </div>
       )}
 
       <p className="field-hint">{UI.extensive.swipeHint}</p>

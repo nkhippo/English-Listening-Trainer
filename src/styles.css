@@ -389,6 +389,75 @@ input:focus, textarea:focus, select:focus {
 
 .listening-controls {
   margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.btn-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+  color: var(--ink-mute);
+}
+.btn-toggle:hover:not(:disabled) {
+  border-color: var(--ink-mute);
+  opacity: 1;
+}
+.btn-toggle[aria-pressed='true'] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+.btn-toggle[aria-pressed='true'] .btn-toggle-state {
+  color: var(--bg);
+  font-weight: 600;
+}
+.btn-toggle-label {
+  font-size: 13px;
+}
+.btn-toggle-state {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.passage-stage {
+  position: relative;
+}
+.passage-stage.is-loading-next .passage-player,
+.passage-stage.is-loading-next .listen-only-view {
+  opacity: 0.35;
+  pointer-events: none;
+}
+.extensive-loading-next {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  text-align: center;
+  pointer-events: none;
+}
+.extensive-loading-next p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink);
+}
+.extensive-loading-spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--line);
+  border-top-color: var(--ink);
+  border-radius: 50%;
+  animation: extensive-spin 0.8s linear infinite;
+}
+@keyframes extensive-spin {
+  to { transform: rotate(360deg); }
 }
 
 .audio-stage {
