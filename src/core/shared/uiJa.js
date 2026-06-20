@@ -64,6 +64,7 @@ export const UI = {
   extensive: {
     contentLength: 'コンテンツ長',
     structureFocus: '構造フラッグ（input flooding）',
+    structureFocusHint: 'ON にすると各構造が文の 80% 以上に含まれるよう自動検証します（不合格は再生成）。',
     viewMode: '表示モード',
     readListen: '読みながら聞く',
     listenOnly: '聞くだけ',
@@ -82,6 +83,7 @@ export const UI = {
     statsTotal: '合計',
     statsPassages: 'パッセージ',
     statsMin: '分',
+    statsStructureCompliance: '構造検証合格率',
     tapTranslation: 'タップで訳文を',
     show: '表示',
     hide: '非表示',

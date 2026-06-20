@@ -6,6 +6,7 @@ function defaultStats() {
     structureCounts: {},
     chunkEncounters: {},
     passagesCompleted: 0,
+    structureValidation: { checked: 0, compliant: 0 },
     updatedAt: null,
   };
 }
@@ -24,6 +25,10 @@ function addStats(a, b) {
     passagesCompleted: a.passagesCompleted + b.passagesCompleted,
     structureCounts: mergeCountMaps(a.structureCounts, b.structureCounts),
     chunkEncounters: mergeCountMaps(a.chunkEncounters, b.chunkEncounters),
+    structureValidation: {
+      checked: (a.structureValidation?.checked || 0) + (b.structureValidation?.checked || 0),
+      compliant: (a.structureValidation?.compliant || 0) + (b.structureValidation?.compliant || 0),
+    },
     updatedAt: new Date().toISOString(),
   };
 }
@@ -36,6 +41,10 @@ export function normalizeExtensiveStats(raw) {
     passagesCompleted: Number(raw.passagesCompleted) || 0,
     structureCounts: { ...(raw.structureCounts || {}) },
     chunkEncounters: { ...(raw.chunkEncounters || {}) },
+    structureValidation: {
+      checked: Number(raw.structureValidation?.checked) || 0,
+      compliant: Number(raw.structureValidation?.compliant) || 0,
+    },
     updatedAt: raw.updatedAt || null,
   };
 }
@@ -92,6 +101,12 @@ export function recordPassageComplete({ durationSec, structureFlags, item }) {
   }
   for (const chunk of item?.cefr_metadata?.used_chunks || []) {
     stats.chunkEncounters[chunk] = (stats.chunkEncounters[chunk] || 0) + 1;
+  }
+  if (structureFlags?.length && item?.structure_metadata) {
+    stats.structureValidation.checked += 1;
+    if (item.structure_metadata.compliant) {
+      stats.structureValidation.compliant += 1;
+    }
   }
   stats.updatedAt = new Date().toISOString();
   saveExtensiveStats(stats);

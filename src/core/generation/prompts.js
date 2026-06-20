@@ -4,6 +4,7 @@ import { LEVELS } from '../shared/levels.js';
 import { FEATURE_CATALOG } from './targetFeatures.js';
 import { buildCefrConstraint } from './cefrConstraints.js';
 import { STRUCTURE_FLAGS } from '../shared/structureFlags.js';
+import { STRUCTURE_SENTENCE_COVERAGE } from '../shared/structureValidation.js';
 
 export { SCENES, LEVELS };
 export { MODES } from '../shared/modes.js';
@@ -23,7 +24,8 @@ function buildStructureSection(structureFlags) {
   if (!lines.length) return '';
   return `
 Structure focus (input flooding): Each passage MUST satisfy ALL of the following:
-${lines.map((l) => `- ${l}`).join('\n')}`;
+${lines.map((l) => `- ${l}`).join('\n')}
+Automated validation: at least ${Math.round(STRUCTURE_SENTENCE_COVERAGE * 100)}% of sentences must contain each selected structure, with the minimum counts above.`;
 }
 
 function buildCefrSection(cefr) {

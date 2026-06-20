@@ -1,9 +1,11 @@
 import { buildGenerationPrompt, buildSystemPrompt } from './prompts.js';
 import { enrichCefrMetadata, isCefrCompliant } from '../shared/cefrCatalog.js';
+import { enrichStructureMetadata, isStructureCompliant, formatStructureFailures } from '../shared/structureValidation.js';
 
 const CLAUDE_ENDPOINT = 'https://api.anthropic.com/v1/messages';
 const CLAUDE_MODEL = 'claude-haiku-4-5-20251001';
 const MAX_CEFR_RETRIES = 3;
+const MAX_STRUCTURE_RETRIES = 5;
 
 async function callClaude({ anthropicKey, userPrompt }) {
   const res = await fetch(CLAUDE_ENDPOINT, {
@@ -42,6 +44,15 @@ function needsCefrRetry(item, cefr) {
   return !isCefrCompliant(item, cefr);
 }
 
+function needsStructureRetry(item, structureFlags) {
+  if (!structureFlags?.length) return false;
+  return !isStructureCompliant(item, structureFlags);
+}
+
+function maxGenerationAttempts(structureFlags) {
+  return structureFlags?.length ? MAX_STRUCTURE_RETRIES : MAX_CEFR_RETRIES;
+}
+
 export async function generateContent({
   shell = 'intensive',
   scene,
@@ -54,8 +65,9 @@ export async function generateContent({
 }) {
   if (!anthropicKey) throw new Error('Anthropic API key required');
 
+  const maxAttempts = maxGenerationAttempts(structureFlags);
   let lastError;
-  for (let attempt = 0; attempt < MAX_CEFR_RETRIES; attempt++) {
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const userPrompt = buildGenerationPrompt({
       scene,
       level,
@@ -67,15 +79,21 @@ export async function generateContent({
     });
     try {
       const raw = await callClaude({ anthropicKey, userPrompt });
-      const item = enrichCefrMetadata(raw, cefr);
-      if (needsCefrRetry(item, cefr) && attempt < MAX_CEFR_RETRIES - 1) {
+      let item = enrichCefrMetadata(raw, cefr);
+      item = enrichStructureMetadata(item, structureFlags);
+
+      if (needsCefrRetry(item, cefr) && attempt < maxAttempts - 1) {
         lastError = new Error(`CEFR validation failed: ${JSON.stringify(item.cefr_metadata?.used_words_above_level)}`);
+        continue;
+      }
+      if (needsStructureRetry(item, structureFlags) && attempt < maxAttempts - 1) {
+        lastError = new Error(`Structure validation failed: ${JSON.stringify(formatStructureFailures(item.structure_metadata))}`);
         continue;
       }
       return item;
     } catch (e) {
       lastError = e;
-      if (attempt >= MAX_CEFR_RETRIES - 1) throw e;
+      if (attempt >= maxAttempts - 1) throw e;
     }
   }
   throw lastError || new Error('Generation failed after retries');

@@ -330,6 +330,7 @@ export default function ExtensiveApp({
         </div>
         <div className="field">
           <label>{UI.extensive.structureFocus}</label>
+          <p className="field-hint">{UI.extensive.structureFocusHint}</p>
           <div className="choices">
             {Object.entries(STRUCTURE_FLAGS).map(([key, f]) => (
               <button key={key} className="choice" aria-pressed={structureFlags.includes(key)} onClick={() => toggleStructureFlag(key)}>{f.labelJa || f.label}</button>
@@ -463,6 +464,9 @@ function StatsPanel({ stats, compact }) {
       <h2 className="history-heading">Listening stats</h2>
       <p className="field-hint">
         {UI.extensive.statsTotal}: {Math.round(stats.totalMinutes)} {UI.extensive.statsMin} · {UI.extensive.statsPassages}: {stats.passagesCompleted}
+        {(stats.structureValidation?.checked || 0) > 0 && (
+          <> · {UI.extensive.statsStructureCompliance}: {Math.round((stats.structureValidation.compliant / stats.structureValidation.checked) * 100)}%</>
+        )}
       </p>
       {structureEntries.length > 0 && (
         <ul className="feature-list">

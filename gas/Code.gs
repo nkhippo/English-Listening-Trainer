@@ -392,6 +392,7 @@ function emptyExtensiveStats_() {
     structureCounts: {},
     chunkEncounters: {},
     passagesCompleted: 0,
+    structureValidation: { checked: 0, compliant: 0 },
     updatedAt: null,
   };
 }
@@ -413,6 +414,12 @@ function addExtensiveStats_(a, b) {
     passagesCompleted: (Number(a.passagesCompleted) || 0) + (Number(b.passagesCompleted) || 0),
     structureCounts: mergeCountMaps_(a.structureCounts, b.structureCounts),
     chunkEncounters: mergeCountMaps_(a.chunkEncounters, b.chunkEncounters),
+    structureValidation: {
+      checked: (Number(a.structureValidation && a.structureValidation.checked) || 0)
+        + (Number(b.structureValidation && b.structureValidation.checked) || 0),
+      compliant: (Number(a.structureValidation && a.structureValidation.compliant) || 0)
+        + (Number(b.structureValidation && b.structureValidation.compliant) || 0),
+    },
     updatedAt: new Date().toISOString(),
   };
 }
@@ -424,6 +431,10 @@ function normalizeExtensiveStats_(raw) {
     passagesCompleted: Number(raw.passagesCompleted) || 0,
     structureCounts: raw.structureCounts && typeof raw.structureCounts === 'object' ? raw.structureCounts : {},
     chunkEncounters: raw.chunkEncounters && typeof raw.chunkEncounters === 'object' ? raw.chunkEncounters : {},
+    structureValidation: {
+      checked: Number(raw.structureValidation && raw.structureValidation.checked) || 0,
+      compliant: Number(raw.structureValidation && raw.structureValidation.compliant) || 0,
+    },
     updatedAt: raw.updatedAt || null,
   };
 }
