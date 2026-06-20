@@ -7,20 +7,26 @@ export default function PassagePlayer({
 }) {
   const lines = item?.lines || [];
   const playedRef = useRef(false);
+  const onEndedRef = useRef(onEnded);
+  onEndedRef.current = onEnded;
+
+  const attachEndedHandler = useCallback((audio) => {
+    if (!audio) return undefined;
+    const handler = () => onEndedRef.current?.();
+    audio.addEventListener('ended', handler);
+    return () => audio.removeEventListener('ended', handler);
+  }, []);
 
   useEffect(() => {
     if (!audioUrl || playedRef.current) return;
     playedRef.current = true;
     const audio = audioPlayer.play(audioUrl, itemId, { showProgress: true, playbackRate });
-    if (audio) {
-      const handler = () => onEnded?.();
-      audio.addEventListener('ended', handler);
-      return () => audio.removeEventListener('ended', handler);
-    }
-  }, [audioUrl, itemId, audioPlayer, onEnded, playbackRate]);
+    return attachEndedHandler(audio);
+  }, [audioUrl, itemId, audioPlayer, playbackRate, attachEndedHandler]);
 
   function replay() {
-    audioPlayer.play(audioUrl, itemId, { showProgress: true, playbackRate });
+    const audio = audioPlayer.play(audioUrl, itemId, { showProgress: true, playbackRate });
+    return attachEndedHandler(audio);
   }
 
   return (
