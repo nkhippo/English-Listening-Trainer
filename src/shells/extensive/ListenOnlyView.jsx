@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Waveform from '../../components/Waveform.jsx';
+import TranslationBlock from '../../components/TranslationBlock.jsx';
 import { UI } from '../../core/shared/uiJa.js';
 
 export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, onEnded, playbackRate = 1 }) {
@@ -29,7 +30,7 @@ export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, on
       </div>
       <p className="field-hint">{UI.extensive.tapTranslation}{showTranslation ? UI.extensive.hide : UI.extensive.show}</p>
       {showTranslation && (
-        <p className="passage-translation">{item.translation_ja}</p>
+        <TranslationBlock translationJa={item.translation_ja} />
       )}
     </div>
   );

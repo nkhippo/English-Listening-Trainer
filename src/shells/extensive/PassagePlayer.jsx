@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Waveform from '../../components/Waveform.jsx';
+import TranslationBlock from '../../components/TranslationBlock.jsx';
 
 export default function PassagePlayer({
   item, audioUrl, itemId, audioPlayer, showScript = true, onEnded, playbackRate = 1,
@@ -39,7 +40,7 @@ export default function PassagePlayer({
               {line.text}
             </p>
           ))}
-          <p className="passage-translation">{item.translation_ja}</p>
+          <TranslationBlock translationJa={item.translation_ja} />
         </div>
       )}
     </div>

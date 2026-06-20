@@ -103,6 +103,8 @@ export function resolveAudioUrl({ url, audioBase64, mimeType = 'audio/mpeg' }) {
   throw new Error('No playable audio in response');
 }
 
+import { migrateTranslationJa } from '../shared/translationJa.js';
+
 /** Ensure generated items always have lines[] for UI and TTS. */
 export function normalizeItem(item) {
   if (!item) throw new Error('Empty item from generator');
@@ -110,7 +112,8 @@ export function normalizeItem(item) {
     ? item.lines
     : [{ speaker: 'A', text: item.sentence || '' }];
   const sentence = item.sentence || lines.map((l) => l.text).join('\n');
-  return { ...item, lines, sentence };
+  const translation_ja = migrateTranslationJa(item.translation_ja, lines);
+  return { ...item, lines, sentence, translation_ja };
 }
 
 export async function resolveItemAudio({

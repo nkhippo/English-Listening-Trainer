@@ -109,7 +109,7 @@ Return ONLY a JSON object (no prose, no code fences) with this exact schema:
 {
   "sentence": "full text for display (dialogue joined with \\n)",
   "lines": [{ "speaker": "A", "text": "..." }, ...],
-  "translation_ja": "Japanese translation of the full content",
+  "translation_ja": "Japanese translation; for dialogues, one line per turn prefixed with A: or B:, joined with \\n",
   "target_features": ["weak_form:to", "linking:pick_it", ...],
   "cefr_metadata": { "used_words_above_level": [], "used_chunks": [] },
   "blanks": [{ "answer": "to", "hint": "weak form" }, ...] | null,
@@ -123,6 +123,7 @@ Critical:
 - target_features must be a faithful summary of ACTUAL phenomena in the sentence; never fabricate features.
 - Vary sentence openings and structures; avoid repetitive patterns (e.g. do not always start with "I was").
 - translation_ja must sound natural to a Japanese native speaker, not word-for-word literal.
+- For dialogues: translation_ja MUST use one line per speaker turn (\\n-separated), each prefixed with A: or B: matching the English lines order.
 - "blanks" is required when mode=cloze, null otherwise.
 - "minimal_pair_target" is required when mode=minimal_pair, null otherwise.
 - cefr_metadata.used_words_above_level MUST be an array (empty if fully compliant).

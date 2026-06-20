@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import TranslationBlock from '../../components/TranslationBlock.jsx';
 import { diagnoseFeatures } from '../../core/scoring/cloze.js';
 import {
   addToShadowQueue,
@@ -104,9 +105,7 @@ export default function ReviewView({
             </div>
           ))}
         </div>
-        <div style={{ marginTop: 12, fontSize: 13, color: 'var(--ink-mute)' }}>
-          {item.translation_ja}
-        </div>
+        <TranslationBlock translationJa={item.translation_ja} />
         {audioUrl && (
           <button type="button" className="btn btn-ghost" style={{ marginTop: 12 }} onClick={playReview}>
             {UI.intensive.listenAgain}
