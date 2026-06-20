@@ -167,7 +167,7 @@ export default function ExtensiveApp({
     }
   }
 
-  async function openPassageFromHistory(entry, { listenOnly = false } = {}) {
+  async function openPassageFromHistory(entry) {
     setError('');
     setStage('loading');
     setStatusMsg(hasCachedAudio(entry.id) ? UI.extensive.loadingCached : UI.extensive.loadingAudio);
@@ -190,13 +190,7 @@ export default function ExtensiveApp({
       touchExtensiveHistoryEntry(entry.id);
       setHistory(loadExtensiveHistory());
       scheduleCloudSync?.();
-
-      if (listenOnly) {
-        setStage('setup');
-        audioPlayer.play(audioUrl, entry.id, { showProgress: true });
-      } else {
-        setStage('listening');
-      }
+      setStage('listening');
     } catch (e) {
       setError(String(e.message || e));
       setStage('setup');
@@ -204,7 +198,7 @@ export default function ExtensiveApp({
   }
 
   async function listenFromHistory(entry) {
-    await openPassageFromHistory(entry, { listenOnly: true });
+    await openPassageFromHistory(entry);
   }
 
   async function replayFromHistory(entry) {

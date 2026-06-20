@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Waveform from '../../components/Waveform.jsx';
 import { UI } from '../../core/shared/uiJa.js';
 
 export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, onEnded, playbackRate = 1 }) {
   const [showTranslation, setShowTranslation] = useState(false);
+  const playedRef = useRef(false);
 
   function play() {
     const audio = audioPlayer.play(audioUrl, itemId, { showProgress: true, playbackRate });
@@ -11,6 +12,12 @@ export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, on
       audio.addEventListener('ended', () => onEnded?.(), { once: true });
     }
   }
+
+  useEffect(() => {
+    if (!audioUrl || playedRef.current) return;
+    playedRef.current = true;
+    play();
+  }, [audioUrl, itemId, playbackRate]);
 
   return (
     <div className="listen-only-view" onClick={() => setShowTranslation((v) => !v)}>
