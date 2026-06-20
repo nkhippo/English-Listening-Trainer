@@ -1,14 +1,24 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { SCENES, migrateSceneId } from '../../core/shared/sceneConfig.js';
 import { LEVELS } from '../../core/shared/levels.js';
-import { CEFR_LEVELS, migrateCefrFromStorage, getRecommendedLevel } from '../../core/shared/cefr.js';
+import { CEFR_LEVELS, DEFAULT_CEFR, migrateCefrFromStorage, getRecommendedLevel } from '../../core/shared/cefr.js';
 import { STRUCTURE_FLAGS } from '../../core/shared/structureFlags.js';
 import { generateContent } from '../../core/generation/index.js';
-import { normalizeItem, resolveItemAudio, resolveAudioUrl } from '../../core/audio/index.js';
+import { normalizeItem, resolveItemAudio, resolveAudioUrl, base64ToAudioUrl } from '../../core/audio/index.js';
 import { loadExtensiveStats, recordPassageComplete } from '../../core/shared/extensiveStats.js';
 import { addToShadowQueue } from '../../core/shared/materialQueue.js';
 import { DEFAULT_GAS_URL } from '../../lib/config.js';
-import { saveCachedAudio } from '../../lib/storage.js';
+import { pullCloudAudio } from '../../lib/sync.js';
+import {
+  computeExtensiveItemId,
+  loadExtensiveHistory,
+  upsertExtensiveHistoryEntry,
+  touchExtensiveHistoryEntry,
+  removeExtensiveHistoryEntry,
+  getCachedAudio,
+  saveCachedAudio,
+  hasCachedAudio,
+} from '../../lib/storage.js';
 import PassagePlayer from './PassagePlayer.jsx';
 import ListenOnlyView from './ListenOnlyView.jsx';
 
@@ -25,7 +35,12 @@ const LENGTH_OPTIONS = {
   dialogue: { label: 'Dialogue', description: '4–8 turns' },
 };
 
-export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAULT_GAS_URL }) {
+export default function ExtensiveApp({
+  anthropicKey,
+  audioPlayer,
+  gasUrl = DEFAULT_GAS_URL,
+  cloudSync,
+}) {
   const [stage, setStage] = useState('setup');
   const [cefr, setCefr] = useState(() => migrateCefrFromStorage(localStorage.getItem(LS_KEYS.cefr)));
   const [scene, setScene] = useState(() => migrateSceneId(localStorage.getItem(LS_KEYS.scene)));
@@ -37,11 +52,14 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
   const [autoContinue, setAutoContinue] = useState(true);
   const [passages, setPassages] = useState([]);
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [history, setHistory] = useState(() => loadExtensiveHistory());
   const [error, setError] = useState('');
   const [statusMsg, setStatusMsg] = useState('');
   const [stats, setStats] = useState(() => loadExtensiveStats());
   const prefetchRef = useRef(null);
   const touchStartY = useRef(null);
+
+  const { schedulePush: scheduleCloudSync, scheduleAudioDelete } = cloudSync || {};
 
   useEffect(() => { localStorage.setItem(LS_KEYS.cefr, cefr); }, [cefr]);
   useEffect(() => { localStorage.setItem(LS_KEYS.scene, scene); }, [scene]);
@@ -49,6 +67,44 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
   useEffect(() => { localStorage.setItem(LS_KEYS.length, length); }, [length]);
 
   const current = passages[currentIdx];
+
+  const resolveAudioUrlForEntry = useCallback(async (entry) => {
+    if (!getCachedAudio(entry.id)) {
+      try {
+        await pullCloudAudio({ gasUrl, itemId: entry.id });
+      } catch (err) {
+        console.warn('Cloud audio fetch failed:', err);
+      }
+    }
+    const cached = getCachedAudio(entry.id);
+    if (cached) return base64ToAudioUrl(cached);
+
+    const tts = await resolveItemAudio({
+      itemId: entry.id,
+      gasUrl,
+      lines: entry.item.lines,
+      level: entry.level,
+      instructions: entry.item.tts_instructions || '',
+      cefr: entry.cefr || DEFAULT_CEFR,
+      shell: 'extensive',
+      onCacheSave: (_, b64) => saveCachedAudio(entry.id, b64),
+    });
+    return tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
+  }, [gasUrl]);
+
+  const saveToHistory = useCallback((passage) => {
+    setHistory(upsertExtensiveHistoryEntry({
+      id: passage.id,
+      item: passage.item,
+      scene,
+      level,
+      cefr,
+      length,
+      structureFlags,
+      viewMode,
+    }));
+    scheduleCloudSync?.();
+  }, [scene, level, cefr, length, structureFlags, viewMode, scheduleCloudSync]);
 
   const generatePassage = useCallback(async () => {
     const generated = normalizeItem(await generateContent({
@@ -60,7 +116,14 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
       structureFlags,
       anthropicKey,
     }));
-    const id = `ex${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+    const id = computeExtensiveItemId({
+      item: generated,
+      scene,
+      level,
+      cefr,
+      length,
+      structureFlags,
+    });
     const tts = await resolveItemAudio({
       itemId: id,
       gasUrl,
@@ -72,8 +135,10 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
       onCacheSave: (_, b64) => saveCachedAudio(id, b64),
     });
     const url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
-    return { id, item: generated, audioUrl: url, cached: tts.cached, startedAt: Date.now() };
-  }, [anthropicKey, scene, cefr, level, length, structureFlags, gasUrl]);
+    const passage = { id, item: generated, audioUrl: url, cached: tts.cached, startedAt: Date.now() };
+    saveToHistory(passage);
+    return passage;
+  }, [anthropicKey, scene, cefr, level, length, structureFlags, gasUrl, saveToHistory]);
 
   async function startListening() {
     if (!anthropicKey) {
@@ -93,6 +158,56 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
       setError(String(e.message || e));
       setStage('setup');
     }
+  }
+
+  async function openPassageFromHistory(entry, { listenOnly = false } = {}) {
+    setError('');
+    setStage('loading');
+    setStatusMsg(hasCachedAudio(entry.id) ? 'Loading cached audio…' : 'Loading audio…');
+    try {
+      const audioUrl = await resolveAudioUrlForEntry(entry);
+      const passage = {
+        id: entry.id,
+        item: normalizeItem(entry.item),
+        audioUrl,
+        startedAt: Date.now(),
+      };
+      setCefr(entry.cefr || DEFAULT_CEFR);
+      setScene(migrateSceneId(entry.scene));
+      setLevel(entry.level);
+      setLength(entry.length || 'short_passage');
+      setStructureFlags(entry.structureFlags || []);
+      setViewMode(entry.viewMode || 'read_listen');
+      setPassages([passage]);
+      setCurrentIdx(0);
+      touchExtensiveHistoryEntry(entry.id);
+      setHistory(loadExtensiveHistory());
+      scheduleCloudSync?.();
+
+      if (listenOnly) {
+        setStage('setup');
+        audioPlayer.play(audioUrl, entry.id, { showProgress: true });
+      } else {
+        setStage('listening');
+      }
+    } catch (e) {
+      setError(String(e.message || e));
+      setStage('setup');
+    }
+  }
+
+  async function listenFromHistory(entry) {
+    await openPassageFromHistory(entry, { listenOnly: true });
+  }
+
+  async function replayFromHistory(entry) {
+    await openPassageFromHistory(entry);
+  }
+
+  function handleRemoveHistory(id) {
+    setHistory(removeExtensiveHistoryEntry(id));
+    scheduleCloudSync?.();
+    scheduleAudioDelete?.(id);
   }
 
   async function prefetchNext() {
@@ -147,13 +262,27 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
   function sendToShadowing() {
     if (!current) return;
     addToShadowQueue({ item: current.item, scene, level, cefr, source: 'extensive' });
-    alert('Added to shadowing queue.');
+  }
+
+  function backToSetup() {
+    setPassages([]);
+    setCurrentIdx(0);
+    prefetchRef.current = null;
+    setStage('setup');
+    setHistory(loadExtensiveHistory());
   }
 
   if (stage === 'setup') {
     return (
       <div className="extensive-setup">
         {error && <div className="status error">{error}</div>}
+
+        {!anthropicKey && (
+          <div className="onboarding-banner">
+            <p>Register your Anthropic API key in Settings to generate new passages.</p>
+          </div>
+        )}
+
         <div className="field">
           <label>CEFR</label>
           <div className="choices">
@@ -205,6 +334,17 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
           </div>
         </div>
         <button className="btn" onClick={startListening} disabled={!anthropicKey}>Start listening</button>
+
+        {history.length > 0 && (
+          <HistoryList
+            history={history}
+            onReplay={replayFromHistory}
+            onListen={listenFromHistory}
+            onRemove={handleRemoveHistory}
+            syncStatus={cloudSync?.syncStatus}
+          />
+        )}
+
         <StatsPanel stats={stats} />
       </div>
     );
@@ -223,6 +363,7 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
       <div className="session-meta">
         <span>{CEFR_LEVELS[cefr]?.label}</span>
         <span>{SCENES[scene]?.label}</span>
+        <span>{LENGTH_OPTIONS[length]?.label || length}</span>
         <span>{passages.length > 1 ? `${currentIdx + 1} / ${passages.length}` : '1'}</span>
       </div>
 
@@ -236,8 +377,8 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
         <button type="button" className="btn btn-ghost btn-sm" aria-pressed={autoContinue} onClick={() => setAutoContinue((v) => !v)}>
           Auto {autoContinue ? 'ON' : 'OFF'}
         </button>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={sendToShadowing}>→ Shadow</button>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={() => setStage('setup')}>Setup</button>
+        <button type="button" className="btn btn-ghost btn-sm" onClick={sendToShadowing}>Add to shadowing</button>
+        <button type="button" className="btn btn-ghost btn-sm" onClick={backToSetup}>Setup</button>
       </div>
 
       {current && (
@@ -268,6 +409,39 @@ export default function ExtensiveApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
       <p className="field-hint">Swipe up/down for prev/next passage</p>
       <StatsPanel stats={stats} compact />
     </div>
+  );
+}
+
+function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
+  return (
+    <section className="history-section">
+      <h2 className="history-heading">Past items</h2>
+      <p className="field-hint">
+        Replay passages you have already listened to. Audio is saved in your browser after the first play.
+        {syncStatus && syncStatus !== 'disabled' ? ' Audio syncs from Google Drive when available.' : ''}
+      </p>
+      <ul className="history-list">
+        {history.map((entry) => (
+          <li key={entry.id} className="history-item">
+            <div className="history-main">
+              <div className="history-preview">{entry.preview}</div>
+              <div className="history-meta">
+                <span>{entry.cefr || DEFAULT_CEFR}</span>
+                <span>{SCENES[migrateSceneId(entry.scene)]?.label}</span>
+                <span>{LEVELS[entry.level]?.label?.split(' — ')[0]}</span>
+                <span>{LENGTH_OPTIONS[entry.length]?.label || entry.length}</span>
+                {hasCachedAudio(entry.id) && <span className="history-cache-badge">audio saved</span>}
+              </div>
+            </div>
+            <div className="history-actions">
+              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onListen(entry)} aria-label="Listen">▶</button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onReplay(entry)}>Open</button>
+              <button type="button" className="btn btn-ghost btn-sm history-remove" onClick={() => onRemove(entry.id)}>Delete</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 

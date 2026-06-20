@@ -1,9 +1,18 @@
 // Browser persistence: past items + local audio cache (saves API calls).
 
 const HISTORY_KEY = 'elt_history';
+const EXTENSIVE_HISTORY_KEY = 'elt_extensive_history';
 const AUDIO_PREFIX = 'elt_audio:';
 const MAX_HISTORY = 100;
 const MAX_AUDIO_ENTRIES = 40;
+
+function hashPayload(payload) {
+  let hash = 0;
+  for (let i = 0; i < payload.length; i++) {
+    hash = (hash * 31 + payload.charCodeAt(i)) | 0;
+  }
+  return Math.abs(hash).toString(36);
+}
 
 function previewText(item) {
   const lines = item?.lines || [{ text: item?.sentence || '' }];
@@ -20,11 +29,21 @@ export function computeItemId({ item, mode, scene, level, cefr }) {
     sentence: item.sentence || '',
     lines: item.lines || [],
   });
-  let hash = 0;
-  for (let i = 0; i < payload.length; i++) {
-    hash = (hash * 31 + payload.charCodeAt(i)) | 0;
-  }
-  return `h${Math.abs(hash).toString(36)}`;
+  return `h${hashPayload(payload)}`;
+}
+
+export function computeExtensiveItemId({ item, scene, level, cefr, length, structureFlags = [] }) {
+  const payload = JSON.stringify({
+    shell: 'extensive',
+    scene,
+    level,
+    cefr: cefr || null,
+    length,
+    structureFlags: [...structureFlags].sort(),
+    sentence: item.sentence || '',
+    lines: item.lines || [],
+  });
+  return `ex${hashPayload(payload)}`;
 }
 
 export function loadHistoryRaw() {
@@ -205,4 +224,93 @@ export function removeCachedAudio(id) {
   } catch {
     /* ignore */
   }
+}
+
+// ===== Extensive listening history =====
+
+export function loadExtensiveHistoryRaw() {
+  try {
+    const raw = localStorage.getItem(EXTENSIVE_HISTORY_KEY);
+    const list = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(list)) return [];
+    return list.map(normalizeHistoryEntry);
+  } catch {
+    return [];
+  }
+}
+
+export function loadExtensiveHistory() {
+  return loadExtensiveHistoryRaw()
+    .filter((e) => !e.deletedAt)
+    .sort((a, b) => new Date(b.lastPlayedAt || b.updatedAt) - new Date(a.lastPlayedAt || a.updatedAt));
+}
+
+function saveExtensiveHistoryRaw(list) {
+  const activeCount = list.filter((e) => !e.deletedAt).length;
+  let trimmed = list;
+  if (activeCount > MAX_HISTORY) {
+    const active = list.filter((e) => !e.deletedAt).slice(0, MAX_HISTORY);
+    const tombstones = list.filter((e) => e.deletedAt);
+    trimmed = [...active, ...tombstones];
+  }
+  try {
+    localStorage.setItem(EXTENSIVE_HISTORY_KEY, JSON.stringify(trimmed));
+    return true;
+  } catch (err) {
+    console.warn('Extensive history save failed:', err);
+    return false;
+  }
+}
+
+export function upsertExtensiveHistoryEntry({
+  id, item, scene, level, cefr, length, structureFlags, viewMode,
+}) {
+  const now = new Date().toISOString();
+  const all = loadExtensiveHistoryRaw();
+  const existing = all.find((e) => e.id === id);
+  const raw = all.filter((e) => e.id !== id);
+  raw.unshift({
+    id,
+    item,
+    scene,
+    level,
+    cefr: cefr || null,
+    length,
+    structureFlags: structureFlags || [],
+    viewMode: viewMode || 'read_listen',
+    preview: previewText(item),
+    createdAt: existing?.createdAt || now,
+    lastPlayedAt: now,
+    updatedAt: now,
+    deletedAt: null,
+  });
+  saveExtensiveHistoryRaw(raw);
+  return loadExtensiveHistory();
+}
+
+export function touchExtensiveHistoryEntry(id) {
+  const now = new Date().toISOString();
+  const raw = loadExtensiveHistoryRaw();
+  const idx = raw.findIndex((e) => e.id === id);
+  if (idx === -1) return loadExtensiveHistory();
+  raw[idx] = {
+    ...raw[idx],
+    lastPlayedAt: now,
+    updatedAt: now,
+    deletedAt: null,
+  };
+  raw.sort((a, b) => new Date(b.lastPlayedAt) - new Date(a.lastPlayedAt));
+  saveExtensiveHistoryRaw(raw);
+  return loadExtensiveHistory();
+}
+
+export function removeExtensiveHistoryEntry(id) {
+  const now = new Date().toISOString();
+  const raw = loadExtensiveHistoryRaw();
+  const idx = raw.findIndex((e) => e.id === id);
+  if (idx === -1) return loadExtensiveHistory();
+  raw[idx] = { ...raw[idx], deletedAt: now, updatedAt: now };
+  saveExtensiveHistoryRaw(raw);
+  removeCachedAudio(id);
+  return loadExtensiveHistory();
 }

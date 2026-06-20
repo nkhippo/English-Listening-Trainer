@@ -16,9 +16,9 @@ const LS_KEYS = {
 };
 
 const SHELLS = {
-  intensive: { label: '精聴', sub: 'Layer 3 focus' },
-  extensive: { label: '多聴', sub: 'Input flooding' },
-  shadowing: { label: 'シャドー', sub: 'Production' },
+  intensive: { label: 'Intensive', sub: 'Layer 3 focus' },
+  extensive: { label: 'Extensive', sub: 'Input flooding' },
+  shadowing: { label: 'Shadowing', sub: 'Production' },
 };
 
 export default function App() {
@@ -149,6 +149,7 @@ export default function App() {
           anthropicKey={anthropicKey}
           audioPlayer={audioPlayer}
           gasUrl={gasUrl}
+          cloudSync={cloudSync}
         />
       )}
 
