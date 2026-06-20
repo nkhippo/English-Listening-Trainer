@@ -104,7 +104,6 @@ export const UI = {
     addToShadowingDone: '✓ 追加済み',
     addToShadowingAdded: '✓ シャドーに追加',
     shadowQueueFull: 'キューが満杯です。シャドー画面で整理してください。',
-    setup: 'セットアップ',
     swipeHint: '上下スワイプで前後のパッセージへ',
     historyHint: '聴いたパッセージを再生できます。初回再生後はブラウザと Google Drive に音声が保存されます。',
     open: '開く',

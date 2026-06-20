@@ -421,7 +421,9 @@ export default function ExtensiveApp({
         <span>{passages.length > 1 ? `${currentIdx + 1} / ${passages.length}` : '1'}</span>
       </div>
 
-      <div className="row" style={{ marginBottom: 12 }}>
+      <button type="button" className="btn-back-link" onClick={backToSetup}>{UI.common.back}</button>
+
+      <div className="row listening-controls">
         <button type="button" className="btn btn-ghost btn-sm" onClick={() => setViewMode(viewMode === 'read_listen' ? 'listen_only' : 'read_listen')}>
           {viewMode === 'read_listen' ? UI.extensive.listenOnly : UI.extensive.readListen}
         </button>
@@ -439,7 +441,6 @@ export default function ExtensiveApp({
         >
           {currentInShadowQueue ? UI.extensive.addToShadowingDone : UI.extensive.addToShadowing}
         </button>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={backToSetup}>{UI.extensive.setup}</button>
       </div>
 
       {current && (
