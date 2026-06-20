@@ -1,1 +1,2144 @@
-[]
+{
+  "version": "1",
+  "generated_at": "2026-06-20T08:14:36Z",
+  "source_notes": "Generated based on Cambridge English Vocabulary Profile (EVP) and Oxford 3000/5000 reference knowledge. No proprietary dataset copied verbatim. CEFR tags assigned conservatively (lower when uncertain).",
+  "total_count": 356,
+  "entries": [
+    {
+      "text": "get up",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "I get up at seven every morning."
+    },
+    {
+      "text": "sit down",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Please sit down and wait for the doctor."
+    },
+    {
+      "text": "stand up",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Everyone stood up when she entered the room."
+    },
+    {
+      "text": "come in",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Please come in and have a seat."
+    },
+    {
+      "text": "go out",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "We often go out on Saturday nights."
+    },
+    {
+      "text": "come back",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "I'll come back later this afternoon."
+    },
+    {
+      "text": "go back",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "I want to go back to that restaurant."
+    },
+    {
+      "text": "come from",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Where do you come from originally?"
+    },
+    {
+      "text": "look at",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Look at this beautiful photograph."
+    },
+    {
+      "text": "listen to",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "I love to listen to music while I work."
+    },
+    {
+      "text": "wait for",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "I'm waiting for my friend at the station."
+    },
+    {
+      "text": "look for",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "I'm looking for my keys."
+    },
+    {
+      "text": "put on",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Put on your coat before you go out."
+    },
+    {
+      "text": "take off",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Please take off your shoes at the door."
+    },
+    {
+      "text": "turn on",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Can you turn on the light, please?"
+    },
+    {
+      "text": "turn off",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Don't forget to turn off the TV."
+    },
+    {
+      "text": "get on",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "We need to get on the next bus."
+    },
+    {
+      "text": "get off",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "I get off at the next stop."
+    },
+    {
+      "text": "get in",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Get in the car, we're late."
+    },
+    {
+      "text": "get out",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Get out of the rain and come inside."
+    },
+    {
+      "text": "come on",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Come on, we'll miss the train."
+    },
+    {
+      "text": "look up",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "She looked up and smiled at me."
+    },
+    {
+      "text": "look down",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Don't look down from the top of the tower."
+    },
+    {
+      "text": "go away",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Please go away, I'm trying to sleep."
+    },
+    {
+      "text": "come over",
+      "cefr": "A1",
+      "type": "phrasal_verb",
+      "example": "Come over to my place this weekend."
+    },
+    {
+      "text": "have breakfast",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "I usually have breakfast at seven."
+    },
+    {
+      "text": "have lunch",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "We had lunch together yesterday."
+    },
+    {
+      "text": "have dinner",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "Let's have dinner at that new restaurant."
+    },
+    {
+      "text": "take a shower",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "I take a shower every morning."
+    },
+    {
+      "text": "take a bath",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "She likes to take a bath before bed."
+    },
+    {
+      "text": "do homework",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "I have to do my homework tonight."
+    },
+    {
+      "text": "watch TV",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "We watched TV all evening."
+    },
+    {
+      "text": "listen to music",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "I love to listen to music."
+    },
+    {
+      "text": "play football",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "The kids play football in the park."
+    },
+    {
+      "text": "play games",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "We play games with the family on Sundays."
+    },
+    {
+      "text": "go to bed",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "I usually go to bed around eleven."
+    },
+    {
+      "text": "go to sleep",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "It took me a long time to go to sleep."
+    },
+    {
+      "text": "go to school",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "Children go to school five days a week."
+    },
+    {
+      "text": "go to work",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "I go to work by bus every day."
+    },
+    {
+      "text": "go shopping",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "We go shopping every Saturday morning."
+    },
+    {
+      "text": "go swimming",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "Let's go swimming at the beach."
+    },
+    {
+      "text": "ride a bike",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "She learned to ride a bike when she was five."
+    },
+    {
+      "text": "brush teeth",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "Don't forget to brush your teeth."
+    },
+    {
+      "text": "get dressed",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "I got dressed quickly and ran out."
+    },
+    {
+      "text": "wash hands",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "Please wash your hands before dinner."
+    },
+    {
+      "text": "take a walk",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "Let's take a walk in the park."
+    },
+    {
+      "text": "make friends",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "She makes friends easily."
+    },
+    {
+      "text": "have fun",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "I hope you have fun at the party."
+    },
+    {
+      "text": "have a good time",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "We had a good time at the beach."
+    },
+    {
+      "text": "make a phone call",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "I need to make a phone call."
+    },
+    {
+      "text": "ask a question",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "May I ask a question?"
+    },
+    {
+      "text": "take a picture",
+      "cefr": "A1",
+      "type": "collocation",
+      "example": "Can you take a picture of us?"
+    },
+    {
+      "text": "at home",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I stayed at home all weekend."
+    },
+    {
+      "text": "at school",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "She is at school until three o'clock."
+    },
+    {
+      "text": "at work",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "My father is at work right now."
+    },
+    {
+      "text": "at night",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I prefer reading at night."
+    },
+    {
+      "text": "at noon",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "We meet at noon for lunch."
+    },
+    {
+      "text": "in the morning",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I exercise in the morning."
+    },
+    {
+      "text": "in the afternoon",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "We had coffee in the afternoon."
+    },
+    {
+      "text": "in the evening",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "They watch TV in the evening."
+    },
+    {
+      "text": "on Monday",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I have a meeting on Monday."
+    },
+    {
+      "text": "on the weekend",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I relax on the weekend."
+    },
+    {
+      "text": "every day",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I read the news every day."
+    },
+    {
+      "text": "every morning",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "She walks her dog every morning."
+    },
+    {
+      "text": "all day",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "It rained all day yesterday."
+    },
+    {
+      "text": "all night",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "The party went on all night."
+    },
+    {
+      "text": "right now",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I can't talk right now."
+    },
+    {
+      "text": "a lot of",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "There are a lot of people in the park."
+    },
+    {
+      "text": "lots of",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "We have lots of time to finish."
+    },
+    {
+      "text": "a little",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I speak a little Japanese."
+    },
+    {
+      "text": "a few",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I have a few questions for you."
+    },
+    {
+      "text": "a bit",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I'm a bit tired today."
+    },
+    {
+      "text": "kind of",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "This soup is kind of spicy."
+    },
+    {
+      "text": "sort of",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "It's sort of difficult to explain."
+    },
+    {
+      "text": "for example",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I like fruit, for example apples and oranges."
+    },
+    {
+      "text": "of course",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Of course you can borrow my book."
+    },
+    {
+      "text": "at first",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "At first, I didn't understand the question."
+    },
+    {
+      "text": "at last",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "At last, the rain stopped."
+    },
+    {
+      "text": "by the way",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "By the way, did you see the news?"
+    },
+    {
+      "text": "you know",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "It's, you know, kind of complicated."
+    },
+    {
+      "text": "thank you",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Thank you for your help."
+    },
+    {
+      "text": "you're welcome",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "You're welcome, it was no trouble."
+    },
+    {
+      "text": "excuse me",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Excuse me, where is the bathroom?"
+    },
+    {
+      "text": "no problem",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "No problem, I can help you."
+    },
+    {
+      "text": "no thanks",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "No thanks, I'm not hungry."
+    },
+    {
+      "text": "see you later",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Bye, see you later."
+    },
+    {
+      "text": "good morning",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Good morning, how did you sleep?"
+    },
+    {
+      "text": "good night",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Good night, sleep well."
+    },
+    {
+      "text": "how are you",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Hi Tom, how are you today?"
+    },
+    {
+      "text": "nice to meet you",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Nice to meet you, I'm Sarah."
+    },
+    {
+      "text": "what's your name",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Hi, what's your name?"
+    },
+    {
+      "text": "where are you from",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "Where are you from originally?"
+    },
+    {
+      "text": "how much",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "How much is this jacket?"
+    },
+    {
+      "text": "how many",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "How many people are coming?"
+    },
+    {
+      "text": "how old",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "How old is your daughter?"
+    },
+    {
+      "text": "how long",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "How long does the flight take?"
+    },
+    {
+      "text": "what time",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "What time does the meeting start?"
+    },
+    {
+      "text": "what about",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "What about going to the cinema?"
+    },
+    {
+      "text": "how about",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "How about a cup of coffee?"
+    },
+    {
+      "text": "very much",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I like this song very much."
+    },
+    {
+      "text": "a lot",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "It helped me a lot."
+    },
+    {
+      "text": "more or less",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "The work is more or less done."
+    },
+    {
+      "text": "not at all",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "I'm not tired at all."
+    },
+    {
+      "text": "at all",
+      "cefr": "A1",
+      "type": "chunk",
+      "example": "He didn't speak at all during the meeting."
+    },
+    {
+      "text": "look after",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Can you look after my dog this weekend?"
+    },
+    {
+      "text": "look forward to",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I look forward to seeing you again."
+    },
+    {
+      "text": "look out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Look out! There's a car coming."
+    },
+    {
+      "text": "look around",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Feel free to look around the shop."
+    },
+    {
+      "text": "look into",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "We need to look into this problem."
+    },
+    {
+      "text": "look like",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "She looks like her mother."
+    },
+    {
+      "text": "pick up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Can you pick me up at the airport?"
+    },
+    {
+      "text": "pick out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Pick out a movie for tonight."
+    },
+    {
+      "text": "turn out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "It turned out to be a great day."
+    },
+    {
+      "text": "turn up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "He turned up late to the meeting."
+    },
+    {
+      "text": "turn down",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "She turned down the job offer."
+    },
+    {
+      "text": "turn around",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Turn around and look at this view."
+    },
+    {
+      "text": "turn into",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "The rain turned into snow overnight."
+    },
+    {
+      "text": "come up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Something has come up at work."
+    },
+    {
+      "text": "come up with",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "She came up with a brilliant idea."
+    },
+    {
+      "text": "come across",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I came across an old photo yesterday."
+    },
+    {
+      "text": "come along",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Would you like to come along to the concert?"
+    },
+    {
+      "text": "come out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "His new book comes out next month."
+    },
+    {
+      "text": "go on",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "What's going on in there?"
+    },
+    {
+      "text": "go off",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "The alarm went off at six."
+    },
+    {
+      "text": "go through",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "We went through the report together."
+    },
+    {
+      "text": "go ahead",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Please go ahead and start without me."
+    },
+    {
+      "text": "get back",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "When did you get back from your trip?"
+    },
+    {
+      "text": "get along",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "They get along really well."
+    },
+    {
+      "text": "get over",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "It took her months to get over the flu."
+    },
+    {
+      "text": "get away",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "We need to get away for a few days."
+    },
+    {
+      "text": "get rid of",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I want to get rid of these old clothes."
+    },
+    {
+      "text": "give up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Don't give up on your dreams."
+    },
+    {
+      "text": "give back",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Please give back the book when you're done."
+    },
+    {
+      "text": "give away",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "He gave away most of his books."
+    },
+    {
+      "text": "put off",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Let's put off the meeting until next week."
+    },
+    {
+      "text": "put away",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Please put away your toys."
+    },
+    {
+      "text": "put up with",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I can't put up with this noise anymore."
+    },
+    {
+      "text": "take over",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "She took over as manager last month."
+    },
+    {
+      "text": "take out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "He took out his wallet to pay."
+    },
+    {
+      "text": "take care of",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I'll take care of the bills this month."
+    },
+    {
+      "text": "take place",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "The wedding will take place in June."
+    },
+    {
+      "text": "take part in",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Will you take part in the competition?"
+    },
+    {
+      "text": "make up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "They made up after their argument."
+    },
+    {
+      "text": "make out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I couldn't make out what he was saying."
+    },
+    {
+      "text": "find out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I need to find out what time it starts."
+    },
+    {
+      "text": "hand in",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Please hand in your homework tomorrow."
+    },
+    {
+      "text": "hand out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "The teacher handed out the tests."
+    },
+    {
+      "text": "hold on",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Hold on a moment, I'll be right back."
+    },
+    {
+      "text": "hold up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Sorry to hold up the meeting."
+    },
+    {
+      "text": "break down",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "My car broke down on the highway."
+    },
+    {
+      "text": "break up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "They broke up after five years together."
+    },
+    {
+      "text": "bring up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "She brought up an interesting point."
+    },
+    {
+      "text": "bring back",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Can you bring back some milk from the store?"
+    },
+    {
+      "text": "call back",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I'll call you back in an hour."
+    },
+    {
+      "text": "call off",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "They called off the meeting due to snow."
+    },
+    {
+      "text": "check in",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "We need to check in by three o'clock."
+    },
+    {
+      "text": "check out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Check out this amazing view!"
+    },
+    {
+      "text": "cut down",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I'm trying to cut down on coffee."
+    },
+    {
+      "text": "cut off",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "His phone got cut off mid-sentence."
+    },
+    {
+      "text": "drop off",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I'll drop you off at the station."
+    },
+    {
+      "text": "drop out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "He dropped out of college last year."
+    },
+    {
+      "text": "fill in",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Please fill in this form."
+    },
+    {
+      "text": "fill out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I need to fill out the application."
+    },
+    {
+      "text": "fill up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Let's fill up the car before we leave."
+    },
+    {
+      "text": "grow up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I grew up in a small town."
+    },
+    {
+      "text": "hang up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "She hung up the phone angrily."
+    },
+    {
+      "text": "hang out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "We often hang out at the café."
+    },
+    {
+      "text": "move in",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "They moved in last week."
+    },
+    {
+      "text": "move out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "She's moving out next month."
+    },
+    {
+      "text": "pass away",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "His grandfather passed away peacefully."
+    },
+    {
+      "text": "pay back",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I'll pay you back tomorrow."
+    },
+    {
+      "text": "point out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "She pointed out the mistake to me."
+    },
+    {
+      "text": "run out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "We're running out of time."
+    },
+    {
+      "text": "run into",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I ran into an old friend at the airport."
+    },
+    {
+      "text": "set up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "They set up a new office downtown."
+    },
+    {
+      "text": "show up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Nobody showed up to the meeting."
+    },
+    {
+      "text": "show off",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "He likes to show off his new car."
+    },
+    {
+      "text": "slow down",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Please slow down, I can't keep up."
+    },
+    {
+      "text": "speed up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "We need to speed up the process."
+    },
+    {
+      "text": "stay up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I stayed up late watching movies."
+    },
+    {
+      "text": "throw away",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Don't throw away the receipt."
+    },
+    {
+      "text": "try on",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Can I try on these jeans?"
+    },
+    {
+      "text": "wake up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "I wake up at six every weekday."
+    },
+    {
+      "text": "warm up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Warm up before you go for a run."
+    },
+    {
+      "text": "wash up",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Please wash up before dinner."
+    },
+    {
+      "text": "work out",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Everything worked out in the end."
+    },
+    {
+      "text": "write down",
+      "cefr": "A2",
+      "type": "phrasal_verb",
+      "example": "Write down your phone number here."
+    },
+    {
+      "text": "make a mistake",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I made a mistake on the test."
+    },
+    {
+      "text": "make a decision",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "We need to make a decision soon."
+    },
+    {
+      "text": "make a difference",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Your support really makes a difference."
+    },
+    {
+      "text": "make a noise",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Please don't make a noise."
+    },
+    {
+      "text": "make a mess",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "The kids made a mess in the kitchen."
+    },
+    {
+      "text": "make money",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "He makes good money at his job."
+    },
+    {
+      "text": "make sense",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Your explanation doesn't make sense."
+    },
+    {
+      "text": "make sure",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Make sure to lock the door."
+    },
+    {
+      "text": "make progress",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "We're making good progress on the project."
+    },
+    {
+      "text": "make plans",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Let's make plans for the weekend."
+    },
+    {
+      "text": "take a break",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Let's take a break for ten minutes."
+    },
+    {
+      "text": "take a look",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Can you take a look at this report?"
+    },
+    {
+      "text": "take a chance",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Sometimes you have to take a chance."
+    },
+    {
+      "text": "take a risk",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Starting a business is taking a risk."
+    },
+    {
+      "text": "take an exam",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I have to take an exam tomorrow."
+    },
+    {
+      "text": "take a trip",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "We took a trip to Italy last summer."
+    },
+    {
+      "text": "take a seat",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Please take a seat in the waiting room."
+    },
+    {
+      "text": "take time",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Good things take time."
+    },
+    {
+      "text": "take notes",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I always take notes during meetings."
+    },
+    {
+      "text": "take medicine",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Don't forget to take your medicine."
+    },
+    {
+      "text": "have a meeting",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "We have a meeting at ten."
+    },
+    {
+      "text": "have a problem",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I have a problem with my computer."
+    },
+    {
+      "text": "have a chance",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "You still have a chance to win."
+    },
+    {
+      "text": "have time",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Do you have time for coffee?"
+    },
+    {
+      "text": "have an idea",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I have an idea for the project."
+    },
+    {
+      "text": "have a party",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "We're having a party on Saturday."
+    },
+    {
+      "text": "have an accident",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "He had an accident on his way home."
+    },
+    {
+      "text": "get married",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "They're getting married next year."
+    },
+    {
+      "text": "get divorced",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Her parents got divorced when she was young."
+    },
+    {
+      "text": "get angry",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Try not to get angry about it."
+    },
+    {
+      "text": "get tired",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I get tired easily these days."
+    },
+    {
+      "text": "get lost",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "We got lost in the city."
+    },
+    {
+      "text": "get a job",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "She finally got a job after months of searching."
+    },
+    {
+      "text": "get a chance",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I never got a chance to meet him."
+    },
+    {
+      "text": "do exercise",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "It's important to do exercise regularly."
+    },
+    {
+      "text": "do business",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "We do business with companies worldwide."
+    },
+    {
+      "text": "do a favor",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Could you do me a favor?"
+    },
+    {
+      "text": "do well",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "She's doing well at her new job."
+    },
+    {
+      "text": "do research",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I need to do more research on this topic."
+    },
+    {
+      "text": "save money",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I'm saving money for a new car."
+    },
+    {
+      "text": "save time",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Taking the highway will save time."
+    },
+    {
+      "text": "waste money",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Don't waste money on things you don't need."
+    },
+    {
+      "text": "waste time",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "We're wasting time arguing about this."
+    },
+    {
+      "text": "spend money",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "He spent a lot of money on his vacation."
+    },
+    {
+      "text": "spend time",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I love spending time with my family."
+    },
+    {
+      "text": "pay attention",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Please pay attention to the instructions."
+    },
+    {
+      "text": "pay a visit",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Let's pay a visit to your aunt."
+    },
+    {
+      "text": "change one's mind",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "She changed her mind at the last minute."
+    },
+    {
+      "text": "keep in touch",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Let's keep in touch after graduation."
+    },
+    {
+      "text": "keep a secret",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Can you keep a secret?"
+    },
+    {
+      "text": "keep a promise",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "He always keeps a promise."
+    },
+    {
+      "text": "break a promise",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "She never breaks a promise."
+    },
+    {
+      "text": "break the rules",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Don't break the rules of the game."
+    },
+    {
+      "text": "break a record",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "He broke a world record."
+    },
+    {
+      "text": "catch a cold",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I caught a cold last weekend."
+    },
+    {
+      "text": "catch a bus",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I catch a bus at eight every morning."
+    },
+    {
+      "text": "catch the train",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "We just caught the train in time."
+    },
+    {
+      "text": "miss the train",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I missed the train this morning."
+    },
+    {
+      "text": "miss class",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "He missed class because he was sick."
+    },
+    {
+      "text": "watch a movie",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Let's watch a movie tonight."
+    },
+    {
+      "text": "read a book",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I'm reading a great book."
+    },
+    {
+      "text": "write an email",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I need to write an email to my boss."
+    },
+    {
+      "text": "send a message",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Send me a message when you arrive."
+    },
+    {
+      "text": "ask for help",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Don't be afraid to ask for help."
+    },
+    {
+      "text": "give advice",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "She always gives good advice."
+    },
+    {
+      "text": "get along with",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I get along with my coworkers."
+    },
+    {
+      "text": "be in love with",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "She's in love with him."
+    },
+    {
+      "text": "fall in love",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "They fell in love at first sight."
+    },
+    {
+      "text": "be afraid of",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I'm afraid of heights."
+    },
+    {
+      "text": "be interested in",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Are you interested in music?"
+    },
+    {
+      "text": "be good at",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "She's good at math."
+    },
+    {
+      "text": "be bad at",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I'm bad at remembering names."
+    },
+    {
+      "text": "be tired of",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I'm tired of this rainy weather."
+    },
+    {
+      "text": "be worried about",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I'm worried about my brother."
+    },
+    {
+      "text": "be ready for",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Are you ready for the exam?"
+    },
+    {
+      "text": "be late for",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Don't be late for the meeting."
+    },
+    {
+      "text": "be sure of",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "I'm not sure of the answer."
+    },
+    {
+      "text": "be different from",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "His opinion is different from mine."
+    },
+    {
+      "text": "be similar to",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "This phone is similar to mine."
+    },
+    {
+      "text": "be full of",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "The room was full of people."
+    },
+    {
+      "text": "listen carefully",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "Please listen carefully to the announcement."
+    },
+    {
+      "text": "speak loudly",
+      "cefr": "A2",
+      "type": "collocation",
+      "example": "She had to speak loudly to be heard."
+    },
+    {
+      "text": "at the moment",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I'm busy at the moment, can I call you back?"
+    },
+    {
+      "text": "at the same time",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "We arrived at the same time."
+    },
+    {
+      "text": "in the end",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "In the end, everything worked out fine."
+    },
+    {
+      "text": "at the end",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "There's a surprise at the end of the movie."
+    },
+    {
+      "text": "at the beginning",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "At the beginning of the year, I made plans."
+    },
+    {
+      "text": "on time",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "The train arrived right on time."
+    },
+    {
+      "text": "in time",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "We got there just in time for dinner."
+    },
+    {
+      "text": "just in time",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I caught the bus just in time."
+    },
+    {
+      "text": "on the way",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I'll buy bread on the way home."
+    },
+    {
+      "text": "in fact",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "In fact, I've never been to Paris."
+    },
+    {
+      "text": "as a matter of fact",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "As a matter of fact, I know him well."
+    },
+    {
+      "text": "in case",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Take an umbrella in case it rains."
+    },
+    {
+      "text": "just in case",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Bring some cash, just in case."
+    },
+    {
+      "text": "after all",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "She decided to come after all."
+    },
+    {
+      "text": "as well",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Could you bring some napkins as well?"
+    },
+    {
+      "text": "as well as",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "She speaks French as well as English."
+    },
+    {
+      "text": "all of a sudden",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "All of a sudden, the lights went out."
+    },
+    {
+      "text": "in general",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "In general, I prefer winter to summer."
+    },
+    {
+      "text": "in particular",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I love Italian food, pasta in particular."
+    },
+    {
+      "text": "first of all",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "First of all, thank you for coming."
+    },
+    {
+      "text": "for instance",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "For instance, you could try this approach."
+    },
+    {
+      "text": "such as",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I like sports such as tennis and football."
+    },
+    {
+      "text": "according to",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "According to the forecast, it will rain."
+    },
+    {
+      "text": "instead of",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Let's walk instead of taking the bus."
+    },
+    {
+      "text": "as soon as",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Call me as soon as you arrive."
+    },
+    {
+      "text": "as long as",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I'll help as long as you ask politely."
+    },
+    {
+      "text": "as far as",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "As far as I know, the office is closed."
+    },
+    {
+      "text": "as much as",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Eat as much as you want."
+    },
+    {
+      "text": "as many as",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Bring as many friends as you like."
+    },
+    {
+      "text": "more than",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "It costs more than I expected."
+    },
+    {
+      "text": "less than",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "We have less than an hour to finish."
+    },
+    {
+      "text": "a couple of",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Give me a couple of minutes."
+    },
+    {
+      "text": "plenty of",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "We have plenty of time to discuss this."
+    },
+    {
+      "text": "a number of",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "A number of people complained."
+    },
+    {
+      "text": "a kind of",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "It's a kind of pasta dish."
+    },
+    {
+      "text": "by myself",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I prefer to work by myself."
+    },
+    {
+      "text": "on my own",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I solved the problem on my own."
+    },
+    {
+      "text": "by accident",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I deleted the file by accident."
+    },
+    {
+      "text": "on purpose",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Did you do that on purpose?"
+    },
+    {
+      "text": "in advance",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Please book in advance to get a discount."
+    },
+    {
+      "text": "ahead of time",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "We finished ahead of time."
+    },
+    {
+      "text": "at least",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "It will take at least an hour."
+    },
+    {
+      "text": "at most",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "The trip will take at most two days."
+    },
+    {
+      "text": "up to date",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Please keep me up to date."
+    },
+    {
+      "text": "out of date",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "This information is out of date."
+    },
+    {
+      "text": "out of order",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "The elevator is out of order."
+    },
+    {
+      "text": "on sale",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "These shoes are on sale this week."
+    },
+    {
+      "text": "for sale",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "The house across the street is for sale."
+    },
+    {
+      "text": "on holiday",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "She's on holiday until next Monday."
+    },
+    {
+      "text": "on business",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "He's traveling to Tokyo on business."
+    },
+    {
+      "text": "from time to time",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I visit my parents from time to time."
+    },
+    {
+      "text": "at first sight",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "They fell in love at first sight."
+    },
+    {
+      "text": "on second thought",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "On second thought, let's stay home."
+    },
+    {
+      "text": "in other words",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "In other words, you don't want to come?"
+    },
+    {
+      "text": "on the contrary",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "On the contrary, I enjoyed the film."
+    },
+    {
+      "text": "either way",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Either way, we need to decide soon."
+    },
+    {
+      "text": "once again",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "Once again, thank you for your help."
+    },
+    {
+      "text": "over and over",
+      "cefr": "A2",
+      "type": "chunk",
+      "example": "I read it over and over."
+    },
+    {
+      "text": "on the other hand",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "On the other hand, the price is reasonable."
+    },
+    {
+      "text": "once in a while",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "I go fishing once in a while."
+    },
+    {
+      "text": "take it easy",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "Take it easy, you'll be fine."
+    },
+    {
+      "text": "give it a try",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "Just give it a try, you might like it."
+    },
+    {
+      "text": "sooner or later",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "Sooner or later, the truth will come out."
+    },
+    {
+      "text": "now and then",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "We meet for coffee now and then."
+    },
+    {
+      "text": "as usual",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "As usual, she was late."
+    },
+    {
+      "text": "no wonder",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "No wonder you're tired, it's almost midnight."
+    },
+    {
+      "text": "of course not",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "Of course not, I would never do that."
+    },
+    {
+      "text": "for the most part",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "For the most part, the trip was great."
+    },
+    {
+      "text": "all the same",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "It's late, but I'll come all the same."
+    },
+    {
+      "text": "for good",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "She left town for good last year."
+    },
+    {
+      "text": "good luck",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "Good luck with your interview."
+    },
+    {
+      "text": "never mind",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "Never mind, I'll do it myself."
+    },
+    {
+      "text": "hang in there",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "Hang in there, things will get better."
+    },
+    {
+      "text": "you bet",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "You bet I'll be at the party."
+    },
+    {
+      "text": "no kidding",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "No kidding, that's amazing news."
+    },
+    {
+      "text": "at any rate",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "At any rate, we tried our best."
+    },
+    {
+      "text": "in any case",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "In any case, we'll discuss it tomorrow."
+    },
+    {
+      "text": "no matter what",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "I'll support you no matter what."
+    },
+    {
+      "text": "better late than never",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "He apologized, but better late than never."
+    },
+    {
+      "text": "piece of cake",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "The test was a piece of cake."
+    },
+    {
+      "text": "break the ice",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "Tell a joke to break the ice."
+    },
+    {
+      "text": "rain or shine",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "The picnic is on, rain or shine."
+    },
+    {
+      "text": "under the weather",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "I'm feeling a bit under the weather today."
+    },
+    {
+      "text": "a long way",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "We still have a long way to go."
+    },
+    {
+      "text": "from scratch",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "She baked the cake from scratch."
+    },
+    {
+      "text": "in the same boat",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "We're all in the same boat here."
+    },
+    {
+      "text": "get the hang of",
+      "cefr": "A2",
+      "type": "idiom",
+      "example": "It takes time to get the hang of it."
+    }
+  ]
+}

@@ -1,1 +1,2858 @@
-[]
+{
+  "version": "1",
+  "generated_at": "2026-06-20T08:41:31Z",
+  "source_notes": "Generated based on Cambridge English Vocabulary Profile (EVP), Oxford 3000/5000, and OPAL reference knowledge. No proprietary dataset copied verbatim. CEFR tags assigned conservatively (lower when uncertain).",
+  "total_count": 475,
+  "entries": [
+    {
+      "text": "account for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Stress can account for many health problems."
+    },
+    {
+      "text": "act up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The printer is acting up again today."
+    },
+    {
+      "text": "aim at",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The campaign is aimed at young voters."
+    },
+    {
+      "text": "amount to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Her savings amount to several thousand dollars."
+    },
+    {
+      "text": "apply for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She applied for the position last week."
+    },
+    {
+      "text": "apply to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The new rules apply to everyone."
+    },
+    {
+      "text": "argue with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Stop arguing with your brother."
+    },
+    {
+      "text": "arrive at",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We finally arrived at a decision."
+    },
+    {
+      "text": "ask after",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She asked after your health."
+    },
+    {
+      "text": "ask around",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Ask around to see if anyone has heard."
+    },
+    {
+      "text": "ask for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please ask for help if you need it."
+    },
+    {
+      "text": "back away",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "He backed away from the angry dog."
+    },
+    {
+      "text": "back down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Neither side would back down."
+    },
+    {
+      "text": "back out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She backed out of the deal at the last minute."
+    },
+    {
+      "text": "back up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Always back up your files regularly."
+    },
+    {
+      "text": "base on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The film is based on a true story."
+    },
+    {
+      "text": "bear out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The evidence bears out his story."
+    },
+    {
+      "text": "bear with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please bear with me for a moment."
+    },
+    {
+      "text": "believe in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I believe in second chances."
+    },
+    {
+      "text": "blow away",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The wind blew away my hat."
+    },
+    {
+      "text": "blow out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She blew out the candles on her cake."
+    },
+    {
+      "text": "blow up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The car blew up in the accident."
+    },
+    {
+      "text": "boil down to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "It all boils down to money."
+    },
+    {
+      "text": "branch out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She branched out into freelance work."
+    },
+    {
+      "text": "break away",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "He broke away from the group."
+    },
+    {
+      "text": "break in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Thieves broke in through the back window."
+    },
+    {
+      "text": "break into",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Someone broke into our car last night."
+    },
+    {
+      "text": "break out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "A fire broke out in the kitchen."
+    },
+    {
+      "text": "brighten up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The flowers really brightened up the room."
+    },
+    {
+      "text": "bring about",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "These reforms brought about real change."
+    },
+    {
+      "text": "bring along",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Bring along a friend if you'd like."
+    },
+    {
+      "text": "bring down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The scandal brought down the government."
+    },
+    {
+      "text": "bring forward",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Let's bring forward the meeting to Monday."
+    },
+    {
+      "text": "bring in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The business brings in steady income."
+    },
+    {
+      "text": "bring on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Stress can bring on a headache."
+    },
+    {
+      "text": "bring out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She brought out the best in him."
+    },
+    {
+      "text": "brush off",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She brushed off the criticism."
+    },
+    {
+      "text": "brush up on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I need to brush up on my French."
+    },
+    {
+      "text": "build up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "He's been building up his savings for years."
+    },
+    {
+      "text": "burn out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Many doctors burn out from overwork."
+    },
+    {
+      "text": "call for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "This situation calls for careful thought."
+    },
+    {
+      "text": "call on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I'd like to call on you for your opinion."
+    },
+    {
+      "text": "calm down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please calm down and tell me what happened."
+    },
+    {
+      "text": "care for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She cares for her elderly parents."
+    },
+    {
+      "text": "carry on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please carry on with your work."
+    },
+    {
+      "text": "carry out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The experiment was carried out successfully."
+    },
+    {
+      "text": "catch on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The new style is catching on quickly."
+    },
+    {
+      "text": "catch up with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Let's catch up with each other soon."
+    },
+    {
+      "text": "clean out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I need to clean out the garage this weekend."
+    },
+    {
+      "text": "clean up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please clean up after the party."
+    },
+    {
+      "text": "clear out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We cleared out the basement last weekend."
+    },
+    {
+      "text": "clear up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The weather is clearing up."
+    },
+    {
+      "text": "close down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The factory closed down last year."
+    },
+    {
+      "text": "come about",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "How did this come about?"
+    },
+    {
+      "text": "come around",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "He'll come around to your point of view."
+    },
+    {
+      "text": "come by",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Good jobs are hard to come by these days."
+    },
+    {
+      "text": "come down to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "It comes down to a question of trust."
+    },
+    {
+      "text": "come down with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I think I'm coming down with a cold."
+    },
+    {
+      "text": "come forward",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Witnesses are urged to come forward."
+    },
+    {
+      "text": "come off",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The handle came off in my hand."
+    },
+    {
+      "text": "come to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She came to after fainting."
+    },
+    {
+      "text": "come together",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Everything came together at the last minute."
+    },
+    {
+      "text": "come upon",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We came upon an old church in the woods."
+    },
+    {
+      "text": "count on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "You can count on me to be there."
+    },
+    {
+      "text": "cover up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "They tried to cover up the mistake."
+    },
+    {
+      "text": "crack down on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Police are cracking down on speeders."
+    },
+    {
+      "text": "cross out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please cross out any errors."
+    },
+    {
+      "text": "cry out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She cried out in surprise."
+    },
+    {
+      "text": "cut back on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I'm cutting back on sugar."
+    },
+    {
+      "text": "cut in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Sorry to cut in on your conversation."
+    },
+    {
+      "text": "cut out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Cut out the talking and focus on work."
+    },
+    {
+      "text": "deal with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We need to deal with this problem now."
+    },
+    {
+      "text": "die out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Many languages are dying out."
+    },
+    {
+      "text": "dig up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The dog dug up an old bone."
+    },
+    {
+      "text": "do away with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "They did away with the old rules."
+    },
+    {
+      "text": "do without",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I can't do without my morning coffee."
+    },
+    {
+      "text": "dress up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We dressed up for the wedding."
+    },
+    {
+      "text": "drop in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Feel free to drop in anytime."
+    },
+    {
+      "text": "drop out of",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "He dropped out of school at sixteen."
+    },
+    {
+      "text": "eat out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We eat out about once a week."
+    },
+    {
+      "text": "end up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We ended up taking a taxi home."
+    },
+    {
+      "text": "face up to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "You need to face up to your mistakes."
+    },
+    {
+      "text": "fall apart",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The old book is falling apart."
+    },
+    {
+      "text": "fall behind",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I've fallen behind on my work."
+    },
+    {
+      "text": "fall for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She fell for the trick completely."
+    },
+    {
+      "text": "fall out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "They fell out over a small argument."
+    },
+    {
+      "text": "fall over",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The vase fell over and broke."
+    },
+    {
+      "text": "fall through",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Our holiday plans fell through."
+    },
+    {
+      "text": "feel up to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I don't feel up to going out tonight."
+    },
+    {
+      "text": "figure out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Can you figure out this puzzle?"
+    },
+    {
+      "text": "fit in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She fits in well with the team."
+    },
+    {
+      "text": "focus on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Try to focus on the positive things."
+    },
+    {
+      "text": "follow up on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I'll follow up on that email later."
+    },
+    {
+      "text": "freak out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Don't freak out, everything is fine."
+    },
+    {
+      "text": "get across",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "It's hard to get my point across."
+    },
+    {
+      "text": "get around to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I never got around to fixing the fence."
+    },
+    {
+      "text": "get at",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "What are you getting at exactly?"
+    },
+    {
+      "text": "get by",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We get by on a modest income."
+    },
+    {
+      "text": "get down to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Let's get down to business."
+    },
+    {
+      "text": "get into",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I'm getting into yoga these days."
+    },
+    {
+      "text": "get out of",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I'd like to get out of this meeting."
+    },
+    {
+      "text": "get through",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We finally got through to customer service."
+    },
+    {
+      "text": "get together",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Let's get together for coffee sometime."
+    },
+    {
+      "text": "give in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She finally gave in to his demands."
+    },
+    {
+      "text": "give out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "My phone battery gave out at noon."
+    },
+    {
+      "text": "go after",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She decided to go after her dream job."
+    },
+    {
+      "text": "go along with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I'll go along with whatever you decide."
+    },
+    {
+      "text": "go around",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "There's enough food to go around."
+    },
+    {
+      "text": "go by",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Time goes by so quickly."
+    },
+    {
+      "text": "go for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Go for it, you can do it."
+    },
+    {
+      "text": "go in for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I don't really go in for team sports."
+    },
+    {
+      "text": "go up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Prices have gone up considerably."
+    },
+    {
+      "text": "go with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "These shoes go with that dress."
+    },
+    {
+      "text": "hand back",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please hand back the test papers."
+    },
+    {
+      "text": "hand down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "This watch was handed down from my grandfather."
+    },
+    {
+      "text": "hand over",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please hand over the documents."
+    },
+    {
+      "text": "hang around",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Don't just hang around doing nothing."
+    },
+    {
+      "text": "hang on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Hang on a second, I'll be right there."
+    },
+    {
+      "text": "head for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "We're heading for the beach this weekend."
+    },
+    {
+      "text": "hold back",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She held back her tears."
+    },
+    {
+      "text": "hold off",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Let's hold off on the decision."
+    },
+    {
+      "text": "hold on to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Hold on to the railing as you go down."
+    },
+    {
+      "text": "hold out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "How long can we hold out without supplies?"
+    },
+    {
+      "text": "jot down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Let me jot down your phone number."
+    },
+    {
+      "text": "keep at",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Keep at it, you're almost done."
+    },
+    {
+      "text": "keep on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She kept on talking for an hour."
+    },
+    {
+      "text": "keep out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The sign says to keep out."
+    },
+    {
+      "text": "keep up with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I can't keep up with your fast pace."
+    },
+    {
+      "text": "kick off",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The campaign kicks off next month."
+    },
+    {
+      "text": "knock down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The old building was knocked down last year."
+    },
+    {
+      "text": "knock out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The boxer knocked out his opponent."
+    },
+    {
+      "text": "lay down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please lay down your weapons."
+    },
+    {
+      "text": "lay off",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The company laid off two hundred workers."
+    },
+    {
+      "text": "lead to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "One thing led to another."
+    },
+    {
+      "text": "leave behind",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Don't leave anything behind."
+    },
+    {
+      "text": "leave out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "You left out an important detail."
+    },
+    {
+      "text": "let down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I don't want to let you down."
+    },
+    {
+      "text": "let in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Please let me in, it's cold outside."
+    },
+    {
+      "text": "let off",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The judge let him off with a warning."
+    },
+    {
+      "text": "light up",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Her face lit up when she saw the gift."
+    },
+    {
+      "text": "live on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "His memory will live on forever."
+    },
+    {
+      "text": "live through",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "They lived through difficult times."
+    },
+    {
+      "text": "live up to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The movie didn't live up to my expectations."
+    },
+    {
+      "text": "look back on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Looking back on it, I should have known."
+    },
+    {
+      "text": "look down on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Don't look down on people in difficult situations."
+    },
+    {
+      "text": "look out for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Look out for falling rocks."
+    },
+    {
+      "text": "look over",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Can you look over this report for me?"
+    },
+    {
+      "text": "look up to",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I really look up to my older sister."
+    },
+    {
+      "text": "make for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The crowd made for the exits."
+    },
+    {
+      "text": "make off with",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The thief made off with the jewelry."
+    },
+    {
+      "text": "make up for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Nothing can make up for losing him."
+    },
+    {
+      "text": "miss out on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Don't miss out on this opportunity."
+    },
+    {
+      "text": "opt for",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She opted for the cheaper option."
+    },
+    {
+      "text": "opt out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "You can opt out of the marketing emails."
+    },
+    {
+      "text": "pass out",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She passed out from the heat."
+    },
+    {
+      "text": "pay off",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "All her hard work finally paid off."
+    },
+    {
+      "text": "pick on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Stop picking on your little brother."
+    },
+    {
+      "text": "pick up on",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She picked up on his nervousness immediately."
+    },
+    {
+      "text": "piece together",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Detectives are piecing together what happened."
+    },
+    {
+      "text": "plan ahead",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "It's wise to plan ahead for retirement."
+    },
+    {
+      "text": "pop in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I'll pop in to see you this afternoon."
+    },
+    {
+      "text": "pull off",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I can't believe she pulled it off."
+    },
+    {
+      "text": "pull through",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "The doctors think he'll pull through."
+    },
+    {
+      "text": "put down",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She put down a deposit on the apartment."
+    },
+    {
+      "text": "put forward",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "He put forward several good ideas."
+    },
+    {
+      "text": "put in",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "She puts in long hours at work."
+    },
+    {
+      "text": "put through",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "I'll put you through to the manager."
+    },
+    {
+      "text": "put together",
+      "cefr": "B1",
+      "type": "phrasal_verb",
+      "example": "Can you put together a proposal by Friday?"
+    },
+    {
+      "text": "make a profit",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The company made a large profit last year."
+    },
+    {
+      "text": "make a living",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She makes a living as a freelance writer."
+    },
+    {
+      "text": "make a fortune",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He made a fortune in real estate."
+    },
+    {
+      "text": "make an effort",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Please make an effort to be on time."
+    },
+    {
+      "text": "make a fool of",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Don't make a fool of yourself."
+    },
+    {
+      "text": "make a name for",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She's made a name for herself in journalism."
+    },
+    {
+      "text": "make headway",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We're making headway on the project."
+    },
+    {
+      "text": "make a contribution",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Everyone made a contribution to the gift."
+    },
+    {
+      "text": "make an arrangement",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We need to make an arrangement for the meeting."
+    },
+    {
+      "text": "make an exception",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I'll make an exception just this once."
+    },
+    {
+      "text": "take action",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "It's time to take action on climate change."
+    },
+    {
+      "text": "take advantage of",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Don't let them take advantage of you."
+    },
+    {
+      "text": "take charge",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Someone needs to take charge of this situation."
+    },
+    {
+      "text": "take effect",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The new law takes effect next month."
+    },
+    {
+      "text": "take initiative",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I appreciate employees who take initiative."
+    },
+    {
+      "text": "take measures",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We're taking measures to reduce costs."
+    },
+    {
+      "text": "take notice of",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Customers are taking notice of our brand."
+    },
+    {
+      "text": "take pride in",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She takes pride in her work."
+    },
+    {
+      "text": "take responsibility for",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Adults take responsibility for their actions."
+    },
+    {
+      "text": "take revenge",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He swore to take revenge for the insult."
+    },
+    {
+      "text": "take steps",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We need to take steps to fix this."
+    },
+    {
+      "text": "take the lead",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Our team is taking the lead in the race."
+    },
+    {
+      "text": "take the opportunity",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I'd like to take the opportunity to thank everyone."
+    },
+    {
+      "text": "take the trouble",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She took the trouble to write a long letter."
+    },
+    {
+      "text": "have an effect on",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Stress has a big effect on health."
+    },
+    {
+      "text": "have an impact on",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "His speech had a real impact on the audience."
+    },
+    {
+      "text": "have access to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Members have access to the library."
+    },
+    {
+      "text": "have a tendency to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He has a tendency to exaggerate."
+    },
+    {
+      "text": "have a hard time",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I'm having a hard time understanding this."
+    },
+    {
+      "text": "have an argument",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "They had an argument over money."
+    },
+    {
+      "text": "have a discussion",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Let's have a discussion about it tomorrow."
+    },
+    {
+      "text": "have confidence in",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I have confidence in your abilities."
+    },
+    {
+      "text": "have control over",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "You can't have control over everything."
+    },
+    {
+      "text": "have an influence on",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Teachers have an influence on their students."
+    },
+    {
+      "text": "have an opinion on",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Everyone has an opinion on the matter."
+    },
+    {
+      "text": "have second thoughts",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I'm having second thoughts about the trip."
+    },
+    {
+      "text": "have the courage to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She had the courage to speak up."
+    },
+    {
+      "text": "have the right to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "You have the right to remain silent."
+    },
+    {
+      "text": "do damage",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The storm did serious damage to the roof."
+    },
+    {
+      "text": "do good",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Volunteering can do good for the community."
+    },
+    {
+      "text": "do harm",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "These chemicals can do harm to the environment."
+    },
+    {
+      "text": "do justice to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Photos don't do justice to the view."
+    },
+    {
+      "text": "do one's best",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Always try to do your best."
+    },
+    {
+      "text": "do one's duty",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He always does his duty as a citizen."
+    },
+    {
+      "text": "do one's part",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We all need to do our part to help."
+    },
+    {
+      "text": "get a head start",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "An early start helps you get a head start."
+    },
+    {
+      "text": "get attention",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She gets a lot of attention online."
+    },
+    {
+      "text": "get experience",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Internships help you get experience."
+    },
+    {
+      "text": "get feedback",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "It's important to get feedback from users."
+    },
+    {
+      "text": "get permission",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "You need to get permission first."
+    },
+    {
+      "text": "get results",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Hard work gets results."
+    },
+    {
+      "text": "get satisfaction",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I get satisfaction from helping others."
+    },
+    {
+      "text": "get the impression",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I got the impression she was annoyed."
+    },
+    {
+      "text": "give a presentation",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I have to give a presentation tomorrow."
+    },
+    {
+      "text": "give a speech",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The mayor will give a speech at the ceremony."
+    },
+    {
+      "text": "give a warning",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The teacher gave him a final warning."
+    },
+    {
+      "text": "give an explanation",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Please give an explanation for your absence."
+    },
+    {
+      "text": "give an example",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Can you give an example of what you mean?"
+    },
+    {
+      "text": "give credit to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Give credit to those who deserve it."
+    },
+    {
+      "text": "give one's word",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I give you my word it's true."
+    },
+    {
+      "text": "give priority to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We give priority to safety above all."
+    },
+    {
+      "text": "give support to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Let's give support to our local businesses."
+    },
+    {
+      "text": "pay a compliment",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He paid her a sincere compliment."
+    },
+    {
+      "text": "pay a price",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She paid a high price for her ambition."
+    },
+    {
+      "text": "pay interest",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The bank pays interest on savings."
+    },
+    {
+      "text": "pay one's respects",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We came to pay our respects at the funeral."
+    },
+    {
+      "text": "pay tribute to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The ceremony paid tribute to the veterans."
+    },
+    {
+      "text": "save face",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He apologized to save face."
+    },
+    {
+      "text": "save lives",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Wearing seatbelts saves lives."
+    },
+    {
+      "text": "waste resources",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We can't afford to waste resources."
+    },
+    {
+      "text": "spend energy",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Don't spend energy worrying about it."
+    },
+    {
+      "text": "break a habit",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "It's hard to break a bad habit."
+    },
+    {
+      "text": "break a law",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He was arrested for breaking the law."
+    },
+    {
+      "text": "break new ground",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Their research breaks new ground."
+    },
+    {
+      "text": "break the silence",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The phone broke the silence."
+    },
+    {
+      "text": "keep a record",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Please keep a record of all expenses."
+    },
+    {
+      "text": "keep an eye on",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Could you keep an eye on my bag?"
+    },
+    {
+      "text": "keep calm",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Try to keep calm in stressful situations."
+    },
+    {
+      "text": "keep control of",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "It's hard to keep control of a class."
+    },
+    {
+      "text": "keep one's word",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She's known for keeping her word."
+    },
+    {
+      "text": "keep someone informed",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Please keep me informed of any changes."
+    },
+    {
+      "text": "keep someone waiting",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Sorry to keep you waiting."
+    },
+    {
+      "text": "keep the peace",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Police are there to keep the peace."
+    },
+    {
+      "text": "change direction",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We need to change direction on this project."
+    },
+    {
+      "text": "change the subject",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Let's change the subject to something happier."
+    },
+    {
+      "text": "commit a crime",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He was arrested for committing a crime."
+    },
+    {
+      "text": "conduct research",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She conducts research on cancer."
+    },
+    {
+      "text": "conduct a survey",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We conducted a survey of our customers."
+    },
+    {
+      "text": "draw attention to",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I want to draw attention to this issue."
+    },
+    {
+      "text": "draw a conclusion",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "It's too early to draw a conclusion."
+    },
+    {
+      "text": "draw a line",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We need to draw a line somewhere."
+    },
+    {
+      "text": "face a challenge",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Every business faces challenges."
+    },
+    {
+      "text": "face a decision",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She faces a difficult decision."
+    },
+    {
+      "text": "face the consequences",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "You'll have to face the consequences."
+    },
+    {
+      "text": "face the truth",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "It's time to face the truth."
+    },
+    {
+      "text": "hold a meeting",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We'll hold a meeting on Thursday."
+    },
+    {
+      "text": "hold a position",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She holds a senior position at the firm."
+    },
+    {
+      "text": "hold an opinion",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He holds strong opinions on politics."
+    },
+    {
+      "text": "place an order",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I'd like to place an order for delivery."
+    },
+    {
+      "text": "place emphasis on",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The school places emphasis on creativity."
+    },
+    {
+      "text": "play a role",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Diet plays a major role in health."
+    },
+    {
+      "text": "play a part in",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Luck played a part in his success."
+    },
+    {
+      "text": "raise a question",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "This raises an important question."
+    },
+    {
+      "text": "raise awareness",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The campaign aims to raise awareness."
+    },
+    {
+      "text": "raise children",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Raising children is challenging work."
+    },
+    {
+      "text": "raise concerns",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Residents have raised concerns about safety."
+    },
+    {
+      "text": "raise money",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We're raising money for charity."
+    },
+    {
+      "text": "reach a conclusion",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We finally reached a conclusion."
+    },
+    {
+      "text": "reach a decision",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Has the jury reached a decision?"
+    },
+    {
+      "text": "reach an agreement",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The two sides reached an agreement."
+    },
+    {
+      "text": "reach a goal",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She reached her goal of running a marathon."
+    },
+    {
+      "text": "run a business",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He runs a successful business."
+    },
+    {
+      "text": "run a campaign",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She ran a brilliant election campaign."
+    },
+    {
+      "text": "run a risk",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "You're running a big risk doing that."
+    },
+    {
+      "text": "set a goal",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Setting a goal is the first step."
+    },
+    {
+      "text": "set a record",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She set a new world record."
+    },
+    {
+      "text": "set an example",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Parents should set a good example."
+    },
+    {
+      "text": "set priorities",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We need to set our priorities."
+    },
+    {
+      "text": "show interest in",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He showed great interest in the project."
+    },
+    {
+      "text": "show signs of",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She's showing signs of improvement."
+    },
+    {
+      "text": "show respect for",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Please show respect for others."
+    },
+    {
+      "text": "solve a problem",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Let's work together to solve this problem."
+    },
+    {
+      "text": "speak the truth",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I'm only speaking the truth."
+    },
+    {
+      "text": "speak one's mind",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She always speaks her mind."
+    },
+    {
+      "text": "tell the truth",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Please tell me the truth."
+    },
+    {
+      "text": "tell a lie",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He told a lie to avoid trouble."
+    },
+    {
+      "text": "tell a story",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Grandma told us a wonderful story."
+    },
+    {
+      "text": "offer support",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Friends offered support during difficult times."
+    },
+    {
+      "text": "offer advice",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She offered some useful advice."
+    },
+    {
+      "text": "provide assistance",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We provide assistance to those in need."
+    },
+    {
+      "text": "provide information",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "The website provides useful information."
+    },
+    {
+      "text": "provide opportunities",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Education provides opportunities for advancement."
+    },
+    {
+      "text": "achieve success",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She achieved great success in her career."
+    },
+    {
+      "text": "achieve a goal",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He achieved his goal of becoming a doctor."
+    },
+    {
+      "text": "gain access",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Only employees can gain access to this area."
+    },
+    {
+      "text": "gain experience",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She gained experience working abroad."
+    },
+    {
+      "text": "gain knowledge",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "Travel helps you gain knowledge."
+    },
+    {
+      "text": "gain weight",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I've gained weight over the holidays."
+    },
+    {
+      "text": "lose weight",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "He's trying to lose weight."
+    },
+    {
+      "text": "lose interest",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "She's losing interest in the project."
+    },
+    {
+      "text": "lose patience",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I'm losing patience with this slow service."
+    },
+    {
+      "text": "lose touch with",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "We've lost touch with each other."
+    },
+    {
+      "text": "lose track of",
+      "cefr": "B1",
+      "type": "collocation",
+      "example": "I lost track of time at the party."
+    },
+    {
+      "text": "as a result",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "She studied hard; as a result, she passed."
+    },
+    {
+      "text": "as a result of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Many died as a result of the war."
+    },
+    {
+      "text": "as a whole",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Society as a whole benefits from education."
+    },
+    {
+      "text": "as far as I know",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "As far as I know, the office is closed."
+    },
+    {
+      "text": "as for",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "As for me, I prefer tea."
+    },
+    {
+      "text": "as opposed to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "She prefers reading as opposed to watching TV."
+    },
+    {
+      "text": "at first glance",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "At first glance, the problem seemed simple."
+    },
+    {
+      "text": "at large",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "The criminal is still at large."
+    },
+    {
+      "text": "at length",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "We discussed the matter at length."
+    },
+    {
+      "text": "at present",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "At present, no decision has been made."
+    },
+    {
+      "text": "at stake",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "There's a lot at stake in this election."
+    },
+    {
+      "text": "at the heart of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Honesty is at the heart of any relationship."
+    },
+    {
+      "text": "at this point",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "At this point, we have no other option."
+    },
+    {
+      "text": "based on",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "The film is based on a true story."
+    },
+    {
+      "text": "by and large",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "By and large, our customers are satisfied."
+    },
+    {
+      "text": "by contrast",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "By contrast, the other plan is much simpler."
+    },
+    {
+      "text": "by means of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "He communicates by means of sign language."
+    },
+    {
+      "text": "by no means",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "He's by no means perfect."
+    },
+    {
+      "text": "by virtue of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "He won by virtue of his hard work."
+    },
+    {
+      "text": "compared with",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Sales are up compared with last year."
+    },
+    {
+      "text": "contrary to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Contrary to popular belief, it's not difficult."
+    },
+    {
+      "text": "depending on",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Depending on the weather, we'll go hiking."
+    },
+    {
+      "text": "despite the fact that",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Despite the fact that it rained, we had fun."
+    },
+    {
+      "text": "due to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "The delay is due to bad weather."
+    },
+    {
+      "text": "even if",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "I'll come even if it's late."
+    },
+    {
+      "text": "even so",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "It's expensive; even so, I'll buy it."
+    },
+    {
+      "text": "even though",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Even though I'm tired, I'll keep working."
+    },
+    {
+      "text": "first and foremost",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "First and foremost, thank you for coming."
+    },
+    {
+      "text": "for that matter",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "I don't like coffee, or tea for that matter."
+    },
+    {
+      "text": "for the sake of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Let's do this for the sake of peace."
+    },
+    {
+      "text": "from now on",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "From now on, I'll be more careful."
+    },
+    {
+      "text": "given that",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Given that he's only sixteen, he's very mature."
+    },
+    {
+      "text": "if anything",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "If anything, the situation has worsened."
+    },
+    {
+      "text": "if necessary",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Call me if necessary."
+    },
+    {
+      "text": "in a sense",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In a sense, you're both correct."
+    },
+    {
+      "text": "in a way",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In a way, I understand his decision."
+    },
+    {
+      "text": "in accordance with",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "We acted in accordance with the law."
+    },
+    {
+      "text": "in addition to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In addition to French, she speaks Spanish."
+    },
+    {
+      "text": "in brief",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In brief, the project was a success."
+    },
+    {
+      "text": "in charge of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "She's in charge of marketing."
+    },
+    {
+      "text": "in conclusion",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In conclusion, our findings support the theory."
+    },
+    {
+      "text": "in contrast to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In contrast to her sister, she's quiet."
+    },
+    {
+      "text": "in detail",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Please explain the plan in detail."
+    },
+    {
+      "text": "in favor of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Most members are in favor of the change."
+    },
+    {
+      "text": "in keeping with",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "His actions are in keeping with his values."
+    },
+    {
+      "text": "in light of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In light of recent events, we'll postpone."
+    },
+    {
+      "text": "in line with",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Our prices are in line with the market."
+    },
+    {
+      "text": "in many respects",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In many respects, the law is unfair."
+    },
+    {
+      "text": "in my opinion",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In my opinion, this is the best option."
+    },
+    {
+      "text": "in my view",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In my view, we should wait."
+    },
+    {
+      "text": "in need of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "The house is in need of repair."
+    },
+    {
+      "text": "in order to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "We left early in order to avoid traffic."
+    },
+    {
+      "text": "in place of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "I'll have tea in place of coffee."
+    },
+    {
+      "text": "in practice",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In practice, the idea didn't work."
+    },
+    {
+      "text": "in regard to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In regard to your question, I'll check."
+    },
+    {
+      "text": "in relation to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Sales are low in relation to expectations."
+    },
+    {
+      "text": "in response to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In response to your email, here's the answer."
+    },
+    {
+      "text": "in spite of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In spite of the rain, we had a good time."
+    },
+    {
+      "text": "in terms of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In terms of cost, this is the better choice."
+    },
+    {
+      "text": "in that case",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In that case, we should leave now."
+    },
+    {
+      "text": "in the absence of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In the absence of evidence, he was freed."
+    },
+    {
+      "text": "in the case of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In the case of an emergency, call 911."
+    },
+    {
+      "text": "in the context of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Consider this in the context of history."
+    },
+    {
+      "text": "in the course of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In the course of our conversation, he revealed it."
+    },
+    {
+      "text": "in the eyes of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In the eyes of the law, he's innocent."
+    },
+    {
+      "text": "in the form of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Help came in the form of donations."
+    },
+    {
+      "text": "in the meantime",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In the meantime, let's have coffee."
+    },
+    {
+      "text": "in the middle of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "I'm in the middle of something right now."
+    },
+    {
+      "text": "in the wake of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "In the wake of the storm, many were homeless."
+    },
+    {
+      "text": "in turn",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Each speaker addressed the audience in turn."
+    },
+    {
+      "text": "not only but also",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "She's not only smart but also kind."
+    },
+    {
+      "text": "on average",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "On average, we get 50 messages per day."
+    },
+    {
+      "text": "on behalf of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "I'm calling on behalf of my mother."
+    },
+    {
+      "text": "on the basis of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Decisions were made on the basis of merit."
+    },
+    {
+      "text": "on the part of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "It was a mistake on the part of management."
+    },
+    {
+      "text": "on the verge of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "She was on the verge of tears."
+    },
+    {
+      "text": "on the whole",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "On the whole, the project was a success."
+    },
+    {
+      "text": "provided that",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "I'll lend the money provided that you repay it."
+    },
+    {
+      "text": "rather than",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "I'd rather walk than wait for the bus."
+    },
+    {
+      "text": "regardless of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Everyone is welcome regardless of background."
+    },
+    {
+      "text": "so far",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "So far, everything is going well."
+    },
+    {
+      "text": "so that",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Speak loudly so that everyone can hear."
+    },
+    {
+      "text": "therefore",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "He was tired; therefore, he went to bed early."
+    },
+    {
+      "text": "to a certain extent",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "I agree with you to a certain extent."
+    },
+    {
+      "text": "to be honest",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "To be honest, I didn't enjoy the film."
+    },
+    {
+      "text": "to begin with",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "To begin with, let me thank you all."
+    },
+    {
+      "text": "to my surprise",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "To my surprise, she remembered my name."
+    },
+    {
+      "text": "to some extent",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "I agree with you to some extent."
+    },
+    {
+      "text": "to start with",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "To start with, we need a plan."
+    },
+    {
+      "text": "to sum up",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "To sum up, the proposal was rejected."
+    },
+    {
+      "text": "with regard to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "With regard to your offer, I accept."
+    },
+    {
+      "text": "with respect to",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "With respect to costs, we're under budget."
+    },
+    {
+      "text": "with the exception of",
+      "cefr": "B1",
+      "type": "chunk",
+      "example": "Everyone came with the exception of Tom."
+    },
+    {
+      "text": "a piece of cake",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "The exam was a piece of cake."
+    },
+    {
+      "text": "a blessing in disguise",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Losing that job was a blessing in disguise."
+    },
+    {
+      "text": "a drop in the ocean",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Our donation is just a drop in the ocean."
+    },
+    {
+      "text": "a stone's throw away",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "The beach is just a stone's throw away."
+    },
+    {
+      "text": "against all odds",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Against all odds, she won the race."
+    },
+    {
+      "text": "around the corner",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Summer is right around the corner."
+    },
+    {
+      "text": "at the drop of a hat",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "She'll travel at the drop of a hat."
+    },
+    {
+      "text": "back to square one",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "When the deal fell through, we were back to square one."
+    },
+    {
+      "text": "bend over backwards",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "She bent over backwards to help."
+    },
+    {
+      "text": "beat around the bush",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Stop beating around the bush and tell me."
+    },
+    {
+      "text": "bite the bullet",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I had to bite the bullet and accept the offer."
+    },
+    {
+      "text": "blow off steam",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "He went to the gym to blow off steam."
+    },
+    {
+      "text": "call it a day",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Let's call it a day and go home."
+    },
+    {
+      "text": "come to terms with",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "He came to terms with his loss."
+    },
+    {
+      "text": "cost an arm and a leg",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "That car cost me an arm and a leg."
+    },
+    {
+      "text": "cross one's fingers",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I'm crossing my fingers for good news."
+    },
+    {
+      "text": "cut corners",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Don't cut corners on safety."
+    },
+    {
+      "text": "cut someone some slack",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Cut him some slack, he's new here."
+    },
+    {
+      "text": "down to earth",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "She's surprisingly down to earth for a celebrity."
+    },
+    {
+      "text": "draw the line",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I draw the line at borrowing money."
+    },
+    {
+      "text": "drive someone crazy",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "The noise is driving me crazy."
+    },
+    {
+      "text": "face the music",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "It's time to face the music."
+    },
+    {
+      "text": "get cold feet",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "She got cold feet before the wedding."
+    },
+    {
+      "text": "get out of hand",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "The party got out of hand quickly."
+    },
+    {
+      "text": "give it a shot",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I've never tried it, but I'll give it a shot."
+    },
+    {
+      "text": "go the extra mile",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "She always goes the extra mile for clients."
+    },
+    {
+      "text": "hit the books",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I need to hit the books before the exam."
+    },
+    {
+      "text": "hit the nail on the head",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "You really hit the nail on the head there."
+    },
+    {
+      "text": "hit the road",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "It's getting late; we should hit the road."
+    },
+    {
+      "text": "in a nutshell",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "In a nutshell, we need more funding."
+    },
+    {
+      "text": "in hot water",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "He's in hot water with his boss."
+    },
+    {
+      "text": "in the dark",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Employees were kept in the dark about layoffs."
+    },
+    {
+      "text": "in the long run",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Exercise pays off in the long run."
+    },
+    {
+      "text": "it takes two to tango",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Don't blame him alone; it takes two to tango."
+    },
+    {
+      "text": "jump to conclusions",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Don't jump to conclusions before knowing the facts."
+    },
+    {
+      "text": "keep an open mind",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Try to keep an open mind about the proposal."
+    },
+    {
+      "text": "keep one's chin up",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Keep your chin up, things will improve."
+    },
+    {
+      "text": "kill two birds with one stone",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I killed two birds with one stone."
+    },
+    {
+      "text": "lend a hand",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Could you lend a hand with the dishes?"
+    },
+    {
+      "text": "let the cat out of the bag",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Someone let the cat out of the bag."
+    },
+    {
+      "text": "lose one's cool",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "She lost her cool during the argument."
+    },
+    {
+      "text": "miss the boat",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "If you don't apply now, you'll miss the boat."
+    },
+    {
+      "text": "not my cup of tea",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Opera isn't really my cup of tea."
+    },
+    {
+      "text": "on the same page",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Let's make sure we're on the same page."
+    },
+    {
+      "text": "once in a blue moon",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "We see each other once in a blue moon."
+    },
+    {
+      "text": "out of the blue",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "She called me out of the blue yesterday."
+    },
+    {
+      "text": "pay through the nose",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "We paid through the nose for those tickets."
+    },
+    {
+      "text": "pull someone's leg",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Don't worry, I was just pulling your leg."
+    },
+    {
+      "text": "put one's foot down",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I had to put my foot down about bedtime."
+    },
+    {
+      "text": "read between the lines",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "You have to read between the lines."
+    },
+    {
+      "text": "rule of thumb",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "As a rule of thumb, exercise daily."
+    },
+    {
+      "text": "see eye to eye",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "We don't always see eye to eye on politics."
+    },
+    {
+      "text": "speak of the devil",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Speak of the devil, here he comes now."
+    },
+    {
+      "text": "spill the beans",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Come on, spill the beans about your date."
+    },
+    {
+      "text": "take it for granted",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Don't take your health for granted."
+    },
+    {
+      "text": "take it with a grain of salt",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Take what he says with a grain of salt."
+    },
+    {
+      "text": "the ball is in your court",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I've done my part; the ball is in your court."
+    },
+    {
+      "text": "the best of both worlds",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Working from home gives you the best of both worlds."
+    },
+    {
+      "text": "through thick and thin",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "They stayed friends through thick and thin."
+    },
+    {
+      "text": "time flies",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Time flies when you're having fun."
+    },
+    {
+      "text": "under one's nose",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "The answer was right under our nose."
+    },
+    {
+      "text": "up in the air",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Our vacation plans are still up in the air."
+    },
+    {
+      "text": "walk on eggshells",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I have to walk on eggshells around him."
+    },
+    {
+      "text": "when pigs fly",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "He'll apologize when pigs fly."
+    },
+    {
+      "text": "ahead of the curve",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Their company is ahead of the curve."
+    },
+    {
+      "text": "better safe than sorry",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "Take an umbrella—better safe than sorry."
+    },
+    {
+      "text": "burn the midnight oil",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I burned the midnight oil finishing the report."
+    },
+    {
+      "text": "go down in history",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "That day will go down in history."
+    },
+    {
+      "text": "on the right track",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "You're on the right track with this approach."
+    },
+    {
+      "text": "over the moon",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "She was over the moon about the news."
+    },
+    {
+      "text": "put two and two together",
+      "cefr": "B1",
+      "type": "idiom",
+      "example": "I put two and two together and figured it out."
+    }
+  ]
+}

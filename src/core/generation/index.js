@@ -1,5 +1,5 @@
 import { buildGenerationPrompt, buildSystemPrompt } from './prompts.js';
-import { buildCefrConstraint } from './cefrConstraints.js';
+import { enrichCefrMetadata, isCefrCompliant } from '../shared/cefrCatalog.js';
 
 const CLAUDE_ENDPOINT = 'https://api.anthropic.com/v1/messages';
 const CLAUDE_MODEL = 'claude-haiku-4-5-20251001';
@@ -39,10 +39,7 @@ async function callClaude({ anthropicKey, userPrompt }) {
 }
 
 function needsCefrRetry(item, cefr) {
-  const constraint = buildCefrConstraint(cefr);
-  const above = item?.cefr_metadata?.used_words_above_level;
-  if (!Array.isArray(above)) return true;
-  return above.length > constraint.max_unknown_words;
+  return !isCefrCompliant(item, cefr);
 }
 
 export async function generateContent({
@@ -69,7 +66,8 @@ export async function generateContent({
       structureFlags,
     });
     try {
-      const item = await callClaude({ anthropicKey, userPrompt });
+      const raw = await callClaude({ anthropicKey, userPrompt });
+      const item = enrichCefrMetadata(raw, cefr);
       if (needsCefrRetry(item, cefr) && attempt < MAX_CEFR_RETRIES - 1) {
         lastError = new Error(`CEFR validation failed: ${JSON.stringify(item.cefr_metadata?.used_words_above_level)}`);
         continue;

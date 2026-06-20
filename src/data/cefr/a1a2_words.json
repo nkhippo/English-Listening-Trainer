@@ -1,1 +1,10214 @@
-[]
+{
+  "version": "1",
+  "generated_at": "2026-06-20T08:14:36Z",
+  "source_notes": "Generated based on Cambridge English Vocabulary Profile (EVP) and Oxford 3000/5000 reference knowledge. No proprietary dataset copied verbatim. CEFR tags assigned conservatively (lower when uncertain).",
+  "total_count": 1458,
+  "entries": [
+    {
+      "text": "be",
+      "lemma": "be",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "have",
+      "lemma": "have",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "do",
+      "lemma": "do",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "go",
+      "lemma": "go",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "come",
+      "lemma": "come",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "see",
+      "lemma": "see",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "get",
+      "lemma": "get",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "make",
+      "lemma": "make",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "take",
+      "lemma": "take",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "give",
+      "lemma": "give",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "know",
+      "lemma": "know",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "want",
+      "lemma": "want",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "like",
+      "lemma": "like",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "need",
+      "lemma": "need",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "look",
+      "lemma": "look",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "find",
+      "lemma": "find",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "work",
+      "lemma": "work",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "play",
+      "lemma": "play",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "live",
+      "lemma": "live",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "love",
+      "lemma": "love",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "buy",
+      "lemma": "buy",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "eat",
+      "lemma": "eat",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "drink",
+      "lemma": "drink",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sleep",
+      "lemma": "sleep",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wake",
+      "lemma": "wake",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sit",
+      "lemma": "sit",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "stand",
+      "lemma": "stand",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "walk",
+      "lemma": "walk",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "run",
+      "lemma": "run",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "swim",
+      "lemma": "swim",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "open",
+      "lemma": "open",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "close",
+      "lemma": "close",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "start",
+      "lemma": "start",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "stop",
+      "lemma": "stop",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "help",
+      "lemma": "help",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "learn",
+      "lemma": "learn",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "study",
+      "lemma": "study",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "teach",
+      "lemma": "teach",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "read",
+      "lemma": "read",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "write",
+      "lemma": "write",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "speak",
+      "lemma": "speak",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "talk",
+      "lemma": "talk",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "say",
+      "lemma": "say",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "tell",
+      "lemma": "tell",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ask",
+      "lemma": "ask",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "answer",
+      "lemma": "answer",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "call",
+      "lemma": "call",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "show",
+      "lemma": "show",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "feel",
+      "lemma": "feel",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "think",
+      "lemma": "think",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "remember",
+      "lemma": "remember",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "forget",
+      "lemma": "forget",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "watch",
+      "lemma": "watch",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hear",
+      "lemma": "hear",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "listen",
+      "lemma": "listen",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wait",
+      "lemma": "wait",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "use",
+      "lemma": "use",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "try",
+      "lemma": "try",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "put",
+      "lemma": "put",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wear",
+      "lemma": "wear",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wash",
+      "lemma": "wash",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cook",
+      "lemma": "cook",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "clean",
+      "lemma": "clean",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "drive",
+      "lemma": "drive",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ride",
+      "lemma": "ride",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "travel",
+      "lemma": "travel",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "visit",
+      "lemma": "visit",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "meet",
+      "lemma": "meet",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "leave",
+      "lemma": "leave",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "stay",
+      "lemma": "stay",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "pay",
+      "lemma": "pay",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cost",
+      "lemma": "cost",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "rain",
+      "lemma": "rain",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "happen",
+      "lemma": "happen",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sing",
+      "lemma": "sing",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "dance",
+      "lemma": "dance",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "win",
+      "lemma": "win",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "lose",
+      "lemma": "lose",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "carry",
+      "lemma": "carry",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bring",
+      "lemma": "bring",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "catch",
+      "lemma": "catch",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "change",
+      "lemma": "change",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cry",
+      "lemma": "cry",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "enjoy",
+      "lemma": "enjoy",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "fall",
+      "lemma": "fall",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "grow",
+      "lemma": "grow",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "join",
+      "lemma": "join",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "keep",
+      "lemma": "keep",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "laugh",
+      "lemma": "laugh",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "miss",
+      "lemma": "miss",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "move",
+      "lemma": "move",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "pick",
+      "lemma": "pick",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "pull",
+      "lemma": "pull",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "push",
+      "lemma": "push",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "shop",
+      "lemma": "shop",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "smile",
+      "lemma": "smile",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "snow",
+      "lemma": "snow",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "thank",
+      "lemma": "thank",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "throw",
+      "lemma": "throw",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "touch",
+      "lemma": "touch",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "turn",
+      "lemma": "turn",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "jump",
+      "lemma": "jump",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hope",
+      "lemma": "hope",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "smoke",
+      "lemma": "smoke",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "choose",
+      "lemma": "choose",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "decide",
+      "lemma": "decide",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "agree",
+      "lemma": "agree",
+      "pos": "verb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "man",
+      "lemma": "man",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "woman",
+      "lemma": "woman",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "boy",
+      "lemma": "boy",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "girl",
+      "lemma": "girl",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "child",
+      "lemma": "child",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "baby",
+      "lemma": "baby",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "person",
+      "lemma": "person",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "people",
+      "lemma": "people",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "friend",
+      "lemma": "friend",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "family",
+      "lemma": "family",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "mother",
+      "lemma": "mother",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "father",
+      "lemma": "father",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "parent",
+      "lemma": "parent",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sister",
+      "lemma": "sister",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "brother",
+      "lemma": "brother",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "son",
+      "lemma": "son",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "daughter",
+      "lemma": "daughter",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wife",
+      "lemma": "wife",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "husband",
+      "lemma": "husband",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "uncle",
+      "lemma": "uncle",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "aunt",
+      "lemma": "aunt",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cousin",
+      "lemma": "cousin",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "grandmother",
+      "lemma": "grandmother",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "grandfather",
+      "lemma": "grandfather",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "teacher",
+      "lemma": "teacher",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "student",
+      "lemma": "student",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "doctor",
+      "lemma": "doctor",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "nurse",
+      "lemma": "nurse",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "name",
+      "lemma": "name",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "head",
+      "lemma": "head",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hair",
+      "lemma": "hair",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "eye",
+      "lemma": "eye",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ear",
+      "lemma": "ear",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "nose",
+      "lemma": "nose",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "mouth",
+      "lemma": "mouth",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "tooth",
+      "lemma": "tooth",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hand",
+      "lemma": "hand",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "arm",
+      "lemma": "arm",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "leg",
+      "lemma": "leg",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "foot",
+      "lemma": "foot",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "body",
+      "lemma": "body",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "face",
+      "lemma": "face",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "heart",
+      "lemma": "heart",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "house",
+      "lemma": "house",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "home",
+      "lemma": "home",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "room",
+      "lemma": "room",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bedroom",
+      "lemma": "bedroom",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bathroom",
+      "lemma": "bathroom",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "kitchen",
+      "lemma": "kitchen",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "door",
+      "lemma": "door",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "window",
+      "lemma": "window",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wall",
+      "lemma": "wall",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "floor",
+      "lemma": "floor",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bed",
+      "lemma": "bed",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "chair",
+      "lemma": "chair",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "table",
+      "lemma": "table",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "phone",
+      "lemma": "phone",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "key",
+      "lemma": "key",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "garden",
+      "lemma": "garden",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "TV",
+      "lemma": "tv",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "computer",
+      "lemma": "computer",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "food",
+      "lemma": "food",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "water",
+      "lemma": "water",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "milk",
+      "lemma": "milk",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "coffee",
+      "lemma": "coffee",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "tea",
+      "lemma": "tea",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "juice",
+      "lemma": "juice",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bread",
+      "lemma": "bread",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "rice",
+      "lemma": "rice",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "meat",
+      "lemma": "meat",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "chicken",
+      "lemma": "chicken",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "fish",
+      "lemma": "fish",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "egg",
+      "lemma": "egg",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cheese",
+      "lemma": "cheese",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "butter",
+      "lemma": "butter",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sugar",
+      "lemma": "sugar",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "salt",
+      "lemma": "salt",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "fruit",
+      "lemma": "fruit",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "apple",
+      "lemma": "apple",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "orange",
+      "lemma": "orange",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "banana",
+      "lemma": "banana",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "vegetable",
+      "lemma": "vegetable",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "potato",
+      "lemma": "potato",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "tomato",
+      "lemma": "tomato",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cake",
+      "lemma": "cake",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "chocolate",
+      "lemma": "chocolate",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sandwich",
+      "lemma": "sandwich",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "pizza",
+      "lemma": "pizza",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "salad",
+      "lemma": "salad",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "soup",
+      "lemma": "soup",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "breakfast",
+      "lemma": "breakfast",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "lunch",
+      "lemma": "lunch",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "dinner",
+      "lemma": "dinner",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "clothes",
+      "lemma": "clothes",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "shirt",
+      "lemma": "shirt",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "dress",
+      "lemma": "dress",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "jacket",
+      "lemma": "jacket",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "coat",
+      "lemma": "coat",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hat",
+      "lemma": "hat",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "shoe",
+      "lemma": "shoe",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sock",
+      "lemma": "sock",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bag",
+      "lemma": "bag",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "school",
+      "lemma": "school",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "class",
+      "lemma": "class",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "book",
+      "lemma": "book",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "pen",
+      "lemma": "pen",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "pencil",
+      "lemma": "pencil",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "paper",
+      "lemma": "paper",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "homework",
+      "lemma": "homework",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "lesson",
+      "lemma": "lesson",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "test",
+      "lemma": "test",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "exam",
+      "lemma": "exam",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "office",
+      "lemma": "office",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "job",
+      "lemma": "job",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "work",
+      "lemma": "work",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "money",
+      "lemma": "money",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "dollar",
+      "lemma": "dollar",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "euro",
+      "lemma": "euro",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "time",
+      "lemma": "time",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hour",
+      "lemma": "hour",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "minute",
+      "lemma": "minute",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "day",
+      "lemma": "day",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "week",
+      "lemma": "week",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "month",
+      "lemma": "month",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "year",
+      "lemma": "year",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "morning",
+      "lemma": "morning",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "afternoon",
+      "lemma": "afternoon",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "evening",
+      "lemma": "evening",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "night",
+      "lemma": "night",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "today",
+      "lemma": "today",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "tomorrow",
+      "lemma": "tomorrow",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "yesterday",
+      "lemma": "yesterday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "weekend",
+      "lemma": "weekend",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "city",
+      "lemma": "city",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "town",
+      "lemma": "town",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "country",
+      "lemma": "country",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "place",
+      "lemma": "place",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "park",
+      "lemma": "park",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "shop",
+      "lemma": "shop",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "store",
+      "lemma": "store",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "restaurant",
+      "lemma": "restaurant",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cafe",
+      "lemma": "cafe",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hotel",
+      "lemma": "hotel",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hospital",
+      "lemma": "hospital",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "street",
+      "lemma": "street",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "road",
+      "lemma": "road",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "station",
+      "lemma": "station",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "airport",
+      "lemma": "airport",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "beach",
+      "lemma": "beach",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "mountain",
+      "lemma": "mountain",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "river",
+      "lemma": "river",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "lake",
+      "lemma": "lake",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sea",
+      "lemma": "sea",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sun",
+      "lemma": "sun",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "moon",
+      "lemma": "moon",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "star",
+      "lemma": "star",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sky",
+      "lemma": "sky",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cloud",
+      "lemma": "cloud",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wind",
+      "lemma": "wind",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "tree",
+      "lemma": "tree",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "flower",
+      "lemma": "flower",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "grass",
+      "lemma": "grass",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "animal",
+      "lemma": "animal",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "dog",
+      "lemma": "dog",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cat",
+      "lemma": "cat",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bird",
+      "lemma": "bird",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "mouse",
+      "lemma": "mouse",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "car",
+      "lemma": "car",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bus",
+      "lemma": "bus",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "train",
+      "lemma": "train",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "plane",
+      "lemma": "plane",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "taxi",
+      "lemma": "taxi",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bike",
+      "lemma": "bike",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "boat",
+      "lemma": "boat",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ticket",
+      "lemma": "ticket",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "way",
+      "lemma": "way",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "thing",
+      "lemma": "thing",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "idea",
+      "lemma": "idea",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "problem",
+      "lemma": "problem",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "question",
+      "lemma": "question",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "answer",
+      "lemma": "answer",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "story",
+      "lemma": "story",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "picture",
+      "lemma": "picture",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "photo",
+      "lemma": "photo",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "music",
+      "lemma": "music",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "song",
+      "lemma": "song",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "color",
+      "lemma": "color",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "number",
+      "lemma": "number",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "letter",
+      "lemma": "letter",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "word",
+      "lemma": "word",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "email",
+      "lemma": "email",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "message",
+      "lemma": "message",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "party",
+      "lemma": "party",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "holiday",
+      "lemma": "holiday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "birthday",
+      "lemma": "birthday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "news",
+      "lemma": "news",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "game",
+      "lemma": "game",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "film",
+      "lemma": "film",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "movie",
+      "lemma": "movie",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "show",
+      "lemma": "show",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "meeting",
+      "lemma": "meeting",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "weather",
+      "lemma": "weather",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "rain",
+      "lemma": "rain",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "snow",
+      "lemma": "snow",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ice",
+      "lemma": "ice",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "fire",
+      "lemma": "fire",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "light",
+      "lemma": "light",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "history",
+      "lemma": "history",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "English",
+      "lemma": "english",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "Sunday",
+      "lemma": "sunday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "Monday",
+      "lemma": "monday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "Tuesday",
+      "lemma": "tuesday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "Wednesday",
+      "lemma": "wednesday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "Thursday",
+      "lemma": "thursday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "Friday",
+      "lemma": "friday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "Saturday",
+      "lemma": "saturday",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "January",
+      "lemma": "january",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "February",
+      "lemma": "february",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "March",
+      "lemma": "march",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "April",
+      "lemma": "april",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "May",
+      "lemma": "may",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "June",
+      "lemma": "june",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "July",
+      "lemma": "july",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "August",
+      "lemma": "august",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "September",
+      "lemma": "september",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "October",
+      "lemma": "october",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "November",
+      "lemma": "november",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "December",
+      "lemma": "december",
+      "pos": "noun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "good",
+      "lemma": "good",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bad",
+      "lemma": "bad",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "big",
+      "lemma": "big",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "small",
+      "lemma": "small",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "tall",
+      "lemma": "tall",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "short",
+      "lemma": "short",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "long",
+      "lemma": "long",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "high",
+      "lemma": "high",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "low",
+      "lemma": "low",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "fast",
+      "lemma": "fast",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "slow",
+      "lemma": "slow",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hot",
+      "lemma": "hot",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cold",
+      "lemma": "cold",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "warm",
+      "lemma": "warm",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cool",
+      "lemma": "cool",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "new",
+      "lemma": "new",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "old",
+      "lemma": "old",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "young",
+      "lemma": "young",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "beautiful",
+      "lemma": "beautiful",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "pretty",
+      "lemma": "pretty",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "nice",
+      "lemma": "nice",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ugly",
+      "lemma": "ugly",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "happy",
+      "lemma": "happy",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sad",
+      "lemma": "sad",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "angry",
+      "lemma": "angry",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "tired",
+      "lemma": "tired",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hungry",
+      "lemma": "hungry",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "thirsty",
+      "lemma": "thirsty",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hard",
+      "lemma": "hard",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "easy",
+      "lemma": "easy",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "difficult",
+      "lemma": "difficult",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "free",
+      "lemma": "free",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "busy",
+      "lemma": "busy",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "full",
+      "lemma": "full",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "empty",
+      "lemma": "empty",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "open",
+      "lemma": "open",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "closed",
+      "lemma": "closed",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "clean",
+      "lemma": "clean",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "dirty",
+      "lemma": "dirty",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "light",
+      "lemma": "light",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "dark",
+      "lemma": "dark",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "heavy",
+      "lemma": "heavy",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "strong",
+      "lemma": "strong",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "weak",
+      "lemma": "weak",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "rich",
+      "lemma": "rich",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "poor",
+      "lemma": "poor",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "expensive",
+      "lemma": "expensive",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "cheap",
+      "lemma": "cheap",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "right",
+      "lemma": "right",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wrong",
+      "lemma": "wrong",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "true",
+      "lemma": "true",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "false",
+      "lemma": "false",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "same",
+      "lemma": "same",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "different",
+      "lemma": "different",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "important",
+      "lemma": "important",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "interesting",
+      "lemma": "interesting",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "boring",
+      "lemma": "boring",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "funny",
+      "lemma": "funny",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "friendly",
+      "lemma": "friendly",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "kind",
+      "lemma": "kind",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ready",
+      "lemma": "ready",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sure",
+      "lemma": "sure",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "possible",
+      "lemma": "possible",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "real",
+      "lemma": "real",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sweet",
+      "lemma": "sweet",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sick",
+      "lemma": "sick",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ill",
+      "lemma": "ill",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "late",
+      "lemma": "late",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "early",
+      "lemma": "early",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "next",
+      "lemma": "next",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "last",
+      "lemma": "last",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "first",
+      "lemma": "first",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "favorite",
+      "lemma": "favorite",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "famous",
+      "lemma": "famous",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wonderful",
+      "lemma": "wonderful",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "afraid",
+      "lemma": "afraid",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "alone",
+      "lemma": "alone",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "quiet",
+      "lemma": "quiet",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "noisy",
+      "lemma": "noisy",
+      "pos": "adjective",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "very",
+      "lemma": "very",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "really",
+      "lemma": "really",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "well",
+      "lemma": "well",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "badly",
+      "lemma": "badly",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "here",
+      "lemma": "here",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "there",
+      "lemma": "there",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "now",
+      "lemma": "now",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "then",
+      "lemma": "then",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "today",
+      "lemma": "today",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "tomorrow",
+      "lemma": "tomorrow",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "yesterday",
+      "lemma": "yesterday",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "often",
+      "lemma": "often",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sometimes",
+      "lemma": "sometimes",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "never",
+      "lemma": "never",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "always",
+      "lemma": "always",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "usually",
+      "lemma": "usually",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "quickly",
+      "lemma": "quickly",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "slowly",
+      "lemma": "slowly",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "easily",
+      "lemma": "easily",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "again",
+      "lemma": "again",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "also",
+      "lemma": "also",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "too",
+      "lemma": "too",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "only",
+      "lemma": "only",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "still",
+      "lemma": "still",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "just",
+      "lemma": "just",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "maybe",
+      "lemma": "maybe",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "perhaps",
+      "lemma": "perhaps",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "together",
+      "lemma": "together",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "alone",
+      "lemma": "alone",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "soon",
+      "lemma": "soon",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "late",
+      "lemma": "late",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "early",
+      "lemma": "early",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "everywhere",
+      "lemma": "everywhere",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "anywhere",
+      "lemma": "anywhere",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "nowhere",
+      "lemma": "nowhere",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "away",
+      "lemma": "away",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "back",
+      "lemma": "back",
+      "pos": "adverb",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "in",
+      "lemma": "in",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "on",
+      "lemma": "on",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "at",
+      "lemma": "at",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "to",
+      "lemma": "to",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "from",
+      "lemma": "from",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "with",
+      "lemma": "with",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "of",
+      "lemma": "of",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "for",
+      "lemma": "for",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "by",
+      "lemma": "by",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "about",
+      "lemma": "about",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "before",
+      "lemma": "before",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "after",
+      "lemma": "after",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "under",
+      "lemma": "under",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "over",
+      "lemma": "over",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "between",
+      "lemma": "between",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "near",
+      "lemma": "near",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "behind",
+      "lemma": "behind",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "into",
+      "lemma": "into",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "out",
+      "lemma": "out",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "up",
+      "lemma": "up",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "down",
+      "lemma": "down",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "above",
+      "lemma": "above",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "below",
+      "lemma": "below",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "across",
+      "lemma": "across",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "along",
+      "lemma": "along",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "through",
+      "lemma": "through",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "during",
+      "lemma": "during",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "without",
+      "lemma": "without",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "against",
+      "lemma": "against",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "around",
+      "lemma": "around",
+      "pos": "preposition",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "and",
+      "lemma": "and",
+      "pos": "conjunction",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "but",
+      "lemma": "but",
+      "pos": "conjunction",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "or",
+      "lemma": "or",
+      "pos": "conjunction",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "because",
+      "lemma": "because",
+      "pos": "conjunction",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "so",
+      "lemma": "so",
+      "pos": "conjunction",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "if",
+      "lemma": "if",
+      "pos": "conjunction",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "when",
+      "lemma": "when",
+      "pos": "conjunction",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "while",
+      "lemma": "while",
+      "pos": "conjunction",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "although",
+      "lemma": "although",
+      "pos": "conjunction",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "I",
+      "lemma": "i",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "you",
+      "lemma": "you",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "he",
+      "lemma": "he",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "she",
+      "lemma": "she",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "it",
+      "lemma": "it",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "we",
+      "lemma": "we",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "they",
+      "lemma": "they",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "me",
+      "lemma": "me",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "him",
+      "lemma": "him",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "her",
+      "lemma": "her",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "us",
+      "lemma": "us",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "them",
+      "lemma": "them",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "my",
+      "lemma": "my",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "your",
+      "lemma": "your",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "his",
+      "lemma": "his",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "its",
+      "lemma": "its",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "our",
+      "lemma": "our",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "their",
+      "lemma": "their",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "this",
+      "lemma": "this",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "that",
+      "lemma": "that",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "these",
+      "lemma": "these",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "those",
+      "lemma": "those",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "who",
+      "lemma": "who",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "what",
+      "lemma": "what",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "where",
+      "lemma": "where",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "when",
+      "lemma": "when",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "why",
+      "lemma": "why",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "how",
+      "lemma": "how",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "mine",
+      "lemma": "mine",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "yours",
+      "lemma": "yours",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "something",
+      "lemma": "something",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "nothing",
+      "lemma": "nothing",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "everything",
+      "lemma": "everything",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "anything",
+      "lemma": "anything",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "someone",
+      "lemma": "someone",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "everyone",
+      "lemma": "everyone",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "anyone",
+      "lemma": "anyone",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "nobody",
+      "lemma": "nobody",
+      "pos": "pronoun",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "the",
+      "lemma": "the",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "lemma": "a",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "an",
+      "lemma": "an",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "some",
+      "lemma": "some",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "any",
+      "lemma": "any",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "no",
+      "lemma": "no",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "all",
+      "lemma": "all",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "every",
+      "lemma": "every",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "many",
+      "lemma": "many",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "much",
+      "lemma": "much",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "few",
+      "lemma": "few",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "little",
+      "lemma": "little",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "more",
+      "lemma": "more",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "most",
+      "lemma": "most",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "other",
+      "lemma": "other",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "another",
+      "lemma": "another",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "each",
+      "lemma": "each",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "both",
+      "lemma": "both",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "either",
+      "lemma": "either",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "neither",
+      "lemma": "neither",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hello",
+      "lemma": "hello",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hi",
+      "lemma": "hi",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "bye",
+      "lemma": "bye",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "please",
+      "lemma": "please",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "yes",
+      "lemma": "yes",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ok",
+      "lemma": "ok",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "wow",
+      "lemma": "wow",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "oh",
+      "lemma": "oh",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ah",
+      "lemma": "ah",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "well",
+      "lemma": "well",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sorry",
+      "lemma": "sorry",
+      "pos": "interjection",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "one",
+      "lemma": "one",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "two",
+      "lemma": "two",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "three",
+      "lemma": "three",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "four",
+      "lemma": "four",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "five",
+      "lemma": "five",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "six",
+      "lemma": "six",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "seven",
+      "lemma": "seven",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "eight",
+      "lemma": "eight",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "nine",
+      "lemma": "nine",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ten",
+      "lemma": "ten",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "eleven",
+      "lemma": "eleven",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "twelve",
+      "lemma": "twelve",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "thirteen",
+      "lemma": "thirteen",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "fourteen",
+      "lemma": "fourteen",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "fifteen",
+      "lemma": "fifteen",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sixteen",
+      "lemma": "sixteen",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "seventeen",
+      "lemma": "seventeen",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "eighteen",
+      "lemma": "eighteen",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "nineteen",
+      "lemma": "nineteen",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "twenty",
+      "lemma": "twenty",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "thirty",
+      "lemma": "thirty",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "forty",
+      "lemma": "forty",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "fifty",
+      "lemma": "fifty",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "sixty",
+      "lemma": "sixty",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "seventy",
+      "lemma": "seventy",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "eighty",
+      "lemma": "eighty",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "ninety",
+      "lemma": "ninety",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "hundred",
+      "lemma": "hundred",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "thousand",
+      "lemma": "thousand",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "million",
+      "lemma": "million",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "first",
+      "lemma": "first",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "second",
+      "lemma": "second",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "third",
+      "lemma": "third",
+      "pos": "determiner",
+      "cefr": "A1",
+      "type": "word"
+    },
+    {
+      "text": "accept",
+      "lemma": "accept",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "add",
+      "lemma": "add",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "advise",
+      "lemma": "advise",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "allow",
+      "lemma": "allow",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "appear",
+      "lemma": "appear",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "apply",
+      "lemma": "apply",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "argue",
+      "lemma": "argue",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "arrive",
+      "lemma": "arrive",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "avoid",
+      "lemma": "avoid",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "become",
+      "lemma": "become",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "believe",
+      "lemma": "believe",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "belong",
+      "lemma": "belong",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "borrow",
+      "lemma": "borrow",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "break",
+      "lemma": "break",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "build",
+      "lemma": "build",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "burn",
+      "lemma": "burn",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "check",
+      "lemma": "check",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "climb",
+      "lemma": "climb",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "collect",
+      "lemma": "collect",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "compare",
+      "lemma": "compare",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "complete",
+      "lemma": "complete",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "connect",
+      "lemma": "connect",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "consider",
+      "lemma": "consider",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "continue",
+      "lemma": "continue",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cover",
+      "lemma": "cover",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "create",
+      "lemma": "create",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cross",
+      "lemma": "cross",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cut",
+      "lemma": "cut",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "describe",
+      "lemma": "describe",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "destroy",
+      "lemma": "destroy",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "develop",
+      "lemma": "develop",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "die",
+      "lemma": "die",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "discover",
+      "lemma": "discover",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "discuss",
+      "lemma": "discuss",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "draw",
+      "lemma": "draw",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "drop",
+      "lemma": "drop",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "earn",
+      "lemma": "earn",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "enter",
+      "lemma": "enter",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "expect",
+      "lemma": "expect",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "explain",
+      "lemma": "explain",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fail",
+      "lemma": "fail",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fight",
+      "lemma": "fight",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "finish",
+      "lemma": "finish",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fit",
+      "lemma": "fit",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fix",
+      "lemma": "fix",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "follow",
+      "lemma": "follow",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "force",
+      "lemma": "force",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "forgive",
+      "lemma": "forgive",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "guess",
+      "lemma": "guess",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hang",
+      "lemma": "hang",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hate",
+      "lemma": "hate",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hide",
+      "lemma": "hide",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hit",
+      "lemma": "hit",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hold",
+      "lemma": "hold",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hurt",
+      "lemma": "hurt",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "imagine",
+      "lemma": "imagine",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "improve",
+      "lemma": "improve",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "include",
+      "lemma": "include",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "increase",
+      "lemma": "increase",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "introduce",
+      "lemma": "introduce",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "invite",
+      "lemma": "invite",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "knock",
+      "lemma": "knock",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lead",
+      "lemma": "lead",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lend",
+      "lemma": "lend",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lie",
+      "lemma": "lie",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lift",
+      "lemma": "lift",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mark",
+      "lemma": "mark",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "marry",
+      "lemma": "marry",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "measure",
+      "lemma": "measure",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mention",
+      "lemma": "mention",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mind",
+      "lemma": "mind",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "notice",
+      "lemma": "notice",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "offer",
+      "lemma": "offer",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "order",
+      "lemma": "order",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pack",
+      "lemma": "pack",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pass",
+      "lemma": "pass",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "plan",
+      "lemma": "plan",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "prefer",
+      "lemma": "prefer",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "prepare",
+      "lemma": "prepare",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "prevent",
+      "lemma": "prevent",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "produce",
+      "lemma": "produce",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "promise",
+      "lemma": "promise",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "protect",
+      "lemma": "protect",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "provide",
+      "lemma": "provide",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "receive",
+      "lemma": "receive",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "recommend",
+      "lemma": "recommend",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "refuse",
+      "lemma": "refuse",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "repair",
+      "lemma": "repair",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "repeat",
+      "lemma": "repeat",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "reply",
+      "lemma": "reply",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "report",
+      "lemma": "report",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "return",
+      "lemma": "return",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rise",
+      "lemma": "rise",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rule",
+      "lemma": "rule",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "save",
+      "lemma": "save",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sell",
+      "lemma": "sell",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "send",
+      "lemma": "send",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "share",
+      "lemma": "share",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "shout",
+      "lemma": "shout",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sign",
+      "lemma": "sign",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sound",
+      "lemma": "sound",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "spell",
+      "lemma": "spell",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "spend",
+      "lemma": "spend",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "suggest",
+      "lemma": "suggest",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "support",
+      "lemma": "support",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "surprise",
+      "lemma": "surprise",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "survive",
+      "lemma": "survive",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "taste",
+      "lemma": "taste",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "test",
+      "lemma": "test",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tour",
+      "lemma": "tour",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "vote",
+      "lemma": "vote",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "welcome",
+      "lemma": "welcome",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wonder",
+      "lemma": "wonder",
+      "pos": "verb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "accident",
+      "lemma": "accident",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "address",
+      "lemma": "address",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "advantage",
+      "lemma": "advantage",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "advice",
+      "lemma": "advice",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "age",
+      "lemma": "age",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "air",
+      "lemma": "air",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "apartment",
+      "lemma": "apartment",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "area",
+      "lemma": "area",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "art",
+      "lemma": "art",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "article",
+      "lemma": "article",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "artist",
+      "lemma": "artist",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "audience",
+      "lemma": "audience",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "author",
+      "lemma": "author",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "bank",
+      "lemma": "bank",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "basket",
+      "lemma": "basket",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "battery",
+      "lemma": "battery",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "beauty",
+      "lemma": "beauty",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "bell",
+      "lemma": "bell",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "bicycle",
+      "lemma": "bicycle",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "bill",
+      "lemma": "bill",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "blanket",
+      "lemma": "blanket",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "blood",
+      "lemma": "blood",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "board",
+      "lemma": "board",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "bone",
+      "lemma": "bone",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "bottle",
+      "lemma": "bottle",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "bowl",
+      "lemma": "bowl",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "box",
+      "lemma": "box",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "brain",
+      "lemma": "brain",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "branch",
+      "lemma": "branch",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "bridge",
+      "lemma": "bridge",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "building",
+      "lemma": "building",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "business",
+      "lemma": "business",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "button",
+      "lemma": "button",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "calendar",
+      "lemma": "calendar",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "capital",
+      "lemma": "capital",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "camera",
+      "lemma": "camera",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "campaign",
+      "lemma": "campaign",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "candle",
+      "lemma": "candle",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cap",
+      "lemma": "cap",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "card",
+      "lemma": "card",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "career",
+      "lemma": "career",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "carrot",
+      "lemma": "carrot",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cash",
+      "lemma": "cash",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "castle",
+      "lemma": "castle",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ceiling",
+      "lemma": "ceiling",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cell",
+      "lemma": "cell",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "century",
+      "lemma": "century",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "chain",
+      "lemma": "chain",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "chance",
+      "lemma": "chance",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "change",
+      "lemma": "change",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "channel",
+      "lemma": "channel",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "chapter",
+      "lemma": "chapter",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "character",
+      "lemma": "character",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "charity",
+      "lemma": "charity",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "check",
+      "lemma": "check",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "choice",
+      "lemma": "choice",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "church",
+      "lemma": "church",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cigarette",
+      "lemma": "cigarette",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "circle",
+      "lemma": "circle",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "climate",
+      "lemma": "climate",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "clinic",
+      "lemma": "clinic",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "clock",
+      "lemma": "clock",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "club",
+      "lemma": "club",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "coin",
+      "lemma": "coin",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "college",
+      "lemma": "college",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "comedy",
+      "lemma": "comedy",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "company",
+      "lemma": "company",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "competition",
+      "lemma": "competition",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "concert",
+      "lemma": "concert",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "condition",
+      "lemma": "condition",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "conference",
+      "lemma": "conference",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "connection",
+      "lemma": "connection",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "conversation",
+      "lemma": "conversation",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "corner",
+      "lemma": "corner",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cost",
+      "lemma": "cost",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "couple",
+      "lemma": "couple",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "course",
+      "lemma": "course",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "court",
+      "lemma": "court",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cow",
+      "lemma": "cow",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cream",
+      "lemma": "cream",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "credit",
+      "lemma": "credit",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "crime",
+      "lemma": "crime",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cup",
+      "lemma": "cup",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "customer",
+      "lemma": "customer",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "dance",
+      "lemma": "dance",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "danger",
+      "lemma": "danger",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "date",
+      "lemma": "date",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "death",
+      "lemma": "death",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "decision",
+      "lemma": "decision",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "degree",
+      "lemma": "degree",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "dentist",
+      "lemma": "dentist",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "department",
+      "lemma": "department",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "description",
+      "lemma": "description",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "design",
+      "lemma": "design",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "dessert",
+      "lemma": "dessert",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "detail",
+      "lemma": "detail",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "dictionary",
+      "lemma": "dictionary",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "diet",
+      "lemma": "diet",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "difference",
+      "lemma": "difference",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "direction",
+      "lemma": "direction",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "discussion",
+      "lemma": "discussion",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "distance",
+      "lemma": "distance",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "doll",
+      "lemma": "doll",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "dream",
+      "lemma": "dream",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "drink",
+      "lemma": "drink",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "driver",
+      "lemma": "driver",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "drug",
+      "lemma": "drug",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "DVD",
+      "lemma": "dvd",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "east",
+      "lemma": "east",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "economy",
+      "lemma": "economy",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "edge",
+      "lemma": "edge",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "education",
+      "lemma": "education",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "effect",
+      "lemma": "effect",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "election",
+      "lemma": "election",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "emergency",
+      "lemma": "emergency",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "employee",
+      "lemma": "employee",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "energy",
+      "lemma": "energy",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "engine",
+      "lemma": "engine",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "engineer",
+      "lemma": "engineer",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "entrance",
+      "lemma": "entrance",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "environment",
+      "lemma": "environment",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "equipment",
+      "lemma": "equipment",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "event",
+      "lemma": "event",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "example",
+      "lemma": "example",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "exercise",
+      "lemma": "exercise",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "expert",
+      "lemma": "expert",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fact",
+      "lemma": "fact",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "factor",
+      "lemma": "factor",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "factory",
+      "lemma": "factory",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "failure",
+      "lemma": "failure",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "farm",
+      "lemma": "farm",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "farmer",
+      "lemma": "farmer",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fashion",
+      "lemma": "fashion",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fault",
+      "lemma": "fault",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "feature",
+      "lemma": "feature",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fee",
+      "lemma": "fee",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "feeling",
+      "lemma": "feeling",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "festival",
+      "lemma": "festival",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fever",
+      "lemma": "fever",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "field",
+      "lemma": "field",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "figure",
+      "lemma": "figure",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "flag",
+      "lemma": "flag",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "flight",
+      "lemma": "flight",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fog",
+      "lemma": "fog",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "football",
+      "lemma": "football",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "forest",
+      "lemma": "forest",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fortune",
+      "lemma": "fortune",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "freedom",
+      "lemma": "freedom",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fridge",
+      "lemma": "fridge",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "friendship",
+      "lemma": "friendship",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fun",
+      "lemma": "fun",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "furniture",
+      "lemma": "furniture",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "future",
+      "lemma": "future",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "garage",
+      "lemma": "garage",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "gate",
+      "lemma": "gate",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "gift",
+      "lemma": "gift",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "glass",
+      "lemma": "glass",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "goal",
+      "lemma": "goal",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "gold",
+      "lemma": "gold",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "government",
+      "lemma": "government",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "grade",
+      "lemma": "grade",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "grandparent",
+      "lemma": "grandparent",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ground",
+      "lemma": "ground",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "group",
+      "lemma": "group",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "growth",
+      "lemma": "growth",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "guard",
+      "lemma": "guard",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "guest",
+      "lemma": "guest",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "guide",
+      "lemma": "guide",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "guitar",
+      "lemma": "guitar",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "gun",
+      "lemma": "gun",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "gym",
+      "lemma": "gym",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "habit",
+      "lemma": "habit",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hairdresser",
+      "lemma": "hairdresser",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "half",
+      "lemma": "half",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hall",
+      "lemma": "hall",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ham",
+      "lemma": "ham",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "handle",
+      "lemma": "handle",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "headache",
+      "lemma": "headache",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "health",
+      "lemma": "health",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "heat",
+      "lemma": "heat",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "height",
+      "lemma": "height",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "help",
+      "lemma": "help",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hero",
+      "lemma": "hero",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hill",
+      "lemma": "hill",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hobby",
+      "lemma": "hobby",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "honey",
+      "lemma": "honey",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "horse",
+      "lemma": "horse",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "host",
+      "lemma": "host",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "identity",
+      "lemma": "identity",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "image",
+      "lemma": "image",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "industry",
+      "lemma": "industry",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "information",
+      "lemma": "information",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "injury",
+      "lemma": "injury",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "insect",
+      "lemma": "insect",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "instance",
+      "lemma": "instance",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "instruction",
+      "lemma": "instruction",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "instrument",
+      "lemma": "instrument",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "insurance",
+      "lemma": "insurance",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "interest",
+      "lemma": "interest",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "internet",
+      "lemma": "internet",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "interview",
+      "lemma": "interview",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "island",
+      "lemma": "island",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "issue",
+      "lemma": "issue",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "jam",
+      "lemma": "jam",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "jar",
+      "lemma": "jar",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "jeans",
+      "lemma": "jeans",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "journey",
+      "lemma": "journey",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "joy",
+      "lemma": "joy",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "judge",
+      "lemma": "judge",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "king",
+      "lemma": "king",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "kingdom",
+      "lemma": "kingdom",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "knee",
+      "lemma": "knee",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "knife",
+      "lemma": "knife",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "knowledge",
+      "lemma": "knowledge",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "laboratory",
+      "lemma": "laboratory",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lady",
+      "lemma": "lady",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lamp",
+      "lemma": "lamp",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "language",
+      "lemma": "language",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "laptop",
+      "lemma": "laptop",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "law",
+      "lemma": "law",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lawyer",
+      "lemma": "lawyer",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "leaf",
+      "lemma": "leaf",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "leather",
+      "lemma": "leather",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lecture",
+      "lemma": "lecture",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lemon",
+      "lemma": "lemon",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "level",
+      "lemma": "level",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "library",
+      "lemma": "library",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "life",
+      "lemma": "life",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "line",
+      "lemma": "line",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "link",
+      "lemma": "link",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lion",
+      "lemma": "lion",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "list",
+      "lemma": "list",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "location",
+      "lemma": "location",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lock",
+      "lemma": "lock",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "loss",
+      "lemma": "loss",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "luck",
+      "lemma": "luck",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "machine",
+      "lemma": "machine",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "magazine",
+      "lemma": "magazine",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mail",
+      "lemma": "mail",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "manager",
+      "lemma": "manager",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "map",
+      "lemma": "map",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "market",
+      "lemma": "market",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "marriage",
+      "lemma": "marriage",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "match",
+      "lemma": "match",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "material",
+      "lemma": "material",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "meaning",
+      "lemma": "meaning",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "medicine",
+      "lemma": "medicine",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "member",
+      "lemma": "member",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "memory",
+      "lemma": "memory",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "menu",
+      "lemma": "menu",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "metal",
+      "lemma": "metal",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "method",
+      "lemma": "method",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "middle",
+      "lemma": "middle",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "minister",
+      "lemma": "minister",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mirror",
+      "lemma": "mirror",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mistake",
+      "lemma": "mistake",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mobile",
+      "lemma": "mobile",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "model",
+      "lemma": "model",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "moment",
+      "lemma": "moment",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "monkey",
+      "lemma": "monkey",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mood",
+      "lemma": "mood",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "museum",
+      "lemma": "museum",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "nature",
+      "lemma": "nature",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "neck",
+      "lemma": "neck",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "neighbor",
+      "lemma": "neighbor",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "newspaper",
+      "lemma": "newspaper",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "noise",
+      "lemma": "noise",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "note",
+      "lemma": "note",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "notebook",
+      "lemma": "notebook",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "notice",
+      "lemma": "notice",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "novel",
+      "lemma": "novel",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "nut",
+      "lemma": "nut",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ocean",
+      "lemma": "ocean",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "officer",
+      "lemma": "officer",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "official",
+      "lemma": "official",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "oil",
+      "lemma": "oil",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "opinion",
+      "lemma": "opinion",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "opportunity",
+      "lemma": "opportunity",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "option",
+      "lemma": "option",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "owner",
+      "lemma": "owner",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "page",
+      "lemma": "page",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "palace",
+      "lemma": "palace",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "passenger",
+      "lemma": "passenger",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "passport",
+      "lemma": "passport",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "password",
+      "lemma": "password",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "path",
+      "lemma": "path",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "patient",
+      "lemma": "patient",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "peace",
+      "lemma": "peace",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "performance",
+      "lemma": "performance",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "period",
+      "lemma": "period",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "permission",
+      "lemma": "permission",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "personality",
+      "lemma": "personality",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pet",
+      "lemma": "pet",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "petrol",
+      "lemma": "petrol",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "piano",
+      "lemma": "piano",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "piece",
+      "lemma": "piece",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pig",
+      "lemma": "pig",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pillow",
+      "lemma": "pillow",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pilot",
+      "lemma": "pilot",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pin",
+      "lemma": "pin",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pineapple",
+      "lemma": "pineapple",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "plan",
+      "lemma": "plan",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "planet",
+      "lemma": "planet",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "plant",
+      "lemma": "plant",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "plastic",
+      "lemma": "plastic",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "plate",
+      "lemma": "plate",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "platform",
+      "lemma": "platform",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "player",
+      "lemma": "player",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pleasure",
+      "lemma": "pleasure",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "poem",
+      "lemma": "poem",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "point",
+      "lemma": "point",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "police",
+      "lemma": "police",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "policy",
+      "lemma": "policy",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "politician",
+      "lemma": "politician",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pollution",
+      "lemma": "pollution",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "population",
+      "lemma": "population",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "position",
+      "lemma": "position",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "post",
+      "lemma": "post",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "poster",
+      "lemma": "poster",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pot",
+      "lemma": "pot",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pound",
+      "lemma": "pound",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "power",
+      "lemma": "power",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "practice",
+      "lemma": "practice",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "present",
+      "lemma": "present",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "president",
+      "lemma": "president",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "prince",
+      "lemma": "prince",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "princess",
+      "lemma": "princess",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "printer",
+      "lemma": "printer",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "prison",
+      "lemma": "prison",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "prize",
+      "lemma": "prize",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "process",
+      "lemma": "process",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "product",
+      "lemma": "product",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "professor",
+      "lemma": "professor",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "program",
+      "lemma": "program",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "project",
+      "lemma": "project",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "promise",
+      "lemma": "promise",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "property",
+      "lemma": "property",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "protection",
+      "lemma": "protection",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "public",
+      "lemma": "public",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "purpose",
+      "lemma": "purpose",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "quality",
+      "lemma": "quality",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "quantity",
+      "lemma": "quantity",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "queen",
+      "lemma": "queen",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "race",
+      "lemma": "race",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "radio",
+      "lemma": "radio",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rate",
+      "lemma": "rate",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "reaction",
+      "lemma": "reaction",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "reading",
+      "lemma": "reading",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "reality",
+      "lemma": "reality",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "reason",
+      "lemma": "reason",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "receipt",
+      "lemma": "receipt",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "recipe",
+      "lemma": "recipe",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "record",
+      "lemma": "record",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "region",
+      "lemma": "region",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "relationship",
+      "lemma": "relationship",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "religion",
+      "lemma": "religion",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "report",
+      "lemma": "report",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "request",
+      "lemma": "request",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "research",
+      "lemma": "research",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "reservation",
+      "lemma": "reservation",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "resource",
+      "lemma": "resource",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "response",
+      "lemma": "response",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "responsibility",
+      "lemma": "responsibility",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rest",
+      "lemma": "rest",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "result",
+      "lemma": "result",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "return",
+      "lemma": "return",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ring",
+      "lemma": "ring",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "risk",
+      "lemma": "risk",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "robot",
+      "lemma": "robot",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rock",
+      "lemma": "rock",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "role",
+      "lemma": "role",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "roof",
+      "lemma": "roof",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rope",
+      "lemma": "rope",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "route",
+      "lemma": "route",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ruler",
+      "lemma": "ruler",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "safety",
+      "lemma": "safety",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "salary",
+      "lemma": "salary",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sale",
+      "lemma": "sale",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sand",
+      "lemma": "sand",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "scarf",
+      "lemma": "scarf",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "scene",
+      "lemma": "scene",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "schedule",
+      "lemma": "schedule",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "science",
+      "lemma": "science",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "scientist",
+      "lemma": "scientist",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "score",
+      "lemma": "score",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "season",
+      "lemma": "season",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "seat",
+      "lemma": "seat",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "secret",
+      "lemma": "secret",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "secretary",
+      "lemma": "secretary",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "section",
+      "lemma": "section",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "security",
+      "lemma": "security",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sense",
+      "lemma": "sense",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "series",
+      "lemma": "series",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "service",
+      "lemma": "service",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "setting",
+      "lemma": "setting",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "shadow",
+      "lemma": "shadow",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "shape",
+      "lemma": "shape",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sheep",
+      "lemma": "sheep",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "shelf",
+      "lemma": "shelf",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ship",
+      "lemma": "ship",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "shoulder",
+      "lemma": "shoulder",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "shower",
+      "lemma": "shower",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "side",
+      "lemma": "side",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sight",
+      "lemma": "sight",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "signal",
+      "lemma": "signal",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "silver",
+      "lemma": "silver",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "size",
+      "lemma": "size",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "skill",
+      "lemma": "skill",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "smile",
+      "lemma": "smile",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "snake",
+      "lemma": "snake",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "society",
+      "lemma": "society",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "soldier",
+      "lemma": "soldier",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "solution",
+      "lemma": "solution",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sound",
+      "lemma": "sound",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "space",
+      "lemma": "space",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "speaker",
+      "lemma": "speaker",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sport",
+      "lemma": "sport",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "spring",
+      "lemma": "spring",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "square",
+      "lemma": "square",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stadium",
+      "lemma": "stadium",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "staff",
+      "lemma": "staff",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stage",
+      "lemma": "stage",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stair",
+      "lemma": "stair",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stamp",
+      "lemma": "stamp",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "standard",
+      "lemma": "standard",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "statue",
+      "lemma": "statue",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "status",
+      "lemma": "status",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "step",
+      "lemma": "step",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stomach",
+      "lemma": "stomach",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stone",
+      "lemma": "stone",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "storm",
+      "lemma": "storm",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "strategy",
+      "lemma": "strategy",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stream",
+      "lemma": "stream",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stress",
+      "lemma": "stress",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "string",
+      "lemma": "string",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "structure",
+      "lemma": "structure",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "study",
+      "lemma": "study",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "style",
+      "lemma": "style",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "subject",
+      "lemma": "subject",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "success",
+      "lemma": "success",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "suggestion",
+      "lemma": "suggestion",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "suit",
+      "lemma": "suit",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "summer",
+      "lemma": "summer",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sunshine",
+      "lemma": "sunshine",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "supermarket",
+      "lemma": "supermarket",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "supply",
+      "lemma": "supply",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "support",
+      "lemma": "support",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "surface",
+      "lemma": "surface",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "survey",
+      "lemma": "survey",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sweater",
+      "lemma": "sweater",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "swimming",
+      "lemma": "swimming",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "system",
+      "lemma": "system",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tablet",
+      "lemma": "tablet",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tail",
+      "lemma": "tail",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "target",
+      "lemma": "target",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tax",
+      "lemma": "tax",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "technology",
+      "lemma": "technology",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "teenager",
+      "lemma": "teenager",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "telephone",
+      "lemma": "telephone",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "television",
+      "lemma": "television",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "temperature",
+      "lemma": "temperature",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tennis",
+      "lemma": "tennis",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "theater",
+      "lemma": "theater",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "thought",
+      "lemma": "thought",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tiger",
+      "lemma": "tiger",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tip",
+      "lemma": "tip",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "toilet",
+      "lemma": "toilet",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tonight",
+      "lemma": "tonight",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tool",
+      "lemma": "tool",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "topic",
+      "lemma": "topic",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tour",
+      "lemma": "tour",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tourist",
+      "lemma": "tourist",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "towel",
+      "lemma": "towel",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tower",
+      "lemma": "tower",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "toy",
+      "lemma": "toy",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "track",
+      "lemma": "track",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "trade",
+      "lemma": "trade",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "traffic",
+      "lemma": "traffic",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "travel",
+      "lemma": "travel",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "trick",
+      "lemma": "trick",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "trip",
+      "lemma": "trip",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "trouble",
+      "lemma": "trouble",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "trousers",
+      "lemma": "trousers",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "truck",
+      "lemma": "truck",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "trust",
+      "lemma": "trust",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "truth",
+      "lemma": "truth",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "type",
+      "lemma": "type",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "uniform",
+      "lemma": "uniform",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "university",
+      "lemma": "university",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "user",
+      "lemma": "user",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "vacation",
+      "lemma": "vacation",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "value",
+      "lemma": "value",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "vehicle",
+      "lemma": "vehicle",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "version",
+      "lemma": "version",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "victim",
+      "lemma": "victim",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "video",
+      "lemma": "video",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "view",
+      "lemma": "view",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "village",
+      "lemma": "village",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "virus",
+      "lemma": "virus",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "vision",
+      "lemma": "vision",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "visitor",
+      "lemma": "visitor",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "voice",
+      "lemma": "voice",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "volume",
+      "lemma": "volume",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "volunteer",
+      "lemma": "volunteer",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wage",
+      "lemma": "wage",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "waiter",
+      "lemma": "waiter",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "war",
+      "lemma": "war",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "waste",
+      "lemma": "waste",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wave",
+      "lemma": "wave",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wealth",
+      "lemma": "wealth",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "weapon",
+      "lemma": "weapon",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "website",
+      "lemma": "website",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "weight",
+      "lemma": "weight",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wheel",
+      "lemma": "wheel",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wine",
+      "lemma": "wine",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "winter",
+      "lemma": "winter",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wish",
+      "lemma": "wish",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wood",
+      "lemma": "wood",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "world",
+      "lemma": "world",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "writer",
+      "lemma": "writer",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "yard",
+      "lemma": "yard",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "youth",
+      "lemma": "youth",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "zero",
+      "lemma": "zero",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "zone",
+      "lemma": "zone",
+      "pos": "noun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "amazing",
+      "lemma": "amazing",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "awful",
+      "lemma": "awful",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "basic",
+      "lemma": "basic",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "blind",
+      "lemma": "blind",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "brave",
+      "lemma": "brave",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "bright",
+      "lemma": "bright",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "broken",
+      "lemma": "broken",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "careful",
+      "lemma": "careful",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cheerful",
+      "lemma": "cheerful",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "clear",
+      "lemma": "clear",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "clever",
+      "lemma": "clever",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "close",
+      "lemma": "close",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cloudy",
+      "lemma": "cloudy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "comfortable",
+      "lemma": "comfortable",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "common",
+      "lemma": "common",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "confused",
+      "lemma": "confused",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "crazy",
+      "lemma": "crazy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "crowded",
+      "lemma": "crowded",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "cute",
+      "lemma": "cute",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "dangerous",
+      "lemma": "dangerous",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "delicious",
+      "lemma": "delicious",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "dry",
+      "lemma": "dry",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "elderly",
+      "lemma": "elderly",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "enormous",
+      "lemma": "enormous",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "excited",
+      "lemma": "excited",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "exciting",
+      "lemma": "exciting",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fair",
+      "lemma": "fair",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fancy",
+      "lemma": "fancy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fantastic",
+      "lemma": "fantastic",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fine",
+      "lemma": "fine",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "foreign",
+      "lemma": "foreign",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "generous",
+      "lemma": "generous",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "gentle",
+      "lemma": "gentle",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "glad",
+      "lemma": "glad",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "gorgeous",
+      "lemma": "gorgeous",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "grateful",
+      "lemma": "grateful",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "great",
+      "lemma": "great",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "green",
+      "lemma": "green",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "guilty",
+      "lemma": "guilty",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "healthy",
+      "lemma": "healthy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "honest",
+      "lemma": "honest",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "huge",
+      "lemma": "huge",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ideal",
+      "lemma": "ideal",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "impossible",
+      "lemma": "impossible",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "jealous",
+      "lemma": "jealous",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "large",
+      "lemma": "large",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lazy",
+      "lemma": "lazy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "loud",
+      "lemma": "loud",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lovely",
+      "lemma": "lovely",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lucky",
+      "lemma": "lucky",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "main",
+      "lemma": "main",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "modern",
+      "lemma": "modern",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "narrow",
+      "lemma": "narrow",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "nasty",
+      "lemma": "nasty",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "necessary",
+      "lemma": "necessary",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "nervous",
+      "lemma": "nervous",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "normal",
+      "lemma": "normal",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "obvious",
+      "lemma": "obvious",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "occasional",
+      "lemma": "occasional",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "original",
+      "lemma": "original",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ordinary",
+      "lemma": "ordinary",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "other",
+      "lemma": "other",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pale",
+      "lemma": "pale",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "peaceful",
+      "lemma": "peaceful",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "perfect",
+      "lemma": "perfect",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "personal",
+      "lemma": "personal",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "plain",
+      "lemma": "plain",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "pleasant",
+      "lemma": "pleasant",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "polite",
+      "lemma": "polite",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "popular",
+      "lemma": "popular",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "powerful",
+      "lemma": "powerful",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "professional",
+      "lemma": "professional",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "proud",
+      "lemma": "proud",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "public",
+      "lemma": "public",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "quick",
+      "lemma": "quick",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rainy",
+      "lemma": "rainy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rare",
+      "lemma": "rare",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "recent",
+      "lemma": "recent",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "romantic",
+      "lemma": "romantic",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rough",
+      "lemma": "rough",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "round",
+      "lemma": "round",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "royal",
+      "lemma": "royal",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rude",
+      "lemma": "rude",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "safe",
+      "lemma": "safe",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "scared",
+      "lemma": "scared",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "secret",
+      "lemma": "secret",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sensible",
+      "lemma": "sensible",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "serious",
+      "lemma": "serious",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "shallow",
+      "lemma": "shallow",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sharp",
+      "lemma": "sharp",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "shy",
+      "lemma": "shy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "silent",
+      "lemma": "silent",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "silly",
+      "lemma": "silly",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "similar",
+      "lemma": "similar",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "simple",
+      "lemma": "simple",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "single",
+      "lemma": "single",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "slim",
+      "lemma": "slim",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "smart",
+      "lemma": "smart",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "smooth",
+      "lemma": "smooth",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "soft",
+      "lemma": "soft",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sore",
+      "lemma": "sore",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sorry",
+      "lemma": "sorry",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "special",
+      "lemma": "special",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "spicy",
+      "lemma": "spicy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "splendid",
+      "lemma": "splendid",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "square",
+      "lemma": "square",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "steep",
+      "lemma": "steep",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sticky",
+      "lemma": "sticky",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "still",
+      "lemma": "still",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stormy",
+      "lemma": "stormy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "strange",
+      "lemma": "strange",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "stupid",
+      "lemma": "stupid",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sudden",
+      "lemma": "sudden",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "sunny",
+      "lemma": "sunny",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "surprised",
+      "lemma": "surprised",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "talented",
+      "lemma": "talented",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tasty",
+      "lemma": "tasty",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "terrible",
+      "lemma": "terrible",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "terrified",
+      "lemma": "terrified",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "thick",
+      "lemma": "thick",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "thin",
+      "lemma": "thin",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "tight",
+      "lemma": "tight",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "total",
+      "lemma": "total",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "traditional",
+      "lemma": "traditional",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "uncomfortable",
+      "lemma": "uncomfortable",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "unfair",
+      "lemma": "unfair",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "unhappy",
+      "lemma": "unhappy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "unique",
+      "lemma": "unique",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "unusual",
+      "lemma": "unusual",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "upset",
+      "lemma": "upset",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "urgent",
+      "lemma": "urgent",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "useful",
+      "lemma": "useful",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "useless",
+      "lemma": "useless",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "usual",
+      "lemma": "usual",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "valuable",
+      "lemma": "valuable",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "various",
+      "lemma": "various",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "weekly",
+      "lemma": "weekly",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "weird",
+      "lemma": "weird",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "western",
+      "lemma": "western",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wet",
+      "lemma": "wet",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "whole",
+      "lemma": "whole",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wide",
+      "lemma": "wide",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wild",
+      "lemma": "wild",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "willing",
+      "lemma": "willing",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "windy",
+      "lemma": "windy",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "wise",
+      "lemma": "wise",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "worried",
+      "lemma": "worried",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "yellow",
+      "lemma": "yellow",
+      "pos": "adjective",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "abroad",
+      "lemma": "abroad",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "actually",
+      "lemma": "actually",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "almost",
+      "lemma": "almost",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "already",
+      "lemma": "already",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "anyway",
+      "lemma": "anyway",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "briefly",
+      "lemma": "briefly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "carefully",
+      "lemma": "carefully",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "certainly",
+      "lemma": "certainly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "clearly",
+      "lemma": "clearly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "completely",
+      "lemma": "completely",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "currently",
+      "lemma": "currently",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "daily",
+      "lemma": "daily",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "definitely",
+      "lemma": "definitely",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "directly",
+      "lemma": "directly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "especially",
+      "lemma": "especially",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "eventually",
+      "lemma": "eventually",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "exactly",
+      "lemma": "exactly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "extremely",
+      "lemma": "extremely",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fairly",
+      "lemma": "fairly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "finally",
+      "lemma": "finally",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "fortunately",
+      "lemma": "fortunately",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "generally",
+      "lemma": "generally",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "hardly",
+      "lemma": "hardly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "immediately",
+      "lemma": "immediately",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "instead",
+      "lemma": "instead",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "lately",
+      "lemma": "lately",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mainly",
+      "lemma": "mainly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "mostly",
+      "lemma": "mostly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "nearly",
+      "lemma": "nearly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "normally",
+      "lemma": "normally",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "obviously",
+      "lemma": "obviously",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "occasionally",
+      "lemma": "occasionally",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "probably",
+      "lemma": "probably",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "properly",
+      "lemma": "properly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "quietly",
+      "lemma": "quietly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rarely",
+      "lemma": "rarely",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "rather",
+      "lemma": "rather",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "recently",
+      "lemma": "recently",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "regularly",
+      "lemma": "regularly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "safely",
+      "lemma": "safely",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "separately",
+      "lemma": "separately",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "seriously",
+      "lemma": "seriously",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "simply",
+      "lemma": "simply",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "slightly",
+      "lemma": "slightly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "suddenly",
+      "lemma": "suddenly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "surely",
+      "lemma": "surely",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "truly",
+      "lemma": "truly",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "unfortunately",
+      "lemma": "unfortunately",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "widely",
+      "lemma": "widely",
+      "pos": "adverb",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "beside",
+      "lemma": "beside",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "beyond",
+      "lemma": "beyond",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "despite",
+      "lemma": "despite",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "except",
+      "lemma": "except",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "inside",
+      "lemma": "inside",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "outside",
+      "lemma": "outside",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "towards",
+      "lemma": "towards",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "toward",
+      "lemma": "toward",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "upon",
+      "lemma": "upon",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "within",
+      "lemma": "within",
+      "pos": "preposition",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "whereas",
+      "lemma": "whereas",
+      "pos": "conjunction",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "unless",
+      "lemma": "unless",
+      "pos": "conjunction",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "whether",
+      "lemma": "whether",
+      "pos": "conjunction",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "however",
+      "lemma": "however",
+      "pos": "conjunction",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "therefore",
+      "lemma": "therefore",
+      "pos": "conjunction",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "otherwise",
+      "lemma": "otherwise",
+      "pos": "conjunction",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "whom",
+      "lemma": "whom",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "whose",
+      "lemma": "whose",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "itself",
+      "lemma": "itself",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "himself",
+      "lemma": "himself",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "herself",
+      "lemma": "herself",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "myself",
+      "lemma": "myself",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "yourself",
+      "lemma": "yourself",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "ourselves",
+      "lemma": "ourselves",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "themselves",
+      "lemma": "themselves",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "everybody",
+      "lemma": "everybody",
+      "pos": "pronoun",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "several",
+      "lemma": "several",
+      "pos": "determiner",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "enough",
+      "lemma": "enough",
+      "pos": "determiner",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "whole",
+      "lemma": "whole",
+      "pos": "determiner",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "various",
+      "lemma": "various",
+      "pos": "determiner",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "such",
+      "lemma": "such",
+      "pos": "determiner",
+      "cefr": "A2",
+      "type": "word"
+    },
+    {
+      "text": "own",
+      "lemma": "own",
+      "pos": "determiner",
+      "cefr": "A2",
+      "type": "word"
+    }
+  ]
+}
