@@ -19,7 +19,7 @@ export const UI = {
     open: '設定',
     close: '閉じる',
     cloudSyncSub: 'クラウド同期',
-    cloudSyncHint: '過去の問題・Speech・音声は Google Drive に自動保存されます。',
+    cloudSyncHint: '精聴・多聴の Past items、Speech、音声は Google Drive に自動保存されます。',
     status: '状態',
     statusLabels: {
       disabled: '利用不可',
@@ -77,7 +77,7 @@ export const UI = {
     addToShadowing: 'シャドーに追加',
     setup: 'セットアップ',
     swipeHint: '上下スワイプで前後のパッセージへ',
-    historyHint: '聴いたパッセージを再生できます。初回再生後はブラウザに音声が保存されます。',
+    historyHint: '聴いたパッセージを再生できます。初回再生後はブラウザと Google Drive に音声が保存されます。',
     open: '開く',
     statsTotal: '合計',
     statsPassages: 'パッセージ',

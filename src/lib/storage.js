@@ -314,3 +314,7 @@ export function removeExtensiveHistoryEntry(id) {
   removeCachedAudio(id);
   return loadExtensiveHistory();
 }
+
+export function replaceExtensiveHistoryRaw(list) {
+  saveExtensiveHistoryRaw((list || []).map(normalizeHistoryEntry));
+}

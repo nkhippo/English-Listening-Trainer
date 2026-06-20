@@ -35,6 +35,7 @@ export default function ExtensiveApp({
   audioPlayer,
   gasUrl = DEFAULT_GAS_URL,
   cloudSync,
+  syncRefreshKey = 0,
 }) {
   const [stage, setStage] = useState('setup');
   const [cefr, setCefr] = useState(() => migrateCefrFromStorage(localStorage.getItem(LS_KEYS.cefr)));
@@ -54,12 +55,21 @@ export default function ExtensiveApp({
   const prefetchRef = useRef(null);
   const touchStartY = useRef(null);
 
-  const { schedulePush: scheduleCloudSync, scheduleAudioDelete } = cloudSync || {};
+  const { schedulePush: scheduleCloudSync, scheduleAudioDelete, cacheAudio } = cloudSync || {};
+
+  const cacheAudioLocallyAndCloud = useCallback(
+    (id, base64) => cacheAudio?.(id, base64, saveCachedAudio) ?? saveCachedAudio(id, base64),
+    [cacheAudio],
+  );
 
   useEffect(() => { localStorage.setItem(LS_KEYS.cefr, cefr); }, [cefr]);
   useEffect(() => { localStorage.setItem(LS_KEYS.scene, scene); }, [scene]);
   useEffect(() => { localStorage.setItem(LS_KEYS.level, String(level)); }, [level]);
   useEffect(() => { localStorage.setItem(LS_KEYS.length, length); }, [length]);
+
+  useEffect(() => {
+    if (syncRefreshKey > 0) setHistory(loadExtensiveHistory());
+  }, [syncRefreshKey]);
 
   const current = passages[currentIdx];
 
@@ -82,10 +92,10 @@ export default function ExtensiveApp({
       instructions: entry.item.tts_instructions || '',
       cefr: entry.cefr || DEFAULT_CEFR,
       shell: 'extensive',
-      onCacheSave: (_, b64) => saveCachedAudio(entry.id, b64),
+      onCacheSave: cacheAudioLocallyAndCloud,
     });
     return tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
-  }, [gasUrl]);
+  }, [gasUrl, cacheAudioLocallyAndCloud]);
 
   const saveToHistory = useCallback((passage) => {
     setHistory(upsertExtensiveHistoryEntry({
@@ -127,11 +137,11 @@ export default function ExtensiveApp({
       instructions: generated.tts_instructions || '',
       cefr,
       shell: 'extensive',
-      onCacheSave: (_, b64) => saveCachedAudio(id, b64),
+      onCacheSave: cacheAudioLocallyAndCloud,
     });
     const url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
     return { id, item: generated, audioUrl: url, cached: tts.cached, startedAt: Date.now() };
-  }, [anthropicKey, scene, cefr, level, length, structureFlags, gasUrl]);
+  }, [anthropicKey, scene, cefr, level, length, structureFlags, gasUrl, cacheAudioLocallyAndCloud]);
 
   async function startListening() {
     if (!anthropicKey) {

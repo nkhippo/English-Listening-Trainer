@@ -31,7 +31,7 @@ const LS_KEYS = {
   cefr: 'elt_last_cefr',
 };
 
-export default function IntensiveApp({ anthropicKey, settingsOpen, gasUrl = DEFAULT_GAS_URL, cloudSync }) {
+export default function IntensiveApp({ anthropicKey, settingsOpen, gasUrl = DEFAULT_GAS_URL, cloudSync, syncRefreshKey = 0 }) {
   const audioPlayer = useAudioPlayer();
   const [stage, setStage] = useState('setup');
   const [mode, setMode] = useState(localStorage.getItem(LS_KEYS.mode) || 'cloze');
@@ -61,6 +61,10 @@ export default function IntensiveApp({ anthropicKey, settingsOpen, gasUrl = DEFA
   useEffect(() => { localStorage.setItem(LS_KEYS.scene, scene); }, [scene]);
   useEffect(() => { localStorage.setItem(LS_KEYS.level, String(level)); }, [level]);
   useEffect(() => { localStorage.setItem(LS_KEYS.cefr, cefr); }, [cefr]);
+
+  useEffect(() => {
+    if (syncRefreshKey > 0) setHistory(loadHistory());
+  }, [syncRefreshKey]);
 
   useEffect(() => {
     if (level === 5 && mode === 'minimal_pair') setMode('cloze');

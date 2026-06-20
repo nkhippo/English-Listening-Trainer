@@ -4,6 +4,8 @@ import { loadCustomSpeechListRaw, replaceCustomSpeechRaw } from './customSpeech.
 import {
   loadHistoryRaw,
   replaceHistoryRaw,
+  loadExtensiveHistoryRaw,
+  replaceExtensiveHistoryRaw,
   hasCachedAudio,
   getCachedAudio,
   saveCachedAudio,
@@ -33,10 +35,11 @@ export function activeEntries(list) {
   return (list || []).filter((e) => !e.deletedAt);
 }
 
-function activeEntryIds({ speech, history }) {
+function activeEntryIds({ speech, history, extensiveHistory }) {
   return [
     ...activeEntries(speech).map((e) => e.id),
     ...activeEntries(history).map((e) => e.id),
+    ...activeEntries(extensiveHistory).map((e) => e.id),
   ];
 }
 
@@ -64,15 +67,18 @@ export function getLocalSyncPayload() {
   return {
     speech: loadCustomSpeechListRaw(),
     history: loadHistoryRaw(),
+    extensiveHistory: loadExtensiveHistoryRaw(),
   };
 }
 
-export function applyMergedSyncData({ speech, history }) {
+export function applyMergedSyncData({ speech, history, extensiveHistory }) {
   replaceCustomSpeechRaw(speech);
   replaceHistoryRaw(history);
+  replaceExtensiveHistoryRaw(extensiveHistory);
   return {
     speech: activeEntries(speech),
     history: activeEntries(history),
+    extensiveHistory: activeEntries(extensiveHistory),
   };
 }
 
@@ -80,7 +86,12 @@ export function mergeLocalWithRemote(remote) {
   const local = getLocalSyncPayload();
   const mergedSpeech = mergeEntryLists(local.speech, remote.speech || []);
   const mergedHistory = mergeEntryLists(local.history, remote.history || []);
-  return applyMergedSyncData({ speech: mergedSpeech, history: mergedHistory });
+  const mergedExtensiveHistory = mergeEntryLists(local.extensiveHistory, remote.extensiveHistory || []);
+  return applyMergedSyncData({
+    speech: mergedSpeech,
+    history: mergedHistory,
+    extensiveHistory: mergedExtensiveHistory,
+  });
 }
 
 export async function pullCloudAudio({ gasUrl, itemId }) {
@@ -155,6 +166,7 @@ export async function pushCloudSync({ gasUrl }) {
     payload: {
       speech: payload.speech,
       history: payload.history,
+      extensiveHistory: payload.extensiveHistory,
     },
   });
 }

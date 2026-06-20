@@ -392,6 +392,7 @@ function emptySyncDoc_() {
     updatedAt: new Date(0).toISOString(),
     speech: [],
     history: [],
+    extensiveHistory: [],
   };
 }
 
@@ -406,6 +407,7 @@ function readSyncDoc_() {
     updatedAt: parsed.updatedAt || new Date(0).toISOString(),
     speech: Array.isArray(parsed.speech) ? parsed.speech : [],
     history: Array.isArray(parsed.history) ? parsed.history : [],
+    extensiveHistory: Array.isArray(parsed.extensiveHistory) ? parsed.extensiveHistory : [],
   };
 }
 
@@ -495,6 +497,7 @@ function handleSyncPull(body) {
     updatedAt: doc.updatedAt,
     speech: doc.speech,
     history: doc.history,
+    extensiveHistory: doc.extensiveHistory,
     audioIds: listSyncAudioIds_(),
   };
 }
@@ -506,6 +509,7 @@ function handleSyncPush(body) {
     updatedAt: new Date().toISOString(),
     speech: mergeEntryLists_(existing.speech, body.speech || []),
     history: mergeEntryLists_(existing.history, body.history || []),
+    extensiveHistory: mergeEntryLists_(existing.extensiveHistory, body.extensiveHistory || []),
   };
   writeSyncDoc_(merged);
   return {
@@ -513,6 +517,7 @@ function handleSyncPush(body) {
     updatedAt: merged.updatedAt,
     speechCount: merged.speech.filter(function (e) { return !e.deletedAt; }).length,
     historyCount: merged.history.filter(function (e) { return !e.deletedAt; }).length,
+    extensiveHistoryCount: merged.extensiveHistory.filter(function (e) { return !e.deletedAt; }).length,
     audioIds: listSyncAudioIds_(),
   };
 }

@@ -32,10 +32,12 @@ export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(() => !localStorage.getItem(LS_KEYS.anthropic));
   const [anthropicKey, setAnthropicKey] = useState(localStorage.getItem(LS_KEYS.anthropic) || '');
   const [speechRefreshKey, setSpeechRefreshKey] = useState(0);
+  const [syncRefreshKey, setSyncRefreshKey] = useState(0);
   const gasUrl = DEFAULT_GAS_URL;
 
   const handleCloudSynced = useCallback(() => {
     setSpeechRefreshKey((k) => k + 1);
+    setSyncRefreshKey((k) => k + 1);
   }, []);
 
   const cloudSync = useCloudSync({ gasUrl, onSynced: handleCloudSynced });
@@ -142,6 +144,7 @@ export default function App() {
           settingsOpen={settingsOpen}
           gasUrl={gasUrl}
           cloudSync={cloudSync}
+          syncRefreshKey={syncRefreshKey}
         />
       )}
 
@@ -151,6 +154,7 @@ export default function App() {
           audioPlayer={audioPlayer}
           gasUrl={gasUrl}
           cloudSync={cloudSync}
+          syncRefreshKey={syncRefreshKey}
         />
       )}
 
