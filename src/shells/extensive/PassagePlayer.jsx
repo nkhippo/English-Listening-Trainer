@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Waveform from '../../components/Waveform.jsx';
 import TranslationBlock from '../../components/TranslationBlock.jsx';
+import { passageMediaMetadata } from '../../core/audio/mediaSession.js';
 
 export default function PassagePlayer({
   item, audioUrl, itemId, audioPlayer, showScript = true, onEnded, playbackRate = 1,
@@ -18,14 +19,29 @@ export default function PassagePlayer({
   }, []);
 
   useEffect(() => {
-    if (!audioUrl || playedRef.current) return;
+    if (!audioUrl) return;
+    const existing = audioPlayer.audioRef?.current;
+    if (audioPlayer.activeKey === itemId && existing && !existing.paused && !existing.ended) {
+      playedRef.current = true;
+      return attachEndedHandler(existing);
+    }
+    if (playedRef.current) return;
     playedRef.current = true;
-    const audio = audioPlayer.play(audioUrl, itemId, { showProgress: true, playbackRate });
+    const audio = audioPlayer.play(audioUrl, itemId, {
+      showProgress: true,
+      playbackRate,
+      metadata: passageMediaMetadata(item),
+    });
     return attachEndedHandler(audio);
-  }, [audioUrl, itemId, audioPlayer, playbackRate, attachEndedHandler]);
+  }, [audioUrl, itemId, item, audioPlayer, playbackRate, attachEndedHandler]);
 
   function replay() {
-    const audio = audioPlayer.play(audioUrl, itemId, { showProgress: true, playbackRate });
+    playedRef.current = true;
+    const audio = audioPlayer.play(audioUrl, itemId, {
+      showProgress: true,
+      playbackRate,
+      metadata: passageMediaMetadata(item),
+    });
     return attachEndedHandler(audio);
   }
 

@@ -1,0 +1,12 @@
+{
+  "name": "English Listening Trainer",
+  "short_name": "Listening",
+  "description": "English listening practice — intensive, extensive, and shadowing",
+  "start_url": "/English-Listening-Trainer/",
+  "scope": "/English-Listening-Trainer/",
+  "display": "standalone",
+  "background_color": "#f5f0e8",
+  "theme_color": "#1a1a1a",
+  "categories": ["education"],
+  "orientation": "portrait"
+}

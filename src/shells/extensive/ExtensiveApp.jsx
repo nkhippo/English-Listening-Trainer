@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 import { SCENES, migrateSceneId, migrateExtensiveScene, SCENE_RANDOM, resolveSceneForGeneration, getSceneLabel } from '../../core/shared/sceneConfig.js';
 import { LEVELS } from '../../core/shared/levels.js';
 import { CEFR_LEVELS, DEFAULT_CEFR, migrateCefrFromStorage, getRecommendedLevel } from '../../core/shared/cefr.js';
@@ -10,6 +11,8 @@ import { tryAddToShadowQueue, hasShadowQueueEntryForSource } from '../../core/sh
 import { DEFAULT_GAS_URL } from '../../lib/config.js';
 import { pullCloudAudio } from '../../lib/sync.js';
 import { useVerticalSwipe } from '../../hooks/useVerticalSwipe.js';
+import { useExtensiveMediaSession } from '../../hooks/useExtensiveMediaSession.js';
+import { passageMediaMetadata } from '../../core/audio/mediaSession.js';
 import {
   computeExtensiveItemId,
   loadExtensiveHistory,
@@ -242,8 +245,15 @@ export default function ExtensiveApp({
       const next = await prefetchNext();
       prefetchRef.current = null;
       saveToHistory(next);
-      setPassages((prev) => [...prev, next]);
-      setCurrentIdx((i) => i + 1);
+      flushSync(() => {
+        setPassages((prev) => [...prev, next]);
+        setCurrentIdx((i) => i + 1);
+      });
+      audioPlayer.play(next.audioUrl, next.id, {
+        showProgress: true,
+        playbackRate,
+        metadata: passageMediaMetadata(next.item),
+      });
       prefetchRef.current = generatePassage();
     } catch (e) {
       console.warn('Prefetch failed:', e);
@@ -252,7 +262,7 @@ export default function ExtensiveApp({
     } finally {
       setPassageLoading(false);
     }
-  }, [saveToHistory, generatePassage]);
+  }, [saveToHistory, generatePassage, audioPlayer, playbackRate]);
 
   async function handlePassageEnded() {
     if (!current || endedPassageRef.current === current.id) return;
@@ -294,6 +304,14 @@ export default function ExtensiveApp({
     onSwipeUp: goNext,
     onSwipeDown: goPrev,
     enabled: stage === 'listening',
+  });
+
+  useExtensiveMediaSession({
+    enabled: stage === 'listening',
+    current,
+    audioPlayer,
+    onNext: goNext,
+    onPrev: goPrev,
   });
 
   function toggleStructureFlag(key) {
@@ -520,6 +538,9 @@ export default function ExtensiveApp({
       )}
 
       <p className="field-hint">{UI.extensive.swipeHint}</p>
+      {autoContinue && (
+        <p className="field-hint">{UI.extensive.backgroundHint}</p>
+      )}
       {shadowToast && <p className="status shadow-toast">{shadowToast}</p>}
     </div>
   );

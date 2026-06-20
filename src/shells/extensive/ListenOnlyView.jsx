@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Waveform from '../../components/Waveform.jsx';
 import TranslationBlock from '../../components/TranslationBlock.jsx';
+import { passageMediaMetadata } from '../../core/audio/mediaSession.js';
 import { UI } from '../../core/shared/uiJa.js';
 
 export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, onEnded, playbackRate = 1 }) {
@@ -9,24 +10,43 @@ export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, on
   const onEndedRef = useRef(onEnded);
   onEndedRef.current = onEnded;
 
+  const attachEnded = useCallback((audio) => {
+    if (!audio) return;
+    audio.addEventListener('ended', () => onEndedRef.current?.(), { once: true });
+  }, []);
+
   const play = useCallback(() => {
-    const audio = audioPlayer.play(audioUrl, itemId, { showProgress: true, playbackRate });
-    if (audio) {
-      audio.addEventListener('ended', () => onEndedRef.current?.(), { once: true });
+    const existing = audioPlayer.audioRef?.current;
+    if (audioPlayer.activeKey === itemId && existing && !existing.paused && !existing.ended) {
+      attachEnded(existing);
+      return;
     }
-  }, [audioUrl, itemId, audioPlayer, playbackRate]);
+    const audio = audioPlayer.play(audioUrl, itemId, {
+      showProgress: true,
+      playbackRate,
+      metadata: passageMediaMetadata(item),
+    });
+    attachEnded(audio);
+  }, [audioUrl, itemId, item, audioPlayer, playbackRate, attachEnded]);
 
   useEffect(() => {
-    if (!audioUrl || playedRef.current) return;
+    if (!audioUrl) return;
+    const existing = audioPlayer.audioRef?.current;
+    if (audioPlayer.activeKey === itemId && existing && !existing.paused && !existing.ended) {
+      playedRef.current = true;
+      attachEnded(existing);
+      return;
+    }
+    if (playedRef.current) return;
     playedRef.current = true;
     play();
-  }, [audioUrl, play]);
+  }, [audioUrl, play, itemId, audioPlayer, attachEnded]);
 
   return (
     <div className="listen-only-view" onClick={() => setShowTranslation((v) => !v)}>
       <div className="audio-stage">
         <div className="audio-controls">
-          <button type="button" className="btn btn-icon" onClick={(e) => { e.stopPropagation(); play(); }} aria-label="Play">▶</button>
+          <button type="button" className="btn btn-icon" onClick={(e) => { e.stopPropagation(); playedRef.current = true; play(); }} aria-label="Play">▶</button>
         </div>
         <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === itemId} />
       </div>

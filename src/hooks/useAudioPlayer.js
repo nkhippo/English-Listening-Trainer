@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { configureAudioElement } from '../core/audio/configureAudioElement.js';
+import { updateMediaSession, setMediaPlaybackState } from '../core/audio/mediaSession.js';
 
 const ENDLESS_REPEAT_KEY = 'audio-endless-repeat';
 const PLAYBACK_RATE_KEY = 'audio-playback-rate';
@@ -79,7 +81,7 @@ export function useAudioPlayer() {
   }, [stopLoop]);
 
   const play = useCallback(
-    (url, key, { showProgress = true, playbackRate: rate } = {}) => {
+    (url, key, { showProgress = true, playbackRate: rate, metadata } = {}) => {
       if (!url) {
         console.error('Audio play skipped: empty URL');
         return null;
@@ -90,12 +92,15 @@ export function useAudioPlayer() {
       }
 
       const audio = new Audio(url);
+      configureAudioElement(audio);
       audioRef.current = audio;
       if (rate) audio.playbackRate = rate;
       else applyPlaybackRate(audio);
       setActiveKey(key);
       setProgress(0);
       dismissedRef.current = false;
+
+      if (metadata) updateMediaSession(metadata);
 
       const onEnded = () => {
         if (endlessRepeatRef.current) {
@@ -108,12 +113,19 @@ export function useAudioPlayer() {
         stopLoop();
         setProgress(1);
         setPlaying(false);
+        setMediaPlaybackState(false);
         if (showProgress && !dismissedRef.current) setVisible(true);
       };
 
       audio.addEventListener('ended', onEnded);
-      audio.addEventListener('play', () => setPlaying(true));
-      audio.addEventListener('pause', () => setPlaying(false));
+      audio.addEventListener('play', () => {
+        setPlaying(true);
+        setMediaPlaybackState(true);
+      });
+      audio.addEventListener('pause', () => {
+        setPlaying(false);
+        setMediaPlaybackState(false);
+      });
       audio.addEventListener('loadedmetadata', () => startLoop(audio), { once: true });
 
       if (showProgress && !dismissedRef.current) {
@@ -123,6 +135,7 @@ export function useAudioPlayer() {
       audio.play().catch((err) => {
         console.error(err);
         setPlaying(false);
+        setMediaPlaybackState(false);
       });
 
       return audio;
