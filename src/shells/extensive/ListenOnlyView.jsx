@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Waveform from '../../components/Waveform.jsx';
+import { UI } from '../../core/shared/uiJa.js';
 
 export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, onEnded, playbackRate = 1 }) {
   const [showTranslation, setShowTranslation] = useState(false);
@@ -19,7 +20,7 @@ export default function ListenOnlyView({ item, audioUrl, itemId, audioPlayer, on
         </div>
         <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === itemId} />
       </div>
-      <p className="field-hint">Tap to {showTranslation ? 'hide' : 'show'} translation</p>
+      <p className="field-hint">{UI.extensive.tapTranslation}{showTranslation ? UI.extensive.hide : UI.extensive.show}</p>
       {showTranslation && (
         <p className="passage-translation">{item.translation_ja}</p>
       )}

@@ -8,6 +8,7 @@ import CustomSpeechTab from './components/CustomSpeechTab.jsx';
 import IntensiveApp from './shells/intensive/IntensiveApp.jsx';
 import ExtensiveApp from './shells/extensive/ExtensiveApp.jsx';
 import ShadowingApp from './shells/shadowing/ShadowingApp.jsx';
+import { UI } from './core/shared/uiJa.js';
 
 const LS_KEYS = {
   appTab: 'elt_app_tab',
@@ -86,7 +87,7 @@ export default function App() {
           onClick={() => setSettingsOpen((v) => !v)}
           aria-expanded={settingsOpen}
         >
-          {settingsOpen ? 'Close' : 'Settings'}
+          {settingsOpen ? UI.settings.close : UI.settings.open}
         </button>
       </header>
 
@@ -186,36 +187,26 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync 
     setDraft(anthropicKey);
   }, [anthropicKey]);
 
-  const syncStatusLabel = {
-    disabled: 'Unavailable',
-    idle: 'Ready',
-    syncing: 'Syncing…',
-    synced: 'Synced',
-    error: 'Error',
-  }[syncStatus] || syncStatus;
+  const syncStatusLabel = UI.settings.statusLabels[syncStatus] || syncStatus;
 
   return (
     <section className="settings-panel">
       <h2 className="settings-heading">Settings</h2>
 
       <div className="settings-block">
-        <h3 className="settings-subheading">Cloud sync</h3>
-        <p className="field-hint">
-          Past items, saved speech, and audio are stored in Google Drive automatically.
-        </p>
+        <h3 className="settings-subheading">{UI.settings.cloudSyncSub}</h3>
+        <p className="field-hint">{UI.settings.cloudSyncHint}</p>
         <p className="field-hint sync-status-line">
-          Status: {syncStatusLabel}
+          {UI.settings.status}: {syncStatusLabel}
           {syncError ? ` — ${syncError}` : ''}
         </p>
       </div>
 
       <div className="settings-block">
-        <h3 className="settings-subheading">Anthropic API</h3>
-        <p className="field-hint">
-          Your Anthropic API key is stored only in this browser.
-        </p>
+        <h3 className="settings-subheading">{UI.settings.anthropicSub}</h3>
+        <p className="field-hint">{UI.settings.anthropicHint}</p>
         <div className="field">
-          <label>Anthropic API Key</label>
+          <label>{UI.settings.apiKeyLabel}</label>
           <input
             type="password"
             value={draft}
@@ -226,11 +217,11 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync 
         </div>
         <div className="row">
           <button type="button" className="btn" onClick={() => onSave(draft)} disabled={!draft.trim()}>
-            Save
+            {UI.common.save}
           </button>
           {isConfigured && (
             <button type="button" className="btn btn-ghost" onClick={onClear}>
-              Clear saved key
+              {UI.settings.clearKey}
             </button>
           )}
         </div>

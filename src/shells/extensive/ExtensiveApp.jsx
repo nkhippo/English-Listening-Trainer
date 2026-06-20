@@ -21,18 +21,13 @@ import {
 } from '../../lib/storage.js';
 import PassagePlayer from './PassagePlayer.jsx';
 import ListenOnlyView from './ListenOnlyView.jsx';
+import { UI } from '../../core/shared/uiJa.js';
 
 const LS_KEYS = {
   cefr: 'elt_extensive_cefr',
   scene: 'elt_extensive_scene',
   level: 'elt_extensive_level',
   length: 'elt_extensive_length',
-};
-
-const LENGTH_OPTIONS = {
-  short_passage: { label: 'Short passage', description: '3–6 sentences' },
-  long_passage: { label: 'Long passage', description: '5–8 sentences' },
-  dialogue: { label: 'Dialogue', description: '4–8 turns' },
 };
 
 export default function ExtensiveApp({
@@ -142,12 +137,12 @@ export default function ExtensiveApp({
 
   async function startListening() {
     if (!anthropicKey) {
-      setError('Anthropic API key required');
+      setError('Anthropic API キーが必要です');
       return;
     }
     setError('');
     setStage('loading');
-    setStatusMsg('Generating first passage…');
+    setStatusMsg(UI.extensive.loadingFirst);
     try {
       const first = await generatePassage();
       setPassages([first]);
@@ -163,7 +158,7 @@ export default function ExtensiveApp({
   async function openPassageFromHistory(entry, { listenOnly = false } = {}) {
     setError('');
     setStage('loading');
-    setStatusMsg(hasCachedAudio(entry.id) ? 'Loading cached audio…' : 'Loading audio…');
+    setStatusMsg(hasCachedAudio(entry.id) ? UI.extensive.loadingCached : UI.extensive.loadingAudio);
     try {
       const audioUrl = await resolveAudioUrlForEntry(entry);
       const passage = {
@@ -279,12 +274,12 @@ export default function ExtensiveApp({
 
         {!anthropicKey && (
           <div className="onboarding-banner">
-            <p>Register your Anthropic API key in Settings to generate new passages.</p>
+            <p>{UI.extensive.needKeyHint}</p>
           </div>
         )}
 
         <div className="field">
-          <label>CEFR</label>
+          <label>{UI.common.cefr}</label>
           <div className="choices">
             {Object.entries(CEFR_LEVELS).map(([key, c]) => (
               <button key={key} className="choice" aria-pressed={cefr === key} onClick={() => setCefr(key)}>{c.label}</button>
@@ -292,7 +287,7 @@ export default function ExtensiveApp({
           </div>
         </div>
         <div className="field">
-          <label>Scene</label>
+          <label>{UI.common.scene}</label>
           <div className="choices">
             {Object.entries(SCENES).map(([key, s]) => (
               <button key={key} className="choice" aria-pressed={scene === key} onClick={() => setScene(key)}>{s.label}</button>
@@ -300,7 +295,7 @@ export default function ExtensiveApp({
           </div>
         </div>
         <div className="field">
-          <label>Level</label>
+          <label>{UI.common.level}</label>
           <div className="choices">
             {Object.entries(LEVELS).filter(([k]) => Number(k) < 5).map(([key, l]) => (
               <button key={key} className="choice" aria-pressed={level === Number(key)} onClick={() => setLevel(Number(key))}>{l.label}</button>
@@ -308,9 +303,9 @@ export default function ExtensiveApp({
           </div>
         </div>
         <div className="field">
-          <label>Content length</label>
+          <label>{UI.extensive.contentLength}</label>
           <div className="choices">
-            {Object.entries(LENGTH_OPTIONS).map(([key, opt]) => (
+            {Object.entries(UI.length).map(([key, opt]) => (
               <button key={key} className="choice" aria-pressed={length === key} onClick={() => setLength(key)}>
                 <span className="choice-label">{opt.label}</span>
                 <span className="choice-meta">{opt.description}</span>
@@ -319,21 +314,21 @@ export default function ExtensiveApp({
           </div>
         </div>
         <div className="field">
-          <label>Structure focus (input flooding)</label>
+          <label>{UI.extensive.structureFocus}</label>
           <div className="choices">
             {Object.entries(STRUCTURE_FLAGS).map(([key, f]) => (
-              <button key={key} className="choice" aria-pressed={structureFlags.includes(key)} onClick={() => toggleStructureFlag(key)}>{f.label}</button>
+              <button key={key} className="choice" aria-pressed={structureFlags.includes(key)} onClick={() => toggleStructureFlag(key)}>{f.labelJa || f.label}</button>
             ))}
           </div>
         </div>
         <div className="field">
-          <label>View mode</label>
+          <label>{UI.extensive.viewMode}</label>
           <div className="choices">
-            <button className="choice" aria-pressed={viewMode === 'read_listen'} onClick={() => setViewMode('read_listen')}>Read + Listen</button>
-            <button className="choice" aria-pressed={viewMode === 'listen_only'} onClick={() => setViewMode('listen_only')}>Listen only</button>
+            <button className="choice" aria-pressed={viewMode === 'read_listen'} onClick={() => setViewMode('read_listen')}>{UI.extensive.readListen}</button>
+            <button className="choice" aria-pressed={viewMode === 'listen_only'} onClick={() => setViewMode('listen_only')}>{UI.extensive.listenOnly}</button>
           </div>
         </div>
-        <button className="btn" onClick={startListening} disabled={!anthropicKey}>Start listening</button>
+        <button className="btn" onClick={startListening} disabled={!anthropicKey}>{UI.extensive.start}</button>
 
         {history.length > 0 && (
           <HistoryList
@@ -363,22 +358,22 @@ export default function ExtensiveApp({
       <div className="session-meta">
         <span>{CEFR_LEVELS[cefr]?.label}</span>
         <span>{SCENES[scene]?.label}</span>
-        <span>{LENGTH_OPTIONS[length]?.label || length}</span>
+        <span>{UI.length[length]?.label || length}</span>
         <span>{passages.length > 1 ? `${currentIdx + 1} / ${passages.length}` : '1'}</span>
       </div>
 
       <div className="row" style={{ marginBottom: 12 }}>
         <button type="button" className="btn btn-ghost btn-sm" onClick={() => setViewMode(viewMode === 'read_listen' ? 'listen_only' : 'read_listen')}>
-          {viewMode === 'read_listen' ? 'Listen only' : 'Read + Listen'}
+          {viewMode === 'read_listen' ? UI.extensive.listenOnly : UI.extensive.readListen}
         </button>
         <button type="button" className="btn btn-ghost btn-sm" onClick={() => setPlaybackRate((r) => (r === 1 ? 1.25 : r === 1.25 ? 0.85 : 1))}>
-          Speed {playbackRate}x
+          {UI.extensive.speed} {playbackRate}x
         </button>
         <button type="button" className="btn btn-ghost btn-sm" aria-pressed={autoContinue} onClick={() => setAutoContinue((v) => !v)}>
-          Auto {autoContinue ? 'ON' : 'OFF'}
+          {UI.extensive.auto} {autoContinue ? 'ON' : 'OFF'}
         </button>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={sendToShadowing}>Add to shadowing</button>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={backToSetup}>Setup</button>
+        <button type="button" className="btn btn-ghost btn-sm" onClick={sendToShadowing}>{UI.extensive.addToShadowing}</button>
+        <button type="button" className="btn btn-ghost btn-sm" onClick={backToSetup}>{UI.extensive.setup}</button>
       </div>
 
       {current && (
@@ -406,7 +401,7 @@ export default function ExtensiveApp({
         )
       )}
 
-      <p className="field-hint">Swipe up/down for prev/next passage</p>
+      <p className="field-hint">{UI.extensive.swipeHint}</p>
       <StatsPanel stats={stats} compact />
     </div>
   );
@@ -417,8 +412,8 @@ function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
     <section className="history-section">
       <h2 className="history-heading">Past items</h2>
       <p className="field-hint">
-        Replay passages you have already listened to. Audio is saved in your browser after the first play.
-        {syncStatus && syncStatus !== 'disabled' ? ' Audio syncs from Google Drive when available.' : ''}
+        {UI.extensive.historyHint}
+        {syncStatus && syncStatus !== 'disabled' ? UI.common.syncAudioFromDrive : ''}
       </p>
       <ul className="history-list">
         {history.map((entry) => (
@@ -429,14 +424,14 @@ function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
                 <span>{entry.cefr || DEFAULT_CEFR}</span>
                 <span>{SCENES[migrateSceneId(entry.scene)]?.label}</span>
                 <span>{LEVELS[entry.level]?.label?.split(' — ')[0]}</span>
-                <span>{LENGTH_OPTIONS[entry.length]?.label || entry.length}</span>
-                {hasCachedAudio(entry.id) && <span className="history-cache-badge">audio saved</span>}
+                <span>{UI.length[entry.length]?.label || entry.length}</span>
+                {hasCachedAudio(entry.id) && <span className="history-cache-badge">{UI.common.audioSaved}</span>}
               </div>
             </div>
             <div className="history-actions">
               <button type="button" className="btn btn-ghost btn-sm" onClick={() => onListen(entry)} aria-label="Listen">▶</button>
-              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onReplay(entry)}>Open</button>
-              <button type="button" className="btn btn-ghost btn-sm history-remove" onClick={() => onRemove(entry.id)}>Delete</button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onReplay(entry)}>{UI.extensive.open}</button>
+              <button type="button" className="btn btn-ghost btn-sm history-remove" onClick={() => onRemove(entry.id)}>{UI.common.delete}</button>
             </div>
           </li>
         ))}
@@ -452,13 +447,13 @@ function StatsPanel({ stats, compact }) {
     <section className="history-section" style={{ marginTop: 24 }}>
       <h2 className="history-heading">Listening stats</h2>
       <p className="field-hint">
-        Total: {Math.round(stats.totalMinutes)} min · Passages: {stats.passagesCompleted}
+        {UI.extensive.statsTotal}: {Math.round(stats.totalMinutes)} {UI.extensive.statsMin} · {UI.extensive.statsPassages}: {stats.passagesCompleted}
       </p>
       {structureEntries.length > 0 && (
         <ul className="feature-list">
           {structureEntries.map(([k, v]) => (
             <li key={k} className="feature-item">
-              <span>{STRUCTURE_FLAGS[k]?.label || k}</span>
+              <span>{STRUCTURE_FLAGS[k]?.labelJa || STRUCTURE_FLAGS[k]?.label || k}</span>
               <span>{v}×</span>
             </li>
           ))}

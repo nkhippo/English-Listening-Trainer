@@ -1,6 +1,7 @@
 import React from 'react';
 import { diagnoseFeatures } from '../../core/scoring/cloze.js';
 import { addToShadowQueue } from '../../core/shared/materialQueue.js';
+import { UI } from '../../core/shared/uiJa.js';
 
 export default function ReviewView({
   item, mode, audioUrl, itemId, audioPlayer, scene, level, cefr, onAgain, onNext, onReplaySame,
@@ -33,13 +34,13 @@ export default function ReviewView({
 
   function sendToShadowing() {
     addToShadowQueue({ item, scene, level, cefr, source: 'intensive', score: clozeRatio });
-    alert('Added to shadowing queue.');
+    alert(UI.intensive.addedToShadowing);
   }
 
   return (
     <>
       <div className="review-section">
-        <div className="score-label">Score</div>
+        <div className="score-label">{UI.intensive.score}</div>
         <div className={`score${scorePerfect ? ' is-perfect' : ''}`}>{scoreDisplay}</div>
       </div>
 
@@ -58,7 +59,7 @@ export default function ReviewView({
         </div>
         {audioUrl && (
           <button type="button" className="btn btn-ghost" style={{ marginTop: 12 }} onClick={playReview}>
-            ▶ Listen again
+            {UI.intensive.listenAgain}
           </button>
         )}
       </div>
@@ -74,7 +75,7 @@ export default function ReviewView({
                   {r.hint && <span style={{ color: 'var(--ink-mute)', marginLeft: 8 }}>({r.hint})</span>}
                 </span>
                 <span className={`feature-status ${r.correct ? 'ok' : 'miss'}`}>
-                  {r.correct ? '○' : `× ${r.user || '(blank)'}`}
+                  {r.correct ? '○' : `× ${r.user || UI.intensive.blank}`}
                 </span>
               </li>
             ))}
@@ -89,7 +90,7 @@ export default function ReviewView({
             {result.user}
           </div>
           <div style={{ marginTop: 8, fontSize: 12, color: 'var(--ink-mute)', fontFamily: 'var(--font-mono)' }}>
-            edits: {result.edits} / {result.totalWords} words
+            {UI.intensive.edits}: {result.edits} / {result.totalWords} {UI.intensive.words}
           </div>
         </div>
       )}
@@ -99,11 +100,11 @@ export default function ReviewView({
           <h3>Your answer</h3>
           <ul className="feature-list">
             <li className="feature-item">
-              <span>You chose</span>
+              <span>{UI.intensive.youChose}</span>
               <span className={`feature-status ${result.correct ? 'ok' : 'miss'}`}>{result.user}</span>
             </li>
             <li className="feature-item">
-              <span>Correct word</span>
+              <span>{UI.intensive.correctWord}</span>
               <span className="feature-status ok">{result.expected}</span>
             </li>
           </ul>
@@ -127,15 +128,15 @@ export default function ReviewView({
       {result.kind === 'cloze' && clozeRatio >= 0.8 && (
         <div className="review-section">
           <button type="button" className="btn btn-ghost" onClick={sendToShadowing}>
-            Add to shadowing queue
+            {UI.intensive.addToShadowing}
           </button>
         </div>
       )}
 
       <div className="row" style={{ marginTop: 32 }}>
-        <button className="btn" onClick={onNext}>Next item</button>
-        <button className="btn btn-ghost" onClick={onReplaySame}>Same item again</button>
-        <button className="btn btn-ghost" onClick={onAgain}>Back to setup</button>
+        <button className="btn" onClick={onNext}>{UI.intensive.nextItem}</button>
+        <button className="btn btn-ghost" onClick={onReplaySame}>{UI.intensive.sameAgain}</button>
+        <button className="btn btn-ghost" onClick={onAgain}>{UI.intensive.backToSetup}</button>
       </div>
     </>
   );

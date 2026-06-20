@@ -12,6 +12,7 @@ import { DEFAULT_GAS_URL } from '../../lib/config.js';
 import { saveCachedAudio } from '../../lib/storage.js';
 import ShadowStageController from './ShadowStageController.jsx';
 import RecordCompare from './RecordCompare.jsx';
+import { UI } from '../../core/shared/uiJa.js';
 
 export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAULT_GAS_URL }) {
   const [queue, setQueue] = useState(() => loadShadowQueue());
@@ -31,7 +32,7 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
 
   async function generateNewPassage() {
     if (!anthropicKey) {
-      setError('Anthropic API key required');
+      setError('Anthropic API キーが必要です');
       return;
     }
     setLoading(true);
@@ -109,8 +110,8 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
       <div className="shadow-setup">
         {error && <div className="status error">{error}</div>}
         <h2>Shadowing queue</h2>
-        <p className="field-hint">Passages from extensive or intensive listening appear here.</p>
-        {queue.length === 0 && <p className="status">Queue is empty.</p>}
+        <p className="field-hint">{UI.shadowing.queueHint}</p>
+        {queue.length === 0 && <p className="status">{UI.shadowing.queueEmpty}</p>}
         <ul className="history-list">
           {queue.map((entry) => (
             <li key={entry.id} className="history-item">
@@ -121,12 +122,12 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
                 <div className="history-meta">
                   <span>{entry.source}</span>
                   <span>{entry.cefr}</span>
-                  {entry.stageProgress?.[3] && <span>✓ complete</span>}
+                  {entry.stageProgress?.[3] && <span>✓ {UI.shadowing.complete}</span>}
                 </div>
               </div>
               <div className="history-actions">
-                <button type="button" className="btn btn-sm" onClick={() => selectQueueEntry(entry)}>Practice</button>
-                <button type="button" className="btn btn-ghost btn-sm" onClick={() => setQueue(removeFromShadowQueue(entry.id))}>Remove</button>
+                <button type="button" className="btn btn-sm" onClick={() => selectQueueEntry(entry)}>{UI.shadowing.practice}</button>
+                <button type="button" className="btn btn-ghost btn-sm" onClick={() => setQueue(removeFromShadowQueue(entry.id))}>{UI.shadowing.remove}</button>
               </div>
             </li>
           ))}
@@ -134,7 +135,7 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
 
         <h2 style={{ marginTop: 32 }}>Generate new</h2>
         <div className="field">
-          <label>CEFR</label>
+          <label>{UI.common.cefr}</label>
           <div className="choices">
             {Object.entries(CEFR_LEVELS).map(([key, c]) => (
               <button key={key} className="choice" aria-pressed={cefr === key} onClick={() => setCefr(key)}>{c.label}</button>
@@ -142,7 +143,7 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
           </div>
         </div>
         <div className="field">
-          <label>Scene</label>
+          <label>{UI.common.scene}</label>
           <div className="choices">
             {Object.entries(SCENES).map(([key, s]) => (
               <button key={key} className="choice" aria-pressed={scene === key} onClick={() => setScene(key)}>{s.label}</button>
@@ -150,7 +151,7 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
           </div>
         </div>
         <div className="field">
-          <label>Structure flags</label>
+          <label>{UI.shadowing.structureFlags}</label>
           <div className="choices">
             {Object.entries(STRUCTURE_FLAGS).map(([key, f]) => (
               <button
@@ -159,13 +160,13 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
                 aria-pressed={structureFlags.includes(key)}
                 onClick={() => setStructureFlags((p) => p.includes(key) ? p.filter((k) => k !== key) : [...p, key])}
               >
-                {f.label}
+                {f.labelJa || f.label}
               </button>
             ))}
           </div>
         </div>
         <button className="btn" onClick={generateNewPassage} disabled={loading || !anthropicKey}>
-          {loading ? 'Generating…' : 'Generate & practice'}
+          {loading ? UI.shadowing.generating : UI.shadowing.generatePractice}
         </button>
       </div>
     );
@@ -175,7 +176,7 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
 
   return (
     <div className="shadow-practice">
-      <button type="button" className="btn btn-ghost btn-sm" onClick={() => setSetupMode('queue')}>← Queue</button>
+      <button type="button" className="btn btn-ghost btn-sm" onClick={() => setSetupMode('queue')}>{UI.shadowing.backQueue}</button>
       <ShadowStageController
         stage={stage}
         onStageChange={setStage}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { scoreClozeBlank } from '../../core/scoring/cloze.js';
+import { UI } from '../../core/shared/uiJa.js';
 
 export default function ClozeView({ item, onFinish }) {
   const lines = item.lines || [{ speaker: 'A', text: item.sentence }];
@@ -29,7 +30,7 @@ export default function ClozeView({ item, onFinish }) {
         ))}
       </div>
       <button className="btn" onClick={submit} disabled={inputs.some((v) => !v.trim())}>
-        Check answer
+        {UI.intensive.checkAnswer}
       </button>
     </>
   );

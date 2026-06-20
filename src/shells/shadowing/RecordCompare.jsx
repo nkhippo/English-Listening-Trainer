@@ -7,6 +7,7 @@ import {
   STAGE_THRESHOLD,
 } from '../../core/scoring/stt.js';
 import { saveShadowRecording, loadShadowRecordings, recordingToObjectUrl } from '../../core/shared/shadowRecordings.js';
+import { UI } from '../../core/shared/uiJa.js';
 
 export default function RecordCompare({
   expectedText,
@@ -128,12 +129,12 @@ export default function RecordCompare({
 
   return (
     <div className="record-compare">
-      <h3>Record & compare</h3>
+      <h3>{UI.shadowing.recordCompare}</h3>
       <div className="row">
         {!recording ? (
-          <button type="button" className="btn" onClick={startRecording}>Start recording</button>
+          <button type="button" className="btn" onClick={startRecording}>{UI.shadowing.startRecording}</button>
         ) : (
-          <button type="button" className="btn" onClick={stopRecording}>Stop</button>
+          <button type="button" className="btn" onClick={stopRecording}>{UI.shadowing.stopRecording}</button>
         )}
       </div>
 
@@ -145,7 +146,7 @@ export default function RecordCompare({
             aria-pressed={playingModel}
             onClick={() => setPlayingModel(true)}
           >
-            Model
+            {UI.shadowing.model}
           </button>
           <button
             type="button"
@@ -154,9 +155,9 @@ export default function RecordCompare({
             onClick={() => setPlayingModel(false)}
             disabled={!recordedUrl}
           >
-            You
+            {UI.shadowing.you}
           </button>
-          <button type="button" className="btn btn-ghost btn-sm" onClick={playToggle}>▶ Play</button>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={playToggle}>{UI.shadowing.play}</button>
         </div>
       )}
 
@@ -171,12 +172,12 @@ export default function RecordCompare({
       )}
 
       <div className="field" style={{ marginTop: 16 }}>
-        <label>STT transcript</label>
+        <label>{UI.shadowing.sttLabel}</label>
         <textarea
           className="dictation-input"
           value={transcript}
           onChange={(e) => setTranscript(e.target.value)}
-          placeholder="Speak while recording, or edit transcript…"
+          placeholder={UI.shadowing.sttPlaceholder}
           spellCheck="false"
         />
         <button
@@ -186,14 +187,14 @@ export default function RecordCompare({
           onClick={runSttCompare}
           disabled={sttBusy || (!transcript.trim() && !recordedBlob)}
         >
-          {sttBusy ? 'Analyzing…' : 'Compare with script'}
+          {sttBusy ? UI.shadowing.analyzing : UI.shadowing.compare}
         </button>
       </div>
 
       {sttResult && (
         <div className="review-section">
-          <p>Match score: <strong>{Math.round(sttResult.match_score * 100)}%</strong> (need {Math.round(STAGE_THRESHOLD * 100)}%)</p>
-          <p className="field-hint">Recognized: {sttResult.recognized_text}</p>
+          <p>{UI.shadowing.matchScore}: <strong>{Math.round(sttResult.match_score * 100)}%</strong>（{UI.shadowing.needScore} {Math.round(STAGE_THRESHOLD * 100)}%）</p>
+          <p className="field-hint">{UI.shadowing.recognized}: {sttResult.recognized_text}</p>
           <ul className="feature-list">
             {sttResult.per_word.map((w, i) => (
               <li key={i} className="feature-item">
@@ -209,11 +210,11 @@ export default function RecordCompare({
 
       {history.length > 0 && (
         <div className="review-section">
-          <h3>Recording history</h3>
+          <h3>{UI.shadowing.recordingHistory}</h3>
           <ul className="feature-list">
             {history.slice(0, 5).map((h) => (
               <li key={h.id} className="feature-item">
-                <span>Stage {h.stage} · {Math.round((h.matchScore || 0) * 100)}%</span>
+                <span>{UI.shadowing.stage} {h.stage} · {Math.round((h.matchScore || 0) * 100)}%</span>
                 <audio controls src={recordingToObjectUrl(h)} style={{ maxWidth: 180, height: 28 }} />
               </li>
             ))}

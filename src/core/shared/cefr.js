@@ -2,7 +2,7 @@ export const CEFR_LEVELS = {
   A1A2: {
     id: 'A1A2',
     label: 'A1+A2',
-    description: 'Basic vocabulary (~1,300 words)',
+    description: '基礎語彙（約1,300語）',
     recommendedLevels: [1, 2],
     defaultLevel: 1,
     cumulativeWords: 1300,
@@ -11,7 +11,7 @@ export const CEFR_LEVELS = {
   B1: {
     id: 'B1',
     label: 'B1',
-    description: 'Intermediate vocabulary (~2,200 words)',
+    description: '中級語彙（約2,200語）',
     recommendedLevels: [2, 3, 4],
     defaultLevel: 3,
     cumulativeWords: 2200,
@@ -20,7 +20,7 @@ export const CEFR_LEVELS = {
   B2: {
     id: 'B2',
     label: 'B2',
-    description: 'Upper-intermediate vocabulary (~3,400 words)',
+    description: '中上級語彙（約3,400語）',
     recommendedLevels: [3, 4, 5],
     defaultLevel: 4,
     cumulativeWords: 3400,

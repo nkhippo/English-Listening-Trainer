@@ -1,10 +1,11 @@
 import React from 'react';
 import Waveform from '../../components/Waveform.jsx';
+import { UI } from '../../core/shared/uiJa.js';
 
 const STAGES = [
-  { id: 1, label: 'Sync', description: 'Script visible — shadow along quietly' },
-  { id: 2, label: 'Shadow', description: 'Script hidden — shadow from audio only' },
-  { id: 3, label: 'Prosody', description: 'Stress & linking highlighted' },
+  { id: 1, label: 'Sync', description: UI.shadowing.syncStage },
+  { id: 2, label: 'Shadow', description: UI.shadowing.shadowStage },
+  { id: 3, label: 'Prosody', description: UI.shadowing.prosodyStage },
 ];
 
 export default function ShadowStageController({
@@ -59,10 +60,10 @@ function SyncStage({ item, audioUrl, itemId, audioPlayer }) {
   );
 }
 
-function ShadowStage({ item, audioUrl, itemId, audioPlayer }) {
+function ShadowStage({ audioUrl, itemId, audioPlayer }) {
   return (
     <>
-      <p className="field-hint">Listen and shadow immediately after the model.</p>
+      <p className="field-hint">{UI.shadowing.shadowHint}</p>
       <PlayButton audioUrl={audioUrl} itemId={itemId} audioPlayer={audioPlayer} />
     </>
   );
@@ -105,7 +106,7 @@ function PlayButton({ audioUrl, itemId, audioPlayer }) {
           onClick={() => audioPlayer.play(audioUrl, itemId, { showProgress: true })}
           aria-label="Play model"
         >
-          ▶ Model
+          {UI.shadowing.modelPlay}
         </button>
       </div>
       <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === itemId} />

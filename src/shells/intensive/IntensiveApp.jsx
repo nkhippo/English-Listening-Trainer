@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { SCENES, LEVELS, MODES } from '../../core/generation/prompts.js';
 import { CEFR_LEVELS, DEFAULT_CEFR, migrateCefrFromStorage, getRecommendedLevel } from '../../core/shared/cefr.js';
 import { migrateSceneId } from '../../core/shared/sceneConfig.js';
+import { UI } from '../../core/shared/uiJa.js';
 import { generateContent } from '../../core/generation/index.js';
 import { resolveItemAudio, base64ToAudioUrl, resolveAudioUrl, normalizeItem } from '../../core/audio/index.js';
 import { pullCloudAudio } from '../../lib/sync.js';
@@ -105,7 +106,7 @@ export default function IntensiveApp({ anthropicKey, settingsOpen, gasUrl = DEFA
   }) {
     setError('');
     setStage('loading');
-    setStatusMsg(fromHistory && hasCachedAudio(id) ? 'Loading cached audio…' : 'Synthesizing audio…');
+    setStatusMsg(fromHistory && hasCachedAudio(id) ? UI.intensive.loadingCached : UI.intensive.loadingAudio);
     try {
       const normalized = normalizeItem(generated);
       const { url } = await loadAudioForItem({ id, generated: normalized, lvl: sessionLevel, cefrBand: sessionCefr });
@@ -139,7 +140,7 @@ export default function IntensiveApp({ anthropicKey, settingsOpen, gasUrl = DEFA
   async function startSession() {
     setError('');
     setStage('loading');
-    setStatusMsg('Generating sentence…');
+    setStatusMsg(UI.intensive.loadingGenerate);
     try {
       const generated = normalizeItem(await generateContent({
         shell: 'intensive', scene, level, mode, cefr, anthropicKey,
@@ -190,7 +191,7 @@ export default function IntensiveApp({ anthropicKey, settingsOpen, gasUrl = DEFA
       if (cached) {
         url = base64ToAudioUrl(cached);
       } else {
-        setStatusMsg('Fetching audio…');
+        setStatusMsg(UI.intensive.fetchingAudio);
         const { url: fetched } = await loadAudioForItem({
           id: entry.id,
           generated: entry.item,
@@ -248,7 +249,7 @@ export default function IntensiveApp({ anthropicKey, settingsOpen, gasUrl = DEFA
       )}
 
       {stage === 'loading' && (
-        <div className="status">{statusMsg || 'Loading…'}</div>
+        <div className="status">{statusMsg || UI.common.loading}</div>
       )}
 
       {stage === 'session' && item && (
@@ -301,12 +302,12 @@ function Setup({
 
       {!isConfigured && !settingsOpen && (
         <div className="onboarding-banner">
-          <p>Register your Anthropic API key in Settings to generate new sentences.</p>
+          <p>{UI.settings.registerKeyHint}</p>
         </div>
       )}
 
       <div className="field">
-        <label>CEFR</label>
+        <label>{UI.common.cefr}</label>
         <div className="choices">
           {Object.entries(CEFR_LEVELS).map(([key, c]) => (
             <button key={key} className="choice" aria-pressed={cefr === key} onClick={() => setCefr(key)}>
@@ -318,7 +319,7 @@ function Setup({
       </div>
 
       <div className="field">
-        <label>Mode</label>
+        <label>{UI.common.mode}</label>
         <div className="choices">
           {Object.entries(MODES).map(([key, m]) => (
             <button
@@ -328,18 +329,18 @@ function Setup({
               onClick={() => setMode(key)}
               disabled={key === 'minimal_pair' && level === 5}
             >
-              <span className="choice-label">{m.label}</span>
+              <span className="choice-label">{m.labelJa || m.label}</span>
               <span className="choice-meta">{m.description}</span>
             </button>
           ))}
         </div>
         {level === 5 && (
-          <div className="field-hint">Lv5 (dialogue) supports Cloze and Full Dictation only.</div>
+          <div className="field-hint">{UI.intensive.lv5Hint}</div>
         )}
       </div>
 
       <div className="field">
-        <label>Scene</label>
+        <label>{UI.common.scene}</label>
         <div className="choices">
           {Object.entries(SCENES).map(([key, s]) => (
             <button key={key} className="choice" aria-pressed={scene === key} onClick={() => setScene(key)}>
@@ -351,7 +352,7 @@ function Setup({
       </div>
 
       <div className="field">
-        <label>Level</label>
+        <label>{UI.common.level}</label>
         <div className="choices">
           {Object.entries(LEVELS).map(([key, l]) => {
             const recommended = CEFR_LEVELS[cefr]?.recommendedLevels?.includes(Number(key));
@@ -363,11 +364,11 @@ function Setup({
             );
           })}
         </div>
-        <div className="field-hint">★ = recommended for selected CEFR band</div>
+        <div className="field-hint">{UI.common.recommendedHint}</div>
       </div>
 
       <button className="btn" onClick={onStart} disabled={!canStart}>
-        Start session
+        {UI.intensive.start}
       </button>
 
       {history.length > 0 && (
@@ -388,8 +389,8 @@ function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
     <section className="history-section">
       <h2 className="history-heading">Past items</h2>
       <p className="field-hint">
-        Replay sentences you have already practiced.
-        {syncStatus && syncStatus !== 'disabled' ? ' Items sync from Google Drive.' : ''}
+        {UI.intensive.historyHint}
+        {syncStatus && syncStatus !== 'disabled' ? UI.common.syncFromDrive : ''}
       </p>
       <ul className="history-list">
         {history.map((entry) => (
@@ -400,14 +401,14 @@ function HistoryList({ history, onReplay, onListen, onRemove, syncStatus }) {
                 <span>{entry.cefr || DEFAULT_CEFR}</span>
                 <span>{SCENES[migrateSceneId(entry.scene)]?.label}</span>
                 <span>{LEVELS[entry.level]?.label?.split(' — ')[0]}</span>
-                <span>{MODES[entry.mode]?.label}</span>
-                {hasCachedAudio(entry.id) && <span className="history-cache-badge">audio saved</span>}
+                <span>{MODES[entry.mode]?.labelJa || MODES[entry.mode]?.label}</span>
+                {hasCachedAudio(entry.id) && <span className="history-cache-badge">{UI.common.audioSaved}</span>}
               </div>
             </div>
             <div className="history-actions">
               <button type="button" className="btn btn-ghost btn-sm" onClick={() => onListen(entry)} aria-label="Listen">▶</button>
-              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onReplay(entry)}>Practice</button>
-              <button type="button" className="btn btn-ghost btn-sm history-remove" onClick={() => onRemove(entry.id)}>Delete</button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={() => onReplay(entry)}>{UI.intensive.practice}</button>
+              <button type="button" className="btn btn-ghost btn-sm history-remove" onClick={() => onRemove(entry.id)}>{UI.common.delete}</button>
             </div>
           </li>
         ))}
@@ -435,13 +436,13 @@ function Session({ item, itemId, audioUrl, audioPlayer, mode, level, scene, onFi
       <div className="session-meta">
         <span>{SCENES[scene].label}</span>
         <span>{LEVELS[level].label}</span>
-        <span>{MODES[mode].label}</span>
+        <span>{MODES[mode].labelJa || MODES[mode].label}</span>
       </div>
 
       <div className="audio-stage">
         <div className="audio-controls">
           <button className="btn btn-icon" onClick={play} aria-label="Play audio">▶</button>
-          <span className="replay-counter">replays: {replays}</span>
+          <span className="replay-counter">{UI.intensive.replayCount}: {replays}</span>
         </div>
         <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === itemId} />
       </div>
@@ -451,7 +452,7 @@ function Session({ item, itemId, audioUrl, audioPlayer, mode, level, scene, onFi
       {mode === 'minimal_pair' && <MinimalPairInput item={item} onFinish={onFinish} />}
 
       <div style={{ marginTop: 24 }}>
-        <button className="btn btn-ghost" onClick={onBack}>← Back</button>
+        <button className="btn btn-ghost" onClick={onBack}>{UI.common.back}</button>
       </div>
     </>
   );
@@ -470,11 +471,11 @@ function DictationInput({ item, onFinish }) {
         className="dictation-input"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Type what you hear..."
+        placeholder={UI.intensive.typeWhatYouHear}
         spellCheck="false"
       />
       <button className="btn" onClick={submit} disabled={!text.trim()} style={{ marginTop: 16 }}>
-        Check answer
+        {UI.intensive.checkAnswer}
       </button>
     </>
   );
@@ -490,7 +491,7 @@ function MinimalPairInput({ item, onFinish }) {
   }, [mp, mp?.correct, distractorKey]);
 
   if (!mp) {
-    return <div className="status error">minimal_pair_target missing from generated item.</div>;
+    return <div className="status error">{UI.intensive.mpMissing}</div>;
   }
   function submit() {
     const correct = scoreMinimalPair(choice, mp.correct);

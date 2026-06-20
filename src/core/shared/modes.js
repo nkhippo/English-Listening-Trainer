@@ -1,5 +1,5 @@
 export const MODES = {
-  cloze: { label: 'Cloze', description: 'Fill in function words and linking spans' },
-  dictation: { label: 'Full Dictation', description: 'Transcribe the full sentence' },
-  minimal_pair: { label: 'Minimal Pair', description: 'Choose the word you hear from confusable options' },
+  cloze: { label: 'Cloze', labelJa: '穴埋め', description: '機能語・連結部分を穴埋め' },
+  dictation: { label: 'Full Dictation', labelJa: '全文書き取り', description: '全文を書き取る' },
+  minimal_pair: { label: 'Minimal Pair', labelJa: '最小対立体', description: '紛らわしい語から選ぶ' },
 };
