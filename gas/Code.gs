@@ -386,6 +386,66 @@ function getSyncFolder_() {
   return DriveApp.getFolderById(id);
 }
 
+function emptyExtensiveStats_() {
+  return {
+    totalMinutes: 0,
+    structureCounts: {},
+    chunkEncounters: {},
+    passagesCompleted: 0,
+    updatedAt: null,
+  };
+}
+
+function mergeCountMaps_(a, b) {
+  const out = {};
+  const left = a || {};
+  const right = b || {};
+  Object.keys(left).forEach(function (key) { out[key] = Number(left[key]) || 0; });
+  Object.keys(right).forEach(function (key) {
+    out[key] = (out[key] || 0) + (Number(right[key]) || 0);
+  });
+  return out;
+}
+
+function addExtensiveStats_(a, b) {
+  return {
+    totalMinutes: (Number(a.totalMinutes) || 0) + (Number(b.totalMinutes) || 0),
+    passagesCompleted: (Number(a.passagesCompleted) || 0) + (Number(b.passagesCompleted) || 0),
+    structureCounts: mergeCountMaps_(a.structureCounts, b.structureCounts),
+    chunkEncounters: mergeCountMaps_(a.chunkEncounters, b.chunkEncounters),
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+function normalizeExtensiveStats_(raw) {
+  if (!raw || typeof raw !== 'object') return emptyExtensiveStats_();
+  return {
+    totalMinutes: Number(raw.totalMinutes) || 0,
+    passagesCompleted: Number(raw.passagesCompleted) || 0,
+    structureCounts: raw.structureCounts && typeof raw.structureCounts === 'object' ? raw.structureCounts : {},
+    chunkEncounters: raw.chunkEncounters && typeof raw.chunkEncounters === 'object' ? raw.chunkEncounters : {},
+    updatedAt: raw.updatedAt || null,
+  };
+}
+
+function statsTimestamp_(stats) {
+  if (!stats || !stats.updatedAt) return 0;
+  const ts = new Date(stats.updatedAt).getTime();
+  return Number.isFinite(ts) ? ts : 0;
+}
+
+function mergeExtensiveStats_(local, remote) {
+  const l = normalizeExtensiveStats_(local);
+  const r = normalizeExtensiveStats_(remote);
+  if (!r.updatedAt) return l;
+  if (!l.updatedAt) return r;
+  const lts = statsTimestamp_(l);
+  const rts = statsTimestamp_(r);
+  if (rts > lts) return r;
+  if (lts > rts) return l;
+  return addExtensiveStats_(l, r);
+}
+
 function emptySyncDoc_() {
   return {
     version: SYNC_DOC_VERSION,
@@ -395,6 +455,7 @@ function emptySyncDoc_() {
     extensiveHistory: [],
     shadowQueue: [],
     shadowRecordings: [],
+    extensiveStats: emptyExtensiveStats_(),
   };
 }
 
@@ -412,6 +473,7 @@ function readSyncDoc_() {
     extensiveHistory: Array.isArray(parsed.extensiveHistory) ? parsed.extensiveHistory : [],
     shadowQueue: Array.isArray(parsed.shadowQueue) ? parsed.shadowQueue : [],
     shadowRecordings: Array.isArray(parsed.shadowRecordings) ? parsed.shadowRecordings : [],
+    extensiveStats: normalizeExtensiveStats_(parsed.extensiveStats),
   };
 }
 
@@ -504,6 +566,7 @@ function handleSyncPull(body) {
     extensiveHistory: doc.extensiveHistory,
     shadowQueue: doc.shadowQueue,
     shadowRecordings: doc.shadowRecordings,
+    extensiveStats: doc.extensiveStats,
     audioIds: listSyncAudioIds_(),
   };
 }
@@ -518,6 +581,7 @@ function handleSyncPush(body) {
     extensiveHistory: mergeEntryLists_(existing.extensiveHistory, body.extensiveHistory || []),
     shadowQueue: mergeEntryLists_(existing.shadowQueue, body.shadowQueue || []),
     shadowRecordings: mergeEntryLists_(existing.shadowRecordings, body.shadowRecordings || []),
+    extensiveStats: mergeExtensiveStats_(existing.extensiveStats, body.extensiveStats),
   };
   writeSyncDoc_(merged);
   return {

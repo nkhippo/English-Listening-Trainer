@@ -19,7 +19,7 @@ export const UI = {
     open: '設定',
     close: '閉じる',
     cloudSyncSub: 'クラウド同期',
-    cloudSyncHint: '精聴・多聴・シャドーの Past items、Speech、音声は Google Drive に自動保存されます。',
+    cloudSyncHint: '精聴・多聴・シャドーの Past items、多聴の進捗統計、Speech、音声は Google Drive に自動保存されます。',
     status: '状態',
     statusLabels: {
       disabled: '利用不可',

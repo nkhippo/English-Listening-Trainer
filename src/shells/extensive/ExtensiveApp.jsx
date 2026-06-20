@@ -68,7 +68,10 @@ export default function ExtensiveApp({
   useEffect(() => { localStorage.setItem(LS_KEYS.length, length); }, [length]);
 
   useEffect(() => {
-    if (syncRefreshKey > 0) setHistory(loadExtensiveHistory());
+    if (syncRefreshKey > 0) {
+      setHistory(loadExtensiveHistory());
+      setStats(loadExtensiveStats());
+    }
   }, [syncRefreshKey]);
 
   const current = passages[currentIdx];
@@ -224,6 +227,7 @@ export default function ExtensiveApp({
     if (current) {
       const durationSec = (Date.now() - current.startedAt) / 1000;
       setStats(recordPassageComplete({ durationSec, structureFlags, item: current.item }));
+      scheduleCloudSync?.();
     }
     if (!autoContinue) return;
     try {

@@ -4,6 +4,11 @@ import { loadCustomSpeechListRaw, replaceCustomSpeechRaw } from './customSpeech.
 import { loadShadowQueueRaw, replaceShadowQueueRaw } from '../core/shared/materialQueue.js';
 import { loadShadowRecordingsRaw, replaceShadowRecordingsRaw } from '../core/shared/shadowRecordings.js';
 import {
+  loadExtensiveStatsRaw,
+  replaceExtensiveStatsRaw,
+  mergeExtensiveStats,
+} from '../core/shared/extensiveStats.js';
+import {
   loadHistoryRaw,
   replaceHistoryRaw,
   loadExtensiveHistoryRaw,
@@ -74,23 +79,26 @@ export function getLocalSyncPayload() {
     extensiveHistory: loadExtensiveHistoryRaw(),
     shadowQueue: loadShadowQueueRaw(),
     shadowRecordings: loadShadowRecordingsRaw(),
+    extensiveStats: loadExtensiveStatsRaw(),
   };
 }
 
 export function applyMergedSyncData({
-  speech, history, extensiveHistory, shadowQueue, shadowRecordings,
+  speech, history, extensiveHistory, shadowQueue, shadowRecordings, extensiveStats,
 }) {
   replaceCustomSpeechRaw(speech);
   replaceHistoryRaw(history);
   replaceExtensiveHistoryRaw(extensiveHistory);
   replaceShadowQueueRaw(shadowQueue);
   replaceShadowRecordingsRaw(shadowRecordings);
+  replaceExtensiveStatsRaw(extensiveStats);
   return {
     speech: activeEntries(speech),
     history: activeEntries(history),
     extensiveHistory: activeEntries(extensiveHistory),
     shadowQueue: activeEntries(shadowQueue),
     shadowRecordings: activeEntries(shadowRecordings),
+    extensiveStats,
   };
 }
 
@@ -101,12 +109,14 @@ export function mergeLocalWithRemote(remote) {
   const mergedExtensiveHistory = mergeEntryLists(local.extensiveHistory, remote.extensiveHistory || []);
   const mergedShadowQueue = mergeEntryLists(local.shadowQueue, remote.shadowQueue || []);
   const mergedShadowRecordings = mergeEntryLists(local.shadowRecordings, remote.shadowRecordings || []);
+  const mergedExtensiveStats = mergeExtensiveStats(local.extensiveStats, remote.extensiveStats);
   return applyMergedSyncData({
     speech: mergedSpeech,
     history: mergedHistory,
     extensiveHistory: mergedExtensiveHistory,
     shadowQueue: mergedShadowQueue,
     shadowRecordings: mergedShadowRecordings,
+    extensiveStats: mergedExtensiveStats,
   });
 }
 
@@ -185,6 +195,7 @@ export async function pushCloudSync({ gasUrl }) {
       extensiveHistory: payload.extensiveHistory,
       shadowQueue: payload.shadowQueue,
       shadowRecordings: payload.shadowRecordings,
+      extensiveStats: payload.extensiveStats,
     },
   });
 }
