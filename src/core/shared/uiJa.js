@@ -19,7 +19,7 @@ export const UI = {
     open: '設定',
     close: '閉じる',
     cloudSyncSub: 'クラウド同期',
-    cloudSyncHint: '精聴・多聴の Past items、Speech、音声は Google Drive に自動保存されます。',
+    cloudSyncHint: '精聴・多聴・シャドーの Past items、Speech、音声は Google Drive に自動保存されます。',
     status: '状態',
     statusLabels: {
       disabled: '利用不可',
@@ -87,7 +87,7 @@ export const UI = {
     hide: '非表示',
   },
   shadowing: {
-    queueHint: '多聴・精聴から送られたパッセージがここに表示されます。',
+    queueHint: '多聴・精聴から送られたパッセージがここに表示されます。端末間で自動同期されます。',
     queueEmpty: 'キューは空です。',
     complete: '完了',
     practice: '練習',

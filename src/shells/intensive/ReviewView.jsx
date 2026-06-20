@@ -5,6 +5,7 @@ import { UI } from '../../core/shared/uiJa.js';
 
 export default function ReviewView({
   item, mode, audioUrl, itemId, audioPlayer, scene, level, cefr, onAgain, onNext, onReplaySame,
+  onShadowQueueAdd,
 }) {
   const result = item._result;
   const lines = item.lines || [{ speaker: 'A', text: item.sentence || '' }];
@@ -34,6 +35,7 @@ export default function ReviewView({
 
   function sendToShadowing() {
     addToShadowQueue({ item, scene, level, cefr, source: 'intensive', score: clozeRatio });
+    onShadowQueueAdd?.();
     alert(UI.intensive.addedToShadowing);
   }
 

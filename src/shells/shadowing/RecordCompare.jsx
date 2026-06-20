@@ -7,6 +7,8 @@ import {
   STAGE_THRESHOLD,
 } from '../../core/scoring/stt.js';
 import { saveShadowRecording, loadShadowRecordings, recordingToObjectUrl } from '../../core/shared/shadowRecordings.js';
+import { pullCloudAudio } from '../../lib/sync.js';
+import { hasCachedAudio } from '../../lib/storage.js';
 import { UI } from '../../core/shared/uiJa.js';
 
 export default function RecordCompare({
@@ -16,6 +18,9 @@ export default function RecordCompare({
   onResult,
   stage,
   onStageComplete,
+  gasUrl,
+  syncRefreshKey = 0,
+  onRecordingSaved,
 }) {
   const [recording, setRecording] = useState(false);
   const [recordedBlob, setRecordedBlob] = useState(null);
@@ -35,6 +40,27 @@ export default function RecordCompare({
     if (recordedUrl?.startsWith('blob:')) URL.revokeObjectURL(recordedUrl);
     try { recognizerRef.current?.recognition?.stop(); } catch { /* noop */ }
   }, [recordedUrl]);
+
+  useEffect(() => {
+    refreshHistory();
+  }, [entryId, syncRefreshKey]);
+
+  useEffect(() => {
+    if (!entryId || !gasUrl) return undefined;
+    let cancelled = false;
+    (async () => {
+      for (const recording of loadShadowRecordings(entryId)) {
+        if (cancelled || hasCachedAudio(recording.id)) continue;
+        try {
+          await pullCloudAudio({ gasUrl, itemId: recording.id });
+          if (!cancelled) refreshHistory();
+        } catch (err) {
+          console.warn(`Cloud recording fetch failed for ${recording.id}:`, err);
+        }
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [entryId, syncRefreshKey, gasUrl]);
 
   function refreshHistory() {
     if (entryId) setHistory(loadShadowRecordings(entryId));
@@ -101,13 +127,14 @@ export default function RecordCompare({
       onResult?.(result);
 
       if (recordedBlob && entryId) {
-        await saveShadowRecording({
+        const saved = await saveShadowRecording({
           entryId,
           stage,
           audioBlob: recordedBlob,
           matchScore: result.match_score,
           transcript: result.recognized_text,
         });
+        onRecordingSaved?.(saved.id);
         refreshHistory();
       }
 

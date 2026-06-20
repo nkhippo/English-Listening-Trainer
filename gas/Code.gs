@@ -393,6 +393,8 @@ function emptySyncDoc_() {
     speech: [],
     history: [],
     extensiveHistory: [],
+    shadowQueue: [],
+    shadowRecordings: [],
   };
 }
 
@@ -408,6 +410,8 @@ function readSyncDoc_() {
     speech: Array.isArray(parsed.speech) ? parsed.speech : [],
     history: Array.isArray(parsed.history) ? parsed.history : [],
     extensiveHistory: Array.isArray(parsed.extensiveHistory) ? parsed.extensiveHistory : [],
+    shadowQueue: Array.isArray(parsed.shadowQueue) ? parsed.shadowQueue : [],
+    shadowRecordings: Array.isArray(parsed.shadowRecordings) ? parsed.shadowRecordings : [],
   };
 }
 
@@ -467,7 +471,7 @@ function deleteSyncAudio_(itemId) {
 
 function entryTimestamp_(entry) {
   if (!entry) return 0;
-  const raw = entry.updatedAt || entry.lastPlayedAt || entry.createdAt || 0;
+  const raw = entry.updatedAt || entry.lastPlayedAt || entry.createdAt || entry.addedAt || 0;
   const ts = new Date(raw).getTime();
   return Number.isFinite(ts) ? ts : 0;
 }
@@ -498,6 +502,8 @@ function handleSyncPull(body) {
     speech: doc.speech,
     history: doc.history,
     extensiveHistory: doc.extensiveHistory,
+    shadowQueue: doc.shadowQueue,
+    shadowRecordings: doc.shadowRecordings,
     audioIds: listSyncAudioIds_(),
   };
 }
@@ -510,6 +516,8 @@ function handleSyncPush(body) {
     speech: mergeEntryLists_(existing.speech, body.speech || []),
     history: mergeEntryLists_(existing.history, body.history || []),
     extensiveHistory: mergeEntryLists_(existing.extensiveHistory, body.extensiveHistory || []),
+    shadowQueue: mergeEntryLists_(existing.shadowQueue, body.shadowQueue || []),
+    shadowRecordings: mergeEntryLists_(existing.shadowRecordings, body.shadowRecordings || []),
   };
   writeSyncDoc_(merged);
   return {
@@ -518,6 +526,8 @@ function handleSyncPush(body) {
     speechCount: merged.speech.filter(function (e) { return !e.deletedAt; }).length,
     historyCount: merged.history.filter(function (e) { return !e.deletedAt; }).length,
     extensiveHistoryCount: merged.extensiveHistory.filter(function (e) { return !e.deletedAt; }).length,
+    shadowQueueCount: merged.shadowQueue.filter(function (e) { return !e.deletedAt; }).length,
+    shadowRecordingsCount: merged.shadowRecordings.filter(function (e) { return !e.deletedAt; }).length,
     audioIds: listSyncAudioIds_(),
   };
 }

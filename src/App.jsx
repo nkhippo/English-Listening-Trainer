@@ -163,6 +163,8 @@ export default function App() {
           anthropicKey={anthropicKey}
           audioPlayer={audioPlayer}
           gasUrl={gasUrl}
+          cloudSync={cloudSync}
+          syncRefreshKey={syncRefreshKey}
         />
       )}
 

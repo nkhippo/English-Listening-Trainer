@@ -267,6 +267,7 @@ export default function ExtensiveApp({
   function sendToShadowing() {
     if (!current) return;
     addToShadowQueue({ item: current.item, scene, level, cefr, source: 'extensive' });
+    scheduleCloudSync?.();
   }
 
   function backToSetup() {

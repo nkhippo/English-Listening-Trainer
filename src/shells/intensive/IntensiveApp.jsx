@@ -289,6 +289,7 @@ export default function IntensiveApp({ anthropicKey, settingsOpen, gasUrl = DEFA
             setStage('session');
             setItem({ ...item, _result: undefined });
           }}
+          onShadowQueueAdd={scheduleCloudSync}
         />
       )}
     </>

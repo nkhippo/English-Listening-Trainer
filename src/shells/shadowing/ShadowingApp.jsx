@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { CEFR_LEVELS, migrateCefrFromStorage, getRecommendedLevel } from '../../core/shared/cefr.js';
 import { SCENES, migrateSceneId } from '../../core/shared/sceneConfig.js';
 import { LEVELS } from '../../core/shared/levels.js';
@@ -9,12 +9,23 @@ import {
   loadShadowQueue, addToShadowQueue, updateShadowProgress, removeFromShadowQueue,
 } from '../../core/shared/materialQueue.js';
 import { DEFAULT_GAS_URL } from '../../lib/config.js';
-import { saveCachedAudio } from '../../lib/storage.js';
+import { pullCloudAudio } from '../../lib/sync.js';
+import {
+  getCachedAudio,
+  saveCachedAudio,
+  hasCachedAudio,
+} from '../../lib/storage.js';
 import ShadowStageController from './ShadowStageController.jsx';
 import RecordCompare from './RecordCompare.jsx';
 import { UI } from '../../core/shared/uiJa.js';
 
-export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAULT_GAS_URL }) {
+export default function ShadowingApp({
+  anthropicKey,
+  audioPlayer,
+  gasUrl = DEFAULT_GAS_URL,
+  cloudSync,
+  syncRefreshKey = 0,
+}) {
   const [queue, setQueue] = useState(() => loadShadowQueue());
   const [activeEntry, setActiveEntry] = useState(null);
   const [stage, setStage] = useState(1);
@@ -26,9 +37,27 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const {
+    schedulePush: scheduleCloudSync,
+    scheduleAudioPush,
+    scheduleAudioDelete,
+    cacheAudio,
+    syncStatus,
+  } = cloudSync || {};
+
+  const cacheAudioLocallyAndCloud = useCallback(
+    (id, base64) => cacheAudio?.(id, base64, saveCachedAudio) ?? saveCachedAudio(id, base64),
+    [cacheAudio],
+  );
+
   useEffect(() => {
-    setQueue(loadShadowQueue());
-  }, []);
+    if (syncRefreshKey > 0) setQueue(loadShadowQueue());
+  }, [syncRefreshKey]);
+
+  function syncQueue(nextQueue) {
+    setQueue(nextQueue);
+    scheduleCloudSync?.();
+  }
 
   async function generateNewPassage() {
     if (!anthropicKey) {
@@ -41,21 +70,20 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
       const generated = normalizeItem(await generateContent({
         shell: 'shadowing', scene, cefr, level, length: 'short_passage', structureFlags, anthropicKey,
       }));
-      const id = `sh${Date.now().toString(36)}`;
+      const entry = addToShadowQueue({ item: generated, scene, level, cefr, source: 'generated' });
+      syncQueue(loadShadowQueue());
       const tts = await resolveItemAudio({
-        itemId: id,
+        itemId: entry.id,
         gasUrl,
         lines: generated.lines,
         level,
         instructions: generated.tts_instructions || '',
         cefr,
         shell: 'shadowing',
-        onCacheSave: (_, b64) => saveCachedAudio(id, b64),
+        onCacheSave: cacheAudioLocallyAndCloud,
       });
       const url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
-      const entry = addToShadowQueue({ item: generated, scene, level, cefr, source: 'generated' });
-      setQueue(loadShadowQueue());
-      setActiveEntry({ ...entry, audioUrl: url, audioId: id });
+      setActiveEntry({ ...entry, audioUrl: url, audioId: entry.id });
       setStage(1);
       setSetupMode('practice');
     } catch (e) {
@@ -68,22 +96,26 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
   async function selectQueueEntry(entry) {
     setLoading(true);
     try {
-      const audioId = entry.id;
-      let url = null;
-      const cached = null;
+      if (!getCachedAudio(entry.id)) {
+        try {
+          await pullCloudAudio({ gasUrl, itemId: entry.id });
+        } catch (err) {
+          console.warn('Cloud audio fetch failed:', err);
+        }
+      }
       const tts = await resolveItemAudio({
-        itemId: audioId,
-        cachedBase64: cached,
+        itemId: entry.id,
+        cachedBase64: getCachedAudio(entry.id),
         gasUrl,
         lines: entry.item.lines,
         level: entry.level,
         instructions: entry.item.tts_instructions || '',
         cefr: entry.cefr,
         shell: 'shadowing',
-        onCacheSave: (_, b64) => saveCachedAudio(audioId, b64),
+        onCacheSave: cacheAudioLocallyAndCloud,
       });
-      url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
-      setActiveEntry({ ...entry, audioUrl: url, audioId });
+      const url = tts.url || resolveAudioUrl({ url: tts.url, audioBase64: tts.audioBase64 });
+      setActiveEntry({ ...entry, audioUrl: url, audioId: entry.id });
       setStage(1);
       setSetupMode('practice');
     } catch (e) {
@@ -96,11 +128,21 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
   function handleStageComplete(stageNum) {
     if (!activeEntry) return;
     updateShadowProgress(activeEntry.id, stageNum, true);
-    setQueue(loadShadowQueue());
+    syncQueue(loadShadowQueue());
     setActiveEntry((prev) => ({
       ...prev,
       stageProgress: { ...prev.stageProgress, [stageNum]: true },
     }));
+  }
+
+  function handleRemoveQueueEntry(id) {
+    syncQueue(removeFromShadowQueue(id));
+    scheduleAudioDelete?.(id);
+  }
+
+  function handleRecordingSaved(recordingId) {
+    scheduleCloudSync?.();
+    scheduleAudioPush?.(recordingId);
   }
 
   const expectedText = activeEntry?.item?.lines?.map((l) => l.text).join(' ') || activeEntry?.item?.sentence || '';
@@ -110,7 +152,10 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
       <div className="shadow-setup">
         {error && <div className="status error">{error}</div>}
         <h2>Shadowing queue</h2>
-        <p className="field-hint">{UI.shadowing.queueHint}</p>
+        <p className="field-hint">
+          {UI.shadowing.queueHint}
+          {syncStatus && syncStatus !== 'disabled' ? UI.common.syncAudioFromDrive : ''}
+        </p>
         {queue.length === 0 && <p className="status">{UI.shadowing.queueEmpty}</p>}
         <ul className="history-list">
           {queue.map((entry) => (
@@ -122,12 +167,13 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
                 <div className="history-meta">
                   <span>{entry.source}</span>
                   <span>{entry.cefr}</span>
+                  {hasCachedAudio(entry.id) && <span className="history-cache-badge">{UI.common.audioSaved}</span>}
                   {entry.stageProgress?.[3] && <span>✓ {UI.shadowing.complete}</span>}
                 </div>
               </div>
               <div className="history-actions">
                 <button type="button" className="btn btn-sm" onClick={() => selectQueueEntry(entry)}>{UI.shadowing.practice}</button>
-                <button type="button" className="btn btn-ghost btn-sm" onClick={() => setQueue(removeFromShadowQueue(entry.id))}>{UI.shadowing.remove}</button>
+                <button type="button" className="btn btn-ghost btn-sm" onClick={() => handleRemoveQueueEntry(entry.id)}>{UI.shadowing.remove}</button>
               </div>
             </li>
           ))}
@@ -192,6 +238,9 @@ export default function ShadowingApp({ anthropicKey, audioPlayer, gasUrl = DEFAU
         modelAudioUrl={activeEntry.audioUrl}
         stage={stage}
         onStageComplete={handleStageComplete}
+        gasUrl={gasUrl}
+        syncRefreshKey={syncRefreshKey}
+        onRecordingSaved={handleRecordingSaved}
       />
     </div>
   );

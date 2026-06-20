@@ -1,6 +1,8 @@
 // Cloud sync via GAS + Google Drive (single-user, automatic).
 
 import { loadCustomSpeechListRaw, replaceCustomSpeechRaw } from './customSpeech.js';
+import { loadShadowQueueRaw, replaceShadowQueueRaw } from '../core/shared/materialQueue.js';
+import { loadShadowRecordingsRaw, replaceShadowRecordingsRaw } from '../core/shared/shadowRecordings.js';
 import {
   loadHistoryRaw,
   replaceHistoryRaw,
@@ -14,7 +16,7 @@ import {
 
 export function entryTimestamp(entry) {
   if (!entry) return 0;
-  const raw = entry.updatedAt || entry.lastPlayedAt || entry.createdAt || 0;
+  const raw = entry.updatedAt || entry.lastPlayedAt || entry.createdAt || entry.addedAt || 0;
   const ts = new Date(raw).getTime();
   return Number.isFinite(ts) ? ts : 0;
 }
@@ -35,11 +37,13 @@ export function activeEntries(list) {
   return (list || []).filter((e) => !e.deletedAt);
 }
 
-function activeEntryIds({ speech, history, extensiveHistory }) {
+function activeEntryIds({ speech, history, extensiveHistory, shadowQueue, shadowRecordings }) {
   return [
     ...activeEntries(speech).map((e) => e.id),
     ...activeEntries(history).map((e) => e.id),
     ...activeEntries(extensiveHistory).map((e) => e.id),
+    ...activeEntries(shadowQueue).map((e) => e.id),
+    ...activeEntries(shadowRecordings).map((e) => e.id),
   ];
 }
 
@@ -68,17 +72,25 @@ export function getLocalSyncPayload() {
     speech: loadCustomSpeechListRaw(),
     history: loadHistoryRaw(),
     extensiveHistory: loadExtensiveHistoryRaw(),
+    shadowQueue: loadShadowQueueRaw(),
+    shadowRecordings: loadShadowRecordingsRaw(),
   };
 }
 
-export function applyMergedSyncData({ speech, history, extensiveHistory }) {
+export function applyMergedSyncData({
+  speech, history, extensiveHistory, shadowQueue, shadowRecordings,
+}) {
   replaceCustomSpeechRaw(speech);
   replaceHistoryRaw(history);
   replaceExtensiveHistoryRaw(extensiveHistory);
+  replaceShadowQueueRaw(shadowQueue);
+  replaceShadowRecordingsRaw(shadowRecordings);
   return {
     speech: activeEntries(speech),
     history: activeEntries(history),
     extensiveHistory: activeEntries(extensiveHistory),
+    shadowQueue: activeEntries(shadowQueue),
+    shadowRecordings: activeEntries(shadowRecordings),
   };
 }
 
@@ -87,10 +99,14 @@ export function mergeLocalWithRemote(remote) {
   const mergedSpeech = mergeEntryLists(local.speech, remote.speech || []);
   const mergedHistory = mergeEntryLists(local.history, remote.history || []);
   const mergedExtensiveHistory = mergeEntryLists(local.extensiveHistory, remote.extensiveHistory || []);
+  const mergedShadowQueue = mergeEntryLists(local.shadowQueue, remote.shadowQueue || []);
+  const mergedShadowRecordings = mergeEntryLists(local.shadowRecordings, remote.shadowRecordings || []);
   return applyMergedSyncData({
     speech: mergedSpeech,
     history: mergedHistory,
     extensiveHistory: mergedExtensiveHistory,
+    shadowQueue: mergedShadowQueue,
+    shadowRecordings: mergedShadowRecordings,
   });
 }
 
@@ -167,6 +183,8 @@ export async function pushCloudSync({ gasUrl }) {
       speech: payload.speech,
       history: payload.history,
       extensiveHistory: payload.extensiveHistory,
+      shadowQueue: payload.shadowQueue,
+      shadowRecordings: payload.shadowRecordings,
     },
   });
 }
