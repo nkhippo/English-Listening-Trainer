@@ -856,3 +856,43 @@ body.audio-progress-visible {
 .audio-progress-close {
   font-size: 16px;
 }
+
+.passage-script {
+  margin-top: 20px;
+  line-height: 1.6;
+}
+
+.passage-translation {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--ink-mute);
+}
+
+.listen-only-view {
+  min-height: 120px;
+  cursor: pointer;
+}
+
+.prosody-stress {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--ink-mute);
+}
+
+.prosody-link {
+  color: var(--ink-mute);
+}
+
+.shadow-stages {
+  margin-top: 16px;
+}
+
+.record-compare {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.extensive-listening {
+  touch-action: pan-y;
+}

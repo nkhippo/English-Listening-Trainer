@@ -11,11 +11,12 @@ function previewText(item) {
   return text.length > 72 ? `${text.slice(0, 72)}…` : text;
 }
 
-export function computeItemId({ item, mode, scene, level }) {
+export function computeItemId({ item, mode, scene, level, cefr }) {
   const payload = JSON.stringify({
     mode,
     scene,
     level,
+    cefr: cefr || null,
     sentence: item.sentence || '',
     lines: item.lines || [],
   });
@@ -80,7 +81,7 @@ export function replaceHistoryRaw(list) {
   saveHistoryRaw((list || []).map(normalizeHistoryEntry));
 }
 
-export function upsertHistoryEntry({ id, item, mode, scene, level }) {
+export function upsertHistoryEntry({ id, item, mode, scene, level, cefr }) {
   const now = new Date().toISOString();
   const all = loadHistoryRaw();
   const existing = all.find((e) => e.id === id);
@@ -91,6 +92,7 @@ export function upsertHistoryEntry({ id, item, mode, scene, level }) {
     mode,
     scene,
     level,
+    cefr: cefr || null,
     preview: previewText(item),
     createdAt: existing?.createdAt || now,
     lastPlayedAt: now,

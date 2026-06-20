@@ -1,4 +1,3 @@
-export { generateItem, generateContent } from '../core/generation/index.js';
 export {
   fetchTTS,
   base64ToAudioUrl,
@@ -7,5 +6,5 @@ export {
   resolveItemAudio,
   generateCustomSpeechTtsInstructions,
   buildCustomSpeechTtsInstructions,
-  fetchAudio,
-} from '../core/audio/index.js';
+} from './ttsClient.js';
+export { fetchAudio, computeCacheHash, computeAudioCacheKey } from './driveCache.js';

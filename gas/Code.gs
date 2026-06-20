@@ -25,6 +25,9 @@ const OPENAI_MODEL = 'gpt-4o-mini-tts';
 function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
+    if (body.action === 'audio') {
+      return jsonResponse(handleAudio(body));
+    }
     if (body.action === 'tts') {
       return jsonResponse(handleTTS(body));
     }
@@ -136,6 +139,189 @@ function saveCachedMp3(key, base64) {
   const bytes = Utilities.base64Decode(base64);
   const blob = Utilities.newBlob(bytes, 'audio/mpeg', `${key}.mp3`);
   folder.createFile(blob);
+}
+
+// ===== v2 Audio cache with manifest (§5) =====
+
+const MANIFEST_FILE = 'audio_manifest.json';
+const MANIFEST_VERSION = '1';
+const MANIFEST_MAX_ENTRIES = 5000;
+
+function getListeningTrainerRoot_() {
+  const cacheId = PropertiesService.getScriptProperties().getProperty('CACHE_FOLDER_ID');
+  if (!cacheId) throw new Error('CACHE_FOLDER_ID not set in Script Properties');
+  return DriveApp.getFolderById(cacheId);
+}
+
+function getOrCreateSubfolder_(parent, name) {
+  const it = parent.getFoldersByName(name);
+  return it.hasNext() ? it.next() : parent.createFolder(name);
+}
+
+function getAudioFolder_(cefr, shell) {
+  const root = getListeningTrainerRoot_();
+  const audioRoot = getOrCreateSubfolder_(root, 'audio');
+  const cefrFolder = getOrCreateSubfolder_(audioRoot, cefr || 'B1');
+  return getOrCreateSubfolder_(cefrFolder, shell || 'intensive');
+}
+
+function getManifestFolder_() {
+  const root = getListeningTrainerRoot_();
+  return getOrCreateSubfolder_(root, 'manifest');
+}
+
+function readAudioManifest_() {
+  const folder = getManifestFolder_();
+  const files = folder.getFilesByName(MANIFEST_FILE);
+  if (!files.hasNext()) {
+    return { version: MANIFEST_VERSION, updated_at: new Date().toISOString(), entries: {} };
+  }
+  const raw = files.next().getBlob().getDataAsString('UTF-8');
+  const parsed = JSON.parse(raw);
+  return {
+    version: parsed.version || MANIFEST_VERSION,
+    updated_at: parsed.updated_at || new Date().toISOString(),
+    entries: parsed.entries || {},
+  };
+}
+
+function writeAudioManifest_(manifest) {
+  const folder = getManifestFolder_();
+  manifest.updated_at = new Date().toISOString();
+  const payload = JSON.stringify(manifest);
+  const files = folder.getFilesByName(MANIFEST_FILE);
+  if (files.hasNext()) {
+    files.next().setContent(payload);
+  } else {
+    folder.createFile(Utilities.newBlob(payload, 'application/json', MANIFEST_FILE));
+  }
+}
+
+function computeAudioCacheKey_(body) {
+  const textPart = body.lines
+    ? JSON.stringify(body.lines)
+    : String(body.text || '');
+  const voice = body.voice || body.voiceA || 'nova';
+  const speed = body.speed || 1.0;
+  const instructions = body.instructions || '';
+  return sha256(textPart + '|' + voice + '|' + speed + '|' + instructions);
+}
+
+function driveDirectUrl_(fileId) {
+  return 'https://drive.google.com/uc?export=download&id=' + fileId;
+}
+
+function handleAudio(body) {
+  const lines = body.lines || [];
+  const cefr = body.cefr || 'B1';
+  const shell = body.shell || 'intensive';
+  const voiceA = body.voice || body.voiceA || 'nova';
+  const voiceB = body.voiceB || 'onyx';
+  const speed = body.speed || 1.0;
+  const instructions = body.instructions || '';
+
+  if (lines.length === 0 && !body.text) throw new Error('No text or lines provided');
+
+  const hash = computeAudioCacheKey_(body);
+  const manifest = readAudioManifest_();
+  const existing = manifest.entries[hash];
+
+  if (existing && existing.drive_file_id) {
+    existing.last_accessed_at = new Date().toISOString();
+    existing.access_count = (existing.access_count || 0) + 1;
+    manifest.entries[hash] = existing;
+    writeAudioManifest_(manifest);
+    var hitBase64 = null;
+    try {
+      hitBase64 = Utilities.base64Encode(DriveApp.getFileById(existing.drive_file_id).getBlob().getBytes());
+    } catch (e) { /* url-only fallback */ }
+    return {
+      url: existing.drive_url || driveDirectUrl_(existing.drive_file_id),
+      audioBase64: hitBase64,
+      mimeType: 'audio/mpeg',
+      cached: true,
+      sizeBytes: existing.size_bytes || 0,
+      hash: hash,
+    };
+  }
+
+  var perLine;
+  if (lines.length > 0) {
+    perLine = lines.map(function (line) {
+      var voice = line.speaker === 'B' ? voiceB : voiceA;
+      return { speaker: line.speaker, audioBase64: synthesizeOne_(line.text, voice, speed, instructions), cached: false };
+    });
+  } else {
+    perLine = [{ speaker: 'A', audioBase64: synthesizeOne_(body.text, voiceA, speed, instructions), cached: false }];
+  }
+
+  const combined = perLine.length === 1
+    ? perLine[0].audioBase64
+    : concatMp3WithGaps_(perLine.map(function (p) { return p.audioBase64; }), 350);
+
+  const folder = getAudioFolder_(cefr, shell);
+  const bytes = Utilities.base64Decode(combined);
+  const blob = Utilities.newBlob(bytes, 'audio/mpeg', hash + '.mp3');
+  const file = folder.createFile(blob);
+  file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+  const previewSource = lines.length > 0 ? lines[0].text : String(body.text || '');
+  manifest.entries[hash] = {
+    drive_file_id: file.getId(),
+    drive_url: driveDirectUrl_(file.getId()),
+    cefr: cefr,
+    shell: shell,
+    text_preview: previewSource.slice(0, 40),
+    voice: voiceA,
+    speed: speed,
+    size_bytes: bytes.length,
+    created_at: new Date().toISOString(),
+    last_accessed_at: new Date().toISOString(),
+    access_count: 1,
+  };
+
+  if (Object.keys(manifest.entries).length > MANIFEST_MAX_ENTRIES) {
+    lruCleanupManifest_(manifest);
+  } else {
+    writeAudioManifest_(manifest);
+  }
+
+  return {
+    url: driveDirectUrl_(file.getId()),
+    audioBase64: combined,
+    mimeType: 'audio/mpeg',
+    cached: false,
+    sizeBytes: bytes.length,
+    hash: hash,
+  };
+}
+
+function lruCleanupManifest_(manifest) {
+  var keys = Object.keys(manifest.entries);
+  keys.sort(function (a, b) {
+    var ta = new Date(manifest.entries[a].last_accessed_at || 0).getTime();
+    var tb = new Date(manifest.entries[b].last_accessed_at || 0).getTime();
+    return ta - tb;
+  });
+  var toRemove = keys.length - MANIFEST_MAX_ENTRIES + 100;
+  for (var i = 0; i < toRemove; i++) {
+    var entry = manifest.entries[keys[i]];
+    if (entry && entry.drive_file_id) {
+      try {
+        DriveApp.getFileById(entry.drive_file_id).setTrashed(true);
+      } catch (e) { /* ignore */ }
+    }
+    delete manifest.entries[keys[i]];
+  }
+  writeAudioManifest_(manifest);
+}
+
+/** Monthly batch entry point — run from GAS editor or time trigger. */
+function runManifestLruCleanup() {
+  var manifest = readAudioManifest_();
+  if (Object.keys(manifest.entries).length > MANIFEST_MAX_ENTRIES) {
+    lruCleanupManifest_(manifest);
+  }
 }
 
 // ===== Utilities =====

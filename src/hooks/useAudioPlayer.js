@@ -79,7 +79,7 @@ export function useAudioPlayer() {
   }, [stopLoop]);
 
   const play = useCallback(
-    (url, key, { showProgress = true } = {}) => {
+    (url, key, { showProgress = true, playbackRate: rate } = {}) => {
       stopLoop();
       if (audioRef.current) {
         audioRef.current.pause();
@@ -87,7 +87,8 @@ export function useAudioPlayer() {
 
       const audio = new Audio(url);
       audioRef.current = audio;
-      applyPlaybackRate(audio);
+      if (rate) audio.playbackRate = rate;
+      else applyPlaybackRate(audio);
       setActiveKey(key);
       setProgress(0);
       dismissedRef.current = false;

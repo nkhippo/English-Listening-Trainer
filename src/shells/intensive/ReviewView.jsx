@@ -1,0 +1,142 @@
+import React from 'react';
+import { diagnoseFeatures } from '../../core/scoring/cloze.js';
+import { addToShadowQueue } from '../../core/shared/materialQueue.js';
+
+export default function ReviewView({
+  item, mode, audioUrl, itemId, audioPlayer, scene, level, cefr, onAgain, onNext, onReplaySame,
+}) {
+  const result = item._result;
+  const lines = item.lines || [{ speaker: 'A', text: item.sentence || '' }];
+  const features = mode === 'cloze'
+    ? diagnoseFeatures(item, result.results)
+    : (item.target_features || []).map((f) => ({ feature: f, captured: null }));
+
+  let scoreDisplay = '—';
+  let scorePerfect = false;
+  let clozeRatio = 0;
+  if (result?.kind === 'cloze') {
+    const correct = result.results.filter((r) => r.correct).length;
+    scoreDisplay = result.results.length ? `${correct}/${result.results.length}` : '—';
+    scorePerfect = result.results.length > 0 && correct === result.results.length;
+    clozeRatio = result.results.length ? correct / result.results.length : 0;
+  } else if (result?.kind === 'dictation') {
+    scoreDisplay = `${Math.round(result.accuracy * 100)}%`;
+    scorePerfect = result.accuracy >= 1;
+  } else if (result?.kind === 'minimal_pair') {
+    scoreDisplay = result.correct ? '1/1' : '0/1';
+    scorePerfect = result.correct;
+  }
+
+  function playReview() {
+    if (audioUrl && itemId) audioPlayer.play(audioUrl, itemId, { showProgress: true });
+  }
+
+  function sendToShadowing() {
+    addToShadowQueue({ item, scene, level, cefr, source: 'intensive', score: clozeRatio });
+    alert('Added to shadowing queue.');
+  }
+
+  return (
+    <>
+      <div className="review-section">
+        <div className="score-label">Score</div>
+        <div className={`score${scorePerfect ? ' is-perfect' : ''}`}>{scoreDisplay}</div>
+      </div>
+
+      <div className="review-section">
+        <h3>Sentence</h3>
+        <div className="review-sentence">
+          {lines.map((l, i) => (
+            <div key={i} className="dialogue-line">
+              {lines.length > 1 && <span className="speaker-tag">{l.speaker}:</span>}
+              {l.text}
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 12, fontSize: 13, color: 'var(--ink-mute)' }}>
+          {item.translation_ja}
+        </div>
+        {audioUrl && (
+          <button type="button" className="btn btn-ghost" style={{ marginTop: 12 }} onClick={playReview}>
+            ▶ Listen again
+          </button>
+        )}
+      </div>
+
+      {result.kind === 'cloze' && (
+        <div className="review-section">
+          <h3>Blanks</h3>
+          <ul className="feature-list">
+            {result.results.map((r, i) => (
+              <li key={i} className="feature-item">
+                <span>
+                  <strong>{r.expected}</strong>
+                  {r.hint && <span style={{ color: 'var(--ink-mute)', marginLeft: 8 }}>({r.hint})</span>}
+                </span>
+                <span className={`feature-status ${r.correct ? 'ok' : 'miss'}`}>
+                  {r.correct ? '○' : `× ${r.user || '(blank)'}`}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {result.kind === 'dictation' && (
+        <div className="review-section">
+          <h3>Your transcription</h3>
+          <div className="review-sentence" style={{ background: 'transparent', border: '1px dashed var(--line-strong)' }}>
+            {result.user}
+          </div>
+          <div style={{ marginTop: 8, fontSize: 12, color: 'var(--ink-mute)', fontFamily: 'var(--font-mono)' }}>
+            edits: {result.edits} / {result.totalWords} words
+          </div>
+        </div>
+      )}
+
+      {result.kind === 'minimal_pair' && (
+        <div className="review-section">
+          <h3>Your answer</h3>
+          <ul className="feature-list">
+            <li className="feature-item">
+              <span>You chose</span>
+              <span className={`feature-status ${result.correct ? 'ok' : 'miss'}`}>{result.user}</span>
+            </li>
+            <li className="feature-item">
+              <span>Correct word</span>
+              <span className="feature-status ok">{result.expected}</span>
+            </li>
+          </ul>
+        </div>
+      )}
+
+      <div className="review-section">
+        <h3>Target features</h3>
+        <ul className="feature-list">
+          {features.map((f, i) => (
+            <li key={i} className="feature-item">
+              <span>{f.feature}</span>
+              <span className={`feature-status ${f.captured === true ? 'ok' : f.captured === false ? 'miss' : ''}`}>
+                {f.captured === true ? '○' : f.captured === false ? '×' : '—'}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {result.kind === 'cloze' && clozeRatio >= 0.8 && (
+        <div className="review-section">
+          <button type="button" className="btn btn-ghost" onClick={sendToShadowing}>
+            Add to shadowing queue
+          </button>
+        </div>
+      )}
+
+      <div className="row" style={{ marginTop: 32 }}>
+        <button className="btn" onClick={onNext}>Next item</button>
+        <button className="btn btn-ghost" onClick={onReplaySame}>Same item again</button>
+        <button className="btn btn-ghost" onClick={onAgain}>Back to setup</button>
+      </div>
+    </>
+  );
+}
