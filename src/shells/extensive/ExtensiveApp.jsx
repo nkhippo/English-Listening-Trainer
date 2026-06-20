@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { flushSync } from 'react-dom';
 import { SCENES, migrateSceneId, migrateExtensiveScene, SCENE_RANDOM, resolveSceneForGeneration, getSceneLabel } from '../../core/shared/sceneConfig.js';
 import { LEVELS } from '../../core/shared/levels.js';
@@ -25,6 +25,7 @@ import {
 import PassagePlayer from './PassagePlayer.jsx';
 import ListenOnlyView from './ListenOnlyView.jsx';
 import HistoryPlaylistPlayer from './HistoryPlaylistPlayer.jsx';
+import { filterHistory, hasActiveHistoryFilters } from './historyFilters.js';
 import { UI } from '../../core/shared/uiJa.js';
 
 const AUTO_PLAY_DELAY_MS = 1000;
@@ -575,9 +576,37 @@ function HistoryList({
   const [selectMode, setSelectMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState(() => new Set());
   const [playlist, setPlaylist] = useState(null);
+  const [filterCefr, setFilterCefr] = useState(null);
+  const [filterLevel, setFilterLevel] = useState(null);
+  const [filterStructureFlags, setFilterStructureFlags] = useState([]);
+
+  const filters = { cefr: filterCefr, level: filterLevel, structureFlags: filterStructureFlags };
+  const filteredHistory = useMemo(
+    () => filterHistory(history, filters),
+    [history, filterCefr, filterLevel, filterStructureFlags],
+  );
+  const filtersActive = hasActiveHistoryFilters(filters);
+  const filteredIdKey = useMemo(
+    () => filteredHistory.map((e) => e.id).join(','),
+    [filteredHistory],
+  );
 
   const playlistCurrentId = playlist?.entries[playlist.currentIdx ?? 0]?.id ?? null;
   const playlistActive = Boolean(playlist);
+
+  useEffect(() => {
+    const visible = new Set(filteredIdKey ? filteredIdKey.split(',') : []);
+    setSelectedIds((prev) => {
+      const next = new Set([...prev].filter((id) => visible.has(id)));
+      return next.size === prev.size ? prev : next;
+    });
+  }, [filteredIdKey]);
+
+  function toggleStructureFilter(key) {
+    setFilterStructureFlags((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
+    );
+  }
 
   function toggleSelect(id) {
     setSelectedIds((prev) => {
@@ -589,7 +618,7 @@ function HistoryList({
   }
 
   function selectAll() {
-    setSelectedIds(new Set(history.map((e) => e.id)));
+    setSelectedIds(new Set(filteredHistory.map((e) => e.id)));
   }
 
   function clearSelection() {
@@ -613,6 +642,10 @@ function HistoryList({
     setPlaylist(null);
   }
 
+  const filterCountLabel = UI.extensive.historyFilterCount
+    .replace('{shown}', String(filteredHistory.length))
+    .replace('{total}', String(history.length));
+
   return (
     <section className="history-section">
       <div className="history-section-header">
@@ -620,12 +653,25 @@ function HistoryList({
         <div className="history-sync-actions">
           {!playlistActive && !selectMode && (
             <>
-              <button type="button" className="btn btn-ghost btn-sm" onClick={() => startPlaylist([...history])}>
-                {UI.extensive.historyPlayAll}
-              </button>
+              {!filtersActive && (
+                <button type="button" className="btn btn-ghost btn-sm" onClick={() => startPlaylist([...history])}>
+                  {UI.extensive.historyPlayAll}
+                </button>
+              )}
+              {filtersActive && (
+                <button
+                  type="button"
+                  className="btn btn-sm"
+                  disabled={filteredHistory.length === 0}
+                  onClick={() => startPlaylist([...filteredHistory])}
+                >
+                  {UI.extensive.historyPlayFiltered} ({filteredHistory.length})
+                </button>
+              )}
               <button
                 type="button"
                 className="btn btn-ghost btn-sm"
+                disabled={filteredHistory.length === 0}
                 onClick={() => { setSelectMode(true); selectAll(); }}
               >
                 {UI.extensive.historyPlaySelect}
@@ -644,7 +690,7 @@ function HistoryList({
                 type="button"
                 className="btn btn-sm"
                 disabled={selectedIds.size === 0}
-                onClick={() => startPlaylist(history.filter((e) => selectedIds.has(e.id)))}
+                onClick={() => startPlaylist(filteredHistory.filter((e) => selectedIds.has(e.id)))}
               >
                 {UI.extensive.historyPlaySelected} ({selectedIds.size})
               </button>
@@ -660,6 +706,74 @@ function HistoryList({
         {syncStatus && syncStatus !== 'disabled' ? UI.common.syncAudioFromDrive : ''}
       </p>
 
+      <div className="history-filters">
+        <div className="history-filter-field">
+          <label>{UI.common.cefr}</label>
+          <div className="choices choices-compact">
+            <button
+              type="button"
+              className="choice choice-chip"
+              aria-pressed={filterCefr == null}
+              onClick={() => setFilterCefr(null)}
+            >
+              {UI.extensive.historyFilterAll}
+            </button>
+            {Object.entries(CEFR_LEVELS).map(([key, c]) => (
+              <button
+                key={key}
+                type="button"
+                className="choice choice-chip"
+                aria-pressed={filterCefr === key}
+                onClick={() => setFilterCefr(key)}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="history-filter-field">
+          <label>{UI.common.level}</label>
+          <div className="choices choices-compact">
+            <button
+              type="button"
+              className="choice choice-chip"
+              aria-pressed={filterLevel == null}
+              onClick={() => setFilterLevel(null)}
+            >
+              {UI.extensive.historyFilterAll}
+            </button>
+            {Object.entries(LEVELS).filter(([k]) => Number(k) < 5).map(([key, l]) => (
+              <button
+                key={key}
+                type="button"
+                className="choice choice-chip"
+                aria-pressed={filterLevel === Number(key)}
+                onClick={() => setFilterLevel(Number(key))}
+              >
+                {l.label.split(' — ')[0]}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="history-filter-field">
+          <label>{UI.extensive.structureFocus}</label>
+          <div className="choices choices-compact">
+            {Object.entries(STRUCTURE_FLAGS).map(([key, f]) => (
+              <button
+                key={key}
+                type="button"
+                className="choice choice-chip"
+                aria-pressed={filterStructureFlags.includes(key)}
+                onClick={() => toggleStructureFilter(key)}
+              >
+                {f.labelJa || f.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <p className="field-hint history-filter-count">{filterCountLabel}</p>
+      </div>
+
       {playlistActive && (
         <HistoryPlaylistPlayer
           entries={playlist.entries}
@@ -672,62 +786,71 @@ function HistoryList({
         />
       )}
 
-      <ul className="history-list">
-        {history.map((entry) => (
-          <li
-            key={entry.id}
-            className={`history-item${playlistCurrentId === entry.id ? ' history-item-active' : ''}${selectMode && selectedIds.has(entry.id) ? ' history-item-selected' : ''}`}
-          >
-            {selectMode && (
-              <label className="history-select">
-                <input
-                  type="checkbox"
-                  className="history-select-input"
-                  checked={selectedIds.has(entry.id)}
-                  onChange={() => toggleSelect(entry.id)}
-                />
-              </label>
-            )}
-            <div className="history-main">
-              <div className="history-preview">{entry.preview}</div>
-              <div className="history-meta">
-                <span>{entry.cefr || DEFAULT_CEFR}</span>
-                <span>{SCENES[migrateSceneId(entry.scene)]?.label}</span>
-                <span>{LEVELS[entry.level]?.label?.split(' — ')[0]}</span>
-                <span>{UI.length[entry.length]?.label || entry.length}</span>
-                {hasCachedAudio(entry.id) && <span className="history-cache-badge">{UI.common.audioSaved}</span>}
+      {filteredHistory.length === 0 ? (
+        <p className="field-hint">{UI.extensive.historyFilterEmpty}</p>
+      ) : (
+        <ul className="history-list">
+          {filteredHistory.map((entry) => (
+            <li
+              key={entry.id}
+              className={`history-item${playlistCurrentId === entry.id ? ' history-item-active' : ''}${selectMode && selectedIds.has(entry.id) ? ' history-item-selected' : ''}`}
+            >
+              {selectMode && (
+                <label className="history-select">
+                  <input
+                    type="checkbox"
+                    className="history-select-input"
+                    checked={selectedIds.has(entry.id)}
+                    onChange={() => toggleSelect(entry.id)}
+                  />
+                </label>
+              )}
+              <div className="history-main">
+                <div className="history-preview">{entry.preview}</div>
+                <div className="history-meta">
+                  <span>{entry.cefr || DEFAULT_CEFR}</span>
+                  <span>{SCENES[migrateSceneId(entry.scene)]?.label}</span>
+                  <span>{LEVELS[entry.level]?.label?.split(' — ')[0]}</span>
+                  <span>{UI.length[entry.length]?.label || entry.length}</span>
+                  {(entry.structureFlags || []).map((flagKey) => (
+                    <span key={flagKey} className="history-flag-badge">
+                      {STRUCTURE_FLAGS[flagKey]?.labelJa || flagKey}
+                    </span>
+                  ))}
+                  {hasCachedAudio(entry.id) && <span className="history-cache-badge">{UI.common.audioSaved}</span>}
+                </div>
               </div>
-            </div>
-            <div className="history-actions">
-              <button
-                type="button"
-                className="btn btn-ghost btn-sm"
-                onClick={() => onListen(entry)}
-                aria-label="Listen"
-                disabled={playlistActive}
-              >
-                ▶
-              </button>
-              <button
-                type="button"
-                className="btn btn-ghost btn-sm"
-                onClick={() => onReplay(entry)}
-                disabled={playlistActive}
-              >
-                {UI.extensive.open}
-              </button>
-              <button
-                type="button"
-                className="btn btn-ghost btn-sm history-remove"
-                onClick={() => onRemove(entry.id)}
-                disabled={playlistActive}
-              >
-                {UI.common.delete}
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+              <div className="history-actions">
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => onListen(entry)}
+                  aria-label="Listen"
+                  disabled={playlistActive}
+                >
+                  ▶
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => onReplay(entry)}
+                  disabled={playlistActive}
+                >
+                  {UI.extensive.open}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm history-remove"
+                  onClick={() => onRemove(entry.id)}
+                  disabled={playlistActive}
+                >
+                  {UI.common.delete}
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

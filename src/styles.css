@@ -865,6 +865,43 @@ input:focus, textarea:focus, select:focus {
   flex-wrap: wrap;
 }
 
+.history-filters {
+  margin: var(--space-4) 0;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-sunken);
+}
+
+.history-filter-field {
+  margin-bottom: var(--space-4);
+}
+
+.history-filter-field:last-of-type {
+  margin-bottom: var(--space-2);
+}
+
+.history-filter-field label {
+  margin-bottom: var(--space-2);
+}
+
+.history-filter-count {
+  margin: var(--space-2) 0 0;
+}
+
+.choices-compact {
+  gap: var(--space-2);
+}
+
+.choices-compact .choice-chip {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+.history-flag-badge {
+  color: var(--signal);
+}
+
 .history-preview {
   font-family: var(--font-mono);
   font-size: 13px;
