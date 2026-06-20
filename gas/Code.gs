@@ -28,6 +28,9 @@ function doPost(e) {
     if (body.action === 'audio') {
       return jsonResponse(handleAudio(body));
     }
+    if (body.action === 'audio_stats') {
+      return jsonResponse(handleAudioStats(body));
+    }
     if (body.action === 'tts') {
       return jsonResponse(handleTTS(body));
     }
@@ -293,6 +296,22 @@ function handleAudio(body) {
     cached: false,
     sizeBytes: bytes.length,
     hash: hash,
+  };
+}
+
+function handleAudioStats(body) {
+  const manifest = readAudioManifest_();
+  var entries = manifest.entries || {};
+  var keys = Object.keys(entries);
+  var totalAccess = 0;
+  for (var i = 0; i < keys.length; i++) {
+    totalAccess += Number(entries[keys[i]].access_count) || 0;
+  }
+  return {
+    entryCount: keys.length,
+    totalAccessCount: totalAccess,
+    updatedAt: manifest.updated_at,
+    manifestVersion: manifest.version,
   };
 }
 

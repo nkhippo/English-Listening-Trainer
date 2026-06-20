@@ -167,6 +167,10 @@ export default function ShadowingApp({
                 <div className="history-meta">
                   <span>{entry.source}</span>
                   <span>{entry.cefr}</span>
+                  {entry.understood && <span>{UI.shadowing.understoodBadge}</span>}
+                  {entry.score != null && entry.source === 'intensive' && (
+                    <span>{Math.round(entry.score * 100)}%</span>
+                  )}
                   {hasCachedAudio(entry.id) && <span className="history-cache-badge">{UI.common.audioSaved}</span>}
                   {entry.stageProgress?.[3] && <span>✓ {UI.shadowing.complete}</span>}
                 </div>

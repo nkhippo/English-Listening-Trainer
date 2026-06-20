@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { diagnoseFeatures } from '../../core/scoring/cloze.js';
-import { addToShadowQueue } from '../../core/shared/materialQueue.js';
+import {
+  addToShadowQueue,
+  addUnderstoodShadowCandidate,
+  hasShadowQueueEntryForSource,
+} from '../../core/shared/materialQueue.js';
+import { isShadowCandidateScore } from '../../core/shared/shadowThresholds.js';
 import { UI } from '../../core/shared/uiJa.js';
 
 export default function ReviewView({
@@ -29,14 +34,49 @@ export default function ReviewView({
     scorePerfect = result.correct;
   }
 
+  const isShadowCandidate = result?.kind === 'cloze' && isShadowCandidateScore(clozeRatio);
+  const [shadowQueued, setShadowQueued] = useState(() =>
+    isShadowCandidate && itemId ? hasShadowQueueEntryForSource(itemId) : false,
+  );
+
+  useEffect(() => {
+    if (!isShadowCandidate || !itemId) return;
+    if (hasShadowQueueEntryForSource(itemId)) {
+      setShadowQueued(true);
+      return;
+    }
+    const added = addUnderstoodShadowCandidate({
+      item,
+      itemId,
+      scene,
+      level,
+      cefr,
+      score: clozeRatio,
+    });
+    if (added) {
+      setShadowQueued(true);
+      onShadowQueueAdd?.();
+    }
+  }, [isShadowCandidate, itemId, item, scene, level, cefr, clozeRatio, onShadowQueueAdd]);
+
   function playReview() {
     if (audioUrl && itemId) audioPlayer.play(audioUrl, itemId, { showProgress: true });
   }
 
   function sendToShadowing() {
-    addToShadowQueue({ item, scene, level, cefr, source: 'intensive', score: clozeRatio });
+    if (shadowQueued) return;
+    addToShadowQueue({
+      item,
+      scene,
+      level,
+      cefr,
+      source: 'intensive',
+      score: clozeRatio,
+      sourceItemId: itemId,
+      understood: isShadowCandidate,
+    });
     onShadowQueueAdd?.();
-    alert(UI.intensive.addedToShadowing);
+    setShadowQueued(true);
   }
 
   return (
@@ -45,6 +85,14 @@ export default function ReviewView({
         <div className="score-label">{UI.intensive.score}</div>
         <div className={`score${scorePerfect ? ' is-perfect' : ''}`}>{scoreDisplay}</div>
       </div>
+
+      {isShadowCandidate && (
+        <div className="review-section">
+          <p className="field-hint">
+            {shadowQueued ? UI.intensive.shadowCandidateAdded : UI.intensive.shadowCandidateHint}
+          </p>
+        </div>
+      )}
 
       <div className="review-section">
         <h3>Sentence</h3>
@@ -127,7 +175,7 @@ export default function ReviewView({
         </ul>
       </div>
 
-      {result.kind === 'cloze' && clozeRatio >= 0.8 && (
+      {isShadowCandidate && !shadowQueued && (
         <div className="review-section">
           <button type="button" className="btn btn-ghost" onClick={sendToShadowing}>
             {UI.intensive.addToShadowing}

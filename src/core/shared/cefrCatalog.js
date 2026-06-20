@@ -1,9 +1,12 @@
-import cefrWords from '../../data/cefr/cefr_words.json';
-import cefrChunks from '../../data/cefr/cefr_chunks.json';
 import { buildCefrConstraint } from '../generation/cefrConstraints.js';
 
 const CEFR_RANK = { A1: 1, A2: 2, B1: 3, B2: 4 };
 const BAND_MAX_RANK = { A1A2: 2, B1: 3, B2: 4 };
+
+let wordIndex = null;
+let chunkEntries = null;
+let catalogStats = null;
+let catalogPromise = null;
 
 function buildLemmaIndex(entries) {
   const index = new Map();
@@ -21,8 +24,26 @@ function buildLemmaIndex(entries) {
   return index;
 }
 
-const wordIndex = buildLemmaIndex(cefrWords.entries);
-const chunkIndex = buildLemmaIndex(cefrChunks.entries);
+async function loadCatalog() {
+  if (!catalogPromise) {
+    catalogPromise = Promise.all([
+      import('../../data/cefr/cefr_words.json'),
+      import('../../data/cefr/cefr_chunks.json'),
+    ]).then(([wordsMod, chunksMod]) => {
+      wordIndex = buildLemmaIndex(wordsMod.default.entries);
+      chunkEntries = chunksMod.default.entries;
+      catalogStats = {
+        words: wordsMod.default.total_count ?? wordsMod.default.entries.length,
+        chunks: chunksMod.default.total_count ?? chunksMod.default.entries.length,
+      };
+    });
+  }
+  return catalogPromise;
+}
+
+export async function ensureCefrCatalog() {
+  await loadCatalog();
+}
 
 function extractItemText(item) {
   const parts = [];
@@ -81,7 +102,7 @@ export function findUsedChunks(text, band) {
   const lower = text.toLowerCase();
   const used = [];
 
-  for (const entry of cefrChunks.entries) {
+  for (const entry of chunkEntries || []) {
     const rank = CEFR_RANK[entry.cefr];
     if (!rank || rank > maxRank) continue;
     const phrase = entry.text.toLowerCase();
@@ -117,9 +138,20 @@ export function enrichCefrMetadata(item, band) {
   };
 }
 
+export async function enrichCefrMetadataAsync(item, band) {
+  await loadCatalog();
+  return enrichCefrMetadata(item, band);
+}
+
+export async function isCefrCompliantAsync(item, band) {
+  await loadCatalog();
+  return isCefrCompliant(item, band);
+}
+
 export function getCatalogStats() {
-  return {
-    words: cefrWords.total_count ?? cefrWords.entries.length,
-    chunks: cefrChunks.total_count ?? cefrChunks.entries.length,
-  };
+  return catalogStats || { words: null, chunks: null, loaded: false };
+}
+
+export function isCatalogLoaded() {
+  return !!catalogPromise && !!wordIndex;
 }

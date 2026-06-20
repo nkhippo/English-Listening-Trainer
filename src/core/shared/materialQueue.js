@@ -48,7 +48,7 @@ export function loadShadowQueue() {
     .sort((a, b) => new Date(b.updatedAt || b.addedAt) - new Date(a.updatedAt || a.addedAt));
 }
 
-export function addToShadowQueue({ item, scene, level, cefr, source, score }) {
+export function addToShadowQueue({ item, scene, level, cefr, source, score, sourceItemId, understood }) {
   const now = new Date().toISOString();
   const id = `s${Date.now().toString(36)}`;
   const entry = {
@@ -59,6 +59,8 @@ export function addToShadowQueue({ item, scene, level, cefr, source, score }) {
     cefr: cefr || 'B1',
     source: source || 'manual',
     score: score ?? null,
+    sourceItemId: sourceItemId || null,
+    understood: !!understood,
     addedAt: now,
     createdAt: now,
     updatedAt: now,
@@ -98,4 +100,25 @@ export function removeFromShadowQueue(id) {
   };
   saveRaw(list);
   return loadShadowQueue();
+}
+
+export function hasShadowQueueEntryForSource(sourceItemId) {
+  if (!sourceItemId) return false;
+  return loadRaw().some((e) => !e.deletedAt && !e.removed && e.sourceItemId === sourceItemId);
+}
+
+export function addUnderstoodShadowCandidate({
+  item, itemId, scene, level, cefr, score,
+}) {
+  if (hasShadowQueueEntryForSource(itemId)) return null;
+  return addToShadowQueue({
+    item,
+    scene,
+    level,
+    cefr,
+    source: 'intensive',
+    score,
+    sourceItemId: itemId,
+    understood: true,
+  });
 }

@@ -1,5 +1,5 @@
 import { buildGenerationPrompt, buildSystemPrompt } from './prompts.js';
-import { enrichCefrMetadata, isCefrCompliant } from '../shared/cefrCatalog.js';
+import { enrichCefrMetadataAsync, isCefrCompliantAsync } from '../shared/cefrCatalog.js';
 import { enrichStructureMetadata, isStructureCompliant, formatStructureFailures } from '../shared/structureValidation.js';
 
 const CLAUDE_ENDPOINT = 'https://api.anthropic.com/v1/messages';
@@ -40,8 +40,8 @@ async function callClaude({ anthropicKey, userPrompt }) {
   }
 }
 
-function needsCefrRetry(item, cefr) {
-  return !isCefrCompliant(item, cefr);
+async function needsCefrRetry(item, cefr) {
+  return !(await isCefrCompliantAsync(item, cefr));
 }
 
 function needsStructureRetry(item, structureFlags) {
@@ -79,10 +79,10 @@ export async function generateContent({
     });
     try {
       const raw = await callClaude({ anthropicKey, userPrompt });
-      let item = enrichCefrMetadata(raw, cefr);
+      let item = await enrichCefrMetadataAsync(raw, cefr);
       item = enrichStructureMetadata(item, structureFlags);
 
-      if (needsCefrRetry(item, cefr) && attempt < maxAttempts - 1) {
+      if (await needsCefrRetry(item, cefr) && attempt < maxAttempts - 1) {
         lastError = new Error(`CEFR validation failed: ${JSON.stringify(item.cefr_metadata?.used_words_above_level)}`);
         continue;
       }

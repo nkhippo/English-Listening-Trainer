@@ -8,3 +8,10 @@ export {
   buildCustomSpeechTtsInstructions,
 } from './ttsClient.js';
 export { fetchAudio, computeCacheHash, computeAudioCacheKey } from './driveCache.js';
+export {
+  recordAudioFetch,
+  getLastAudioFetch,
+  describeAudioSource,
+  verifyDriveAudioCache,
+  fetchAudioManifestStats,
+} from './audioCacheStatus.js';

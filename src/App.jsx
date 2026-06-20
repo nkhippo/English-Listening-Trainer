@@ -9,6 +9,12 @@ import IntensiveApp from './shells/intensive/IntensiveApp.jsx';
 import ExtensiveApp from './shells/extensive/ExtensiveApp.jsx';
 import ShadowingApp from './shells/shadowing/ShadowingApp.jsx';
 import { UI } from './core/shared/uiJa.js';
+import {
+  getLastAudioFetch,
+  describeAudioSource,
+  verifyDriveAudioCache,
+  fetchAudioManifestStats,
+} from './core/audio/audioCacheStatus.js';
 
 const LS_KEYS = {
   appTab: 'elt_app_tab',
@@ -122,6 +128,7 @@ export default function App() {
           onSave={saveAnthropicKey}
           onClear={clearAnthropicKey}
           cloudSync={cloudSync}
+          gasUrl={gasUrl}
         />
       )}
 
@@ -185,13 +192,37 @@ export default function App() {
   );
 }
 
-function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync }) {
+function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync, gasUrl }) {
   const [draft, setDraft] = useState(anthropicKey);
+  const [audioVerifyMsg, setAudioVerifyMsg] = useState('');
+  const [audioVerifyBusy, setAudioVerifyBusy] = useState(false);
+  const [manifestStats, setManifestStats] = useState(null);
   const { syncStatus, syncError } = cloudSync;
+  const lastAudio = getLastAudioFetch();
 
   useEffect(() => {
     setDraft(anthropicKey);
   }, [anthropicKey]);
+
+  useEffect(() => {
+    if (!gasUrl) return;
+    fetchAudioManifestStats({ gasUrl })
+      .then(setManifestStats)
+      .catch(() => setManifestStats(null));
+  }, [gasUrl, audioVerifyMsg]);
+
+  async function runAudioCacheVerify() {
+    setAudioVerifyBusy(true);
+    setAudioVerifyMsg('');
+    try {
+      const result = await verifyDriveAudioCache({ gasUrl });
+      setAudioVerifyMsg(result.pass ? UI.settings.audioCachePass : UI.settings.audioCacheFail);
+    } catch (err) {
+      setAudioVerifyMsg(String(err.message || err));
+    } finally {
+      setAudioVerifyBusy(false);
+    }
+  }
 
   const syncStatusLabel = UI.settings.statusLabels[syncStatus] || syncStatus;
 
@@ -206,6 +237,34 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync 
           {UI.settings.status}: {syncStatusLabel}
           {syncError ? ` — ${syncError}` : ''}
         </p>
+      </div>
+
+      <div className="settings-block">
+        <h3 className="settings-subheading">{UI.settings.audioCacheSub}</h3>
+        <p className="field-hint">{UI.settings.audioCacheHint}</p>
+        {lastAudio && (
+          <p className="field-hint sync-status-line">
+            {UI.settings.audioCacheLast}: {describeAudioSource(lastAudio.source)}
+            {lastAudio.cached ? ' ✓' : ''}
+            {lastAudio.hash ? ` · ${lastAudio.hash.slice(0, 8)}…` : ''}
+          </p>
+        )}
+        {manifestStats && (
+          <p className="field-hint">
+            {UI.settings.audioCacheManifest}: {manifestStats.entryCount ?? '—'}
+            {' · '}
+            {UI.settings.audioCacheAccess}: {manifestStats.totalAccessCount ?? '—'}
+          </p>
+        )}
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm"
+          onClick={runAudioCacheVerify}
+          disabled={audioVerifyBusy || !gasUrl}
+        >
+          {audioVerifyBusy ? UI.settings.audioCacheVerifying : UI.settings.audioCacheVerify}
+        </button>
+        {audioVerifyMsg && <p className="field-hint sync-status-line">{audioVerifyMsg}</p>}
       </div>
 
       <div className="settings-block">

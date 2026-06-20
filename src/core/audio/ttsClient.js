@@ -1,5 +1,6 @@
 import { getLevelSpeed } from '../shared/levels.js';
 import { fetchAudio } from './driveCache.js';
+import { recordAudioFetch } from './audioCacheStatus.js';
 import { trackLocalAudioAccess } from './audioManifest.js';
 
 /**
@@ -31,12 +32,23 @@ export async function fetchTTS({ gasUrl, lines, level, voice = 'nova', voiceB = 
     });
     if (needsLegacyTtsFallback(data)) {
       console.warn('Drive cache returned URL-only; falling back to legacy tts');
-      return fetchLegacyTTS(legacyParams);
+      const legacy = await fetchLegacyTTS(legacyParams);
+      recordAudioFetch({ source: 'legacy-tts', cached: legacy.cached, hash: null, shell, cefr });
+      return legacy;
     }
+    recordAudioFetch({
+      source: data.cached ? 'gas-cache' : 'gas-fresh',
+      cached: data.cached,
+      hash: data.hash,
+      shell,
+      cefr,
+    });
     return data;
   } catch (err) {
     console.warn('Drive cache audio failed, trying legacy tts:', err);
-    return fetchLegacyTTS(legacyParams);
+    const legacy = await fetchLegacyTTS(legacyParams);
+    recordAudioFetch({ source: 'legacy-tts', cached: legacy.cached, hash: null, shell, cefr });
+    return legacy;
   }
 }
 
@@ -115,6 +127,7 @@ export async function resolveItemAudio({
   onCacheSave,
 }) {
   if (cachedBase64) {
+    recordAudioFetch({ source: 'local', cached: true, hash: null, shell, cefr });
     return {
       audioBase64: cachedBase64,
       mimeType: 'audio/mpeg',
