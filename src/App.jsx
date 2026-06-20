@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { DEFAULT_GAS_URL } from './lib/config.js';
+import { DEFAULT_GAS_URL, DEFAULT_WARMUP_GAS_URL, WARMUP_BATCH_SIZE, WARMUP_SENTENCES_PER_CELL } from './lib/config.js';
 import { saveCachedAudio } from './lib/storage.js';
 import { useAudioPlayer } from './hooks/useAudioPlayer.js';
 import { useCloudSync } from './hooks/useCloudSync.js';
@@ -16,6 +16,12 @@ import {
   fetchAudioManifestStats,
   runAudioManifestCleanup,
 } from './core/audio/audioCacheStatus.js';
+import {
+  getWarmupStatus,
+  runWarmupBatch,
+  resetWarmupProgress,
+  formatWarmupProgress,
+} from './core/audio/warmupClient.js';
 
 const LS_KEYS = {
   appTab: 'elt_app_tab',
@@ -41,6 +47,7 @@ export default function App() {
   const [speechRefreshKey, setSpeechRefreshKey] = useState(0);
   const [syncRefreshKey, setSyncRefreshKey] = useState(0);
   const gasUrl = DEFAULT_GAS_URL;
+  const warmupGasUrl = DEFAULT_WARMUP_GAS_URL;
 
   const handleCloudSynced = useCallback(() => {
     setSpeechRefreshKey((k) => k + 1);
@@ -130,6 +137,7 @@ export default function App() {
           onClear={clearAnthropicKey}
           cloudSync={cloudSync}
           gasUrl={gasUrl}
+          warmupGasUrl={warmupGasUrl}
         />
       )}
 
@@ -193,25 +201,41 @@ export default function App() {
   );
 }
 
-function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync, gasUrl }) {
+function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync, gasUrl, warmupGasUrl }) {
   const [draft, setDraft] = useState(anthropicKey);
   const [audioVerifyMsg, setAudioVerifyMsg] = useState('');
   const [audioVerifyBusy, setAudioVerifyBusy] = useState(false);
   const [cleanupBusy, setCleanupBusy] = useState(false);
   const [manifestStats, setManifestStats] = useState(null);
+  const [warmupBusy, setWarmupBusy] = useState(false);
+  const [warmupStatus, setWarmupStatus] = useState(null);
+  const [sentencesPerCell, setSentencesPerCell] = useState(WARMUP_SENTENCES_PER_CELL);
   const { syncStatus, syncError } = cloudSync;
   const lastAudio = getLastAudioFetch();
+
+  async function refreshManifestStats() {
+    if (!gasUrl) return;
+    try {
+      setManifestStats(await fetchAudioManifestStats({ gasUrl }));
+    } catch {
+      setManifestStats(null);
+    }
+  }
 
   useEffect(() => {
     setDraft(anthropicKey);
   }, [anthropicKey]);
 
   useEffect(() => {
-    if (!gasUrl) return;
-    fetchAudioManifestStats({ gasUrl })
-      .then(setManifestStats)
-      .catch(() => setManifestStats(null));
+    refreshManifestStats();
   }, [gasUrl, audioVerifyMsg]);
+
+  useEffect(() => {
+    if (!warmupGasUrl) return;
+    getWarmupStatus({ warmupGasUrl, sentencesPerCell })
+      .then(setWarmupStatus)
+      .catch(() => setWarmupStatus(null));
+  }, [warmupGasUrl, sentencesPerCell]);
 
   async function runAudioCacheVerify() {
     setAudioVerifyBusy(true);
@@ -234,10 +258,71 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync,
       setAudioVerifyMsg(
         `${UI.settings.audioCacheCleanupDone}: ${result.removed ?? 0} (${result.before ?? '—'} → ${result.after ?? '—'})`,
       );
+      await refreshManifestStats();
     } catch (err) {
       setAudioVerifyMsg(String(err.message || err));
     } finally {
       setCleanupBusy(false);
+    }
+  }
+
+  async function runWarmupStep() {
+    setWarmupBusy(true);
+    setAudioVerifyMsg('');
+    try {
+      const result = await runWarmupBatch({
+        warmupGasUrl,
+        mainGasUrl: gasUrl,
+        batchSize: WARMUP_BATCH_SIZE,
+        sentencesPerCell,
+      });
+      setWarmupStatus(result);
+      await refreshManifestStats();
+      if (result.done) {
+        setAudioVerifyMsg(UI.settings.warmupDone);
+      }
+    } catch (err) {
+      setAudioVerifyMsg(String(err.message || err));
+    } finally {
+      setWarmupBusy(false);
+    }
+  }
+
+  async function runWarmupAll() {
+    setWarmupBusy(true);
+    setAudioVerifyMsg('');
+    try {
+      let status = await getWarmupStatus({ warmupGasUrl, sentencesPerCell });
+      let guard = 0;
+      while (!status.done && guard < 2000) {
+        status = await runWarmupBatch({
+          warmupGasUrl,
+          mainGasUrl: gasUrl,
+          batchSize: WARMUP_BATCH_SIZE,
+          sentencesPerCell,
+        });
+        setWarmupStatus(status);
+        guard += 1;
+      }
+      await refreshManifestStats();
+      setAudioVerifyMsg(status.done ? UI.settings.warmupDone : UI.settings.warmupPartial);
+    } catch (err) {
+      setAudioVerifyMsg(String(err.message || err));
+    } finally {
+      setWarmupBusy(false);
+    }
+  }
+
+  async function handleWarmupReset() {
+    setWarmupBusy(true);
+    try {
+      await resetWarmupProgress({ warmupGasUrl });
+      setWarmupStatus(await getWarmupStatus({ warmupGasUrl, sentencesPerCell }));
+      setAudioVerifyMsg(UI.settings.warmupResetDone);
+    } catch (err) {
+      setAudioVerifyMsg(String(err.message || err));
+    } finally {
+      setWarmupBusy(false);
     }
   }
 
@@ -291,6 +376,60 @@ function SettingsPanel({ anthropicKey, isConfigured, onSave, onClear, cloudSync,
           {cleanupBusy ? UI.settings.audioCacheCleaning : UI.settings.audioCacheCleanup}
         </button>
         {audioVerifyMsg && <p className="field-hint sync-status-line">{audioVerifyMsg}</p>}
+      </div>
+
+      <div className="settings-block">
+        <h3 className="settings-subheading">{UI.settings.warmupSub}</h3>
+        <p className="field-hint">{UI.settings.warmupHint}</p>
+        {warmupStatus && (
+          <p className="field-hint sync-status-line">
+            {UI.settings.warmupProgress}: {formatWarmupProgress(warmupStatus)}
+            {warmupStatus.stats ? ` · cached ${warmupStatus.stats.cached} / fresh ${warmupStatus.stats.fresh}` : ''}
+          </p>
+        )}
+        <div className="field">
+          <label>{UI.settings.warmupSentencesPerCell}</label>
+          <div className="choices">
+            {[5, 10, 50].map((n) => (
+              <button
+                key={n}
+                type="button"
+                className="choice"
+                aria-pressed={sentencesPerCell === n}
+                onClick={() => setSentencesPerCell(n)}
+                disabled={warmupBusy}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        </div>
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm"
+          onClick={runWarmupStep}
+          disabled={warmupBusy || !warmupGasUrl}
+        >
+          {warmupBusy ? UI.settings.warmupRunning : UI.settings.warmupRunBatch}
+        </button>
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm"
+          onClick={runWarmupAll}
+          disabled={warmupBusy || !warmupGasUrl}
+          style={{ marginLeft: 8 }}
+        >
+          {UI.settings.warmupRunAll}
+        </button>
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm"
+          onClick={handleWarmupReset}
+          disabled={warmupBusy || !warmupGasUrl}
+          style={{ marginLeft: 8 }}
+        >
+          {UI.settings.warmupReset}
+        </button>
       </div>
 
       <div className="settings-block">

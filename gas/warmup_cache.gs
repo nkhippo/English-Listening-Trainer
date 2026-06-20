@@ -1,13 +1,6 @@
 /**
- * Optional batch helpers for the Listening Trainer GAS project.
- * Add this file to the same Apps Script project as Code.gs.
- *
- * Monthly cleanup trigger (recommended):
- *   Triggers → Add Trigger → runMonthlyManifestCleanup
- *   Event: Time-driven → Month timer → Day 1, 03:00–04:00
- *
- * Optional warmup (manual run from editor only):
- *   warmupCacheSample({ count: 5, cefr: 'B1', shell: 'intensive' })
+ * Legacy in-project warmup helper (same Apps Script project as Code.gs).
+ * For production batching use the standalone deployment in gas/warmup/Code.gs.
  */
 
 function warmupCacheSample(options) {
