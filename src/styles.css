@@ -152,6 +152,10 @@ html, body {
   justify-content: center;
   border-radius: 50%;
 }
+.btn-icon-pause {
+  background: var(--ink);
+  color: var(--bg);
+}
 
 /* ===== Form fields ===== */
 label {

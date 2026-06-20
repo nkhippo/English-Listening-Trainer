@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Waveform from '../../components/Waveform.jsx';
 import TranslationBlock from '../../components/TranslationBlock.jsx';
+import ExtensivePlayPauseButton from './ExtensivePlayPauseButton.jsx';
 import { passageMediaMetadata } from '../../core/audio/mediaSession.js';
 
 export default function PassagePlayer({
@@ -44,16 +45,18 @@ export default function PassagePlayer({
     return () => clearTimeout(timer);
   }, [audioUrl, itemId, audioPlayer, autoPlayAfterMs, attachEndedHandler, startPlayback]);
 
-  function replay() {
-    playedRef.current = true;
-    return startPlayback();
-  }
-
   return (
     <div className="passage-player">
       <div className="audio-stage">
         <div className="audio-controls">
-          <button type="button" className="btn btn-icon" onClick={replay} aria-label="Replay">▶</button>
+          <ExtensivePlayPauseButton
+            itemId={itemId}
+            audioPlayer={audioPlayer}
+            onPlayStart={() => {
+              playedRef.current = true;
+              startPlayback();
+            }}
+          />
         </div>
         <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === itemId} />
       </div>

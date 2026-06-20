@@ -80,6 +80,27 @@ export function useAudioPlayer() {
     rafRef.current = requestAnimationFrame(tick);
   }, [stopLoop]);
 
+  const pause = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || audio.paused || audio.ended) return;
+    stopLoop();
+    audio.pause();
+  }, [stopLoop]);
+
+  const resume = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || audio.ended) return;
+    if (audio.paused) {
+      if (!dismissedRef.current) setVisible(true);
+      audio.play().catch((err) => {
+        console.error(err);
+        setPlaying(false);
+        setMediaPlaybackState(false);
+      });
+      startLoop(audio);
+    }
+  }, [startLoop]);
+
   const play = useCallback(
     (url, key, { showProgress = true, playbackRate: rate, metadata } = {}) => {
       if (!url) {
@@ -250,6 +271,8 @@ export function useAudioPlayer() {
     playbackRate,
     holding,
     play,
+    pause,
+    resume,
     stop,
     seek,
     repeat,

@@ -22,13 +22,8 @@ export function useExtensiveMediaSession({
     updateMediaSession(passageMediaMetadata(current.item));
 
     setMediaSessionHandlers({
-      onPlay: () => {
-        const audio = audioPlayer.audioRef?.current;
-        if (audio) audio.play().catch(console.error);
-      },
-      onPause: () => {
-        audioPlayer.audioRef?.current?.pause();
-      },
+      onPlay: () => audioPlayer.resume?.(),
+      onPause: () => audioPlayer.pause?.(),
       onNext: onNext,
       onPrevious: onPrev,
     });

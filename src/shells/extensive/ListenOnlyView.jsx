@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Waveform from '../../components/Waveform.jsx';
 import TranslationBlock from '../../components/TranslationBlock.jsx';
+import ExtensivePlayPauseButton from './ExtensivePlayPauseButton.jsx';
 import { passageMediaMetadata } from '../../core/audio/mediaSession.js';
 import { UI } from '../../core/shared/uiJa.js';
 
@@ -50,16 +51,19 @@ export default function ListenOnlyView({
     return () => clearTimeout(timer);
   }, [audioUrl, itemId, audioPlayer, autoPlayAfterMs, attachEnded, startPlayback]);
 
-  const play = useCallback(() => {
-    playedRef.current = true;
-    startPlayback();
-  }, [startPlayback]);
-
   return (
     <div className="listen-only-view" onClick={() => setShowTranslation((v) => !v)}>
       <div className="audio-stage">
         <div className="audio-controls">
-          <button type="button" className="btn btn-icon" onClick={(e) => { e.stopPropagation(); play(); }} aria-label="Play">▶</button>
+          <ExtensivePlayPauseButton
+            itemId={itemId}
+            audioPlayer={audioPlayer}
+            stopPropagation
+            onPlayStart={() => {
+              playedRef.current = true;
+              startPlayback();
+            }}
+          />
         </div>
         <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === itemId} />
       </div>

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { passageMediaMetadata } from '../../core/audio/mediaSession.js';
+import ExtensivePlayPauseButton from './ExtensivePlayPauseButton.jsx';
 import { UI } from '../../core/shared/uiJa.js';
 
 const BETWEEN_TRACK_DELAY_MS = 1000;
@@ -126,6 +127,20 @@ export default function HistoryPlaylistPlayer({
       </div>
       {entry && <p className="history-playlist-preview">{entry.preview}</p>}
       <div className="history-playlist-actions">
+        <ExtensivePlayPauseButton
+          itemId={entry?.id}
+          audioPlayer={audioPlayer}
+          onPlayStart={() => {
+            if (!audioUrl || loading || error) return;
+            const audio = audioPlayer.play(audioUrl, entry.id, {
+              showProgress: true,
+              metadata: passageMediaMetadata(entry.item),
+            });
+            if (!audio) return;
+            const handler = () => advanceAfterEnd();
+            audio.addEventListener('ended', handler, { once: true });
+          }}
+        />
         <button type="button" className="btn btn-ghost btn-sm" onClick={handleSkip} disabled={loading || idx + 1 >= entries.length}>
           {UI.extensive.historyPlaylistSkip}
         </button>
