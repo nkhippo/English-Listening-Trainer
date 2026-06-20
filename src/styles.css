@@ -376,16 +376,31 @@ input:focus, textarea:focus, select:focus {
   background: var(--bg);
 }
 
-.session-meta--toolbar {
+.listening-toolbar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
   margin-bottom: var(--space-3);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--line);
-  flex-wrap: wrap;
-  row-gap: var(--space-1);
 }
 
-.listening-toolbar .btn-back-link {
-  margin-bottom: var(--space-3);
+.listening-toolbar-head .btn-back-link {
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+.session-meta--toolbar {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+  justify-content: flex-end;
+  text-align: right;
+  font-size: 11px;
+  line-height: 1.4;
+  flex-wrap: wrap;
+  row-gap: var(--space-1);
 }
 
 .listening-toolbar-grid {

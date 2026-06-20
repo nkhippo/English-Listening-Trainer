@@ -467,14 +467,15 @@ export default function ExtensiveApp({
       className="extensive-listening"
     >
       <div className="listening-toolbar">
-        <div className="session-meta session-meta--toolbar">
-          <span>{CEFR_LEVELS[cefr]?.label}</span>
-          <span>{getSceneLabel(current?.scene ?? scene, { randomLabel: UI.common.sceneRandom })}</span>
-          <span>{UI.length[length]?.label || length}</span>
-          <span>{passages.length > 1 ? `${currentIdx + 1} / ${passages.length}` : '1'}</span>
+        <div className="listening-toolbar-head">
+          <button type="button" className="btn-back-link" onClick={backToSetup}>{UI.common.back}</button>
+          <div className="session-meta session-meta--toolbar">
+            <span>{CEFR_LEVELS[cefr]?.label}</span>
+            <span>{getSceneLabel(current?.scene ?? scene, { randomLabel: UI.common.sceneRandom })}</span>
+            <span>{UI.length[length]?.label || length}</span>
+            <span>{passages.length > 1 ? `${currentIdx + 1} / ${passages.length}` : '1'}</span>
+          </div>
         </div>
-
-        <button type="button" className="btn-back-link" onClick={backToSetup}>{UI.common.back}</button>
 
         <div className="listening-toolbar-grid">
           <button
