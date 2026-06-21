@@ -248,8 +248,8 @@ export default function ExtensiveApp({
       const next = await prefetchNext();
       prefetchRef.current = null;
       saveToHistory(next);
-      if (autoPlay) setAutoPlayPassageId(next.id);
       flushSync(() => {
+        if (autoPlay) setAutoPlayPassageId(next.id);
         setPassages((prev) => [...prev, next]);
         setCurrentIdx((i) => i + 1);
       });

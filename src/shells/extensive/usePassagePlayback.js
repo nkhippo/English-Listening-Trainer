@@ -15,6 +15,12 @@ export function usePassagePlayback({
   const onEndedRef = useRef(onEnded);
   onEndedRef.current = onEnded;
 
+  const prevItemIdRef = useRef(itemId);
+  if (prevItemIdRef.current !== itemId) {
+    prevItemIdRef.current = itemId;
+    playedRef.current = false;
+  }
+
   const attachEndedHandler = useCallback((audio) => {
     if (!audio) return undefined;
     const handler = () => onEndedRef.current?.();
@@ -23,6 +29,7 @@ export function usePassagePlayback({
   }, []);
 
   const startPlayback = useCallback(() => {
+    playedRef.current = true;
     const audio = audioPlayer.play(audioUrl, itemId, {
       showProgress: true,
       playbackRate,
@@ -41,10 +48,16 @@ export function usePassagePlayback({
     }
     if (playedRef.current) return undefined;
 
-    playedRef.current = true;
     const delay = autoPlayAfterMs > 0 ? autoPlayAfterMs : 0;
-    const timer = setTimeout(() => startPlayback(), delay);
-    return () => clearTimeout(timer);
+    let cleanupEnded;
+    const timer = setTimeout(() => {
+      cleanupEnded = startPlayback();
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+      cleanupEnded?.();
+    };
   }, [audioUrl, itemId, audioPlayer, autoPlayAfterMs, attachEndedHandler, startPlayback]);
 
   return { startPlayback, playedRef };

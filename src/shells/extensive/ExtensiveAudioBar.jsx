@@ -7,7 +7,7 @@ export default function ExtensiveAudioBar({
   item, audioUrl, itemId, audioPlayer, playbackRate = 1,
   onEnded, autoPlayAfterMs = 0, onAutoPlayStarted,
 }) {
-  const { startPlayback, playedRef } = usePassagePlayback({
+  const { startPlayback } = usePassagePlayback({
     audioUrl,
     itemId,
     item,
@@ -24,7 +24,6 @@ export default function ExtensiveAudioBar({
         itemId={itemId}
         audioPlayer={audioPlayer}
         onPlayStart={() => {
-          playedRef.current = true;
           startPlayback();
         }}
       />
