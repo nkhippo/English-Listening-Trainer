@@ -107,6 +107,7 @@ export const UI = {
     autoAriaOn: '連続再生はオンです。タップでオフにします',
     autoAriaOff: '連続再生はオフです。タップでオンにします',
     loadingNext: '次のパッセージを準備中…',
+    loadingNextShort: '準備中…',
     loadingNextFailed: '次のパッセージを読み込めませんでした',
     addToShadowing: 'シャドーに追加',
     addToShadowingDone: '✓ 追加済み',

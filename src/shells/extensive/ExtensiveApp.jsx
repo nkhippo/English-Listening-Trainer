@@ -23,6 +23,7 @@ import {
 } from '../../lib/storage.js';
 import PassagePlayer from './PassagePlayer.jsx';
 import ListenOnlyView from './ListenOnlyView.jsx';
+import ExtensiveAudioBar from './ExtensiveAudioBar.jsx';
 import HistoryPlaylistPlayer from './HistoryPlaylistPlayer.jsx';
 import { filterHistory, hasActiveHistoryFilters } from './historyFilters.js';
 import { UI } from '../../core/shared/uiJa.js';
@@ -511,22 +512,35 @@ export default function ExtensiveApp({
         </div>
       </div>
 
-      <div className="passage-nav">
+      <div className="passage-transport">
         <button
           type="button"
-          className="btn btn-ghost btn-sm passage-nav-btn"
+          className="btn btn-ghost btn-sm passage-transport-nav"
           onClick={goPrev}
           disabled={currentIdx <= 0}
         >
           {UI.extensive.prevPassage}
         </button>
+        {current && (
+          <ExtensiveAudioBar
+            key={current.id}
+            item={current.item}
+            audioUrl={current.audioUrl}
+            itemId={current.id}
+            audioPlayer={audioPlayer}
+            playbackRate={playbackRate}
+            onEnded={handlePassageEnded}
+            autoPlayAfterMs={autoPlayPassageId === current.id ? AUTO_PLAY_DELAY_MS : 0}
+            onAutoPlayStarted={() => setAutoPlayPassageId(null)}
+          />
+        )}
         <button
           type="button"
-          className="btn btn-sm passage-nav-btn"
+          className="btn btn-sm passage-transport-nav"
           onClick={goNext}
           disabled={passageLoading || (currentIdx >= passages.length - 1 && !anthropicKey)}
         >
-          {passageLoading ? UI.extensive.loadingNext : UI.extensive.nextPassage}
+          {passageLoading ? UI.extensive.loadingNextShort : UI.extensive.nextPassage}
         </button>
       </div>
 
@@ -539,30 +553,9 @@ export default function ExtensiveApp({
             </div>
           )}
           {viewMode === 'read_listen' ? (
-            <PassagePlayer
-              key={current.id}
-              item={current.item}
-              audioUrl={current.audioUrl}
-              itemId={current.id}
-              audioPlayer={audioPlayer}
-              showScript
-              onEnded={handlePassageEnded}
-              playbackRate={playbackRate}
-              autoPlayAfterMs={autoPlayPassageId === current.id ? AUTO_PLAY_DELAY_MS : 0}
-              onAutoPlayStarted={() => setAutoPlayPassageId(null)}
-            />
+            <PassagePlayer key={current.id} item={current.item} showScript />
           ) : (
-            <ListenOnlyView
-              key={current.id}
-              item={current.item}
-              audioUrl={current.audioUrl}
-              itemId={current.id}
-              audioPlayer={audioPlayer}
-              onEnded={handlePassageEnded}
-              playbackRate={playbackRate}
-              autoPlayAfterMs={autoPlayPassageId === current.id ? AUTO_PLAY_DELAY_MS : 0}
-              onAutoPlayStarted={() => setAutoPlayPassageId(null)}
-            />
+            <ListenOnlyView key={current.id} item={current.item} />
           )}
         </div>
       )}
