@@ -353,6 +353,12 @@ export default function ExtensiveApp({
     backToSetup();
   }, [homeNonce]);
 
+  useEffect(() => {
+    const active = stage === 'listening';
+    document.body.classList.toggle('elt-extensive-listening', active);
+    return () => document.body.classList.remove('elt-extensive-listening');
+  }, [stage]);
+
   if (stage === 'setup') {
     return (
       <div className="extensive-setup">
@@ -464,84 +470,84 @@ export default function ExtensiveApp({
 
   return (
     <div className="extensive-listening">
-      <div className="listening-toolbar">
-        <div className="listening-toolbar-head">
+      <div className="listening-chrome">
+        <div className="listening-chrome-head">
           <button type="button" className="btn-back-link" onClick={backToSetup}>{UI.common.back}</button>
-          <div className="session-meta session-meta--toolbar">
+          <div className="session-meta session-meta--compact">
             <span>{CEFR_LEVELS[cefr]?.label}</span>
             <span>{getSceneLabel(current?.scene ?? scene, { randomLabel: UI.common.sceneRandom })}</span>
-            <span>{UI.length[length]?.label || length}</span>
-            <span>{passages.length > 1 ? `${currentIdx + 1} / ${passages.length}` : '1'}</span>
+            <span>{passages.length > 1 ? `${currentIdx + 1}/${passages.length}` : '1'}</span>
           </div>
         </div>
 
-        <div className="listening-toolbar-grid">
+        <div className="listening-chrome-transport">
           <button
             type="button"
-            className="btn btn-ghost btn-sm listening-toolbar-btn"
+            className="btn btn-ghost btn-sm passage-transport-nav"
+            onClick={goPrev}
+            disabled={currentIdx <= 0}
+            aria-label={UI.extensive.prevPassage}
+          >
+            {UI.extensive.prevPassageShort}
+          </button>
+          {current && (
+            <ExtensiveAudioBar
+              key={current.id}
+              item={current.item}
+              audioUrl={current.audioUrl}
+              itemId={current.id}
+              audioPlayer={audioPlayer}
+              playbackRate={playbackRate}
+              onEnded={handlePassageEnded}
+              autoPlayAfterMs={autoPlayPassageId === current.id ? AUTO_PLAY_DELAY_MS : 0}
+              onAutoPlayStarted={() => setAutoPlayPassageId(null)}
+            />
+          )}
+          <button
+            type="button"
+            className="btn btn-sm passage-transport-nav"
+            onClick={goNext}
+            disabled={passageLoading || (currentIdx >= passages.length - 1 && !anthropicKey)}
+            aria-label={UI.extensive.nextPassage}
+          >
+            {passageLoading ? UI.extensive.loadingNextShort : UI.extensive.nextPassageShort}
+          </button>
+        </div>
+
+        <div className="listening-chrome-actions" role="toolbar" aria-label={UI.extensive.listeningControls}>
+          <button
+            type="button"
+            className="btn btn-ghost btn-sm listening-chrome-chip"
             aria-pressed={viewMode === 'listen_only'}
             onClick={() => setViewMode(viewMode === 'read_listen' ? 'listen_only' : 'read_listen')}
           >
-            {viewMode === 'read_listen' ? UI.extensive.listenOnly : UI.extensive.readListen}
+            {viewMode === 'read_listen' ? UI.extensive.listenOnlyShort : UI.extensive.readListenShort}
           </button>
           <button
             type="button"
-            className="btn btn-ghost btn-sm listening-toolbar-btn"
+            className="btn btn-ghost btn-sm listening-chrome-chip"
             onClick={() => setPlaybackRate((r) => (r === 1 ? 1.25 : r === 1.25 ? 0.85 : 1))}
           >
-            {UI.extensive.speed} {playbackRate}x
+            {playbackRate}x
           </button>
           <button
             type="button"
-            className="btn btn-sm btn-toggle listening-toolbar-btn"
+            className="btn btn-sm btn-toggle listening-chrome-chip"
             aria-pressed={autoContinue}
             aria-label={autoContinue ? UI.extensive.autoAriaOn : UI.extensive.autoAriaOff}
             onClick={() => setAutoContinue((v) => !v)}
           >
-            <span className="btn-toggle-label">{UI.extensive.auto}</span>
-            <span className="btn-toggle-state">{autoContinue ? UI.extensive.autoOn : UI.extensive.autoOff}</span>
+            {UI.extensive.autoShort} {autoContinue ? UI.extensive.autoOn : UI.extensive.autoOff}
           </button>
           <button
             type="button"
-            className="btn btn-ghost btn-sm listening-toolbar-btn"
+            className="btn btn-ghost btn-sm listening-chrome-chip"
             onClick={sendToShadowing}
             disabled={currentInShadowQueue}
           >
-            {currentInShadowQueue ? UI.extensive.addToShadowingDone : UI.extensive.addToShadowing}
+            {currentInShadowQueue ? UI.extensive.shadowDoneShort : UI.extensive.shadowShort}
           </button>
         </div>
-      </div>
-
-      <div className="passage-transport">
-        <button
-          type="button"
-          className="btn btn-ghost btn-sm passage-transport-nav"
-          onClick={goPrev}
-          disabled={currentIdx <= 0}
-        >
-          {UI.extensive.prevPassage}
-        </button>
-        {current && (
-          <ExtensiveAudioBar
-            key={current.id}
-            item={current.item}
-            audioUrl={current.audioUrl}
-            itemId={current.id}
-            audioPlayer={audioPlayer}
-            playbackRate={playbackRate}
-            onEnded={handlePassageEnded}
-            autoPlayAfterMs={autoPlayPassageId === current.id ? AUTO_PLAY_DELAY_MS : 0}
-            onAutoPlayStarted={() => setAutoPlayPassageId(null)}
-          />
-        )}
-        <button
-          type="button"
-          className="btn btn-sm passage-transport-nav"
-          onClick={goNext}
-          disabled={passageLoading || (currentIdx >= passages.length - 1 && !anthropicKey)}
-        >
-          {passageLoading ? UI.extensive.loadingNextShort : UI.extensive.nextPassage}
-        </button>
       </div>
 
       {current && (
@@ -560,9 +566,6 @@ export default function ExtensiveApp({
         </div>
       )}
 
-      {autoContinue && (
-        <p className="field-hint">{UI.extensive.backgroundHint}</p>
-      )}
       {shadowToast && <p className="status shadow-toast">{shadowToast}</p>}
     </div>
   );
