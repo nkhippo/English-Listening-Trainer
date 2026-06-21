@@ -372,9 +372,9 @@ export default function ExtensiveApp({
 
         <div className="field">
           <label>{UI.common.cefr}</label>
-          <div className="choices">
+          <div className="choices choices-cefr">
             {Object.entries(CEFR_LEVELS).map(([key, c]) => (
-              <button key={key} className="choice" aria-pressed={cefr === key} onClick={() => setCefr(key)}>{c.label}</button>
+              <button key={key} type="button" className="choice choice-chip" aria-pressed={cefr === key} onClick={() => setCefr(key)}>{c.label}</button>
             ))}
           </div>
         </div>

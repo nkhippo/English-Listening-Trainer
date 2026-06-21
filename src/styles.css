@@ -341,7 +341,8 @@ input:focus, textarea:focus, select:focus {
   color: var(--ink-mute);
   font-family: var(--font-mono);
 }
-.choices-scene {
+.choices-scene,
+.choices-cefr {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-2);
 }
