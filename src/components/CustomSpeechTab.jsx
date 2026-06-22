@@ -25,6 +25,7 @@ export default function CustomSpeechTab({
   const [stage, setStage] = useState('register');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [translationJa, setTranslationJa] = useState('');
   const [entries, setEntries] = useState(() => loadCustomSpeechList());
   const [activeEntry, setActiveEntry] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -119,10 +120,11 @@ export default function CustomSpeechTab({
         lines: parsedLines,
         anthropicKey,
       });
-      const { entry, list } = addCustomSpeechEntry({ title, body, ttsInstructions });
+      const { entry, list } = addCustomSpeechEntry({ title, body, translation_ja: translationJa, ttsInstructions });
       setEntries(list);
       setTitle('');
       setBody('');
+      setTranslationJa('');
       await openEntry(entry, false, { isNew: true });
       notifyCloudChange();
     } catch (e) {
@@ -258,6 +260,13 @@ export default function CustomSpeechTab({
               </div>
             ))}
           </div>
+          {activeEntry.translation_ja?.trim() && (
+            <div className="passage-translation">
+              {activeEntry.translation_ja.split(/\r?\n/).map((line, i) => (
+                <p key={i} className="passage-line">{line}</p>
+              ))}
+            </div>
+          )}
         </div>
 
         <div style={{ marginTop: 24 }}>
@@ -302,6 +311,19 @@ export default function CustomSpeechTab({
           placeholder={'M: Good morning. What can I get for you?\nF: A latte, please.\nM: Sure, coming right up.'}
           spellCheck="false"
           rows={8}
+        />
+      </div>
+
+      <div className="field">
+        <label htmlFor="cs-translation">Japanese translation</label>
+        <textarea
+          id="cs-translation"
+          className="dictation-input"
+          value={translationJa}
+          onChange={(e) => setTranslationJa(e.target.value)}
+          placeholder={'昨日友達が勧めてくれたコーヒーを注文しようと思ってるんだ。\nメニューを見た後、ここが本当に上手に作るカプチーノが欲しいって決めた。'}
+          spellCheck="false"
+          rows={5}
         />
       </div>
 

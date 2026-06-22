@@ -70,6 +70,7 @@ function normalizeCustomSpeechEntry(entry) {
   const createdAt = entry.createdAt || new Date().toISOString();
   return {
     ...entry,
+    translation_ja: typeof entry.translation_ja === 'string' ? entry.translation_ja : '',
     createdAt,
     updatedAt: entry.updatedAt || createdAt,
     deletedAt: entry.deletedAt || null,
@@ -102,7 +103,7 @@ function saveCustomSpeechList(list) {
   }
 }
 
-export function addCustomSpeechEntry({ title, body, ttsInstructions }) {
+export function addCustomSpeechEntry({ title, body, translation_ja = '', ttsInstructions }) {
   const parsedLines = parseCustomSpeechBody(body);
   if (parsedLines.length === 0) throw new Error('Enter body text');
 
@@ -111,6 +112,7 @@ export function addCustomSpeechEntry({ title, body, ttsInstructions }) {
     id: computeCustomSpeechId(),
     title: title.trim() || 'Untitled',
     body: body.trim(),
+    translation_ja: typeof translation_ja === 'string' ? translation_ja : '',
     lines: parsedLines,
     tts_instructions: ttsInstructions,
     createdAt: now,
@@ -183,6 +185,7 @@ function normalizeImportedEntry(raw) {
     id: typeof raw.id === 'string' && raw.id ? raw.id : computeCustomSpeechId(),
     title: typeof raw.title === 'string' && raw.title.trim() ? raw.title.trim() : 'Untitled',
     body,
+    translation_ja: typeof raw.translation_ja === 'string' ? raw.translation_ja : '',
     lines: parsedLines,
     tts_instructions: typeof raw.tts_instructions === 'string' ? raw.tts_instructions : '',
     createdAt: typeof raw.createdAt === 'string' ? raw.createdAt : new Date().toISOString(),
