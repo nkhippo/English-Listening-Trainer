@@ -1,10 +1,11 @@
 /** Split flat dialogue translations like "A: … B: …" onto separate lines. */
-export function migrateTranslationJa(translationJa, lines = []) {
+import { isDialogueContent } from './contentLength.js';
+
+export function migrateTranslationJa(translationJa, lines = [], item = null) {
   if (!translationJa || typeof translationJa !== 'string') return translationJa;
   if (translationJa.includes('\n')) return translationJa;
 
-  const speakers = new Set((lines || []).map((l) => l.speaker).filter(Boolean));
-  const isDialogue = lines.length > 1 && speakers.size > 1;
+  const isDialogue = isDialogueContent(item || { lines }, lines);
   if (!isDialogue) return translationJa;
 
   const hasSpeakerLabels = /\b[AB]:/.test(translationJa);

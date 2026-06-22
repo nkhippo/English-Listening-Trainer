@@ -2,6 +2,8 @@ import { getLevelSpeed } from '../shared/levels.js';
 import { fetchAudio } from './driveCache.js';
 import { recordAudioFetch } from './audioCacheStatus.js';
 import { trackLocalAudioAccess } from './audioManifest.js';
+import { migrateTranslationJa } from '../shared/translationJa.js';
+import { isDialogueContent } from '../shared/contentLength.js';
 
 /**
  * Request TTS audio from GAS proxy (legacy + Drive cache).
@@ -103,8 +105,6 @@ export function resolveAudioUrl({ url, audioBase64, mimeType = 'audio/mpeg' }) {
   throw new Error('No playable audio in response');
 }
 
-import { migrateTranslationJa } from '../shared/translationJa.js';
-
 /** Ensure generated items always have lines[] for UI and TTS. */
 export function normalizeItem(item) {
   if (!item) throw new Error('Empty item from generator');
@@ -112,7 +112,7 @@ export function normalizeItem(item) {
     ? item.lines
     : [{ speaker: 'A', text: item.sentence || '' }];
   const sentence = item.sentence || lines.map((l) => l.text).join('\n');
-  const translation_ja = migrateTranslationJa(item.translation_ja, lines);
+  const translation_ja = migrateTranslationJa(item.translation_ja, lines, item);
   return { ...item, lines, sentence, translation_ja };
 }
 
@@ -188,7 +188,7 @@ export async function generateCustomSpeechTtsInstructions({ body, lines, anthrop
 }
 
 async function fetchCustomSpeechTtsInstructions({ body, lines, anthropicKey }) {
-  const isDialogue = lines.length > 1;
+  const isDialogue = isDialogueContent({ lines }, lines);
   const styleRef = isDialogue
     ? 'Speak naturally with the personality of each speaker. Casual reductions where appropriate. Blend words smoothly with natural linking.'
     : 'Natural conversational pace with normal linking between words. Do not over-articulate function words.';
@@ -231,9 +231,9 @@ Return ONLY one sentence of tts_instructions (10–25 words). Match the actual p
   return text;
 }
 
-export function buildCustomSpeechTtsInstructions(lines) {
+export function buildCustomSpeechTtsInstructions(lines, item = null) {
   const texts = lines.map((l) => l.text).join(' ');
-  const isDialogue = lines.length > 1;
+  const isDialogue = isDialogueContent(item || { lines }, lines);
   const hasReductions = /\b(gonna|wanna|lemme|didja|kinda|gotta|coulda|shoulda)\b/i.test(texts);
   const hasContractions = /'\w/i.test(texts);
 

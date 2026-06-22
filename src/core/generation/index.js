@@ -1,11 +1,18 @@
 import { buildGenerationPrompt, buildSystemPrompt } from './prompts.js';
 import { enrichCefrMetadataAsync, isCefrCompliantAsync } from '../shared/cefrCatalog.js';
+import {
+  applyContentLengthMetadata,
+  auditContentLength,
+  formatContentLengthFailures,
+  isContentLengthCompliant,
+} from '../shared/contentLength.js';
 import { enrichStructureMetadata, isStructureCompliant, formatStructureFailures, logStructureValidationDebug } from '../shared/structureValidation.js';
 
 const CLAUDE_ENDPOINT = 'https://api.anthropic.com/v1/messages';
 const CLAUDE_MODEL = 'claude-haiku-4-5-20251001';
 const MAX_CEFR_RETRIES = 3;
 const MAX_STRUCTURE_RETRIES = 5;
+const MAX_LENGTH_RETRIES = 5;
 
 async function callClaude({ anthropicKey, userPrompt }) {
   const res = await fetch(CLAUDE_ENDPOINT, {
@@ -49,8 +56,19 @@ function needsStructureRetry(item, structureFlags) {
   return !isStructureCompliant(item, structureFlags);
 }
 
-function maxGenerationAttempts(structureFlags) {
-  return structureFlags?.length ? MAX_STRUCTURE_RETRIES : MAX_CEFR_RETRIES;
+function needsLengthRetry(item, length, shell) {
+  const isPassageShell = shell === 'extensive' || shell === 'shadowing';
+  if (!isPassageShell || !length || length === 'sentence') return false;
+  return !isContentLengthCompliant(item, length);
+}
+
+function maxGenerationAttempts({ structureFlags, length, shell }) {
+  const attempts = [MAX_CEFR_RETRIES];
+  if (structureFlags?.length) attempts.push(MAX_STRUCTURE_RETRIES);
+  if ((shell === 'extensive' || shell === 'shadowing') && length && length !== 'sentence') {
+    attempts.push(MAX_LENGTH_RETRIES);
+  }
+  return Math.max(...attempts);
 }
 
 export async function generateContent({
@@ -65,7 +83,7 @@ export async function generateContent({
 }) {
   if (!anthropicKey) throw new Error('Anthropic API key required');
 
-  const maxAttempts = maxGenerationAttempts(structureFlags);
+  const maxAttempts = maxGenerationAttempts({ structureFlags, length, shell });
   let lastError;
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const userPrompt = buildGenerationPrompt({
@@ -90,6 +108,11 @@ export async function generateContent({
         lastError = new Error(`Structure validation failed: ${JSON.stringify(formatStructureFailures(item.structure_metadata))}`);
         continue;
       }
+      if (needsLengthRetry(item, length, shell) && attempt < maxAttempts - 1) {
+        lastError = new Error(`Content length validation failed: ${JSON.stringify(formatContentLengthFailures(auditContentLength(item, length)))}`);
+        continue;
+      }
+      item = applyContentLengthMetadata(item, length);
       if (structureFlags?.length) {
         logStructureValidationDebug({ structureFlags, item, context: `attempt-${attempt + 1}` });
       }

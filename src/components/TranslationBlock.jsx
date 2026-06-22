@@ -1,10 +1,12 @@
 import React from 'react';
 import { splitTranslationLines } from '../core/shared/translationJa.js';
+import { isDialogueContent } from '../core/shared/contentLength.js';
 
-export default function TranslationBlock({ translationJa, className = 'passage-translation' }) {
+export default function TranslationBlock({ translationJa, item, className = 'passage-translation' }) {
   if (!translationJa) return null;
 
   const lines = splitTranslationLines(translationJa);
+  const showSpeakers = isDialogueContent(item);
   if (lines.length <= 1) {
     return <p className={className}>{translationJa}</p>;
   }
@@ -12,7 +14,7 @@ export default function TranslationBlock({ translationJa, className = 'passage-t
   return (
     <div className={className}>
       {lines.map((line, i) => {
-        const match = line.match(/^([AB]):\s*(.+)$/);
+        const match = showSpeakers ? line.match(/^([AB]):\s*(.+)$/) : null;
         if (match) {
           return (
             <p key={i} className="dialogue-line">
@@ -21,7 +23,7 @@ export default function TranslationBlock({ translationJa, className = 'passage-t
             </p>
           );
         }
-        return <p key={i} className="dialogue-line">{line}</p>;
+        return <p key={i} className="passage-line">{line}</p>;
       })}
     </div>
   );

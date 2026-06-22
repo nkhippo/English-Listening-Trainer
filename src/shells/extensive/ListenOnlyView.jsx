@@ -9,7 +9,7 @@ export default function ListenOnlyView({ item }) {
     <div className="listen-only-view" onClick={() => setShowTranslation((v) => !v)}>
       <p className="field-hint">{UI.extensive.tapTranslation}{showTranslation ? UI.extensive.hide : UI.extensive.show}</p>
       {showTranslation && (
-        <TranslationBlock translationJa={item.translation_ja} />
+        <TranslationBlock translationJa={item.translation_ja} item={item} />
       )}
     </div>
   );
