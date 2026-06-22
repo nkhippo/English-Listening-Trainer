@@ -199,7 +199,10 @@ export default function ExtensiveApp({
       const audioUrl = await resolveAudioUrlForEntry(entry);
       const passage = {
         id: entry.id,
-        item: normalizeItem(entry.item),
+        item: normalizeItem({
+          ...entry.item,
+          content_length: entry.length || entry.item?.content_length,
+        }),
         audioUrl,
         scene: migrateSceneId(entry.scene),
         startedAt: Date.now(),
