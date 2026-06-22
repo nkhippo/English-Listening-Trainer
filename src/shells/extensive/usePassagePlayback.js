@@ -15,6 +15,9 @@ export function usePassagePlayback({
   const onEndedRef = useRef(onEnded);
   onEndedRef.current = onEnded;
 
+  const audioPlayerRef = useRef(audioPlayer);
+  audioPlayerRef.current = audioPlayer;
+
   const prevItemIdRef = useRef(itemId);
   if (prevItemIdRef.current !== itemId) {
     prevItemIdRef.current = itemId;
@@ -30,35 +33,40 @@ export function usePassagePlayback({
 
   const startPlayback = useCallback(() => {
     playedRef.current = true;
-    const audio = audioPlayer.play(audioUrl, itemId, {
+    audioPlayerRef.current.play(audioUrl, itemId, {
       showProgress: true,
       playbackRate,
       metadata: passageMediaMetadata(item),
     });
     onAutoPlayStarted?.();
-    return attachEndedHandler(audio);
-  }, [audioUrl, itemId, item, audioPlayer, playbackRate, attachEndedHandler, onAutoPlayStarted]);
+  }, [audioUrl, itemId, item, playbackRate, onAutoPlayStarted]);
 
   useEffect(() => {
     if (!audioUrl) return undefined;
-    const existing = audioPlayer.audioRef?.current;
-    if (audioPlayer.activeKey === itemId && existing && !existing.paused && !existing.ended) {
+
+    const player = audioPlayerRef.current;
+    const existing = player.audioRef?.current;
+    if (player.activeKey === itemId && existing && !existing.paused && !existing.ended) {
       playedRef.current = true;
-      return attachEndedHandler(existing);
+      return undefined;
     }
     if (playedRef.current) return undefined;
 
     const delay = autoPlayAfterMs > 0 ? autoPlayAfterMs : 0;
-    let cleanupEnded;
     const timer = setTimeout(() => {
-      cleanupEnded = startPlayback();
+      startPlayback();
     }, delay);
 
-    return () => {
-      clearTimeout(timer);
-      cleanupEnded?.();
-    };
-  }, [audioUrl, itemId, audioPlayer, autoPlayAfterMs, attachEndedHandler, startPlayback]);
+    return () => clearTimeout(timer);
+  }, [audioUrl, itemId, autoPlayAfterMs, startPlayback]);
+
+  useEffect(() => {
+    if (!audioUrl) return undefined;
+    const player = audioPlayerRef.current;
+    const existing = player.audioRef?.current;
+    if (player.activeKey !== itemId || !existing) return undefined;
+    return attachEndedHandler(existing);
+  }, [audioUrl, itemId, attachEndedHandler, audioPlayer.activeKey]);
 
   return { startPlayback, playedRef };
 }
