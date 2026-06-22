@@ -59,8 +59,8 @@ export default function CustomSpeechTab({
     scheduleCloudSync?.();
   }
 
-  async function loadAudioForEntry(entry) {
-    if (!hasCachedAudio(entry.id)) {
+  async function loadAudioForEntry(entry, { isNew = false } = {}) {
+    if (!isNew && !hasCachedAudio(entry.id)) {
       try {
         await pullCloudAudio({ gasUrl, itemId: entry.id });
       } catch (err) {
@@ -77,25 +77,29 @@ export default function CustomSpeechTab({
       instructions: ttsInstructionsForEntry(entry),
       voice: CUSTOM_SPEECH_VOICES.female,
       voiceB: CUSTOM_SPEECH_VOICES.male,
+      shell: 'speech',
       onCacheSave: cacheAudioLocallyAndCloud,
     });
     return base64ToAudioUrl(tts.audioBase64, tts.mimeType || 'audio/mpeg');
   }
 
-  async function openEntry(entry, fromHistory = false) {
+  async function openEntry(entry, fromHistory = false, { isNew = false } = {}) {
     setError('');
+    setStatusMsg('');
     setStage('loading');
     setStatusMsg(fromHistory && hasCachedAudio(entry.id) ? 'Loading cached audio…' : 'Synthesizing audio…');
     setReplays(0);
     try {
-      const url = await loadAudioForEntry(entry);
+      const url = await loadAudioForEntry(entry, { isNew });
       revokeAudioUrl();
       setActiveEntry(entry);
       setAudioUrl(url);
       setStage('play');
+      setStatusMsg('');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (e) {
       console.error(e);
+      setStatusMsg('');
       setError(String(e.message || e));
       setStage('register');
     }
@@ -117,10 +121,10 @@ export default function CustomSpeechTab({
       });
       const { entry, list } = addCustomSpeechEntry({ title, body, ttsInstructions });
       setEntries(list);
-      notifyCloudChange();
       setTitle('');
       setBody('');
-      await openEntry(entry);
+      await openEntry(entry, false, { isNew: true });
+      notifyCloudChange();
     } catch (e) {
       setError(String(e.message || e));
     } finally {

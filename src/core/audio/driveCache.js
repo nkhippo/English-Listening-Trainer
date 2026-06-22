@@ -1,4 +1,5 @@
 import { getLevelSpeed } from '../shared/levels.js';
+import { gasFetch } from '../../lib/gasFetch.js';
 
 export function computeAudioCacheKey({ text, voice, speed, instructions, lines }) {
   const textPart = lines
@@ -49,19 +50,5 @@ export async function fetchAudio({
     shell,
   };
 
-  const res = await fetch(gasUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(body),
-  });
-
-  const raw = await res.text();
-  let data;
-  try {
-    data = JSON.parse(raw);
-  } catch {
-    throw new Error(`Audio proxy returned non-JSON: ${raw.slice(0, 200)}`);
-  }
-  if (data.error) throw new Error(`Audio error: ${data.error}`);
-  return data;
+  return gasFetch(gasUrl, body, { nonJsonLabel: 'Audio proxy' });
 }

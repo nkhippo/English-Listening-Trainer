@@ -1,3 +1,4 @@
+import { gasFetch } from '../../lib/gasFetch.js';
 import { fetchAudio } from './driveCache.js';
 
 const LAST_FETCH_KEY = 'elt_last_audio_fetch';
@@ -78,29 +79,11 @@ export async function verifyDriveAudioCache({ gasUrl, cefr = 'B1', shell = 'inte
 export async function fetchAudioManifestStats({ gasUrl }) {
   if (!gasUrl) throw new Error('GAS endpoint URL not configured');
 
-  const res = await fetch(gasUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ action: 'audio_stats' }),
-  });
-
-  const raw = await res.text();
-  const data = JSON.parse(raw);
-  if (data.error) throw new Error(data.error);
-  return data;
+  return gasFetch(gasUrl, { action: 'audio_stats' });
 }
 
 export async function runAudioManifestCleanup({ gasUrl, pruneStaleDays = 90 }) {
   if (!gasUrl) throw new Error('GAS endpoint URL not configured');
 
-  const res = await fetch(gasUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ action: 'audio_cleanup', pruneStaleDays, forceLru: true }),
-  });
-
-  const raw = await res.text();
-  const data = JSON.parse(raw);
-  if (data.error) throw new Error(data.error);
-  return data;
+  return gasFetch(gasUrl, { action: 'audio_cleanup', pruneStaleDays, forceLru: true });
 }

@@ -52,24 +52,10 @@ function activeEntryIds({ speech, history, extensiveHistory, shadowQueue, shadow
   ];
 }
 
+import { gasFetch } from './gasFetch.js';
+
 async function fetchGas({ gasUrl, action, payload = {} }) {
-  if (!gasUrl) throw new Error('GAS endpoint URL not configured');
-
-  const res = await fetch(gasUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ action, ...payload }),
-  });
-
-  const raw = await res.text();
-  let data;
-  try {
-    data = JSON.parse(raw);
-  } catch {
-    throw new Error(`Sync proxy returned non-JSON: ${raw.slice(0, 200)}`);
-  }
-  if (data.error) throw new Error(data.error);
-  return data;
+  return gasFetch(gasUrl, { action, ...payload }, { nonJsonLabel: 'Sync proxy' });
 }
 
 export function getLocalSyncPayload() {

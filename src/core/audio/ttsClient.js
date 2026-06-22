@@ -1,4 +1,5 @@
 import { getLevelSpeed } from '../shared/levels.js';
+import { gasFetch } from '../../lib/gasFetch.js';
 import { fetchAudio } from './driveCache.js';
 import { recordAudioFetch } from './audioCacheStatus.js';
 import { trackLocalAudioAccess } from './audioManifest.js';
@@ -56,28 +57,14 @@ export async function fetchTTS({ gasUrl, lines, level, voice = 'nova', voiceB = 
 
 async function fetchLegacyTTS({ gasUrl, lines, level, voice, voiceB, instructions }) {
   const speed = getLevelSpeed(level);
-  const res = await fetch(gasUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({
-      action: 'tts',
-      lines,
-      voiceA: voice,
-      voiceB,
-      speed,
-      instructions,
-    }),
-  });
-
-  const raw = await res.text();
-  let data;
-  try {
-    data = JSON.parse(raw);
-  } catch {
-    throw new Error(`TTS proxy returned non-JSON: ${raw.slice(0, 200)}`);
-  }
-  if (data.error) throw new Error(`TTS error: ${data.error}`);
-  return data;
+  return gasFetch(gasUrl, {
+    action: 'tts',
+    lines,
+    voiceA: voice,
+    voiceB,
+    speed,
+    instructions,
+  }, { nonJsonLabel: 'TTS proxy' });
 }
 
 export function base64ToAudioUrl(base64, mimeType = 'audio/mpeg') {
