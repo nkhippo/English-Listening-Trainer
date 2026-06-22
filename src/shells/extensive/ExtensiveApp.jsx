@@ -356,12 +356,6 @@ export default function ExtensiveApp({
     backToSetup();
   }, [homeNonce]);
 
-  useEffect(() => {
-    const active = stage === 'listening';
-    document.body.classList.toggle('elt-extensive-listening', active);
-    return () => document.body.classList.remove('elt-extensive-listening');
-  }, [stage]);
-
   if (stage === 'setup') {
     return (
       <div className="extensive-setup">

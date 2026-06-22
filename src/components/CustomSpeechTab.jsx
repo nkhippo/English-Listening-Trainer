@@ -59,12 +59,6 @@ export default function CustomSpeechTab({
     refreshEntries();
   }, [refreshKey]);
 
-  useEffect(() => {
-    const active = stage === 'play';
-    document.body.classList.toggle('elt-extensive-listening', active);
-    return () => document.body.classList.remove('elt-extensive-listening');
-  }, [stage]);
-
   function notifyCloudChange() {
     scheduleCloudSync?.();
   }
