@@ -15,9 +15,12 @@ import {
 import { resolveItemAudio, base64ToAudioUrl, generateCustomSpeechTtsInstructions } from '../lib/api.js';
 import { pullCloudAudio } from '../lib/sync.js';
 import { getCachedAudio, hasCachedAudio } from '../lib/storage.js';
-import Waveform from './Waveform.jsx';
+import { UI } from '../core/shared/uiJa.js';
+import ExtensiveAudioBar from '../shells/extensive/ExtensiveAudioBar.jsx';
+import PassagePlayer from '../shells/extensive/PassagePlayer.jsx';
 
 const TTS_LEVEL = 3; // 1.0x speed
+const AUTO_PLAY_DELAY_MS = 1000;
 
 export default function CustomSpeechTab({
   audioPlayer, gasUrl, anthropicKey, scheduleCloudSync, cacheAudioLocallyAndCloud, scheduleAudioDelete, refreshKey, syncStatus, homeNonce = 0,
@@ -31,8 +34,8 @@ export default function CustomSpeechTab({
   const [audioUrl, setAudioUrl] = useState(null);
   const [error, setError] = useState('');
   const [statusMsg, setStatusMsg] = useState('');
-  const [replays, setReplays] = useState(0);
   const [registering, setRegistering] = useState(false);
+  const [autoPlayEntryId, setAutoPlayEntryId] = useState(null);
   const savedItemsRef = useRef(null);
   const importInputRef = useRef(null);
 
@@ -55,6 +58,12 @@ export default function CustomSpeechTab({
   useEffect(() => {
     refreshEntries();
   }, [refreshKey]);
+
+  useEffect(() => {
+    const active = stage === 'play';
+    document.body.classList.toggle('elt-extensive-listening', active);
+    return () => document.body.classList.remove('elt-extensive-listening');
+  }, [stage]);
 
   function notifyCloudChange() {
     scheduleCloudSync?.();
@@ -89,12 +98,13 @@ export default function CustomSpeechTab({
     setStatusMsg('');
     setStage('loading');
     setStatusMsg(fromHistory && hasCachedAudio(entry.id) ? 'Loading cached audio…' : 'Synthesizing audio…');
-    setReplays(0);
+    setAutoPlayEntryId(null);
     try {
       const url = await loadAudioForEntry(entry, { isNew });
       revokeAudioUrl();
       setActiveEntry(entry);
       setAudioUrl(url);
+      setAutoPlayEntryId(entry.id);
       setStage('play');
       setStatusMsg('');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -139,6 +149,7 @@ export default function CustomSpeechTab({
     revokeAudioUrl();
     setAudioUrl(null);
     setActiveEntry(null);
+    setAutoPlayEntryId(null);
     setStage('register');
     refreshEntries();
     scrollToSavedItems();
@@ -149,18 +160,6 @@ export default function CustomSpeechTab({
     if (stage === 'register' && !activeEntry) return;
     handleBack();
   }, [homeNonce]);
-
-  function play() {
-    if (!audioUrl || !activeEntry) return;
-    const audio = audioPlayer.play(audioUrl, activeEntry.id, { showProgress: true });
-    if (audio) {
-      const onEnded = () => {
-        setReplays((n) => n + 1);
-        audio.removeEventListener('ended', onEnded);
-      };
-      audio.addEventListener('ended', onEnded);
-    }
-  }
 
   function handleRename(id, newTitle) {
     setEntries(updateCustomSpeechTitle(id, newTitle));
@@ -229,50 +228,48 @@ export default function CustomSpeechTab({
   }
 
   if (stage === 'play' && activeEntry) {
-    const showSpeakerTags = activeEntry.lines.length > 1;
+    const displayItem = {
+      content_length: activeEntry.lines.length > 1 ? 'dialogue' : undefined,
+      lines: activeEntry.lines.map((line) => ({
+        speaker: line.label,
+        text: line.text,
+      })),
+      translation_ja: activeEntry.translation_ja,
+    };
+
     return (
       <>
         {error && <div className="status error">{error}</div>}
         {statusMsg && <div className="status">{statusMsg}</div>}
 
-        <div className="session-meta">
-          <span>{activeEntry.title}</span>
-          <span>{formatCustomSpeechDate(activeEntry.createdAt)}</span>
-        </div>
-
-        <div className="audio-stage">
-          <div className="audio-controls">
-            <button type="button" className="btn btn-icon" onClick={play} aria-label="Play audio">
-              ▶
-            </button>
-            <span className="replay-counter">replays: {replays}</span>
-          </div>
-          <Waveform playing={audioPlayer.playing && audioPlayer.activeKey === activeEntry.id} />
-        </div>
-
-        <div className="review-section">
-          <h3>Text</h3>
-          <div className="review-sentence">
-            {activeEntry.lines.map((line, i) => (
-              <div key={i} className="dialogue-line">
-                {showSpeakerTags && <span className="speaker-tag">{line.label}:</span>}
-                {line.text}
+        <div className="extensive-listening">
+          <div className="listening-chrome">
+            <div className="listening-chrome-head">
+              <button type="button" className="btn-back-link" onClick={handleBack}>
+                {UI.common.back}
+              </button>
+              <div className="session-meta session-meta--compact">
+                <span>{activeEntry.title}</span>
+                <span>{formatCustomSpeechDate(activeEntry.createdAt)}</span>
               </div>
-            ))}
-          </div>
-          {activeEntry.translation_ja?.trim() && (
-            <div className="passage-translation">
-              {activeEntry.translation_ja.split(/\r?\n/).map((line, i) => (
-                <p key={i} className="passage-line">{line}</p>
-              ))}
             </div>
-          )}
-        </div>
 
-        <div style={{ marginTop: 24 }}>
-          <button type="button" className="btn btn-ghost" onClick={handleBack}>
-            ← Back to register
-          </button>
+            <div className="listening-chrome-transport">
+              <ExtensiveAudioBar
+                key={activeEntry.id}
+                item={displayItem}
+                audioUrl={audioUrl}
+                itemId={activeEntry.id}
+                audioPlayer={audioPlayer}
+                autoPlayAfterMs={autoPlayEntryId === activeEntry.id ? AUTO_PLAY_DELAY_MS : 0}
+                onAutoPlayStarted={() => setAutoPlayEntryId(null)}
+              />
+            </div>
+          </div>
+
+          <div className="passage-stage">
+            <PassagePlayer item={displayItem} showScript />
+          </div>
         </div>
 
         <CustomSpeechHistory {...historyProps} />
