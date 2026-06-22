@@ -11,9 +11,8 @@
   --error: #B8503F;
   --shadow: 0 1px 0 rgba(27, 31, 42, 0.04);
 
-  --audio-bar-height: 48px;
-  --audio-bar-side-inset: max(20px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-  --audio-bar-bottom-gap: 12px;
+  --audio-bar-block-height: 92px;
+  --audio-bar-bottom-gap: 0px;
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Hiragino Sans',
     'Noto Sans JP', sans-serif;
@@ -1057,34 +1056,52 @@ body.elt-extensive-listening .settings-toggle {
   padding: 4px 8px;
 }
 
-/* ===== Audio progress bar (fixed bottom) ===== */
+/* ===== Audio progress bar (fixed bottom, full width) ===== */
 body.audio-progress-visible {
-  padding-bottom: calc(var(--audio-bar-height) + var(--audio-bar-bottom-gap) + 8px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(var(--audio-bar-block-height) + env(safe-area-inset-bottom, 0px));
 }
 
 .audio-progress-bar {
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: calc(var(--audio-bar-bottom-gap) + env(safe-area-inset-bottom, 0px));
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 110;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  width: min(460px, calc(100vw - (var(--audio-bar-side-inset) * 2)));
-  height: var(--audio-bar-height);
-  padding: 0 10px;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   background: var(--bg);
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  box-shadow: 0 2px 14px rgba(27, 31, 42, 0.14);
+  border-top: 1px solid var(--line-strong);
+  box-shadow: 0 -2px 14px rgba(27, 31, 42, 0.08);
+}
+
+.audio-progress-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px 4px;
+  box-sizing: border-box;
+}
+
+.audio-progress-controls-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .audio-progress-track {
-  flex: 1;
+  width: 100%;
   min-width: 0;
-  min-height: 36px;
-  padding: 10px 0;
+  min-height: 32px;
+  padding: 2px 12px 10px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -1092,6 +1109,7 @@ body.audio-progress-visible {
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  box-sizing: border-box;
 }
 
 .audio-progress-track.is-holding .audio-progress-thumb {
@@ -1137,11 +1155,9 @@ body.audio-progress-visible {
   pointer-events: none;
 }
 
-.audio-progress-repeat,
-.audio-progress-speed,
-.audio-progress-close {
+.audio-progress-btn {
   flex-shrink: 0;
-  height: 28px;
+  height: 32px;
   padding: 0;
   border: 1px solid var(--line-strong);
   border-radius: 6px;
@@ -1152,17 +1168,32 @@ body.audio-progress-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  transition: background 0.12s, color 0.12s, border-color 0.12s, opacity 0.12s;
   position: relative;
 }
 
+.audio-progress-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 .audio-progress-repeat,
-.audio-progress-close {
-  width: 28px;
+.audio-progress-close,
+.audio-progress-transport {
+  width: 32px;
+}
+
+.audio-progress-skip {
+  min-width: 40px;
+  padding: 0 6px;
+  font-size: 10px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 .audio-progress-speed {
-  width: 38px;
+  width: 36px;
   font-size: 10px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -1178,8 +1209,8 @@ body.audio-progress-visible {
 
 .audio-progress-repeat-badge {
   position: absolute;
-  right: 2px;
-  bottom: 1px;
+  right: 3px;
+  bottom: 2px;
   font-size: 8px;
   font-weight: 700;
   line-height: 1;
@@ -1192,9 +1223,12 @@ body.audio-progress-visible {
   pointer-events: none;
 }
 
-.audio-progress-repeat:hover,
-.audio-progress-speed:hover,
-.audio-progress-close:hover {
+.audio-progress-transport span {
+  font-size: 11px;
+  line-height: 1;
+}
+
+.audio-progress-btn:not(:disabled):hover {
   background: var(--bg-sunken);
   color: var(--ink);
 }
@@ -1207,7 +1241,7 @@ body.audio-progress-visible {
 }
 
 .audio-progress-close {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .passage-script {

@@ -4,7 +4,8 @@ import { updateMediaSession, setMediaPlaybackState } from '../core/audio/mediaSe
 
 const ENDLESS_REPEAT_KEY = 'audio-endless-repeat';
 const PLAYBACK_RATE_KEY = 'audio-playback-rate';
-const PLAYBACK_RATES = [1, 0.75];
+const PLAYBACK_RATES = [1, 0.8];
+const SKIP_SECONDS = 5;
 
 function readEndlessRepeat() {
   try {
@@ -17,7 +18,9 @@ function readEndlessRepeat() {
 function readPlaybackRate() {
   try {
     const value = parseFloat(localStorage.getItem(PLAYBACK_RATE_KEY));
-    return PLAYBACK_RATES.includes(value) ? value : 1;
+    if (PLAYBACK_RATES.includes(value)) return value;
+    if (value === 0.75) return 0.8;
+    return 1;
   } catch {
     return 1;
   }
@@ -211,6 +214,46 @@ export function useAudioPlayer() {
     applyPlaybackRate(audioRef.current);
   }, [applyPlaybackRate]);
 
+  const setPlaybackRateTo = useCallback((rate) => {
+    if (!PLAYBACK_RATES.includes(rate)) return;
+    playbackRateRef.current = rate;
+    setPlaybackRate(rate);
+    try {
+      localStorage.setItem(PLAYBACK_RATE_KEY, String(rate));
+    } catch {
+      /* ignore */
+    }
+    applyPlaybackRate(audioRef.current);
+  }, [applyPlaybackRate]);
+
+  const skipBy = useCallback((deltaSeconds) => {
+    const audio = audioRef.current;
+    if (!audio || !audio.duration || !Number.isFinite(audio.duration)) return;
+    const next = Math.max(0, Math.min(audio.duration, audio.currentTime + deltaSeconds));
+    audio.currentTime = next;
+    setProgress(next / audio.duration);
+  }, []);
+
+  const skipBack = useCallback(() => skipBy(-SKIP_SECONDS), [skipBy]);
+  const skipForward = useCallback(() => skipBy(SKIP_SECONDS), [skipBy]);
+
+  const playFromBar = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    dismissedRef.current = false;
+    setVisible(true);
+    if (audio.ended) {
+      audio.currentTime = 0;
+      setProgress(0);
+    }
+    audio.play().catch((err) => {
+      console.error(err);
+      setPlaying(false);
+      setMediaPlaybackState(false);
+    });
+    startLoop(audio);
+  }, [startLoop]);
+
   const closeBar = useCallback(() => {
     dismissedRef.current = true;
     setVisible(false);
@@ -278,6 +321,10 @@ export function useAudioPlayer() {
     repeat,
     toggleEndlessRepeat,
     togglePlaybackRate,
+    setPlaybackRateTo,
+    skipBack,
+    skipForward,
+    playFromBar,
     closeBar,
     beginScrub,
     moveScrub,
