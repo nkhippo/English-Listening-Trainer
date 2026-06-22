@@ -1,52 +1,54 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { pullCloudSync, pushCloudSync, uploadCachedAudio, deleteCloudAudio } from '../lib/sync.js';
+import {
+  pullCloudMetadataSync,
+  syncCloudAudio,
+  pushCloudSync,
+  uploadCachedAudio,
+  deleteCloudAudio,
+} from '../lib/sync.js';
 
-const PUSH_DEBOUNCE_MS = 2000;
+const SYNC_DEBOUNCE_MS = 2000;
 const AUDIO_PUSH_DEBOUNCE_MS = 3000;
 
 export function useCloudSync({ gasUrl, onSynced }) {
   const [syncStatus, setSyncStatus] = useState('idle');
   const [syncError, setSyncError] = useState('');
-  const pushTimerRef = useRef(null);
+  const syncTimerRef = useRef(null);
   const audioTimerRef = useRef(null);
   const pendingAudioIdsRef = useRef(new Set());
-  const pullingRef = useRef(false);
+  const metadataSyncingRef = useRef(false);
 
   const notifySynced = useCallback(() => {
     onSynced?.();
   }, [onSynced]);
 
+  const runAudioSync = useCallback(async (meta) => {
+    if (!gasUrl || !meta) return;
+    try {
+      await syncCloudAudio({ gasUrl, audioIds: meta.audioIds, applied: meta.applied });
+    } catch (err) {
+      console.warn('Cloud audio sync failed:', err);
+    }
+  }, [gasUrl]);
+
   const runPull = useCallback(async () => {
-    if (!gasUrl || pullingRef.current) return;
-    pullingRef.current = true;
+    if (!gasUrl || metadataSyncingRef.current) return;
+    metadataSyncingRef.current = true;
     setSyncStatus('syncing');
     setSyncError('');
     try {
-      await pullCloudSync({ gasUrl });
+      const meta = await pullCloudMetadataSync({ gasUrl });
       notifySynced();
       setSyncStatus('synced');
+      runAudioSync(meta);
     } catch (err) {
       console.warn('Cloud sync pull failed:', err);
       setSyncError(String(err.message || err));
       setSyncStatus('error');
     } finally {
-      pullingRef.current = false;
+      metadataSyncingRef.current = false;
     }
-  }, [gasUrl, notifySynced]);
-
-  const runPush = useCallback(async () => {
-    if (!gasUrl) return;
-    setSyncStatus('syncing');
-    setSyncError('');
-    try {
-      await pushCloudSync({ gasUrl });
-      setSyncStatus('synced');
-    } catch (err) {
-      console.warn('Cloud sync push failed:', err);
-      setSyncError(String(err.message || err));
-      setSyncStatus('error');
-    }
-  }, [gasUrl]);
+  }, [gasUrl, notifySynced, runAudioSync]);
 
   const flushPendingAudio = useCallback(async () => {
     if (!gasUrl || pendingAudioIdsRef.current.size === 0) return;
@@ -64,12 +66,12 @@ export function useCloudSync({ gasUrl, onSynced }) {
 
   const schedulePush = useCallback(() => {
     if (!gasUrl) return;
-    if (pushTimerRef.current) clearTimeout(pushTimerRef.current);
-    pushTimerRef.current = setTimeout(() => {
-      pushTimerRef.current = null;
-      runPush();
-    }, PUSH_DEBOUNCE_MS);
-  }, [gasUrl, runPush]);
+    if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
+    syncTimerRef.current = setTimeout(() => {
+      syncTimerRef.current = null;
+      runPull();
+    }, SYNC_DEBOUNCE_MS);
+  }, [gasUrl, runPull]);
 
   const scheduleAudioPush = useCallback((itemId) => {
     if (!gasUrl || !itemId) return;
@@ -106,10 +108,15 @@ export function useCloudSync({ gasUrl, onSynced }) {
     function onVisible() {
       if (document.visibilityState === 'visible') runPull();
     }
+    function onPageShow() {
+      runPull();
+    }
     document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('pageshow', onPageShow);
     return () => {
       document.removeEventListener('visibilitychange', onVisible);
-      if (pushTimerRef.current) clearTimeout(pushTimerRef.current);
+      window.removeEventListener('pageshow', onPageShow);
+      if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
       if (audioTimerRef.current) clearTimeout(audioTimerRef.current);
     };
   }, [gasUrl, runPull]);
@@ -121,5 +128,6 @@ export function useCloudSync({ gasUrl, onSynced }) {
     scheduleAudioPush,
     scheduleAudioDelete,
     cacheAudio,
+    syncNow: runPull,
   };
 }

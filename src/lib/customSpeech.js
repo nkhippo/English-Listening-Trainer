@@ -52,7 +52,13 @@ export function computeCustomSpeechId() {
 }
 
 export function loadCustomSpeechList() {
-  return loadCustomSpeechListRaw().filter((e) => !e.deletedAt);
+  return loadCustomSpeechListRaw()
+    .filter((e) => !e.deletedAt)
+    .sort((a, b) => {
+      const ta = new Date(a.updatedAt || a.createdAt).getTime();
+      const tb = new Date(b.updatedAt || b.createdAt).getTime();
+      return tb - ta;
+    });
 }
 
 export function loadCustomSpeechListRaw() {

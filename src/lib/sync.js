@@ -186,19 +186,26 @@ export async function pushCloudSync({ gasUrl }) {
   });
 }
 
-export async function pullCloudSync({ gasUrl }) {
+export async function pullCloudMetadataSync({ gasUrl }) {
   const remote = await fetchGas({ gasUrl, action: 'sync_pull' });
   const applied = mergeLocalWithRemote(remote);
   const pushResult = await pushCloudSync({ gasUrl });
-  const audioIds = pushResult.audioIds || remote.audioIds || [];
-
-  await downloadMissingAudio({ gasUrl, audioIds, applied });
-  await uploadMissingAudio({ gasUrl, audioIds: audioIds });
-
   return {
-    ...applied,
+    applied,
+    audioIds: pushResult.audioIds || remote.audioIds || [],
     remoteUpdatedAt: remote.updatedAt,
   };
+}
+
+export async function syncCloudAudio({ gasUrl, audioIds, applied }) {
+  await downloadMissingAudio({ gasUrl, audioIds, applied });
+  await uploadMissingAudio({ gasUrl, audioIds });
+}
+
+export async function pullCloudSync({ gasUrl }) {
+  const meta = await pullCloudMetadataSync({ gasUrl });
+  await syncCloudAudio({ gasUrl, audioIds: meta.audioIds, applied: meta.applied });
+  return meta;
 }
 
 export async function uploadCachedAudio({ gasUrl, itemId }) {

@@ -64,6 +64,11 @@ export default function App() {
   );
 
   useEffect(() => { localStorage.setItem(LS_KEYS.appTab, appTab); }, [appTab]);
+
+  useEffect(() => {
+    if (appTab === 'speech') cloudSync.syncNow();
+  }, [appTab, cloudSync.syncNow]);
+
   useEffect(() => {
     if (anthropicKey) localStorage.setItem(LS_KEYS.anthropic, anthropicKey);
   }, [anthropicKey]);
